@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@mdi/font": "7.2.96",
-
     "@nuxtjs/vuetify": "^1.12.3",
     "@pinia/nuxt": "0.4.7",
     "@tabler/icons": "2.14.0",
