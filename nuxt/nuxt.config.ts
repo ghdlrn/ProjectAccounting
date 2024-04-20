@@ -1,13 +1,16 @@
+import { createResolver } from "@nuxt/kit";
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
+const { resolve } = createResolver(import.meta.url);
+
 export default defineNuxtConfig({
+  ssr: false,
   css: [
     '@mdi/font/css/materialdesignicons.css', // Material Design Icons
     'vuetify/styles' // Vuetify 스타일
   ],
-
   build: {
-    transpile: ['vuetify'],
+    transpile: ["vuetify"],
   },
   modules: [
     (_options, nuxt) => {
@@ -18,6 +21,9 @@ export default defineNuxtConfig({
     },
     '@pinia/nuxt',
   ],
+  nitro: {
+    serveStatic: true,
+  },
   vite: {
     vue: {
       template: {
@@ -25,5 +31,4 @@ export default defineNuxtConfig({
       },
     }
   },
-
 });

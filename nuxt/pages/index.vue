@@ -1,63 +1,45 @@
 <script setup lang="ts">
-
-const userCreationForm = reactive({
-  name: "",
-  email: "",
-  password: "",
-});
-const addUser = () => {
-  fetch("http://localhost:8181/user", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-    body: JSON.stringify(userCreationForm),
-  }).then((_)=> {
-    userCreationForm.name = ""
-    userCreationForm.email = ""
-    userCreationForm.password = ""
-  });
-};
-
-
-
-type UserType = {
-  userId: number;
-  name: string;
-  email: string;
-};
-const users = ref<UserType[]>([]);
-
-fetch("http://localhost:8181/users")
-    .then((response) => response.json())
-    .then((data) => {
-      users.value = data;
-    })
-    .catch((_) => {});
+/*Call Components*/
+ import SalesOverview from '@/components/dashboard/SalesOverview.vue';
+import YearlyBreakup from '@/components/dashboard/YearlyBreakup.vue';
+import MonthlyEarning from '@/components/dashboard/MonthlyEarnings.vue';
+import RecentTransaction from '@/components/dashboard/RecentTransaction.vue';
+import ProductPerformance from '@/components/dashboard/ProductPerformance.vue';
+import ProductCards from '@/components/dashboard/ProductCards.vue';
 </script>
 <template>
-  <div>
-    <h1>Top</h1>
-    <div>
-      <ul>
-        <li v-for="user in users">
-          {{ user.userId }}/{{ user.name }}/{{ user.email }}
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div>
-    <h2>Add User</h2>
-    <div>
-      <div>name: <v-text-field type="text" v-model="userCreationForm.name"/></div>
-      <div>email: <v-text-field type="email" v-model="userCreationForm.email"/></div>
-      <div>
-        password: <v-text-field type="password" v-model="userCreationForm.password"/>
-      </div>
-      <v-btn @click="addUser()">add</v-btn>
-    </div>
-  </div>
-
+    <v-row>
+        <v-col cols="12">
+            <v-row>
+                <!-- Sales overview -->
+                <v-col cols="12" lg="8">
+                    <SalesOverview />
+                </v-col>
+                <!-- Yearly Breakup / Monthly Earnings -->
+                <v-col cols="12" lg="4">
+                    <div class="mb-6">
+                        <YearlyBreakup />
+                    </div>
+                    <div>
+                        <MonthlyEarning />
+                    </div>
+                </v-col>
+                <!-- Recent transaction -->
+                <v-col cols="12" lg="4">
+                    <RecentTransaction />
+                </v-col>
+                <!-- Product performence -->
+                <v-col cols="12" lg="8">
+                    <ProductPerformance />
+                </v-col>
+                <!-- Product Cards -->
+                <v-col cols="12">
+                    <ProductCards />
+                </v-col>
+            </v-row>
+        </v-col>
+        <v-col class="text-center mt-2">
+            <p class="text-muted">Design and Developed by <a flat variant="text" href="https://adminmart.com/" target="_blank" class="pl-1 text-primary">AdminMart.com</a></p>
+        </v-col>
+    </v-row>
 </template>
