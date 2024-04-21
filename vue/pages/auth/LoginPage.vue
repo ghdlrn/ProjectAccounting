@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Logo from '/images//BoxLogo.jpg';
+import Logo from '/images/BoxLogo.jpg';
 import AuthLogin from '~/components/Auth/AuthLogin.vue';
 </script>
 

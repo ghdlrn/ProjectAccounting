@@ -3,7 +3,7 @@
   <v-navigation-drawer
       left
       elevation="0"
-      rail-width="75"
+      rail-width="80"
       app
       rail
       expand-on-hover

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import Google from '@/assets/images/auth/social-google.svg';
+import Logo from '/images/BoxLogo.jpg';
 import { useAuthStore } from '@/stores/auth';
 import { Form } from 'vee-validate';
 
@@ -25,7 +25,7 @@ function validate(values: any, { setErrors }: any) {
 
 <template>
   <v-btn block color="primary" variant="outlined" class="text-lightText googleBtn">
-    <img :src="Google" alt="google" />
+    <img src="/images/BoxLogo.jpg" alt="google" />
     <span class="ml-2">Sign in with Google</span></v-btn
   >
   <v-row>

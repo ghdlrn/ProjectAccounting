@@ -29,6 +29,11 @@ const breadcrumbs = shallowRef([
         reprehended in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non president, sunk in culpa qui
         officiate descent molls anim id est labours.
       </UiParentCard>
+      <UiChildCard>
+        asdasdsqdqwdqw
+      </UiChildCard>
+      <BaseBreadcrumb>adsadsadsq
+      </BaseBreadcrumb>
     </v-col>
   </v-row>
 </template>

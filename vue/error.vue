@@ -11,10 +11,9 @@
           <img src="/images/error/img-error-text.svg" alt="build" class="CardMediaBuild" />
           <img src="/images/error/img-error-purple.svg" alt="build" class="CardMediaBuild" />
         </div>
-        <h1 class="text-h1">Something is wrong</h1>
-        <p>
-          <small>The page you are looking was moved, removed, <br />renamed, or might never exist! </small>
-        </p>
+        <h1 class="text-h1">오류 페이지</h1>
+        <br />
+        <p>접근 시도한 페이지는 현존하지 않습니다 <br /> 아래 홈버튼을 통해 메인화면으로 돌아가세요</p>
         <v-btn variant="flat" color="primary" class="mt-4" to="/" prepend-icon="mdi-home"> Home</v-btn>
       </div>
     </v-col>
