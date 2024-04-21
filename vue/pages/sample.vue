@@ -30,7 +30,8 @@ const breadcrumbs = shallowRef([
         officiate descent molls anim id est labours.
       </UiParentCard>
       <UiChildCard>
-        asdasdsqdqwdqw
+        asdasdsqdqwdqw<br />
+        dasdqwedqw
       </UiChildCard>
       <BaseBreadcrumb>adsadsadsq
       </BaseBreadcrumb>

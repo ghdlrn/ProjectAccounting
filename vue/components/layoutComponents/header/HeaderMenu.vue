@@ -27,9 +27,9 @@ import { useRoute, useRouter } from 'vue-router';
 
 const tabs = ref([
   { title: '메인화면', path: '/' },
-  { title: '샘플페이지', path: '/about' },
-  { title: '에러페이지', path: '/userinfo' },
-  { title: '로그인페이지', path: '/constant' }
+  { title: '샘플페이지', path: '/sample' },
+  { title: '로그인페이지', path: '/auth/login' },
+  { title: '회원가입페이지', path: '/auth/register' }
 ]);
 
 const router = useRouter();
