@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('auth', {
         localStorage.setItem('user', JSON.stringify(userData));
         nuxtApp.$router.push(this.returnUrl || '/dashboard/default');
       } catch (error) {
-        throw new Error('Failed to login: ');
+        throw new Error('로그인에 실패하셨습니다: ');
       }
     },
     logout() {    //user에서 사용자 데이터 제거 localStorage 사용자 로그아웃, $router로 로그인페이지 리디렉션

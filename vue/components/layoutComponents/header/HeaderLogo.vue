@@ -27,7 +27,7 @@
 
 .logo-name {
   font-size: 2.2em;
-  color: #333; /* 글자색 설정 */
   white-space: nowrap;  /*이름이 줄바꿈되지 않도록 함*/
+  color: darkslategray;
 }
 </style>

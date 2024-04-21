@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Logo from '/images/BoxLogo.jpg';
 import AuthRegister from '~/components/Auth/AuthRegister.vue';
 </script>
 
@@ -17,9 +16,8 @@ import AuthRegister from '~/components/Auth/AuthRegister.vue';
                     <!---Left Part Logo -->
                     <v-row>
                       <v-col cols="12" class="text-center">
-                        <Logo />
-                        <h2 class="text-secondary text-h2 mt-8">Sign up</h2>
-                        <h4 class="text-disabled text-h4 mt-3">Enter credentials to continue</h4>
+                        <h2 class="text-primary text-h2 mt-8">회원가입</h2>
+                        <h4 class="text-disabled text-h4 mt-3">아래 양식을 입력한 뒤<br/> 회원가입 버튼을<br/> 눌러주십시오</h4>
                       </v-col>
                     </v-row>
                     <!---Left Part Logo -->

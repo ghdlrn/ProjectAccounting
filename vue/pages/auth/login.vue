@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Logo from '/images/BoxLogo.jpg';
 import AuthLogin from '~/components/Auth/AuthLogin.vue';
 </script>
 
@@ -17,9 +16,8 @@ import AuthLogin from '~/components/Auth/AuthLogin.vue';
                     <!---Left Part Logo -->
                     <v-row>
                       <v-col cols="12" class="text-center">
-                        <Logo />
-                        <h2 class="text-secondary text-h2 mt-8">Hi, Welcome Back</h2>
-                        <h4 class="text-disabled text-h4 mt-3">Enter your credentials to continue</h4>
+                        <h2 class="text-primary text-h2 mt-8">로그인</h2>
+                        <h4 class="text-disabled text-h4 mt-3">처음 방문하시는 분은<br/> 아래의 회원가입 <br/>버튼을 눌러주십시오</h4>
                       </v-col>
                     </v-row>
                     <!---Left Part Logo -->

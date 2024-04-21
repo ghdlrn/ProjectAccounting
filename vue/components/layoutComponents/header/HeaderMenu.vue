@@ -22,30 +22,31 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 
-const tabs = ref([
-  { title: '메인화면', path: '/' },
-  { title: '샘플페이지', path: '/sample' },
-  { title: '로그인페이지', path: '/auth/login' },
-  { title: '회원가입페이지', path: '/auth/register' }
-]);
+  import {ref, nextTick} from 'vue';
+  import {useRoute, useRouter} from 'vue-router';
 
-const router = useRouter();
-const route = useRoute();
-const tabIndex = ref(0);
-const changeTab = (path, index) => {
-  if (route.path !== path) { // 현재 경로와 다른 경우에만 라우터를 푸시합니다.
-    router.push(path);
-  }
-  tabIndex.value = index;
-};
+  const tabs = ref([
+  {title: '메인화면', path: '/'},
+  {title: '샘플페이지', path: '/sample'},
+  {title: '로그인페이지', path: '/auth/login'},
+  {title: '회원가입페이지', path: '/auth/register'}
+  ]);
 
-watch(route, () => {
+  const router = useRouter();
+  const route = useRoute();
+  const tabIndex = ref(0);
+
+  watch(route, async () => {
   const currentTab = tabs.value.findIndex(tab => tab.path === route.path);
-  tabIndex.value = currentTab >= 0 ? currentTab : 0;
-}, { immediate: true }); // 컴포넌트 마운트 시에도 실행
+  tabIndex.value = currentTab;
+  await nextTick();
+  tabIndex.value = currentTab; // 강제로 다시 설정
+}, {immediate: true});
+
+  const changeTab = async (path, index) => {
+  await router.push(path);
+};
 
 </script>
 

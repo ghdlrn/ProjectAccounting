@@ -12,7 +12,7 @@
       <HeaderMenu />
     <v-spacer></v-spacer>
 
-    <!-- Settings Button -->
+    <!-- 셋팅버튼 -->
     <NuxtLink to="/" class="mr-10">
       <v-btn class="customizer-btn bg-blue-grey-lighten-1"
              size="large"
@@ -21,9 +21,14 @@
       </v-btn>
     </NuxtLink>
 
-    <!-- Login Button -->
-    <NuxtLink to="/login/LoginPage">
-      <v-btn class="bg-blue-accent-2" size="large">로그인</v-btn>
+    <!-- 회원가입 버튼 -->
+    <NuxtLink to="/auth/register" class="mr-10">
+      <v-btn class="bg-success" size="large" append-icon="mdi-account-plus">회원가입</v-btn>
+    </NuxtLink>
+
+    <!-- 로그인 버튼 -->
+    <NuxtLink to="/auth/login">
+      <v-btn class="bg-blue-accent-2" size="large" append-icon="mdi-login">로그인</v-btn>
     </NuxtLink>
 
     <v-spacer></v-spacer>

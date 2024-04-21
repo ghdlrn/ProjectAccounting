@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import Logo from '/images/BoxLogo.jpg';
+import Google from '/images/social-google.svg';
 import { useAuthStore } from '@/stores/auth';
 import { Form } from 'vee-validate';
 
@@ -8,13 +8,13 @@ const checkbox = ref(false);
 const valid = ref(false);
 const show1 = ref(false);
 //const logform = ref();
-const password = ref('admin123');
-const username = ref('info@codedthemes.com');
+const password = ref('1234');
+const username = ref('lkm@admin.com');
 const passwordRules = ref([
-  (v: string) => !!v || 'Password is required',
-  (v: string) => (v && v.length <= 10) || 'Password must be less than 10 characters'
+  (v: string) => !!v || '비밀번호 입력은 필수입니다',
+  (v: string) => (v && v.length <= 16) || '패스워드는 16자리 수를 넘을 수 없습니다'
 ]);
-const emailRules = ref([(v: string) => !!v || 'E-mail is required', (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid']);
+const emailRules = ref([(v: string) => !!v || '이메일 입력은 필수입니다', (v: string) => /.+@.+\..+/.test(v) || '이메일 양식이 아닙니다']);
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function validate(values: any, { setErrors }: any) {
@@ -25,8 +25,8 @@ function validate(values: any, { setErrors }: any) {
 
 <template>
   <v-btn block color="primary" variant="outlined" class="text-lightText googleBtn">
-    <img src="/images/BoxLogo.jpg" alt="google" />
-    <span class="ml-2">Sign in with Google</span></v-btn
+    <img :src="Google" alt="google" />
+    <span class="ml-2">구글 계정으로 로그인</span></v-btn
   >
   <v-row>
     <v-col class="d-flex align-center">
@@ -35,12 +35,12 @@ function validate(values: any, { setErrors }: any) {
       <v-divider class="custom-devider" />
     </v-col>
   </v-row>
-  <h5 class="text-h5 text-center my-4 mb-8">Sign in with Email address</h5>
+  <h5 class="text-h5 text-center my-4 mb-8">이메일로 로그인</h5>
   <Form @submit="validate" class="mt-7 loginForm" v-slot="{ errors, isSubmitting }">
     <v-text-field
         v-model="username"
         :rules="emailRules"
-        label="Email Address / Username"
+        label="Email Address"
         class="mt-4 mb-8"
         required
         density="comfortable"
@@ -67,26 +67,24 @@ function validate(values: any, { setErrors }: any) {
       <v-checkbox
           v-model="checkbox"
           :rules="[(v: any) => !!v || 'You must agree to continue!']"
-          label="Remember me?"
+          label="입력 양식을 기억할까요?"
           required
           color="primary"
           class="ms-n2"
           hide-details
       ></v-checkbox>
       <div class="ml-auto">
-        <a href="javascript:void(0)" class="text-primary text-decoration-none">Forgot password?</a>
+        <a href="javascript:void(0)" class="text-primary text-decoration-none">비밀번호 찾기</a>
       </div>
     </div>
-    <v-btn color="secondary" :loading="isSubmitting" block class="mt-2" variant="flat" size="large" :disabled="valid" type="submit">
-      Sign In</v-btn
-    >
+    <v-btn color="primary" :loading="isSubmitting" block class="mt-2" variant="flat" size="large" :disabled="valid" type="submit">로그인</v-btn>
     <div v-if="errors.apiError" class="mt-2">
       <v-alert color="error">{{ errors.apiError }}</v-alert>
     </div>
   </Form>
   <div class="mt-5 text-right">
     <v-divider />
-    <v-btn variant="plain" to="/auth/register" class="mt-2 text-capitalize mr-n2">Don't Have an account?</v-btn>
+    <v-btn color="success" to="/auth/register" class="mt-2" variant="flat" size="large" :disabled="valid" block>회원가입</v-btn>
   </div>
 </template>
 <style lang="scss">

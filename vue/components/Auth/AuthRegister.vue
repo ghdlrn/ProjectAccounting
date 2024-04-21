@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import Logo from '/images/BoxLogo.jpg';
+import Google from '/images/social-google.svg';
 const checkbox = ref(false);
 const show1 = ref(false);
 const password = ref('');
@@ -21,7 +21,7 @@ function validate() {
 
 <template>
   <v-btn block color="primary" variant="outlined" class="text-lightText googleBtn">
-    <img src="/images/BoxLogo.jpg" alt="google" />
+    <img :src="Google" alt="google" />
     <span class="ml-2">Sign up with Google</span></v-btn
   >
   <v-row>

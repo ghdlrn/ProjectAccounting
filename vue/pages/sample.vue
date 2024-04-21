@@ -3,6 +3,7 @@ import { ref, shallowRef } from 'vue';
 
 import BaseBreadcrumb from '@/components/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/UiParentCard.vue';
+import UiChildCard from '@/components/UiChildCard.vue';
 
 const page = ref({ title: 'Sample Page' });
 const breadcrumbs = shallowRef([
@@ -20,7 +21,7 @@ const breadcrumbs = shallowRef([
 </script>
 
 <template>
-  <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs"></BaseBreadcrumb>
+  <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs" />
   <v-row>
     <v-col cols="12" md="12">
       <UiParentCard title="Simple Title">
@@ -29,12 +30,6 @@ const breadcrumbs = shallowRef([
         reprehended in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non president, sunk in culpa qui
         officiate descent molls anim id est labours.
       </UiParentCard>
-      <UiChildCard>
-        asdasdsqdqwdqw<br />
-        dasdqwedqw
-      </UiChildCard>
-      <BaseBreadcrumb>adsadsadsq
-      </BaseBreadcrumb>
     </v-col>
   </v-row>
 </template>
