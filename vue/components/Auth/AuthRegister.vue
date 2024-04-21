@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import {useAuthStore} from "~/stores/auth";
-
+import Google from '@/assets/images/auth/social-google.svg';
 const checkbox = ref(false);
 const show1 = ref(false);
 const password = ref('');
@@ -22,6 +21,7 @@ function validate() {
 
 <template>
   <v-btn block color="primary" variant="outlined" class="text-lightText googleBtn">
+    <img :src="Google" alt="google" />
     <span class="ml-2">Sign up with Google</span></v-btn
   >
   <v-row>
@@ -36,60 +36,60 @@ function validate() {
     <v-row>
       <v-col cols="12" sm="6">
         <v-text-field
-          v-model="firstname"
-          density="comfortable"
-          hide-details="auto"
-          variant="outlined"
-          color="primary"
-          label="Firstname"
+            v-model="firstname"
+            density="comfortable"
+            hide-details="auto"
+            variant="outlined"
+            color="primary"
+            label="Firstname"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6">
         <v-text-field
-          v-model="lastname"
-          density="comfortable"
-          hide-details="auto"
-          variant="outlined"
-          color="primary"
-          label="Lastname"
+            v-model="lastname"
+            density="comfortable"
+            hide-details="auto"
+            variant="outlined"
+            color="primary"
+            label="Lastname"
         ></v-text-field>
       </v-col>
     </v-row>
     <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="Email Address / Username"
-      class="mt-4 mb-4"
-      required
-      density="comfortable"
-      hide-details="auto"
-      variant="outlined"
-      color="primary"
+        v-model="email"
+        :rules="emailRules"
+        label="Email Address / Username"
+        class="mt-4 mb-4"
+        required
+        density="comfortable"
+        hide-details="auto"
+        variant="outlined"
+        color="primary"
     ></v-text-field>
     <v-text-field
-      v-model="password"
-      :rules="passwordRules"
-      label="Password"
-      required
-      density="comfortable"
-      variant="outlined"
-      color="primary"
-      hide-details="auto"
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
-      @click:append="show1 = !show1"
-      class="pwdInput"
+        v-model="password"
+        :rules="passwordRules"
+        label="Password"
+        required
+        density="comfortable"
+        variant="outlined"
+        color="primary"
+        hide-details="auto"
+        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="show1 ? 'text' : 'password'"
+        @click:append="show1 = !show1"
+        class="pwdInput"
     ></v-text-field>
 
     <div class="d-sm-inline-flex align-center mt-2 mb-7 mb-sm-0 font-weight-bold">
       <v-checkbox
-        v-model="checkbox"
-        :rules="[(v: any) => !!v || 'You must agree to continue!']"
-        label="Agree with?"
-        required
-        color="primary"
-        class="ms-n2"
-        hide-details
+          v-model="checkbox"
+          :rules="[(v: any) => !!v || 'You must agree to continue!']"
+          label="Agree with?"
+          required
+          color="primary"
+          class="ms-n2"
+          hide-details
       ></v-checkbox>
       <a href="#" class="ml-1 text-lightText">Terms and Condition</a>
     </div>

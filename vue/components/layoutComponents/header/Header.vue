@@ -14,8 +14,10 @@
 
     <!-- Settings Button -->
     <NuxtLink to="/" class="mr-10">
-      <v-btn icon size="large">
-        <v-icon>mdi-cog</v-icon>
+      <v-btn class="customizer-btn bg-blue-grey-lighten-1"
+             size="large"
+             variant="flat"
+             icon="mdi-cog-outline">
       </v-btn>
     </NuxtLink>
 

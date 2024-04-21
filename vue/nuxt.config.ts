@@ -1,10 +1,10 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
+  ssr: false,
   css: [
     '@mdi/font/css/materialdesignicons.css', // Material Design Icons
     'vuetify/styles', // Vuetify 스타일
-      '@/assets/scss/style.scss'
   ],
   build: {
     transpile: ['vuetify'],
@@ -17,14 +17,13 @@ export default defineNuxtConfig({
       })
     },
   '@pinia/nuxt',
-    'vue3-perfect-scrollbar/nuxt'
   ],
   vite: {
     vue: {
       template: {
         transformAssetUrls,
       },
-    }
+    },
   },
   app: {    //페이지전환애니메이션 설정
     pageTransition: { name: 'page', mode: 'out-in' }

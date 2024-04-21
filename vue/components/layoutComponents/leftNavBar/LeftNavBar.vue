@@ -1,4 +1,5 @@
 <template>
+  <PerfectScrollbar>
   <v-navigation-drawer
       left
       elevation="0"
@@ -13,14 +14,16 @@
 
     <v-divider class="left-bar-divider"></v-divider>
 
-    <AccountingLeftNavBarList />
+      <AccountingLeftNavBarList />
 
   </v-navigation-drawer>
+  </PerfectScrollbar>
 </template>
 
 <script setup lang="ts">
 import AccountingLeftNavBarList from "~/components/layoutComponents/leftNavBar/AccountingLeftNavBarList.vue";
 import LeftNavBarUserInfo from "~/components/layoutComponents/leftNavBar/LeftNavBarUserInfo.vue";
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar';
 </script>
 
 <style scoped>

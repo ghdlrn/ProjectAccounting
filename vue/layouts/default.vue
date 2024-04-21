@@ -29,5 +29,4 @@ import RightNavBar from "~/components/layoutComponents/RightNavBar.vue";
   margin: 20px auto;
   width: 100%; /* 전체 너비를 사용 */
 }
-
 </style>

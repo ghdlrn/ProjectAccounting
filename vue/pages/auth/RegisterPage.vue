@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import HeaderLogo from "~/components/layoutComponents/header/HeaderLogo.vue";
-import AuthLogin from "~/components/Auth/AuthLogin.vue";
+import Logo from '/images//BoxLogo.jpg';
+import AuthRegister from '~/components/Auth/AuthRegister.vue';
 </script>
 
 <template>
@@ -17,15 +17,15 @@ import AuthLogin from "~/components/Auth/AuthLogin.vue";
                     <!---Left Part Logo -->
                     <v-row>
                       <v-col cols="12" class="text-center">
-                        <HeaderLogo />
-                        <h2 class="text-secondary text-h2 mt-8">Hi, Welcome Back</h2>
-                        <h4 class="text-disabled text-h4 mt-3">Enter your credentials to continue</h4>
+                        <Logo />
+                        <h2 class="text-secondary text-h2 mt-8">Sign up</h2>
+                        <h4 class="text-disabled text-h4 mt-3">Enter credentials to continue</h4>
                       </v-col>
                     </v-row>
                     <!---Left Part Logo -->
 
                     <!---Left Part Form-->
-                    <AuthLogin />
+                    <AuthRegister />
                     <!---Left Part Form-->
                   </v-card-text>
                 </v-card>
