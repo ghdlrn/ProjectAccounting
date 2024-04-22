@@ -17,6 +17,7 @@ export default defineNuxtConfig({
       })
     },
   '@pinia/nuxt',
+    'vue3-perfect-scrollbar/nuxt'
   ],
   vite: {
     vue: {

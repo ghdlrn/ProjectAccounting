@@ -7,7 +7,7 @@
 <script setup lang="ts">
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} - KMBJ회계` : 'KMBJ회계';  //사이트 타이틀명
+    return titleChunk ? `${titleChunk} - Accounting Manager` : 'Accounting Manager';  //사이트 타이틀명
   },
   script: [
     {

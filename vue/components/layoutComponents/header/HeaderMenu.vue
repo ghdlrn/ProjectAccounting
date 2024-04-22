@@ -28,7 +28,7 @@
 
   const tabs = ref([
   {title: '메인화면', path: '/'},
-  {title: '샘플페이지', path: '/sample'},
+  {title: 'nuxt페이지', path: '/nuxt'},
   {title: '로그인페이지', path: '/auth/login'},
   {title: '회원가입페이지', path: '/auth/register'}
   ]);

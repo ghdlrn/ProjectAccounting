@@ -7,6 +7,7 @@
       height="80">
     <v-spacer></v-spacer>
       <HeaderLogo />
+    <v-spacer></v-spacer>
       <HeaderSearchBar class="mt-7 ml-16" />
     <v-spacer></v-spacer>
       <HeaderMenu />
