@@ -1,10 +1,13 @@
 package lkm.starterproject.jwt;
 
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import lkm.starterproject.dto.CustomUserDetails;
+import lkm.starterproject.entity.RefreshEntity;
+import lkm.starterproject.repository.RefreshRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,16 +16,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
+    private RefreshRepository refreshRepository;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, RefreshRepository refreshRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.refreshRepository = refreshRepository;
     }
 
     @Override       //인증메서드
@@ -43,22 +49,48 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override       //인증성공했을시
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication authentication) {
 
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        String email = customUserDetails.getUsername();     //CustomUserDetails의 get.Username()을통해 email정보 가져옴
+        String email = authentication.getName(); //유저 정보
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
+        String role = auth.getAuthority();
 
-        String role = auth.getAuthority();  //role값 받아옴
+        String access = jwtUtil.createJwt("access", email, role, 600000L);       //access토큰 생성 10분뒤 소멸
+        String refresh = jwtUtil.createJwt("refresh", email, role, 86400000L);       //refresh토큰 생성 24시간 뒤 소멸
+        addRefreshEntity(email, refresh, 86400000L);    //Refresh 토큰 저장
 
-        String token = jwtUtil.createJwt(email, role, 60*60*10L);       //토큰에 email, role, 토큰 만료시간 담음
-
-        res.addHeader("Authorization", "Bearer " + token);      //헤더에  RFC7235정의에따라 Http인증방식 지정
+        //응답 설정
+        res.setHeader("access", access);
+        res.addCookie(createCookie("refresh", refresh));
+        res.setStatus(HttpStatus.OK.value());
     }
 
     @Override       //인증 실패시
     protected void unsuccessfulAuthentication(HttpServletRequest req, HttpServletResponse res, AuthenticationException failed) {
         res.setStatus(401);
+    }
+
+    private void addRefreshEntity(String email, String refresh, Long expiredMs) {
+        //email, refresh토큰, 만료일자를 새로 초기화해 refreshRepository에 해당값 저장
+        Date date = new Date(System.currentTimeMillis() + expiredMs);
+
+        RefreshEntity refreshEntity = new RefreshEntity();
+        refreshEntity.setEmail(email);
+        refreshEntity.setRefresh(refresh);
+        refreshEntity.setExpiration(date.toString());
+
+        refreshRepository.save(refreshEntity);
+    }
+
+    private Cookie createCookie(String key, String value) { //value : JWT값
+
+        Cookie cookie = new Cookie(key, value);
+        cookie.setMaxAge(24*60*60);     //쿠키 24시간뒤 소멸
+        //cookie.setSecure(true);           //https 통신시 사용
+        //cookie.setPath("/");          //쿠키적용 범위
+        cookie.setHttpOnly(true);       //클라이언트에서 자바스크립트에 쿠키 접근하지 못하도록 설정
+
+        return cookie;
     }
 }

@@ -2,9 +2,11 @@ package lkm.starterproject.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lkm.starterproject.constants.Role;
+import lkm.starterproject.jwt.CustomLogoutFilter;
 import lkm.starterproject.jwt.JWTFilter;
 import lkm.starterproject.jwt.JWTUtil;
 import lkm.starterproject.jwt.LoginFilter;
+import lkm.starterproject.repository.RefreshRepository;
 import org.apache.tomcat.util.file.ConfigurationSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -29,10 +32,12 @@ public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
+    private final RefreshRepository refreshRepository;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, RefreshRepository refreshRepository) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil = jwtUtil;
+        this.refreshRepository = refreshRepository;
     }
 
     @Bean
@@ -71,13 +76,15 @@ public class SecurityConfig {
                 .httpBasic( (auth) -> auth.disable() ); //http basic 인증방식 비활성화
         http
                 .authorizeHttpRequests( (auth) -> auth      //경로별 인가작업
-                        .requestMatchers("/login", "/", "/signup").permitAll()    // 해당 경로는 모든권한 허용
+                        .requestMatchers("/login", "/", "/signup", "reissue").permitAll()    // 해당 경로는 모든권한 허용
                         .requestMatchers("/admin").hasRole(Role.ADMIN.name())     // 해당경로는 admin 권한대상자만 사용
                         .anyRequest().authenticated());     //기타 경로는 로그인한 사용자만 사용가능
         http
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);    //JWT필터 제일먼저 실행
         http    //기존의 필터를 LoginFilter로 대체함, AuthenticationManager()와 JWTUtil 전달
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
+        http
+                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class);
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));       //JWT방식 인증/인가 방식은 session을 stateless방식으로 반드시 설정해야함

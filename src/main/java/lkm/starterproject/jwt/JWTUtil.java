@@ -27,13 +27,18 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
     }
 
+    public String getCategory(String token) {   //토큰 종류 구별(refesh, access)
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("category", String.class);
+    }
+
     public Boolean isExpired(String token) {      //토큰 만료 확인 검증 메서드 소멸되면 true, 아직 남아있으면 false
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
-    public String createJwt(String email, String role, Long expiredMs) { //토큰 생성 메서드
-
+    public String createJwt(String categroy, String email, String role, Long expiredMs) { //토큰 생성 메서드
+                    //category : 토큰 종류
         return Jwts.builder()
+                .claim("categroy", categroy)
                 .claim("email", email)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))     //토큰 발행 시간

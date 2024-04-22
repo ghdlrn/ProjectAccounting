@@ -2,17 +2,15 @@ package lkm.starterproject.controller;
 
 import lkm.starterproject.dto.MemberDto;
 import lkm.starterproject.service.SignService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@ResponseBody
-public class SingController {
+@RestController
+public class SignController {
 
     private final SignService signService;
 
-    public SingController(SignService signService) {
+    public SignController(SignService signService) {
         this.signService = signService;
     }
 
