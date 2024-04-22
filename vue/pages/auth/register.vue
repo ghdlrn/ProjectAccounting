@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import AuthRegister from '~/components/Auth/AuthRegister.vue';
+
+definePageMeta({
+  layout: 'auth'
+})
 </script>
 
 <template>
   <v-row class="h-screen" no-gutters>
     <!---Left Part-->
-    <v-col cols="12" class="d-flex align-center bg-lightprimary">
+    <v-col cols="12" class="d-flex align-center">
       <v-container>
         <div class="pa-7 pa-sm-12">
           <v-row justify="center">
             <v-col cols="12" lg="10" xl="6" md="7">
-              <v-card elevation="0" class="loginBox">
+              <v-card elevation="24" class="loginBox">
                 <v-card variant="outlined">
                   <v-card-text class="pa-9">
                     <!---Left Part Logo -->

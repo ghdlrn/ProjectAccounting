@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Google from '/images/social-google.svg';
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from '~/stores/auth';
 import { Form } from 'vee-validate';
 
 const checkbox = ref(false);
 const valid = ref(false);
 const show1 = ref(false);
 //const logform = ref();
-const password = ref('1234');
-const username = ref('lkm@admin.com');
+const password = ref('');
+const username = ref('');
 const passwordRules = ref([
   (v: string) => !!v || '비밀번호 입력은 필수입니다',
   (v: string) => (v && v.length <= 16) || '패스워드는 16자리 수를 넘을 수 없습니다'
@@ -36,11 +36,12 @@ function validate(values: any, { setErrors }: any) {
     </v-col>
   </v-row>
   <h5 class="text-h5 text-center my-4 mb-8">이메일로 로그인</h5>
+
   <Form @submit="validate" class="mt-7 loginForm" v-slot="{ errors, isSubmitting }">
     <v-text-field
         v-model="username"
         :rules="emailRules"
-        label="Email Address"
+        label="이메일"
         class="mt-4 mb-8"
         required
         density="comfortable"
@@ -51,7 +52,7 @@ function validate(values: any, { setErrors }: any) {
     <v-text-field
         v-model="password"
         :rules="passwordRules"
-        label="Password"
+        label="비밀번호"
         required
         density="comfortable"
         variant="outlined"
@@ -77,14 +78,23 @@ function validate(values: any, { setErrors }: any) {
         <a href="javascript:void(0)" class="text-primary text-decoration-none">비밀번호 찾기</a>
       </div>
     </div>
-    <v-btn color="primary" :loading="isSubmitting" block class="mt-2" variant="flat" size="large" :disabled="valid" type="submit">로그인</v-btn>
+    <v-btn :loading="isSubmitting" block class="mt-2 bg-blue-darken-2" variant="flat" size="large" :disabled="valid" type="submit" append-icon="mdi-login">로그인</v-btn>
     <div v-if="errors.apiError" class="mt-2">
       <v-alert color="error">{{ errors.apiError }}</v-alert>
     </div>
   </Form>
+
   <div class="mt-5 text-right">
     <v-divider />
-    <v-btn color="success" to="/auth/register" class="mt-2" variant="flat" size="large" :disabled="valid" block>회원가입</v-btn>
+    <br/>
+    <v-row>
+      <v-col cols="12" sm="6">
+        <v-btn to="/auth/register" class="mt-2 bg-deep-purple-accent-4" append-icon="mdi-account-plus" variant="flat" size="large" :disabled="valid" block>회원가입</v-btn>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-btn to="/" class="mt-2 bg-green-lighten-1" append-icon="mdi-home" variant="flat" size="large" :disabled="valid" block>홈</v-btn>
+      </v-col>
+    </v-row>
   </div>
 </template>
 <style lang="scss">

@@ -6,7 +6,7 @@
     <v-main class="fill-height ">
 
       <Header />
-      <v-container class="bg-blue-lighten-5 mb-6 rounded-xl page" >
+      <v-container class="bg-blue-lighten-5 mb-6 rounded-xl page elevation-12" >
         <div>
           <NuxtPage class="rounded-xl elevation-0 bg-blue-lighten-5 mx-auto my-auto" />
         </div>
