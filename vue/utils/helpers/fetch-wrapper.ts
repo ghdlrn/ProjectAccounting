@@ -1,67 +1,48 @@
-import { useAuthStore } from '@/stores/auth';
+import { defineStore } from 'pinia';
+import { useRoute, useRouter } from 'vue-router';
 
-export const fetchWrapper = {
-  get: request('GET'),
-  post: request('POST'),
-  put: request('PUT'),
-  delete: request('DELETE')
-};
+const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
-interface temp {
-  method: string;
-  headers: Record<string, string>;
-  body?: string;
-}
+export const useAuthStore = defineStore({
+  id: 'auth',
+  state: () => ({
+    // initialize state from local storage to enable user to stay logged in
+    /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+    // @ts-ignore
+    user: JSON.parse(localStorage.getItem('user')),
+    returnUrl: null
+  }),
+  actions: {
+    async login(email: string, password: string) {
+      try {
+        const response = await fetch(`${baseUrl}/authenticate`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+        const user = await response.json();
 
-interface UserData {
-  username: string;
-  password: string;
-}
+        // update pinia state
+        this.user = user;
+        // store user details and jwt in local storage to keep user logged in between page refreshes
+        localStorage.setItem('user', JSON.stringify(user));
 
-function request(method: string) {
-  return (url: string, body?: object) => {
-    const requestOptions: temp = {
-      method,
-      headers: authHeader(url)
-    };
-    if (body) {
-      requestOptions.headers['Content-Type'] = 'application/json';
-      requestOptions.body = JSON.stringify(body);
-    }
-    return fetch(url, requestOptions).then(handleResponse);
-  };
-}
+        const route = useRoute();
+        const returnUrl = route.query.returnUrl as string;
 
-// helper functions
-
-function authHeader(url: string): Record<string, string> {
-  // return auth header with jwt if user is logged in and request is to the api url
-  const { user } = useAuthStore();
-  const isLoggedIn = !!user?.token;
-  const isApiUrl = url.startsWith(import.meta.env.VITE_API_URL);
-  if (isLoggedIn && isApiUrl) {
-    return { Authorization: `Bearer ${user.token}` };
-  } else {
-    return {};
-  }
-}
-
-function handleResponse(response: Response): Promise<UserData> {
-  return response.text().then((text: string) => {
-    const data = text && JSON.parse(text);
-
-    if (!response.ok) {
-      const { user, logout } = useAuthStore();
-      if ([401, 403].includes(response.status) && user) {
-        // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-        logout();
+        // redirect to previous url or default to home page
+        useRouter().push(returnUrl || '/');
+      } catch (error) {
+        console.error('로그인 실패:', error);
+        alert('로그인 실패');
       }
-
-      const error: string = (data && data.message) || response.statusText;
-      return Promise.reject(error);
+    },
+    logout() {
+      this.user = null;
+      localStorage.removeItem('user');
+      useRouter().push('/logout');
     }
-
-    // Ensure data is of type UserData
-    return data as UserData;
-  });
-}
+  }
+});
