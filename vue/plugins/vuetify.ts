@@ -8,6 +8,7 @@ import VueApexCharts from 'vue3-apexcharts';
 import VueTablerIcons from 'vue-tabler-icons';
 import {PerfectScrollbar} from "vue3-perfect-scrollbar";
 
+
 export default defineNuxtPlugin((app) => {
     const vuetify = createVuetify({
         components,
@@ -25,6 +26,7 @@ export default defineNuxtPlugin((app) => {
             VTooltip: {location: 'top'},
         },
     })
+
     app.vueApp.use(vuetify);
     app.vueApp.use(VueApexCharts);
     app.vueApp.use(VueTablerIcons);

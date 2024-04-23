@@ -1,54 +1,40 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import axios from 'axios';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
-
-import Google from '/images/social-google.svg';
-import axios from "axios";
 const checkbox = ref(false);
 const show1 = ref(false);
-
 const username = ref('');
 const password = ref('');
 const email = ref('');
-
 const Regform = ref();
 
 const passwordRules = ref([
   (v: string) => !!v || '비밀번호 입력은 필수입니다',
-  (v: string) => (v && v.length <= 10) || '패스워드는 16자리 수를 넘을 수 없습니다'
+  (v: string) => (v && v.length <= 16) || '패스워드는 16자리 수를 넘을 수 없습니다'
 ]);
 const emailRules = ref([(v: string) => !!v || '이메일 입력은 필수입니다', (v: string) => /.+@.+\..+/.test(v) || '이메일 양식이 아닙니다']);
 
-function validate() {
-  Regform.value.validate();
-}
+const SignUp = async () => {
+  if (!checkbox.value) {
+    alert('이용 약관에 동의해주세요.');
+    return;
+  }
 
-const response = await axios.post(`${process.env.NUXT_ENV_API_URL}/auth/signup`, {
-  username: username.value,
-  email: email.value,
-  password: password.value
-});
-
-// 회원가입 요청 함수
-async function SignUp() {
   try {
-    const response = await axios.post('/auth/signup', {
+    await axios.post('http://localhost:8080/auth/signup', {
       username: username.value,
       email: email.value,
       password: password.value
     });
-    if (response.data.success) {
-      console.log('회원가입 성공:', response.data);
-      await router.push('/auth/login'); // 로그인 페이지로 이동
-    } else {
-      console.error('회원가입 실패:', response.data.message);
-    }
+    router.push('/auth/login'); // Redirect after successful registration
   } catch (error) {
-    console.error('서버 오류:', error);
+    console.error('Signup failed:', error);
+    alert('회원가입 실패');
   }
-}
+};
 </script>
 
 <template>
