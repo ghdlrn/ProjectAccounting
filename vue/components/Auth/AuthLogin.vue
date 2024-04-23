@@ -2,36 +2,39 @@
 import { ref } from 'vue';
 import Google from '/images/social-google.svg';
 import { useAuthStore } from '~/stores/auth';
-import { Form } from 'vee-validate';
+import { Form } from 'vee-validate'
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+const authStore = useAuthStore();
+const valid = ref(false);
 const checkbox = ref(false);
 const show1 = ref(false);
-//const logform = ref();
-const password = ref('');
 const email = ref('');
+const password = ref('');
+const dialog = ref(false); // 로그인성공메시지 상태
+
 const passwordRules = ref([
   (v: string) => !!v || '비밀번호 입력은 필수입니다',
   (v: string) => (v && v.length <= 16) || '패스워드는 16자리 수를 넘을 수 없습니다'
 ]);
 const emailRules = ref([(v: string) => !!v || '이메일 입력은 필수입니다', (v: string) => /.+@.+\..+/.test(v) || '이메일 양식이 아닙니다']);
 
-async function login() {
-  const token = localStorage.getItem('access_token');
-  const response = await fetch('http://localhost:8080/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}` // 토큰 사용
-    },
-    body: JSON.stringify({ email, password })
-  });
-
-  if (!response.ok) {
-    throw new Error(`Login failed with status: ${response.status}`);
+const handleLogin = async () => {
+  if (valid.value) {  // Assuming 'valid' is a computed ref based on form validation
+    try {
+      const success = await authStore.login(email.value, password.value);
+      if (success) {
+        router.push(authStore.returnUrl || '/');
+      } else {
+        console.error('Login failed: Invalid credentials');
+        // Handle showing an error message
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+      // Handle showing an error message
+    }
   }
-
-  const data = await response.json();
-  console.log('Login successful', data);
 }
 </script>
 
@@ -49,7 +52,7 @@ async function login() {
   </v-row>
   <h5 class="text-h5 text-center my-4 mb-8">이메일로 로그인</h5>
 
-  <Form @submit="login" class="mt-7 loginForm" v-slot="{ errors, isSubmitting }">
+  <Form @submit.prevent="handleLogin" class="mt-7 loginForm" v-slot="{ errors, isSubmitting }">
     <v-text-field
         v-model="email"
         :rules="emailRules"
@@ -90,7 +93,7 @@ async function login() {
         <a href="javascript:void(0)" class="text-primary text-decoration-none">비밀번호 찾기</a>
       </div>
     </div>
-    <v-btn :loading="isSubmitting" block class="mt-2 bg-blue-darken-2" variant="flat" size="large" type="submit" append-icon="mdi-login" @click="login()">로그인</v-btn>
+    <v-btn :loading="isSubmitting" block class="mt-2 bg-blue-darken-2" variant="flat" size="large" type="submit" append-icon="mdi-login">로그인</v-btn>
     <div v-if="errors.apiError" class="mt-2">
       <v-alert color="error">{{ errors.apiError }}</v-alert>
     </div>
@@ -108,6 +111,16 @@ async function login() {
       </v-col>
     </v-row>
   </div>
+  <v-dialog v-model="dialog" max-width="500">
+    <v-card>
+      <v-card-title class="headline">로그인 성공</v-card-title>
+      <v-card-text>로그인에 성공했습니다!</v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" text @click="dialog = false">확인</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 <style lang="scss">
 .custom-devider {
