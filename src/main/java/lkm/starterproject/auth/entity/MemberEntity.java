@@ -1,7 +1,7 @@
-package lkm.starterproject.entity;
+package lkm.starterproject.auth.entity;
 
 import jakarta.persistence.*;
-import lkm.starterproject.constants.Role;
+import lkm.starterproject.auth.constants.Role;
 import lombok.*;
 
 import java.time.LocalDateTime;

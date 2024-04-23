@@ -1,12 +1,12 @@
-package lkm.starterproject.jwt;
+package lkm.starterproject.auth.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import lkm.starterproject.entity.RefreshEntity;
-import lkm.starterproject.repository.RefreshRepository;
+import lkm.starterproject.auth.entity.RefreshEntity;
+import lkm.starterproject.auth.repository.RefreshRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

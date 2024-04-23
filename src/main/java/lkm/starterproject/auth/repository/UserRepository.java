@@ -1,6 +1,6 @@
-package lkm.starterproject.repository;
+package lkm.starterproject.auth.repository;
 
-import lkm.starterproject.entity.MemberEntity;
+import lkm.starterproject.auth.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 

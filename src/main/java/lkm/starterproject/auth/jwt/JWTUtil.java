@@ -1,4 +1,4 @@
-package lkm.starterproject.jwt;
+package lkm.starterproject.auth.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;

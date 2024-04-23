@@ -1,12 +1,12 @@
-package lkm.starterproject.controller;
+package lkm.starterproject.auth.controller;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lkm.starterproject.entity.RefreshEntity;
-import lkm.starterproject.jwt.JWTUtil;
-import lkm.starterproject.repository.RefreshRepository;
+import lkm.starterproject.auth.entity.RefreshEntity;
+import lkm.starterproject.auth.repository.RefreshRepository;
+import lkm.starterproject.auth.jwt.JWTUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,38 +27,27 @@ public class ReissueController {
 
     @PostMapping("/reissue")
     public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
-
-        //get refresh token
         String refresh = null;
-        Cookie[] cookies = request.getCookies();
+        Cookie[] cookies = request.getCookies();        //요청을 받으면 refresh토큰을 쿠키에 담음
         for (Cookie cookie : cookies) {
-
             if (cookie.getName().equals("refresh")) {
-
                 refresh = cookie.getValue();
             }
         }
 
-        if (refresh == null) {
-
-            //response status code
+        if (refresh == null) {      //refresh 토큰 정보가 없으면 해당 상태코드 메세지 발송
             return new ResponseEntity<>("refresh token null", HttpStatus.BAD_REQUEST);
         }
 
-        //expired check
         try {
-            jwtUtil.isExpired(refresh);
+            jwtUtil.isExpired(refresh); //refresh톸느 만료여부 확인, 만료되면 해당 상태코드 발송
         } catch (ExpiredJwtException e) {
-
-            //response status code
             return new ResponseEntity<>("refresh token expired", HttpStatus.BAD_REQUEST);
         }
 
-        // 토큰이 refresh인지 확인 (발급시 페이로드에 명시)
         String category = jwtUtil.getCategory(refresh);
-
-        if (!category.equals("refresh")) {
-            return new ResponseEntity<>("invalid refresh token", HttpStatus.BAD_REQUEST);    //response status code
+        if (!category.equals("refresh")) {      //토큰 종류가 refresh인지 확인 아니면 해당 상태코드 발송
+            return new ResponseEntity<>("invalid refresh token", HttpStatus.BAD_REQUEST);
         }
 
         Boolean isExist = refreshRepository.existsByRefresh(refresh);   //DB에 refresh토큰이 저장되어 있는지 확인

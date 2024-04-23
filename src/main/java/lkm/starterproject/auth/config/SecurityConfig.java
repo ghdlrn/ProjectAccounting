@@ -1,13 +1,12 @@
-package lkm.starterproject.config;
+package lkm.starterproject.auth.config;
 
 import jakarta.servlet.http.HttpServletRequest;
-import lkm.starterproject.constants.Role;
-import lkm.starterproject.jwt.CustomLogoutFilter;
-import lkm.starterproject.jwt.JWTFilter;
-import lkm.starterproject.jwt.JWTUtil;
-import lkm.starterproject.jwt.LoginFilter;
-import lkm.starterproject.repository.RefreshRepository;
-import org.apache.tomcat.util.file.ConfigurationSource;
+import lkm.starterproject.auth.constants.Role;
+import lkm.starterproject.auth.jwt.CustomLogoutFilter;
+import lkm.starterproject.auth.jwt.JWTFilter;
+import lkm.starterproject.auth.jwt.JWTUtil;
+import lkm.starterproject.auth.jwt.LoginFilter;
+import lkm.starterproject.auth.repository.RefreshRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,8 +21,6 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.io.IOException;
-import java.net.URI;
 import java.util.Collections;
 
 @Configuration
@@ -79,12 +76,14 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/", "/signup", "reissue").permitAll()    // 해당 경로는 모든권한 허용
                         .requestMatchers("/admin").hasRole(Role.ADMIN.name())     // 해당경로는 admin 권한대상자만 사용
                         .anyRequest().authenticated());     //기타 경로는 로그인한 사용자만 사용가능
+        //---------------필터---------------------
         http
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);    //JWT필터 제일먼저 실행
-        http    //기존의 필터를 LoginFilter로 대체함, AuthenticationManager()와 JWTUtil 전달
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
         http
                 .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class);
+        http    //기존의 필터를 LoginFilter로 대체함, AuthenticationManager()와 JWTUtil 전달
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
+
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));       //JWT방식 인증/인가 방식은 session을 stateless방식으로 반드시 설정해야함

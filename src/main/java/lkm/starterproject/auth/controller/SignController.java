@@ -1,7 +1,7 @@
-package lkm.starterproject.controller;
+package lkm.starterproject.auth.controller;
 
-import lkm.starterproject.dto.MemberDto;
-import lkm.starterproject.service.SignService;
+import lkm.starterproject.auth.service.SignService;
+import lkm.starterproject.auth.dto.MemberDto;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 

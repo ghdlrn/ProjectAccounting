@@ -1,4 +1,4 @@
-package lkm.starterproject.constants;
+package lkm.starterproject.auth.constants;
 
 public enum Role {
     ADMIN,

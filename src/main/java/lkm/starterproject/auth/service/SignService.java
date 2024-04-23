@@ -1,9 +1,9 @@
-package lkm.starterproject.service;
+package lkm.starterproject.auth.service;
 
-import lkm.starterproject.constants.Role;
-import lkm.starterproject.dto.MemberDto;
-import lkm.starterproject.entity.MemberEntity;
-import lkm.starterproject.repository.UserRepository;
+import lkm.starterproject.auth.repository.UserRepository;
+import lkm.starterproject.auth.constants.Role;
+import lkm.starterproject.auth.dto.MemberDto;
+import lkm.starterproject.auth.entity.MemberEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

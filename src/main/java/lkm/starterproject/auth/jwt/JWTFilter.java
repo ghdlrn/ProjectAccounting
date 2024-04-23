@@ -1,13 +1,13 @@
-package lkm.starterproject.jwt;
+package lkm.starterproject.auth.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lkm.starterproject.constants.Role;
-import lkm.starterproject.dto.CustomUserDetails;
-import lkm.starterproject.entity.MemberEntity;
+import lkm.starterproject.auth.constants.Role;
+import lkm.starterproject.auth.entity.MemberEntity;
+import lkm.starterproject.auth.dto.CustomUserDetails;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,11 +58,11 @@ public class JWTFilter extends OncePerRequestFilter {
         String email = jwtUtil.getEmail(accessToken);
         String role = jwtUtil.getRole(accessToken);
         // MemberEntity에 이메일, 권한정보 셋
-        MemberEntity userEntity = new MemberEntity();
-        userEntity.setEmail(email);
-        userEntity.setRole(Role.valueOf(role));
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setEmail(email);
+        memberEntity.setRole(Role.valueOf(role));
 
-        CustomUserDetails customUserDetails = new CustomUserDetails(userEntity);
+        CustomUserDetails customUserDetails = new CustomUserDetails(memberEntity);
 
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);    //SecurityContextHolder에 유저정보를 담아 일시적인 세션 생성

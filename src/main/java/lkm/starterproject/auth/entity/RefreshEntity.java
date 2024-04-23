@@ -1,4 +1,4 @@
-package lkm.starterproject.entity;
+package lkm.starterproject.auth.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

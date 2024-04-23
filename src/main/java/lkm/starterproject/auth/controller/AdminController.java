@@ -1,4 +1,4 @@
-package lkm.starterproject.controller;
+package lkm.starterproject.auth.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

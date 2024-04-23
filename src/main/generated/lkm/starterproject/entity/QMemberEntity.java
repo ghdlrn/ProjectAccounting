@@ -7,6 +7,8 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import lkm.starterproject.auth.constants.Role;
+import lkm.starterproject.auth.entity.MemberEntity;
 
 
 /**
@@ -27,7 +29,7 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
 
     public final StringPath password = createString("password");
 
-    public final EnumPath<lkm.starterproject.constants.Role> role = createEnum("role", lkm.starterproject.constants.Role.class);
+    public final EnumPath<Role> role = createEnum("role", Role.class);
 
     public final DateTimePath<java.time.LocalDateTime> updatedAt = createDateTime("updatedAt", java.time.LocalDateTime.class);
 

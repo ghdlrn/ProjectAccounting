@@ -1,4 +1,4 @@
-package lkm.starterproject.jwt;
+package lkm.starterproject.auth.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -8,7 +8,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lkm.starterproject.repository.RefreshRepository;
+import lkm.starterproject.auth.repository.RefreshRepository;
 import org.springframework.web.filter.GenericFilterBean;
 import java.io.IOException;
 

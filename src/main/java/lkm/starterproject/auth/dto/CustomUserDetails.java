@@ -1,6 +1,6 @@
-package lkm.starterproject.dto;
+package lkm.starterproject.auth.dto;
 
-import lkm.starterproject.entity.MemberEntity;
+import lkm.starterproject.auth.entity.MemberEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

@@ -1,4 +1,4 @@
-package lkm.starterproject.controller;
+package lkm.starterproject.auth.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

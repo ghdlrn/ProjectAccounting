@@ -1,4 +1,4 @@
-package lkm.starterproject.dto;
+package lkm.starterproject.auth.dto;
 
 import lombok.Getter;
 import lombok.Setter;
