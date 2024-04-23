@@ -89,7 +89,7 @@ function validate(values: any, { setErrors }: any) {
     <br/>
     <v-row>
       <v-col cols="12" sm="6">
-        <v-btn to="/auth/register" class="mt-2 bg-deep-purple-accent-4" append-icon="mdi-account-plus" variant="flat" size="large" :disabled="valid" block>회원가입</v-btn>
+        <v-btn to="/auth/signup" class="mt-2 bg-deep-purple-accent-4" append-icon="mdi-account-plus" variant="flat" size="large" :disabled="valid" block>회원가입</v-btn>
       </v-col>
       <v-col cols="12" sm="6">
         <v-btn to="/" class="mt-2 bg-green-lighten-1" append-icon="mdi-home" variant="flat" size="large" :disabled="valid" block>홈</v-btn>

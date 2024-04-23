@@ -23,7 +23,7 @@
     </NuxtLink>
 
     <!-- 회원가입 버튼 -->
-    <NuxtLink to="/auth/register" class="mr-10">
+    <NuxtLink to="/auth/signup" class="mr-10">
       <v-btn class="bg-success" size="large" append-icon="mdi-account-plus">회원가입</v-btn>
     </NuxtLink>
 

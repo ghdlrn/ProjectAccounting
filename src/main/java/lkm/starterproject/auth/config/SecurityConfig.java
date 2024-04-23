@@ -73,7 +73,7 @@ public class SecurityConfig {
                 .httpBasic( (auth) -> auth.disable() ); //http basic 인증방식 비활성화
         http
                 .authorizeHttpRequests( (auth) -> auth      //경로별 인가작업
-                        .requestMatchers("/login", "/", "/signup", "reissue").permitAll()    // 해당 경로는 모든권한 허용
+                        .requestMatchers("/login", "/", "/auth/signup", "/reissue").permitAll()    // 해당 경로는 모든권한 허용
                         .requestMatchers("/admin").hasRole(Role.ADMIN.name())     // 해당경로는 admin 권한대상자만 사용
                         .anyRequest().authenticated());     //기타 경로는 로그인한 사용자만 사용가능
         //---------------필터---------------------

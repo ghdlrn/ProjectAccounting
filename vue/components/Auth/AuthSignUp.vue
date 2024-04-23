@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+
 import Google from '/images/social-google.svg';
+import axios from "axios";
 const checkbox = ref(false);
 const show1 = ref(false);
+
+const username = ref('');
 const password = ref('');
 const email = ref('');
+
 const Regform = ref();
-const username = ref('');
+
 const passwordRules = ref([
   (v: string) => !!v || '비밀번호 입력은 필수입니다',
   (v: string) => (v && v.length <= 10) || '패스워드는 16자리 수를 넘을 수 없습니다'
@@ -15,6 +23,31 @@ const emailRules = ref([(v: string) => !!v || '이메일 입력은 필수입니�
 
 function validate() {
   Regform.value.validate();
+}
+
+const response = await axios.post(`${process.env.NUXT_ENV_API_URL}/auth/signup`, {
+  username: username.value,
+  email: email.value,
+  password: password.value
+});
+
+// 회원가입 요청 함수
+async function SignUp() {
+  try {
+    const response = await axios.post('/auth/signup', {
+      username: username.value,
+      email: email.value,
+      password: password.value
+    });
+    if (response.data.success) {
+      console.log('회원가입 성공:', response.data);
+      await router.push('/auth/login'); // 로그인 페이지로 이동
+    } else {
+      console.error('회원가입 실패:', response.data.message);
+    }
+  } catch (error) {
+    console.error('서버 오류:', error);
+  }
 }
 </script>
 
@@ -70,17 +103,17 @@ function validate() {
       ></v-checkbox>
       <a href="#" class="ml-1 text-lightText">이용 약관</a>
     </div>
-    <v-btn append-icon="mdi-account-circle" block class="mt-2 bg-teal-accent-4" variant="flat" size="large" @click="validate()">회원가입</v-btn>
+    <v-btn append-icon="mdi-account-circle" block class="mt-2 bg-teal-accent-4" variant="flat" size="large" @click="SignUp()">회원가입</v-btn>
   </v-form>
   <div class="mt-5 text-right">
     <v-divider />
     <br/>
     <v-row>
       <v-col cols="12" sm="6">
-        <v-btn to="/auth/login" class="mt-2 bg-blue-darken-2" append-icon="mdi-login" variant="flat" size="large" :disabled="valid" block>로그인</v-btn>
+        <v-btn to="/auth/login" class="mt-2 bg-blue-darken-2" append-icon="mdi-login" variant="flat" size="large"  block>로그인</v-btn>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-btn to="/" class="mt-2 bg-green-lighten-1" append-icon="mdi-home" variant="flat" size="large" :disabled="valid" block>홈</v-btn>
+        <v-btn to="/" class="mt-2 bg-green-lighten-1" append-icon="mdi-home" variant="flat" size="large" block>홈</v-btn>
       </v-col>
     </v-row>
   </div>

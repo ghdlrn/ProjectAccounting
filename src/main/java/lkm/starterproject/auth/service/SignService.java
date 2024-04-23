@@ -21,7 +21,7 @@ public class SignService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void signUp(MemberDto memberDto) {
+    public void SignUp(MemberDto memberDto) {
         String email = memberDto.getEmail();
         String password = memberDto.getPassword();
         String username = memberDto.getUsername();

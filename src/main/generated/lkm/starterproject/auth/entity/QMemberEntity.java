@@ -1,4 +1,4 @@
-package lkm.starterproject.entity;
+package lkm.starterproject.auth.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -7,8 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import lkm.starterproject.auth.constants.Role;
-import lkm.starterproject.auth.entity.MemberEntity;
 
 
 /**
@@ -17,7 +15,7 @@ import lkm.starterproject.auth.entity.MemberEntity;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QMemberEntity extends EntityPathBase<MemberEntity> {
 
-    private static final long serialVersionUID = -2010195388L;
+    private static final long serialVersionUID = -1246915386L;
 
     public static final QMemberEntity memberEntity = new QMemberEntity("memberEntity");
 
@@ -29,7 +27,7 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
 
     public final StringPath password = createString("password");
 
-    public final EnumPath<Role> role = createEnum("role", Role.class);
+    public final EnumPath<lkm.starterproject.auth.constants.Role> role = createEnum("role", lkm.starterproject.auth.constants.Role.class);
 
     public final DateTimePath<java.time.LocalDateTime> updatedAt = createDateTime("updatedAt", java.time.LocalDateTime.class);
 

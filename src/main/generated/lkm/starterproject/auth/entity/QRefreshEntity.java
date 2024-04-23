@@ -1,4 +1,4 @@
-package lkm.starterproject.entity;
+package lkm.starterproject.auth.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import lkm.starterproject.auth.entity.RefreshEntity;
 
 
 /**
@@ -16,7 +15,7 @@ import lkm.starterproject.auth.entity.RefreshEntity;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QRefreshEntity extends EntityPathBase<RefreshEntity> {
 
-    private static final long serialVersionUID = -1247372201L;
+    private static final long serialVersionUID = 939471381L;
 
     public static final QRefreshEntity refreshEntity = new QRefreshEntity("refreshEntity");
 
