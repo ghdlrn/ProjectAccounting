@@ -1,5 +1,6 @@
 package lkm.starterproject.auth.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,9 +16,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
+import java.io.IOException;
+import java.util.*;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -47,7 +47,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override       //인증성공했을시
-    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication authentication) {
+    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication authentication) throws IOException {
 
         String email = authentication.getName(); //유저 정보
 
@@ -60,9 +60,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String refresh = jwtUtil.createJwt("refresh", email, role, 86400000L);       //refresh토큰 생성 24시간 뒤 소멸
         addRefreshEntity(email, refresh, 86400000L);    //Refresh 토큰 저장
 
-        //응답 설정
-        res.setHeader("access", access);
-        res.addCookie(createCookie("refresh", refresh));
+        // JSON 응답 생성
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> tokenInfo = new HashMap<>();
+        tokenInfo.put("email", email);
+        tokenInfo.put("role", role);
+        tokenInfo.put("access_token", access);
+        tokenInfo.put("refresh_token", refresh);
+
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        res.getWriter().write(objectMapper.writeValueAsString(tokenInfo));
+
         res.setStatus(HttpStatus.OK.value());
     }
 

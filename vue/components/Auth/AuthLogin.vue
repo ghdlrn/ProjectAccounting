@@ -16,25 +16,23 @@ const passwordRules = ref([
 const emailRules = ref([(v: string) => !!v || '이메일 입력은 필수입니다', (v: string) => /.+@.+\..+/.test(v) || '이메일 양식이 아닙니다']);
 
 async function login() {
-  try {
-    // 서버로부터 HTML 응답을 받아와서 그대로 처리
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email: email.value, password: password.value })
-    });
+  const token = localStorage.getItem('access_token');
+  const response = await fetch('http://localhost:8080/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}` // 토큰 사용
+    },
+    body: JSON.stringify({ email, password })
+  });
 
-    // HTML 응답을 텍스트로 변환하여 콘솔에 출력
-    const htmlResponse = await response.text();
-    console.log('서버 응답 HTML:', htmlResponse);
-  } catch (error) {
-    console.error('로그인 실패:', error);
-    alert('로그인 실패');
+  if (!response.ok) {
+    throw new Error(`Login failed with status: ${response.status}`);
   }
-}
 
+  const data = await response.json();
+  console.log('Login successful', data);
+}
 </script>
 
 <template>

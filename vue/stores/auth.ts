@@ -1,48 +1,46 @@
 import { defineStore } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
+// auth.ts 파일 내 baseUrl 설정 부분
+const baseUrl = import.meta.env.NUXT_ENV_API_URL ? `${import.meta.env.NUXT_ENV_API_URL}` : 'http://localhost:8080';
+console.log("Base URL:", baseUrl); // Debugging the baseUrl
 
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
-    // initialize state from local storage to enable user to stay logged in
-    /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
     // @ts-ignore
-    user: JSON.parse(localStorage.getItem('user')),
+    user: JSON.parse(localStorage.getItem('user') || '{}'),
     returnUrl: null
   }),
   actions: {
-    async login(email: string, password: string) {
-      try {
-        const response = await fetch(`${baseUrl}/authenticate`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email, password })
-        });
-        const user = await response.json();
-
-        // update pinia state
-        this.user = user;
-        // store user details and jwt in local storage to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(user));
-
-        const route = useRoute();
-        const returnUrl = route.query.returnUrl as string;
-
-        // redirect to previous url or default to home page
-        useRouter().push(returnUrl || '/');
-      } catch (error) {
-        console.error('로그인 실패:', error);
-        alert('로그인 실패');
+    actions: {
+      async login(email: string, password: string) {
+        const loginUrl = `${baseUrl}/login`;
+        try {
+          const response = await fetch(loginUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({email, password})
+          });
+          if (!response.ok) {
+            throw new Error('Failed to login');
+          }
+          const user = await response.json();
+          this.user = user;
+          localStorage.setItem('user', JSON.stringify(user));
+          const route = useRoute();
+          const router = useRouter();
+          router.push('/');
+        } catch (error) {
+          console.error('Login failed:', error);
+          alert(`Login failed: ${error}`);
+        }
+      },
+      logout() {
+        this.user = null;
+        localStorage.removeItem('user');
+        useRouter().push('/logout');
       }
-    },
-    logout() {
-      this.user = null;
-      localStorage.removeItem('user');
-      useRouter().push('/logout');
     }
   }
 });
