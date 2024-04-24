@@ -96,7 +96,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(24*60*60);     //쿠키 24시간뒤 소멸
-        //cookie.setSecure(true);           //https 통신시 사용
+        cookie.setSecure(false);           //개발환경에서만 false아닐땐 true(쿠키 Secure속성)
         //cookie.setPath("/");          //쿠키적용 범위
         cookie.setHttpOnly(true);       //클라이언트에서 자바스크립트에 쿠키 접근하지 못하도록 설정
 

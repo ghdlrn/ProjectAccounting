@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import Google from '/images/social-google.svg';
-import { useAuthStore } from '~/stores/auth';
-import { Form } from 'vee-validate'
 import { useRouter } from 'vue-router';
+import axios from "axios";
 
 const router = useRouter();
-const authStore = useAuthStore();
-const valid = ref(false);
 const checkbox = ref(false);
 const show1 = ref(false);
+const loginSuccess = ref(false);  //로그인성공메시지
 const email = ref('');
 const password = ref('');
-const dialog = ref(false); // 로그인성공메시지 상태
 
 const passwordRules = ref([
   (v: string) => !!v || '비밀번호 입력은 필수입니다',
@@ -20,29 +17,25 @@ const passwordRules = ref([
 ]);
 const emailRules = ref([(v: string) => !!v || '이메일 입력은 필수입니다', (v: string) => /.+@.+\..+/.test(v) || '이메일 양식이 아닙니다']);
 
-const handleLogin = async () => {
-  if (valid.value) {  // Assuming 'valid' is a computed ref based on form validation
-    try {
-      const success = await authStore.login(email.value, password.value);
-      if (success) {
-        router.push(authStore.returnUrl || '/');
-      } else {
-        console.error('Login failed: Invalid credentials');
-        // Handle showing an error message
-      }
-    } catch (error) {
-      console.error('Login failed:', error);
-      // Handle showing an error message
-    }
+const login = async () => {
+  try {
+    await axios.post('http://localhost:8080/login', {
+      email: email.value,
+      password: password.value
+    });
+    router.push('/'); // Redirect after successful registration
+  } catch (error) {
+    console.error('Signup failed:', error);
+    alert('회원가입 실패');
   }
-}
+};
 </script>
 
 <template>
   <v-btn block color="primary" variant="outlined" class="text-lightText googleBtn">
     <img :src="Google" alt="google" />
-    <span class="ml-2">구글 계정으로 로그인</span></v-btn
-  >
+    <span class="ml-2">구글 계정으로 로그인</span>
+  </v-btn>
   <v-row>
     <v-col class="d-flex align-center">
       <v-divider class="custom-devider" />
@@ -52,12 +45,13 @@ const handleLogin = async () => {
   </v-row>
   <h5 class="text-h5 text-center my-4 mb-8">이메일로 로그인</h5>
 
-  <Form @submit.prevent="handleLogin" class="mt-7 loginForm" v-slot="{ errors, isSubmitting }">
+
+  <v-form ref="Reform" lazy-validation action="/dashboards/analytical" class="mt-7 loginForm">
     <v-text-field
         v-model="email"
         :rules="emailRules"
         label="이메일"
-        class="mt-4 mb-8"
+        class="mt-4 mb-4"
         required
         density="comfortable"
         hide-details="auto"
@@ -79,6 +73,7 @@ const handleLogin = async () => {
         class="pwdInput"
     ></v-text-field>
 
+
     <div class="d-sm-flex align-center mt-2 mb-7 mb-sm-0">
       <v-checkbox
           v-model="checkbox"
@@ -93,11 +88,8 @@ const handleLogin = async () => {
         <a href="javascript:void(0)" class="text-primary text-decoration-none">비밀번호 찾기</a>
       </div>
     </div>
-    <v-btn :loading="isSubmitting" block class="mt-2 bg-blue-darken-2" variant="flat" size="large" type="submit" append-icon="mdi-login">로그인</v-btn>
-    <div v-if="errors.apiError" class="mt-2">
-      <v-alert color="error">{{ errors.apiError }}</v-alert>
-    </div>
-  </Form>
+    <v-btn block class="mt-2 bg-blue-darken-2" variant="flat" size="large" type="submit" append-icon="mdi-login" @click="login()">로그인</v-btn>
+  </v-form>
 
   <div class="mt-5 text-right">
     <v-divider />
@@ -110,17 +102,12 @@ const handleLogin = async () => {
         <v-btn to="/" class="mt-2 bg-green-lighten-1" append-icon="mdi-home" variant="flat" size="large" block>홈</v-btn>
       </v-col>
     </v-row>
+
+    <v-alert v-if="loginSuccess" type="success">
+      로그인에 성공하였습니다!
+    </v-alert>
   </div>
-  <v-dialog v-model="dialog" max-width="500">
-    <v-card>
-      <v-card-title class="headline">로그인 성공</v-card-title>
-      <v-card-text>로그인에 성공했습니다!</v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="dialog = false">확인</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+
 </template>
 <style lang="scss">
 .custom-devider {
