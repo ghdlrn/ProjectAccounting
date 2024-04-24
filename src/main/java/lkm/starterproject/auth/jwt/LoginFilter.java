@@ -31,15 +31,19 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         this.refreshRepository = refreshRepository;
     }
 
-    @Override       //인증메서드
-    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
-        //클라이언트요청에서 email, password 추출
-        String email = obtainEmail(req);
-        String password = obtainPassword(req);
-        //email, password, role을 토큰에 담음
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password, null);
-        //토큰을 AuthenticationManger로 전달
-        return authenticationManager.authenticate(authToken);
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        try {
+            // JSON 데이터에서 사용자 정보 파싱
+            UserLoginCredentials credentials = new ObjectMapper().readValue(request.getInputStream(), UserLoginCredentials.class);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    credentials.getEmail(),
+                    credentials.getPassword()
+            );
+            return authenticationManager.authenticate(authenticationToken);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected String obtainEmail(HttpServletRequest request) {  //username이 아닌 email로 검증하기 위해 정의
@@ -50,7 +54,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication authentication) throws IOException {
 
         String email = authentication.getName(); //유저 정보
-
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
@@ -60,6 +63,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String refresh = jwtUtil.createJwt("refresh", email, role, 86400000L);       //refresh토큰 생성 24시간 뒤 소멸
         addRefreshEntity(email, refresh, 86400000L);    //Refresh 토큰 저장
 
+        // 쿠키 생성 및 설정
+        Cookie accessTokenCookie = createCookie("access", access);
+        Cookie refreshTokenCookie = createCookie("refresh", refresh);
+        res.addCookie(accessTokenCookie);
+        res.addCookie(refreshTokenCookie);
         // JSON 응답 생성
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> tokenInfo = new HashMap<>();
@@ -97,7 +105,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(24*60*60);     //쿠키 24시간뒤 소멸
         cookie.setSecure(false);           //개발환경에서만 false아닐땐 true(쿠키 Secure속성)
-        //cookie.setPath("/");          //쿠키적용 범위
+        cookie.setPath("/");     //쿠키적용 범위
         cookie.setHttpOnly(true);       //클라이언트에서 자바스크립트에 쿠키 접근하지 못하도록 설정
 
         return cookie;

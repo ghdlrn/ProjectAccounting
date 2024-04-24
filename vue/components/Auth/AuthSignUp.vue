@@ -40,7 +40,7 @@ const SignUp = async () => {
   <br />
   <v-divider class="custom-devider" />
   <h5 class="text-h5 text-center my-4 mb-8">이메일 주소로 회원가입</h5>
-  <v-form ref="Reform" lazy-validation action="/dashboards/analytical" class="mt-7 loginForm">
+  <v-form ref="Reform" class="mt-7 loginForm">
 
     <v-text-field
           v-model="username"

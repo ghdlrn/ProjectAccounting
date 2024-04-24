@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class JWTFilter extends OncePerRequestFilter {
-
+//http요청을 가로채 헤더에서 JWT엑세스 토큰 추출, 검증
     private final JWTUtil jwtUtil;
 
     public JWTFilter(JWTUtil jwtUtil) {

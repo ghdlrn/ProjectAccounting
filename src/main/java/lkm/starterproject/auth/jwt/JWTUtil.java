@@ -35,10 +35,10 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
-    public String createJwt(String categroy, String email, String role, Long expiredMs) { //토큰 생성 메서드
+    public String createJwt(String category, String email, String role, Long expiredMs) { //토큰 생성 메서드
                     //category : 토큰 종류
         return Jwts.builder()
-                .claim("categroy", categroy)
+                .claim("category", category)
                 .claim("email", email)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))     //토큰 발행 시간

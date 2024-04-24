@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
+import { useAuthStore } from '~/stores/auth';
 import Google from '/images/social-google.svg';
-import { useRouter } from 'vue-router';
-import axios from "axios";
 
 const router = useRouter();
+const authStore = useAuthStore();
+
 const checkbox = ref(false);
 const show1 = ref(false);
-const loginSuccess = ref(false);  //로그인성공메시지
 const email = ref('');
 const password = ref('');
 
@@ -17,18 +17,16 @@ const passwordRules = ref([
 ]);
 const emailRules = ref([(v: string) => !!v || '이메일 입력은 필수입니다', (v: string) => /.+@.+\..+/.test(v) || '이메일 양식이 아닙니다']);
 
-const login = async () => {
+const login = async (event: any) => {
+  event.preventDefault();  // Prevent default form submission
   try {
-    await axios.post('http://localhost:8080/login', {
-      email: email.value,
-      password: password.value
-    });
-    router.push('/'); // Redirect after successful registration
+    await authStore.login(email.value, password.value);
+    router.push('/');
   } catch (error) {
-    console.error('Signup failed:', error);
-    alert('회원가입 실패');
+    console.error('Login failed:', error);
+    alert('로그인 실패: ' + error);
   }
-};
+}
 </script>
 
 <template>
@@ -46,7 +44,7 @@ const login = async () => {
   <h5 class="text-h5 text-center my-4 mb-8">이메일로 로그인</h5>
 
 
-  <v-form ref="Reform" lazy-validation action="/dashboards/analytical" class="mt-7 loginForm">
+  <v-form @submit.prevent="login" ref="Reform" class="mt-7 loginForm">
     <v-text-field
         v-model="email"
         :rules="emailRules"
@@ -88,7 +86,7 @@ const login = async () => {
         <a href="javascript:void(0)" class="text-primary text-decoration-none">비밀번호 찾기</a>
       </div>
     </div>
-    <v-btn block class="mt-2 bg-blue-darken-2" variant="flat" size="large" type="submit" append-icon="mdi-login" @click="login()">로그인</v-btn>
+    <v-btn block class="mt-2 bg-blue-darken-2" variant="flat" size="large" type="submit" append-icon="mdi-login">로그인</v-btn>
   </v-form>
 
   <div class="mt-5 text-right">
@@ -102,10 +100,6 @@ const login = async () => {
         <v-btn to="/" class="mt-2 bg-green-lighten-1" append-icon="mdi-home" variant="flat" size="large" block>홈</v-btn>
       </v-col>
     </v-row>
-
-    <v-alert v-if="loginSuccess" type="success">
-      로그인에 성공하였습니다!
-    </v-alert>
   </div>
 
 </template>
