@@ -1,3 +1,4 @@
+//사용자 데이터 가져오기
 import { defineStore } from 'pinia';
 
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
@@ -16,7 +17,7 @@ export const useUsersStore = defineStore({
             this.isLoading = true;
             this.error = null;
             fetchWrapper
-                .get(baseUrl)
+                .get(`${baseUrl}/users`)
                 .then(users => {
                     this.users = users;
                     this.isLoading = false;
