@@ -21,26 +21,25 @@ public class StatementEntity {
     private Long code;
 
     @Temporal(TemporalType.DATE)
-    private LocalDate RegistrationDate;
+    private LocalDate RegistrationDate;     //등록일자
 
     @Enumerated(EnumType.STRING)
-    private StatementTypeStatus statementTypeStatus;
+    private StatementTypeStatus statementTypeStatus;    //전표종류
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "accounting_title_code")
-    private AccountTitleEntity accountTitleEntity;
+    private AccountTitleEntity accountTitleEntity;  //계정과목
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "customer_code")
-    private CustomerEntity customerEntity;
+    private CustomerEntity customerEntity;      //거래처
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "compendium_code")
-    private CompendiumEntity compendiumEntity;
+    private CompendiumEntity compendiumEntity;  //적요
 
-    private int debit;private int credit;
+    private Long debit;      //차변금액
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_code")
-    private CompanyEntity companyEntity;
+    private Long credit;     //대변금액
+
 }

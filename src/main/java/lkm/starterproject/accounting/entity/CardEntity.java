@@ -39,38 +39,40 @@ public class CardEntity {
     @OneToMany(mappedBy = "finance", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<FinanceEntity> finances = new ArrayList<>();       //결제 계좌
 
-    private double commission;
+    private Double commission;      //수수료
 
-    private int commissionAccountTitle;
+    private Integer commissionAccountTitle; //수수료 계정과목
+
+    private LocalDate accountDay;   //결제일
 
     @Column(nullable = false, length = 12, unique = true)
-    private String businessRegistrationNumber;
+    private String businessRegistrationNumber;  //사업자등록번호
 
-    private int accountTitle;
+    private Integer accountTitle;   //계정과목
 
-    private int customerGroupingCode;
+    private Integer customerGroupingCode;       //거래처분류코드
 
-    private int zipCode;
+    private Integer zipCode;    //우편번호
 
-    private String address;
-
-    @Column(length = 13)
-    private String phone;
+    private String address; //주소
 
     @Column(length = 13)
-    private String fax;
+    private String phone;   //전화번호
 
-    private String homePage;
+    @Column(length = 13)
+    private String fax;     //팩스번호
+
+    private String homePage;        //홈페이지주소
 
     @Temporal(TemporalType.DATE)
-    private LocalDate constractOpenDate;
+    private LocalDate constractOpenDate;    //계약시작일
 
     @Temporal(TemporalType.DATE)
-    private LocalDate constractCloseDate;
+    private LocalDate constractCloseDate;       //계약종료일
 
-    private String note;
+    private String note;    //비고
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "company_code")
     private CompanyEntity companyEntity;
 

@@ -24,7 +24,7 @@ public class FinanceEntity {
     private String name;    //은행(계좌)명
 
     @Column(nullable = false)
-    private int accountNumber;  //계좌번호
+    private Integer accountNumber;  //계좌번호
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -32,9 +32,9 @@ public class FinanceEntity {
 
     private String depositType; //예금종류
 
-    private double interestRate;    //이자율
+    private Double interestRate;    //이자율
 
-    private long overdraftLimit; //당좌한도액
+    private Long overdraftLimit; //당좌한도액
 
     @Temporal(TemporalType.DATE)
     private LocalDate overdraftDate;    //당좌차월기일
@@ -42,13 +42,13 @@ public class FinanceEntity {
     @Column(nullable = false, length = 12, unique = true)
     private String businessRegistrationNumber;  //사업자등록번호
 
-    private int accountTitle;   //계정과목
+    private Integer accountTitle;   //계정과목
 
-    private int zipCode;    //우편번호
+    private Integer zipCode;    //우편번호
 
     private String address; //주소
 
-    private int localTaxBillCode;   //지방세법정동코드
+    private Integer localTaxBillCode;   //지방세법정동코드
 
     @Column(length = 13)
     private String phone;   //전화번호

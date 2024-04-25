@@ -24,21 +24,31 @@ public class FixedAssetEntity {
     @Column(nullable = false)
     private String name;        //자산 명
 
+    @OneToOne
+    @JoinColumn(name = "account_title_code")
+    private AccountTitleEntity accountTitleEntity;
+
+    @OneToOne
+    @JoinColumn(name = "car_code")
+    private CarEntity carEntity;
+
     private LocalDate acquisitionDate; //취득일
 
-    private long amount;    //취득수량
+    private Long amount;    //취득수량
 
-    private long acquisitionValue;   //취득가액
+    private Long acquisitionValue;   //취득가액
 
     private DepreciationStatus depreciationStatus;  //감가상각법
 
-    private int durableYears;   //내용연수
+    private Integer durableYears;   //내용연수
 
     private UseStatus useStatus;    //사용여부
 
     private LocalDate endOfUseDate; //사용종료일
-    
-    private String managementDepartment;    //관리부서
+
+    @OneToOne
+    @JoinColumn(name = "department_code")
+    private DepartmentEntity departmentEntity;    //관리부서
     
     private String note;    //비고
 }

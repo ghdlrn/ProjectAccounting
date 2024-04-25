@@ -12,12 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter @ToString
+@Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name="customer")
 public class CustomerEntity {      //거래처
 
@@ -47,7 +43,7 @@ public class CustomerEntity {      //거래처
     @Column(nullable = false)
     private String businessItem;    //업종
 
-    private int zipCode;    //우편번호
+    private Integer zipCode;    //우편번호
 
     private String address; //주소
 
@@ -57,14 +53,14 @@ public class CustomerEntity {      //거래처
     @Column(length = 13)
     private String fax;     //팩스번호
 
-    private int chargeCode; //담당사원
+    private Integer chargeCode; //담당사원
 
     @Enumerated(EnumType.STRING)    //사업자단위 주사업장여부
     private CompanyUnitVATTaxationStatus companyUnitVATTaxationStatus;
 
-    private int UnitReportingCustomerCode;  //단위신고거래처
+    private Integer UnitReportingCustomerCode;  //단위신고거래처
 
-    private int taxRegistrationCode;    //종사업장번호
+    private Integer taxRegistrationCode;    //종사업장번호
 
     @Temporal(TemporalType.DATE)
     private LocalDate tradeStartDate;   //거래시작일
@@ -86,29 +82,22 @@ public class CustomerEntity {      //거래처
 
     private String homePage;    //거래처 홈페이지
 
-    private int customerBankAccountNumber;  //거래처 은행계좌
+    private Integer customerBankAccountNumber;  //거래처 은행계좌
 
     private String customerAccountHolder;   //거래처 예금주
 
-    private int accountNumber;  //입금계좌
+    private Integer accountNumber;  //입금계좌
 
-    private int myAccountTitle; //내 계정과목
+    private Integer myAccountTitle; //내 계정과목
 
-    private int otherAccountTitle;  //상대 계정과목
+    private Integer otherAccountTitle;  //상대 계정과목
 
-    private int bankLine;   //여신한도액
+    private Integer bankLine;   //여신한도액
 
-    private int amountOfCollateral; //담보설정액
+    private Integer amountOfCollateral; //담보설정액
 
     @Enumerated(EnumType.STRING)
     private LiquorRetailStatus liquorRetailStatus;  //주류코드(소매)
 
-    private int localTaxBillCode;   //지방세 법정동 코드
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_code")
-    private CompanyEntity companyEntity;
-
-    @OneToMany(mappedBy = "customer", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<StatementEntity> statements = new ArrayList();
+    private Integer localTaxBillCode;   //지방세 법정동 코드
 }

@@ -15,7 +15,7 @@ public class CompendiumEntity { //적요
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int code;     //적요코드
+    private Integer code;     //적요코드
 
     @Column(nullable=false)
     private String name;  //적요명

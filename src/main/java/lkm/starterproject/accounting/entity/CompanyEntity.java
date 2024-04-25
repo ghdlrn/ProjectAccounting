@@ -2,6 +2,7 @@ package lkm.starterproject.accounting.entity;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.*;
+import lkm.starterproject.auth.entity.MemberCompanyEntity;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class CompanyEntity {  //회사
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "company_code")
     private Long code;        //회사코드
 
     @Column(nullable = false)
@@ -34,7 +36,7 @@ public class CompanyEntity {  //회사
     private UseStatus useStatus;        //사용구분
 
     @Column(nullable = false)
-    private int fiscalYearClass;        //회계연도기수
+    private Integer fiscalYearClass;        //회계연도기수
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
@@ -59,7 +61,7 @@ public class CompanyEntity {  //회사
     @Enumerated(EnumType.STRING)
     private ForeignerStatus foreignerStatus;        //대표자 내,외국인구분
 
-    private int zipCode;        //우편번호
+    private Integer zipCode;        //우편번호
 
     private String address;     //주소
 
@@ -69,7 +71,7 @@ public class CompanyEntity {  //회사
     @Column(length = 13)
     private String fax;    //사업장팩스번호
 
-    private int mainIndustryCode;       //메인업종코드
+    private Integer mainIndustryCode;       //메인업종코드
 
     @Column(nullable = false)
     private String businessType;        //업태
@@ -77,11 +79,11 @@ public class CompanyEntity {  //회사
     @Column(nullable = false)
     private String businessItem;        //업종
 
-    private int businessTaxOfficeCode;  //사업장세무서코드
+    private Integer businessTaxOfficeCode;  //사업장세무서코드
 
-    private int localTaxBillCode;       //지방세 법정동 코드
+    private Integer localTaxBillCode;       //지방세 법정동 코드
 
-    private int localTaxBillDivisionCode;       //지방세구분코드
+    private Integer localTaxBillDivisionCode;       //지방세구분코드
 
     @Temporal(TemporalType.DATE)
     private LocalDate establishmentDate;        //설립연월일
@@ -92,7 +94,7 @@ public class CompanyEntity {  //회사
     @Temporal(TemporalType.DATE)
     private LocalDate businessClosureDate;      //폐업연월일
 
-    private int accountNumber;      //국세환급금 계좌
+    private Integer accountNumber;      //국세환급금 계좌
 
     @Enumerated(EnumType.STRING)
     private HeadOfficeStatus headOfficeStatus;      //본점여부
@@ -100,7 +102,7 @@ public class CompanyEntity {  //회사
     @Enumerated(EnumType.STRING)
     private PaymentHeadOfficeStatus paymentHeadOfficeStatus;        //본점일괄납부여부
 
-    private int headOfficeCode;     //본점코드
+    private Integer headOfficeCode;     //본점코드
 
     @Enumerated(EnumType.STRING)
     private CorporationClassifyStatus corporationClassifyStatus;    //법인구분
@@ -114,15 +116,32 @@ public class CompanyEntity {  //회사
     private String email;       //담당자 이메일
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<CustomerEntity> customers = new ArrayList();
+    private List<MemberCompanyEntity> memberCompanyEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<FinanceEntity> finances = new ArrayList();
+    private List<CustomerEntity> customers = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<CardEntity> cards = new ArrayList();
+    private List<FinanceEntity> finances = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<StatementEntity> statements = new ArrayList();
+    private List<CardEntity> cards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<StatementEntity> statements = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<FixedAssetEntity> fixedAssets = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<AccountTitleEntity> accountTitles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<DepartmentEntity> departments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<EmployeeEntity> employees = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<PromissoryNoteEntity> promissoryNotes = new ArrayList<>();
 }

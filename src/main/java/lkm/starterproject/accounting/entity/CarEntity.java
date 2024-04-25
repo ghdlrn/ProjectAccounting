@@ -31,7 +31,7 @@ public class CarEntity {
 
     private LocalDate endTenancy;   //임차종료일
 
-    private int mileage;    //주행거리
+    private Integer mileage;    //주행거리
 
     private String insurance;   //가입보험
 
