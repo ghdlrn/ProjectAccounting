@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="member")
-public class MemberEntity {
+public class MemberEntity {     //회원
 
     @Id
     @Column(name="member_id")
@@ -30,9 +30,9 @@ public class MemberEntity {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role;      //권한
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt;    //계정생성일
 
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;    //계정업데이트일
 }
