@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +22,6 @@ import java.util.List;
 public class CustomerEntity {      //거래처
 
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long code;        //거래처 코드번호
 

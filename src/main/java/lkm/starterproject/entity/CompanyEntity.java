@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +19,6 @@ import java.util.List;
 public class CompanyEntity {  //회사
 
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long code;        //회사코드
 
@@ -117,10 +117,10 @@ public class CompanyEntity {  //회사
     private List<CustomerEntity> customers = new ArrayList();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Finance> finances = new ArrayList();
+    private List<FinanceEntity> finances = new ArrayList();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Card> cards = new ArrayList();
+    private List<CardEntity> cards = new ArrayList();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Statement> statements = new ArrayList();
