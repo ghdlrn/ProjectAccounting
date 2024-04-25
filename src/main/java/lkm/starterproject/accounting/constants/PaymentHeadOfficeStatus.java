@@ -1,4 +1,4 @@
-package lkm.starterproject.constants;
+package lkm.starterproject.accounting.constants;
 
 public enum PaymentHeadOfficeStatus {   //본지점일괄납부여부
     YES,    //승인

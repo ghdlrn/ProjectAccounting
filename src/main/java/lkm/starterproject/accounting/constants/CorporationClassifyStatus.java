@@ -1,7 +1,7 @@
-package lkm.starterproject.constants;
+package lkm.starterproject.accounting.constants;
 
 public enum CorporationClassifyStatus {     //법인구분
     HOMELAND,       //내국
     FOREIGN,        //외국
-    FOREIGNINVESTMENT,      //외국투자회사
+    FOREIGN_INVESTMENT,      //외국투자회사
 }

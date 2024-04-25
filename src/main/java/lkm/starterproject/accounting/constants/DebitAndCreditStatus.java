@@ -1,4 +1,4 @@
-package lkm.starterproject.constants;
+package lkm.starterproject.accounting.constants;
 
 public enum DebitAndCreditStatus {      //대차구분
     Debit,  //차변

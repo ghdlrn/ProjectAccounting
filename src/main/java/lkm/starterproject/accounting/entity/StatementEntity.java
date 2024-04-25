@@ -1,7 +1,7 @@
-package lkm.starterproject.entity;
+package lkm.starterproject.accounting.entity;
 
 import jakarta.persistence.*;
-import lkm.starterproject.constants.StatementTypeStatus;
+import lkm.starterproject.accounting.constants.StatementTypeStatus;
 import lombok.*;
 
 import java.time.LocalDate;

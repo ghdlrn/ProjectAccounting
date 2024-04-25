@@ -1,10 +1,10 @@
-package lkm.starterproject.entity;
+package lkm.starterproject.accounting.entity;
 
 import jakarta.persistence.*;
-import lkm.starterproject.constants.CompanyUnitVATTaxationStatus;
-import lkm.starterproject.constants.LiquorRetailStatus;
-import lkm.starterproject.constants.TradeStatus;
-import lkm.starterproject.constants.UseStatus;
+import lkm.starterproject.accounting.constants.CompanyUnitVATTaxationStatus;
+import lkm.starterproject.accounting.constants.LiquorRetailStatus;
+import lkm.starterproject.accounting.constants.TradeStatus;
+import lkm.starterproject.accounting.constants.UseStatus;
 import lombok.*;
 
 import java.time.LocalDate;

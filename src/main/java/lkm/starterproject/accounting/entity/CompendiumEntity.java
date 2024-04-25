@@ -1,4 +1,4 @@
-package lkm.starterproject.entity;
+package lkm.starterproject.accounting.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

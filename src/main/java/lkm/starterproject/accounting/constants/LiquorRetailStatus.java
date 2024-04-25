@@ -1,7 +1,7 @@
-package lkm.starterproject.constants;
+package lkm.starterproject.accounting.constants;
 
 public enum LiquorRetailStatus {
-    ENTERTAINMENTFOOD,  //유행음식점
+    ENTERTAINMENT_FOOD,  //유행음식점
     RETAILER,   //일반소매점
     SUPER,      //슈퍼
 }

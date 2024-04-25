@@ -1,4 +1,4 @@
-package lkm.starterproject.constants;
+package lkm.starterproject.accounting.constants;
 
 public enum HeadOfficeStatus {      //본점여부
     HEAD,       //본점

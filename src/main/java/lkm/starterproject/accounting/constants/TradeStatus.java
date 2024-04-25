@@ -1,4 +1,4 @@
-package lkm.starterproject.constants;
+package lkm.starterproject.accounting.constants;
 
 public enum TradeStatus {   //거래처 거래구분
     ALL,        //전체
