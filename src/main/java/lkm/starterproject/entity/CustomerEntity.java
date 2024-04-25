@@ -110,5 +110,5 @@ public class CustomerEntity {      //거래처
     private CompanyEntity companyEntity;
 
     @OneToMany(mappedBy = "customer", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Statement> statements = new ArrayList();
+    private List<StatementEntity> statements = new ArrayList();
 }

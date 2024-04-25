@@ -123,6 +123,6 @@ public class CompanyEntity {  //회사
     private List<CardEntity> cards = new ArrayList();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Statement> statements = new ArrayList();
+    private List<StatementEntity> statements = new ArrayList();
 
 }
