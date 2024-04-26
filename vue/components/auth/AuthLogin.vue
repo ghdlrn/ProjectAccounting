@@ -21,7 +21,7 @@ const login = async (event: any) => {
   event.preventDefault();  // Prevent default form submission
   try {
     await authStore.login(email.value, password.value);
-    router.push('/');
+    await router.push('/');
   } catch (error) {
     console.error('Login failed:', error);
     alert('로그인 실패: ' + error);

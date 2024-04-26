@@ -18,7 +18,6 @@ export const useAuthStore = defineStore('auth', {
             'Content-Type': 'application/json'
           }
         });
-
         // 로그인 성공 시, 사용자 정보 및 토큰 저장
         this.user = response.data.user;
         this.accessToken = response.data.access_token;

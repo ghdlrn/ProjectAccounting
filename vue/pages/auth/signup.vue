@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthRegister from '~/components/Auth/AuthSignUp.vue';
+import AuthRegister from '~/components/auth/AuthSignUp.vue';
 
 definePageMeta({
   layout: 'auth'

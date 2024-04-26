@@ -1,32 +1,49 @@
 <template>
-  <v-app id="inspire">
-    <LeftNavBar />
-    <RightNavBar />
+  <v-locale-provider>
+    <v-app
+        theme="PurpleTheme"
+        :class="[customizer.fontTheme, customizer.mini_sidebar ? 'mini-sidebar' : '', customizer.inputBg ? 'inputWithbg' : '']"
+    >
+      <Customizer />
+      <VerticalSidebarVue />
+      <VerticalHeaderVue />
 
-    <v-main class="fill-height ">
-
-      <Header />
-      <v-container class="bg-blue-lighten-5 mb-6 rounded-xl page elevation-12" >
-        <div>
-          <NuxtPage class="rounded-xl elevation-0 bg-blue-lighten-5 mx-auto my-auto" />
-        </div>
-      </v-container>
-      <Footer />
-
-    </v-main>
-  </v-app>
+      <v-main>
+        <v-container fluid class="page-wrapper">
+          <div>
+            <RouterView />
+            <v-btn
+                class="customizer-btn"
+                size="large"
+                icon
+                variant="flat"
+                color="secondary"
+                @click.stop="customizer.SET_CUSTOMIZER_DRAWER(!customizer.Customizer_drawer)"
+            >
+              <SettingsIcon class="icon" />
+            </v-btn>
+          </div>
+        </v-container>
+        <v-container fluid class="pt-0">
+          <div>
+            <Footer />
+          </div>
+        </v-container>
+      </v-main>
+    </v-app>
+  </v-locale-provider>
 </template>
 
 <script setup>
+import { RouterView } from 'vue-router';
+import VerticalSidebarVue from '~/components/layoutComponents/vertical-sidebar/VerticalSidebar.vue';
+import VerticalHeaderVue from '~/components/layoutComponents/vertical-header/VerticalHeader.vue';
+import Customizer from '~/components/layoutComponents/customizer/CustomizerPanel.vue';
 import Footer from '~/components/layoutComponents/footer/Footer.vue';
-import Header from "~/components/layoutComponents/header/Header.vue";
-import LeftNavBar from "~/components/layoutComponents/leftNavBar/LeftNavBar.vue";
-import RightNavBar from "~/components/layoutComponents/RightNavBar.vue";
+import { useCustomizerStore } from '~/stores/customizer';
+const customizer = useCustomizerStore();
 </script>
 
 <style scoped>
-.page {
-  margin: 20px auto;
-  width: 100%; /* 전체 너비를 사용 */
-}
+
 </style>

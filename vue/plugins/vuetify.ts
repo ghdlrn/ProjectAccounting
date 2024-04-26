@@ -21,7 +21,7 @@ export default defineNuxtPlugin((app) => {
         },
         defaults: {
             VBtn: {},
-            VCard: {rounded: 'xl'},
+            VCard: {rounded: 'lg'},
             VTextField: {rounded: 'lg'},
             VTooltip: {location: 'top'},
         },

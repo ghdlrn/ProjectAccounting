@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, shallowRef } from 'vue';
 
-import BaseBreadcrumb from '@/components/BaseBreadcrumb.vue';
-import UiParentCard from '@/components/UiParentCard.vue';
-import UiChildCard from '@/components/UiChildCard.vue';
+import BaseBreadcrumb from '~/components/shared/BaseBreadcrumb.vue';
+import UiParentCard from '~/components/shared/UiParentCard.vue';
+import UiChildCard from '~/components/shared/UiChildCard.vue';
 
 const page = ref({ title: 'Sample Page' });
 const breadcrumbs = shallowRef([

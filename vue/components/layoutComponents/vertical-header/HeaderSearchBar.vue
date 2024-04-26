@@ -8,13 +8,12 @@
         autofocus
         auto-select-first
         prepend-inner-icon="mdi-magnify"
-        append-inner-icon="mdi-microphone"
         color="primary"
         class="mx-auto"
         menu-icon="mdi-chevron-down"
         placeholder="Search Google or type a URL"
         variant="outlined"
-        rounded="lg"
+        rounded="sm"
     ></v-autocomplete>
 </template>
 

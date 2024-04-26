@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthLogin from '~/components/Auth/AuthLogin.vue';
+import AuthLogin from '~/components/auth/AuthLogin.vue';
 
 definePageMeta({
   layout: 'auth'
