@@ -9,10 +9,6 @@ import { SettingsIcon, SearchIcon, Menu2Icon } from 'vue-tabler-icons';
 import ProfileDD from './ProfileDD.vue';
 
 const customizer = useCustomizerStore();
-const showSearch = ref(false);
-function searchbox() {
-  showSearch.value = !showSearch.value;
-}
 
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/auth';
@@ -33,9 +29,9 @@ const logout = () => {
   <v-app-bar elevation="0" height="80">
     <v-btn
       class="hidden-md-and-down text-secondary"
-      color="lightsecondary"
+      color="lightprimary"
       icon
-      rounded="sm"
+      rounded="lg"
       variant="flat"
       @click.stop="customizer.SET_MINI_SIDEBAR(!customizer.mini_sidebar)"
       size="small"
@@ -44,7 +40,7 @@ const logout = () => {
     </v-btn>
     <v-btn
       class="hidden-lg-and-up text-secondary ms-3"
-      color="lightsecondary"
+      color="lightprimary"
       icon
       rounded="sm"
       variant="flat"
@@ -53,25 +49,6 @@ const logout = () => {
     >
       <Menu2Icon size="20" stroke-width="1.5" />
     </v-btn>
-
-    <!-- search mobile -->
-    <v-btn
-      class="hidden-lg-and-up text-secondary ml-3"
-      color="lightsecondary"
-      icon
-      rounded="sm"
-      variant="flat"
-      size="small"
-      @click="searchbox"
-    >
-      <SearchIcon size="17" stroke-width="1.5" />
-    </v-btn>
-
-    <v-sheet v-if="showSearch" class="search-sheet v-col-12">
-      <Searchbar :closesearch="searchbox" />
-    </v-sheet>
-
-    <LogoMain />
     <!-- ---------------------------------------------- -->
     <!-- Search part -->
     <!-- ---------------------------------------------- -->
@@ -86,10 +63,11 @@ const logout = () => {
     <!---right part -->
     <!-- ---------------------------------------------- -->
     <HeaderMenu />
+    <v-spacer />
     <!-- ---------------------------------------------- -->
     <!-- signUp, login -->
     <!-- ---------------------------------------------- -->
-    <NuxtLink to="/auth/signup" class="mr-10">
+    <NuxtLink to="/auth/signup" class="mr-6">
       <v-btn class="bg-success" size="large" append-icon="mdi-account-plus">회원가입</v-btn>
     </NuxtLink>
 
@@ -100,7 +78,7 @@ const logout = () => {
       </v-btn>
     </template>
     <template v-else>
-      <NuxtLink to="/auth/login">
+      <NuxtLink class="mr-10" to="/auth/login">
         <v-btn class="bg-blue-accent-2" size="large" append-icon="mdi-login">
           로그인
         </v-btn>
@@ -112,16 +90,14 @@ const logout = () => {
     <!-- ---------------------------------------------- -->
     <v-menu :close-on-content-click="false">
       <template v-slot:activator="{ props }">
-        <v-btn class="profileBtn text-primary" color="lightprimary" variant="flat" rounded="pill" v-bind="props">
-          <v-avatar size="30" class="mr-2 py-2">
-            <img src="../../../public/images/profile/user-round.svg" alt="Julia" />
-          </v-avatar>
-          <SettingsIcon stroke-width="1.5" />
+        <v-btn icon v-bind="props">
+          <v-avatar image="../../../public/images/profile/user-round.svg" size="50"></v-avatar>
         </v-btn>
       </template>
       <v-sheet rounded="md" width="330" elevation="12">
         <ProfileDD />
       </v-sheet>
     </v-menu>
+
   </v-app-bar>
 </template>

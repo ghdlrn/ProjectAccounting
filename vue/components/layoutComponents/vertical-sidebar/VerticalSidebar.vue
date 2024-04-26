@@ -19,7 +19,6 @@ const sidebarMenu = shallowRef(sidebarItems);
     v-model="customizer.Sidebar_drawer"
     elevation="0"
     rail-width="75"
-    mobile-breakpoint="lg"
     app
     class="leftSidebar"
     :rail="customizer.mini_sidebar"
@@ -27,8 +26,8 @@ const sidebarMenu = shallowRef(sidebarItems);
   >
     <!---Logo part -->
 
-    <div class="pa-5">
-      <Logo />
+    <div class="mt-5 ml-2">
+      <Logo  />
     </div>
     <!-- ---------------------------------------------- -->
     <!---Navigation -->
@@ -57,3 +56,7 @@ const sidebarMenu = shallowRef(sidebarItems);
     </perfect-scrollbar>
   </v-navigation-drawer>
 </template>
+
+<style lang="scss" scoped>
+
+</style>

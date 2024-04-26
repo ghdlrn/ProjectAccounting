@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import HeaderLogo from "~/components/layoutComponents/header/HeaderLogo.vue";
+import Logo from "~/components/logo/LogoMain.vue";
 </script>
 
 <template>
@@ -27,7 +27,7 @@ import HeaderLogo from "~/components/layoutComponents/header/HeaderLogo.vue";
     </div>
     <v-col cols="12">
       <div class="pt-6 pl-6">
-        <HeaderLogo />
+        <Logo />
       </div>
     </v-col>
 
