@@ -20,6 +20,6 @@ public class SignController {
     @PostMapping("/signup")
     public String SignUp(@RequestBody MemberDto memberDto) {     //회원가입
         signService.SignUp(memberDto);      //SignService에서 저장받은 회원정보(memberDto) 저장
-        return "ok";
+        return "redirect:/auth/login";
     }
 }
