@@ -1,8 +1,9 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.TradeStatus;
 import lkm.starterproject.accounting.constants.UseStatus;
+import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="card")
-public class CardEntity {
+public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +38,7 @@ public class CardEntity {
     private UseStatus useStatus;    //사용구분
 
     @OneToMany(mappedBy = "finance", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<FinanceEntity> finances = new ArrayList<>();       //결제 계좌
+    private List<Finance> finances = new ArrayList<>();       //결제 계좌
 
     private Double commission;      //수수료
 
@@ -74,7 +75,7 @@ public class CardEntity {
 
     @ManyToOne
     @JoinColumn(name = "company_code")
-    private CompanyEntity companyEntity;
+    private Company company;
 
 
 }

@@ -1,7 +1,10 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.company;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.*;
+import lkm.starterproject.accounting.entity.register.*;
+import lkm.starterproject.accounting.entity.statement.PromissoryNote;
+import lkm.starterproject.accounting.entity.statement.Statement;
 import lkm.starterproject.auth.entity.MemberCompanyEntity;
 import lombok.*;
 
@@ -17,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="company")
-public class CompanyEntity {  //회사
+public class Company {  //회사
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -119,29 +122,29 @@ public class CompanyEntity {  //회사
     private List<MemberCompanyEntity> memberCompanyEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<CustomerEntity> customers = new ArrayList<>();
+    private List<Customer> customers = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<FinanceEntity> finances = new ArrayList<>();
+    private List<Finance> finances = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<CardEntity> cards = new ArrayList<>();
+    private List<Card> cards = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<StatementEntity> statements = new ArrayList<>();
+    private List<Statement> statements = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<FixedAssetEntity> fixedAssets = new ArrayList<>();
+    private List<FixedAsset> fixedAssets = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<AccountTitleEntity> accountTitles = new ArrayList<>();
+    private List<AccountTitle> accountTitles = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<DepartmentEntity> departments = new ArrayList<>();
+    private List<Department> departments = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<EmployeeEntity> employees = new ArrayList<>();
+    private List<Employee> employees = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<PromissoryNoteEntity> promissoryNotes = new ArrayList<>();
+    private List<PromissoryNote> promissoryNotes = new ArrayList<>();
 }

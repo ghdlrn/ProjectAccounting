@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.CarNameStatus;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="car")
-public class CarEntity {
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

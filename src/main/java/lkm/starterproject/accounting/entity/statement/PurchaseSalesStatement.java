@@ -1,9 +1,10 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.statement;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.MissingScheduleStatus;
 import lkm.starterproject.accounting.constants.SurtaxStatus;
 import lkm.starterproject.accounting.constants.SurtaxTypeStatus;
+import lkm.starterproject.accounting.entity.register.Customer;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="purchase_sales_statement")
-public class PurchaseSalesStatementEntity {
+public class PurchaseSalesStatement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,10 +50,10 @@ public class PurchaseSalesStatementEntity {
 
     @OneToOne
     @JoinColumn(name = "customer_code")
-    private CustomerEntity customerEntity;
+    private Customer customer;
 
     private String resentment;  //분개종류
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<StatementEntity> statementEntities = new ArrayList<>();
+    private List<Statement> statementEntities = new ArrayList<>();
 }

@@ -1,7 +1,7 @@
 package lkm.starterproject.auth.entity;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.entity.CompanyEntity;
+import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
 
 @Entity
@@ -19,5 +19,5 @@ public class MemberCompanyEntity {  //회원-회사등록 다대다매핑연관�
 
     @ManyToOne
     @JoinColumn(name = "company_code")
-    private CompanyEntity companyEntity;
+    private Company company;
 }

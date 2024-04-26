@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.company;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.UseStatus;
@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="employee")
-public class EmployeeEntity {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

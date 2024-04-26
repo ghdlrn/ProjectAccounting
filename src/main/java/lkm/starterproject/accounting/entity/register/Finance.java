@@ -1,7 +1,8 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.UseStatus;
+import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="finance")
-public class FinanceEntity {
+public class Finance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -68,9 +69,9 @@ public class FinanceEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_code")
-    private CompanyEntity companyEntity;
+    private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "finance_code")
-    private FinanceEntity financeEntity;
+    private Finance finance;
 }

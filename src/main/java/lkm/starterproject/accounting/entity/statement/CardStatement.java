@@ -1,6 +1,9 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.statement;
 
 import jakarta.persistence.*;
+import lkm.starterproject.accounting.entity.register.AccountTitle;
+import lkm.starterproject.accounting.entity.register.Card;
+import lkm.starterproject.accounting.entity.register.Compendium;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="card_statement")
-public class CardStatementEntity {
+public class CardStatement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,11 +27,11 @@ public class CardStatementEntity {
 
     @OneToOne
     @JoinColumn( name = "card_code")
-    private CardEntity cardEntity;    //카드
+    private Card card;    //카드
 
     @OneToOne
     @JoinColumn( name = "account_title_code")
-    private AccountTitleEntity accountTitleEntity;  //계정과목
+    private AccountTitle accountTitle;  //계정과목
 
     private String customerName;    //거래처명
 
@@ -36,5 +39,5 @@ public class CardStatementEntity {
 
     @OneToOne
     @JoinColumn( name = "compendium_code")
-    private CompendiumEntity compendiumEntity;  //적요
+    private Compendium compendium;  //적요
 }

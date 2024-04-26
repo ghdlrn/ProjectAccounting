@@ -1,7 +1,10 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.statement;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.StatementTypeStatus;
+import lkm.starterproject.accounting.entity.register.AccountTitle;
+import lkm.starterproject.accounting.entity.register.Compendium;
+import lkm.starterproject.accounting.entity.register.Customer;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="statement")
-public class StatementEntity {
+public class Statement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,15 +31,15 @@ public class StatementEntity {
 
     @OneToOne
     @JoinColumn(name = "accounting_title_code")
-    private AccountTitleEntity accountTitleEntity;  //계정과목
+    private AccountTitle accountTitle;  //계정과목
 
     @OneToOne
     @JoinColumn(name = "customer_code")
-    private CustomerEntity customerEntity;      //거래처
+    private Customer customer;      //거래처
 
     @OneToOne
     @JoinColumn(name = "compendium_code")
-    private CompendiumEntity compendiumEntity;  //적요
+    private Compendium compendium;  //적요
 
     private Long debit;      //차변금액
 

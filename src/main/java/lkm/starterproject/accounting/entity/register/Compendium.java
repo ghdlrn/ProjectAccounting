@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="compendium")
-public class CompendiumEntity { //적요
+public class Compendium { //적요
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

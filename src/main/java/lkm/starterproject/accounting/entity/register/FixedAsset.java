@@ -1,8 +1,9 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.DepreciationStatus;
 import lkm.starterproject.accounting.constants.UseStatus;
+import lkm.starterproject.accounting.entity.company.Department;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="fixed_asset")
-public class FixedAssetEntity {
+public class FixedAsset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +27,11 @@ public class FixedAssetEntity {
 
     @OneToOne
     @JoinColumn(name = "account_title_code")
-    private AccountTitleEntity accountTitleEntity;
+    private AccountTitle accountTitle;
 
     @OneToOne
     @JoinColumn(name = "car_code")
-    private CarEntity carEntity;
+    private Car car;
 
     private LocalDate acquisitionDate; //취득일
 
@@ -48,7 +49,7 @@ public class FixedAssetEntity {
 
     @OneToOne
     @JoinColumn(name = "department_code")
-    private DepartmentEntity departmentEntity;    //관리부서
+    private Department department;    //관리부서
     
     private String note;    //비고
 }

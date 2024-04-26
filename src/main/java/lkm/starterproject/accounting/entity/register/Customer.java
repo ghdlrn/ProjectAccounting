@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.CompanyUnitVATTaxationStatus;
@@ -8,14 +8,12 @@ import lkm.starterproject.accounting.constants.UseStatus;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name="customer")
-public class CustomerEntity {      //거래처
+public class Customer {      //거래처
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.DebitAndCreditStatus;
@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="account_title")
-public class AccountTitleEntity {        //계정과목
+public class AccountTitle {        //계정과목
 
     @Id
     @Column(name="account_title_code")
@@ -31,5 +31,5 @@ public class AccountTitleEntity {        //계정과목
     private UseStatus useStatus;    //사용구분
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<CompendiumEntity> compendiumEntities =  new ArrayList<>();
+    private List<Compendium> compendiumEntities =  new ArrayList<>();
 }

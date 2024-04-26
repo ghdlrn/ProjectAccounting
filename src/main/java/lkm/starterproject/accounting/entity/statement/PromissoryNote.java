@@ -1,7 +1,8 @@
-package lkm.starterproject.accounting.entity;
+package lkm.starterproject.accounting.entity.statement;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.PromissoryNoteTypeStatus;
+import lkm.starterproject.accounting.entity.register.Customer;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="promissory_note")
-public class PromissoryNoteEntity {   //어음
+public class PromissoryNote {   //어음
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +31,7 @@ public class PromissoryNoteEntity {   //어음
 
     @OneToOne
     @JoinColumn(name = "customer_code")
-    private CustomerEntity customerEntity;
+    private Customer customer;
 
     private Long money;     //금액
     
