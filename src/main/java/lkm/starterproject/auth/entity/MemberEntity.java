@@ -2,6 +2,7 @@ package lkm.starterproject.auth.entity;
 
 import jakarta.persistence.*;
 import lkm.starterproject.auth.constants.Role;
+import lkm.starterproject.bulletinboard.entity.BulletinBoard;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -35,6 +36,6 @@ public class MemberEntity {     //회원
 
     private LocalDateTime updatedAt;    //계정업데이트일
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberCompanyEntity> memberCompanyEntities = new ArrayList<>();
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BulletinBoard> posts = new ArrayList<>(); // 게시글 목록 추가
 }

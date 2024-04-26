@@ -13,11 +13,4 @@ public class MemberCompanyEntity {  //회원-회사등록 다대다매핑연관�
     @Column(name = "member_company_code")
     private Long code;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private MemberEntity memberEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "company_code")
-    private Company company;
 }

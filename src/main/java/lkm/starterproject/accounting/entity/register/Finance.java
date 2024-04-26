@@ -67,11 +67,5 @@ public class Finance {
 
     private String note;    //비고
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_code")
-    private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "finance_code")
-    private Finance finance;
 }

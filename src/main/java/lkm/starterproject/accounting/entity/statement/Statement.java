@@ -29,17 +29,8 @@ public class Statement {
     @Enumerated(EnumType.STRING)
     private StatementTypeStatus statementTypeStatus;    //전표종류
 
-    @OneToOne
-    @JoinColumn(name = "accounting_title_code")
-    private AccountTitle accountTitle;  //계정과목
 
-    @OneToOne
-    @JoinColumn(name = "customer_code")
-    private Customer customer;      //거래처
 
-    @OneToOne
-    @JoinColumn(name = "compendium_code")
-    private Compendium compendium;  //적요
 
     private Long debit;      //차변금액
 

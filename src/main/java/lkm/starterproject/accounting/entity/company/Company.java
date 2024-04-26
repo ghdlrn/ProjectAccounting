@@ -118,33 +118,4 @@ public class Company {  //회사
 
     private String email;       //담당자 이메일
 
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<MemberCompanyEntity> memberCompanyEntities = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Customer> customers = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Finance> finances = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Card> cards = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Statement> statements = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<FixedAsset> fixedAssets = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<AccountTitle> accountTitles = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Department> departments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Employee> employees = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<PromissoryNote> promissoryNotes = new ArrayList<>();
 }

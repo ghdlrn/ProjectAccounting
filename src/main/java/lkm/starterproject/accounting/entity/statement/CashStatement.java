@@ -25,13 +25,7 @@ public class CashStatement {
     @Temporal(TemporalType.DATE)
     private LocalDate RegistrationDate;     //등록일자
 
-    @OneToOne
-    @JoinColumn( name = "finance_code")
-    private Finance finance;    //출금계좌
 
-    @OneToOne
-    @JoinColumn( name = "account_title_code")
-    private AccountTitle accountTitle;  //계정과목
     
     private String customerName;    //거래처명
     
@@ -39,7 +33,5 @@ public class CashStatement {
     
     private Long commission;    //수수료
     
-    @OneToOne
-    @JoinColumn( name = "compendium_code")
-    private Compendium compendium;  //적요
+
 }

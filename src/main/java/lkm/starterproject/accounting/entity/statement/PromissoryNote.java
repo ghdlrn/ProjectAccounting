@@ -29,9 +29,7 @@ public class PromissoryNote {   //어음
 
     private String promissoryNoteNumber;    //어음번호
 
-    @OneToOne
-    @JoinColumn(name = "customer_code")
-    private Customer customer;
+
 
     private Long money;     //금액
     

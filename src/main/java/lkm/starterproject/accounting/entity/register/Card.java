@@ -37,8 +37,7 @@ public class Card {
     @Column(nullable = false)
     private UseStatus useStatus;    //사용구분
 
-    @OneToMany(mappedBy = "finance", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Finance> finances = new ArrayList<>();       //결제 계좌
+
 
     private Double commission;      //수수료
 
@@ -73,9 +72,7 @@ public class Card {
 
     private String note;    //비고
 
-    @ManyToOne
-    @JoinColumn(name = "company_code")
-    private Company company;
+
 
 
 }

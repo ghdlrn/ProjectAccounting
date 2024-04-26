@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -23,8 +22,6 @@ public class QAccountTitle extends EntityPathBase<AccountTitle> {
     public final StringPath accountTitle = createString("accountTitle");
 
     public final NumberPath<Integer> code = createNumber("code", Integer.class);
-
-    public final ListPath<Compendium, QCompendium> compendiumEntities = this.<Compendium, QCompendium>createList("compendiumEntities", Compendium.class, QCompendium.class, PathInits.DIRECT2);
 
     public final EnumPath<lkm.starterproject.accounting.constants.DebitAndCreditStatus> debitAndCredit = createEnum("debitAndCredit", lkm.starterproject.accounting.constants.DebitAndCreditStatus.class);
 

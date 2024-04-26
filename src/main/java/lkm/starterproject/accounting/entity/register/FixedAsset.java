@@ -25,13 +25,6 @@ public class FixedAsset {
     @Column(nullable = false)
     private String name;        //자산 명
 
-    @OneToOne
-    @JoinColumn(name = "account_title_code")
-    private AccountTitle accountTitle;
-
-    @OneToOne
-    @JoinColumn(name = "car_code")
-    private Car car;
 
     private LocalDate acquisitionDate; //취득일
 
@@ -47,9 +40,6 @@ public class FixedAsset {
 
     private LocalDate endOfUseDate; //사용종료일
 
-    @OneToOne
-    @JoinColumn(name = "department_code")
-    private Department department;    //관리부서
     
     private String note;    //비고
 }

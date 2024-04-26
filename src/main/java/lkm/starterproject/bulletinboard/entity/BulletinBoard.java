@@ -22,9 +22,9 @@ public class BulletinBoard {
     @Column(nullable = false, length = 1000)
     private String content;     //내용
 
-    @OneToOne
-    @JoinColumn(name = "member_code")
-    private MemberEntity memberEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private MemberEntity author; // MemberEntity를 참조
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();  //작성시간

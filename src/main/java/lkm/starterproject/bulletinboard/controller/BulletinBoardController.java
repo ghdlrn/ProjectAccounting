@@ -46,7 +46,7 @@ public class BulletinBoardController {
                 .map(existingBulletinBoard -> {
                     existingBulletinBoard.setTitle(post.getTitle());
                     existingBulletinBoard.setContent(post.getContent());
-                    existingBulletinBoard.setMemberEntity(post.getMemberEntity());
+                    existingBulletinBoard.setAuthor(post.getAuthor());
                     BulletinBoard updatedBulletinBoard = BulletinBoardService.saveBulletinBoard(existingBulletinBoard);
                     return new ResponseEntity<>(updatedBulletinBoard, HttpStatus.OK);
                 })

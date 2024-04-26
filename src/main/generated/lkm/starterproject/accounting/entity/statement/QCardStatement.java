@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,17 +17,9 @@ public class QCardStatement extends EntityPathBase<CardStatement> {
 
     private static final long serialVersionUID = -1866404566L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QCardStatement cardStatement = new QCardStatement("cardStatement");
 
-    public final lkm.starterproject.accounting.entity.register.QAccountTitle accountTitle;
-
-    public final lkm.starterproject.accounting.entity.register.QCard card;
-
     public final NumberPath<Long> code = createNumber("code", Long.class);
-
-    public final lkm.starterproject.accounting.entity.register.QCompendium compendium;
 
     public final StringPath customerName = createString("customerName");
 
@@ -37,26 +28,15 @@ public class QCardStatement extends EntityPathBase<CardStatement> {
     public final DatePath<java.time.LocalDate> RegistrationDate = createDate("RegistrationDate", java.time.LocalDate.class);
 
     public QCardStatement(String variable) {
-        this(CardStatement.class, forVariable(variable), INITS);
+        super(CardStatement.class, forVariable(variable));
     }
 
     public QCardStatement(Path<? extends CardStatement> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QCardStatement(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QCardStatement(PathMetadata metadata, PathInits inits) {
-        this(CardStatement.class, metadata, inits);
-    }
-
-    public QCardStatement(Class<? extends CardStatement> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.accountTitle = inits.isInitialized("accountTitle") ? new lkm.starterproject.accounting.entity.register.QAccountTitle(forProperty("accountTitle")) : null;
-        this.card = inits.isInitialized("card") ? new lkm.starterproject.accounting.entity.register.QCard(forProperty("card"), inits.get("card")) : null;
-        this.compendium = inits.isInitialized("compendium") ? new lkm.starterproject.accounting.entity.register.QCompendium(forProperty("compendium")) : null;
+        super(CardStatement.class, metadata);
     }
 
 }

@@ -1,8 +1,6 @@
 package lkm.starterproject.bulletinboard.service;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
 import lkm.starterproject.bulletinboard.entity.BulletinBoard;
-import lkm.starterproject.bulletinboard.entity.QBulletinBoard;
 import lkm.starterproject.bulletinboard.repository.BulletinBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,10 +31,4 @@ public class BulletinBoardService {
         bulletinBoardRepository.deleteById(id);
     }
 
-    //해당 작성자의 게시글 검색
-    public List<BulletinBoard> findByAuthor(String author) {
-        QBulletinBoard qBulletinBoard = QBulletinBoard.bulletinBoard;
-        BooleanExpression filterByAuthor = qBulletinBoard.memberEntity.eq(memberEntity);
-        return (List<BulletinBoard>) bulletinBoardRepository.findAll(filterByAuthor);
-    }
 }

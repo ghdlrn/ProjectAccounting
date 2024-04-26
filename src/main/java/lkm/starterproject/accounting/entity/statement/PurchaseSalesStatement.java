@@ -48,12 +48,9 @@ public class PurchaseSalesStatement {
 
     private Long ExtendedPrice; //총액
 
-    @OneToOne
-    @JoinColumn(name = "customer_code")
-    private Customer customer;
+
 
     private String resentment;  //분개종류
 
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Statement> statementEntities = new ArrayList<>();
+
 }

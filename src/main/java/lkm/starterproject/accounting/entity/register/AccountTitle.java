@@ -30,6 +30,5 @@ public class AccountTitle {        //계정과목
     @Enumerated(EnumType.STRING)
     private UseStatus useStatus;    //사용구분
 
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Compendium> compendiumEntities =  new ArrayList<>();
+
 }

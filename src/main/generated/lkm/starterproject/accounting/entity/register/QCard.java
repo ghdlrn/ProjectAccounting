@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,8 +16,6 @@ import com.querydsl.core.types.dsl.PathInits;
 public class QCard extends EntityPathBase<Card> {
 
     private static final long serialVersionUID = 54797157L;
-
-    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QCard card = new QCard("card");
 
@@ -38,8 +35,6 @@ public class QCard extends EntityPathBase<Card> {
 
     public final NumberPath<Integer> commissionAccountTitle = createNumber("commissionAccountTitle", Integer.class);
 
-    public final lkm.starterproject.accounting.entity.company.QCompany company;
-
     public final DatePath<java.time.LocalDate> constractCloseDate = createDate("constractCloseDate", java.time.LocalDate.class);
 
     public final DatePath<java.time.LocalDate> constractOpenDate = createDate("constractOpenDate", java.time.LocalDate.class);
@@ -47,8 +42,6 @@ public class QCard extends EntityPathBase<Card> {
     public final NumberPath<Integer> customerGroupingCode = createNumber("customerGroupingCode", Integer.class);
 
     public final StringPath fax = createString("fax");
-
-    public final ListPath<Finance, QFinance> finances = this.<Finance, QFinance>createList("finances", Finance.class, QFinance.class, PathInits.DIRECT2);
 
     public final StringPath homePage = createString("homePage");
 
@@ -65,24 +58,15 @@ public class QCard extends EntityPathBase<Card> {
     public final NumberPath<Integer> zipCode = createNumber("zipCode", Integer.class);
 
     public QCard(String variable) {
-        this(Card.class, forVariable(variable), INITS);
+        super(Card.class, forVariable(variable));
     }
 
     public QCard(Path<? extends Card> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QCard(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QCard(PathMetadata metadata, PathInits inits) {
-        this(Card.class, metadata, inits);
-    }
-
-    public QCard(Class<? extends Card> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.company = inits.isInitialized("company") ? new lkm.starterproject.accounting.entity.company.QCompany(forProperty("company")) : null;
+        super(Card.class, metadata);
     }
 
 }

@@ -26,9 +26,9 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final ListPath<MemberCompanyEntity, QMemberCompanyEntity> memberCompanyEntities = this.<MemberCompanyEntity, QMemberCompanyEntity>createList("memberCompanyEntities", MemberCompanyEntity.class, QMemberCompanyEntity.class, PathInits.DIRECT2);
-
     public final StringPath password = createString("password");
+
+    public final ListPath<lkm.starterproject.bulletinboard.entity.BulletinBoard, lkm.starterproject.bulletinboard.entity.QBulletinBoard> posts = this.<lkm.starterproject.bulletinboard.entity.BulletinBoard, lkm.starterproject.bulletinboard.entity.QBulletinBoard>createList("posts", lkm.starterproject.bulletinboard.entity.BulletinBoard.class, lkm.starterproject.bulletinboard.entity.QBulletinBoard.class, PathInits.DIRECT2);
 
     public final EnumPath<lkm.starterproject.auth.constants.Role> role = createEnum("role", lkm.starterproject.auth.constants.Role.class);
 

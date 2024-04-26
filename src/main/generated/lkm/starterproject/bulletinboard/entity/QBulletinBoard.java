@@ -22,13 +22,13 @@ public class QBulletinBoard extends EntityPathBase<BulletinBoard> {
 
     public static final QBulletinBoard bulletinBoard = new QBulletinBoard("bulletinBoard");
 
+    public final lkm.starterproject.auth.entity.QMemberEntity author;
+
     public final StringPath content = createString("content");
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final lkm.starterproject.auth.entity.QMemberEntity memberEntity;
 
     public final StringPath title = createString("title");
 
@@ -50,7 +50,7 @@ public class QBulletinBoard extends EntityPathBase<BulletinBoard> {
 
     public QBulletinBoard(Class<? extends BulletinBoard> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.memberEntity = inits.isInitialized("memberEntity") ? new lkm.starterproject.auth.entity.QMemberEntity(forProperty("memberEntity")) : null;
+        this.author = inits.isInitialized("author") ? new lkm.starterproject.auth.entity.QMemberEntity(forProperty("author")) : null;
     }
 
 }
