@@ -1,10 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SettingsIcon, LogoutIcon, UserIcon } from 'vue-tabler-icons';
+// icons
+import {
+  LogoutOutlined,
+  UserOutlined,
+  SettingOutlined,
+  QuestionCircleOutlined,
+  LockOutlined,
+  CommentOutlined,
+  UnorderedListOutlined,
+  EditOutlined,
+  ProfileOutlined,
+  WalletOutlined
+} from '@ant-design/icons-vue';
 import { useAuthStore } from '@/stores/auth';
 
-const swt1 = ref(true);
-const swt2 = ref(false);
+const tab = ref(null);
 const authStore = useAuthStore();
 </script>
 
@@ -12,72 +23,114 @@ const authStore = useAuthStore();
   <!-- ---------------------------------------------- -->
   <!-- profile DD -->
   <!-- ---------------------------------------------- -->
-  <div class="pa-4">
-    <h4 class="mb-n1">Good Morning, <span class="font-weight-regular">John Doe</span></h4>
-    <span class="text-subtitle-2 text-medium-emphasis">Project admin</span>
-
-    <v-text-field persistent-placeholder placeholder="Search" class="my-3" color="primary" variant="outlined" hide-details>
-      <template v-slot:prepend-inner>
-        <SearchIcon stroke-width="1.5" size="20" class="text-lightText SearchIcon" />
-      </template>
-    </v-text-field>
-
-    <v-divider></v-divider>
-    <perfect-scrollbar style="height: calc(100vh - 300px); max-height: 515px">
-      <div class="bg-lightwarning rounded-md pa-5 my-3 circle sm-circle lg-circle">
-        <h4>Upgrade your plan</h4>
-        <h6 class="text-subtitle-2 text-medium-emphasis mr-11 pr-11 mb-3 mt-2">70% discount for 1 years subscriptions.</h6>
-        <v-btn color="warning" variant="flat" target="_" href="https://codedthemes.com/item/berry-vue-admin-dashboard/"> Go Premium </v-btn>
+  <div>
+    <div class="d-flex align-center pa-5">
+      <v-avatar size="54" class="mr-2">
+        <img src="@/public/images/profile/user-round.svg" width="54" alt="Julia" />
+      </v-avatar>
+      <div>
+        <h6 class="text-h6 mb-0">유저이름</h6>
+        <p class="text-caption mb-0">주석</p>
       </div>
-
-      <v-divider></v-divider>
-
-      <div class="bg-lightprimary rounded-md px-5 py-3 my-3">
-        <div class="d-flex align-center justify-space-between">
-          <h5 class="text-h5">Start DND Mode</h5>
-          <div>
-            <v-switch v-model="swt1" color="primary" hide-details></v-switch>
-          </div>
-        </div>
-        <div class="d-flex align-center justify-space-between">
-          <h5 class="text-h5">Allow Notifications</h5>
-          <div>
-            <v-switch v-model="swt2" color="primary" hide-details></v-switch>
-          </div>
-        </div>
+      <div class="ml-auto">
+        <v-btn variant="text" color="primary" rounded="sm" icon size="large" @click="authStore.logout()">
+          <LogoutOutlined :style="{ fontSize: '20px' }" />
+        </v-btn>
       </div>
+    </div>
+    <v-tabs v-model="tab" color="primary" grow>
+      <v-tab value="111"> <UserOutlined class="v-icon--start" /> 프로필 </v-tab>
+      <v-tab value="222"> <SettingOutlined class="v-icon--start" /> 설정 </v-tab>
+    </v-tabs>
+    <perfect-scrollbar style="height: calc(100vh - 300px); max-height: 240px">
+      <v-window v-model="tab">
+        <v-window-item value="111">
+          <v-list class="py-0" aria-label="profile list" aria-busy="true">
+            <v-list-item color="primary" rounded="0" value="Edit profile">
+              <template v-slot:prepend>
+                <UserOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
 
-      <v-divider></v-divider>
+              <v-list-item-title class="text-h6"> 정보보기</v-list-item-title>
+            </v-list-item>
 
-      <v-list class="mt-3">
-        <v-list-item color="secondary" rounded="md">
-          <template v-slot:prepend>
-            <SettingsIcon size="20" class="mr-2" />
-          </template>
+            <v-list-item color="primary" rounded="0" value="View Profile">
+              <template v-slot:prepend>
+                <EditOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
 
-          <v-list-item-title class="text-subtitle-2"> Account Settings</v-list-item-title>
-        </v-list-item>
+              <v-list-item-title class="text-h6"> 수정하기</v-list-item-title>
+            </v-list-item>
 
-        <v-list-item color="secondary" rounded="md">
-          <template v-slot:prepend>
-            <UserIcon size="20" class="mr-2" />
-          </template>
+            <v-list-item color="primary" rounded="0" value="Social Profile">
+              <template v-slot:prepend>
+                <ProfileOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
 
-          <v-list-item-title class="text-subtitle-2"> Social Profile</v-list-item-title>
+              <v-list-item-title class="text-h6"> 기타1</v-list-item-title>
+            </v-list-item>
 
-          <template v-slot:append>
-            <v-chip color="warning" class="text-white" text="02" variant="flat" size="small" />
-          </template>
-        </v-list-item>
+            <v-list-item color="primary" rounded="0" value="Billing">
+              <template v-slot:prepend>
+                <WalletOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
 
-        <v-list-item @click="authStore.logout()" color="secondary" rounded="md">
-          <template v-slot:prepend>
-            <LogoutIcon size="20" class="mr-2" />
-          </template>
+              <v-list-item-title class="text-h6"> 기타2</v-list-item-title>
+            </v-list-item>
 
-          <v-list-item-title class="text-subtitle-2"> Logout</v-list-item-title>
-        </v-list-item>
-      </v-list>
+            <v-list-item @click="authStore.logout()" color="secondary" rounded="0">
+              <template v-slot:prepend>
+                <LogoutOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
+
+              <v-list-item-title class="text-subtitle-2"> 로그아웃</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-window-item>
+        <v-window-item value="222">
+          <v-list class="py-0" aria-label="profile list" aria-busy="true">
+            <v-list-item color="primary" rounded="0" value="Support">
+              <template v-slot:prepend>
+                <QuestionCircleOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
+
+              <v-list-item-title class="text-h6"> 설정1</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item color="primary" rounded="0" value="Account">
+              <template v-slot:prepend>
+                <UserOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
+
+              <v-list-item-title class="text-h6"> 설정2</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item color="primary" rounded="0" value="Privacy">
+              <template v-slot:prepend>
+                <LockOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
+
+              <v-list-item-title class="text-h6"> 설정3</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item color="primary" rounded="0" value="Feedback">
+              <template v-slot:prepend>
+                <CommentOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
+
+              <v-list-item-title class="text-h6"> 설정4</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item color="primary" rounded="0" value="History">
+              <template v-slot:prepend>
+                <UnorderedListOutlined :style="{ fontSize: '14px' }" class="mr-4" />
+              </template>
+
+              <v-list-item-title class="text-h6"> 설정5</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-window-item>
+      </v-window>
     </perfect-scrollbar>
   </div>
 </template>

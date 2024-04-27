@@ -14,6 +14,7 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/auth';
 import HeaderMenu from "~/components/layoutComponents/vertical-header/HeaderMenu.vue";
 import HeaderSearchBar from "~/components/layoutComponents/vertical-header/HeaderSearchBar.vue";
+import FullScreen from "~/components/layoutComponents/vertical-header/FullScreen.vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -78,21 +79,25 @@ const logout = () => {
       </v-btn>
     </template>
     <template v-else>
-      <NuxtLink class="mr-16" to="/auth/login">
+      <NuxtLink class="mr-8" to="/auth/login">
         <v-btn class="bg-blue-accent-2" size="large" append-icon="mdi-login">
           로그인
         </v-btn>
       </NuxtLink>
     </template>
     <!-- ---------------------------------------------- -->
+    <!-- 풀스크린모드 -->
+    <!-- ---------------------------------------------- -->
+    <FullScreen class="mr-12"/>
+    <!-- ---------------------------------------------- -->
     <!-- 셋팅 -->
     <!-- ---------------------------------------------- -->
     <v-btn
         class="customizer-btn"
-        size="64"
         icon
-        variant="flat"
-        color="#9E9E9E"
+        size="large"
+        variant="text"
+        color="darkText"
         @click.stop="customizer.SET_CUSTOMIZER_DRAWER(!customizer.Customizer_drawer)">
       <SettingsIcon class="icon" />
     </v-btn>
