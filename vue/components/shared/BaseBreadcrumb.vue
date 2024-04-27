@@ -20,7 +20,7 @@ const props = defineProps({
       <v-card variant="flat" class="px-4 py-3">
         <v-row no-gutters class="align-center">
           <v-col md="5">
-            <h6 class="text-h3">{{ props.title }}</h6>
+            <h1>{{ props.title }}</h1>
           </v-col>
 
           <v-col md="7" sm="12" cols="12">

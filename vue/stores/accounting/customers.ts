@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 // project imports
 import axios from 'axios';
 // types
-import type { CustomerStateProps } from '@/types/account/customers';
+import type { CustomerStateProps } from '~/types/accounting/customers';
 
 export const useCustomers = defineStore({
   id: 'customers',
