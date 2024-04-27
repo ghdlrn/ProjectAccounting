@@ -7,14 +7,9 @@
 <script setup lang="ts">
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} - Accounting Manager` : 'Accounting Manager';  //사이트 타이틀명
+    return titleChunk ? `${titleChunk} - LKM Accounting` : 'LKM Accounting';  //사이트 타이틀명
   },
-  script: [
-    {
-      src: '/images/BoxLogo.jpg',
-      tagPosition: 'head'
-    }
-  ]
+  
 })
 </script>
 

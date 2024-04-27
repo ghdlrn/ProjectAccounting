@@ -6,7 +6,6 @@ import sidebarItems from './sidebarItem';
 import NavGroup from './NavGroup/NavGroup.vue';
 import NavItem from './NavItem/NavItem.vue';
 import NavCollapse from './NavCollapse/NavCollapse.vue';
-import ExtraBox from './extrabox/ExtraBox.vue';
 import Logo from '~/components/logo/LogoMain.vue';
 
 const customizer = useCustomizerStore();
@@ -19,15 +18,14 @@ const sidebarMenu = shallowRef(sidebarItems);
     v-model="customizer.Sidebar_drawer"
     elevation="0"
     rail-width="75"
+    :width="320"
     app
     class="leftSidebar"
     :rail="customizer.mini_sidebar"
-    expand-on-hover
-  >
+    expand-on-hover>
     <!---Logo part -->
-
-    <div class="mt-5 ml-2">
-      <Logo  />
+    <div class="mt-6">
+      <Logo class="logo" />
     </div>
     <!-- ---------------------------------------------- -->
     <!---Navigation -->
@@ -47,16 +45,9 @@ const sidebarMenu = shallowRef(sidebarItems);
           <!---End Single Item-->
         </template>
       </v-list>
-      <div class="pa-4">
-        <ExtraBox />
-      </div>
-      <div class="pa-4 text-center">
-        <v-chip color="inputBorder" size="small"> v1.1.0 </v-chip>
-      </div>
     </perfect-scrollbar>
   </v-navigation-drawer>
 </template>
 
 <style lang="scss" scoped>
-
 </style>

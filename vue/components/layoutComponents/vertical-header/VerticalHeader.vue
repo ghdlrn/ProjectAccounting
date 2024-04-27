@@ -26,7 +26,7 @@ const logout = () => {
 </script>
 
 <template>
-  <v-app-bar elevation="0" height="80">
+  <v-app-bar elevation="0" height="100">
     <v-btn
       class="hidden-md-and-down text-secondary"
       color="lightprimary"
@@ -91,7 +91,7 @@ const logout = () => {
     <v-menu :close-on-content-click="false">
       <template v-slot:activator="{ props }">
         <v-btn icon v-bind="props">
-          <v-avatar image="../../../public/images/profile/user-round.svg" size="50"></v-avatar>
+          <v-avatar image="../../../public/images/profile/user-round.svg"></v-avatar>
         </v-btn>
       </template>
       <v-sheet rounded="md" width="330" elevation="12">

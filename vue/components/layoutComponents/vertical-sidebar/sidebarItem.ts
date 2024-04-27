@@ -1,14 +1,5 @@
 import {
-  CircleIcon,
-  WindmillIcon,
-  TypographyIcon,
-  ShadowIcon,
-  PaletteIcon,
-  KeyIcon,
-  BugIcon,
-  DashboardIcon,
-  BrandChromeIcon,
-  HelpIcon
+  CircleIcon, BuildingIcon, ClipboardDataIcon, EditIcon, NotebookIcon
 } from 'vue-tabler-icons';
 
 export interface menu {
@@ -28,83 +19,56 @@ export interface menu {
 }
 
 const sidebarItem: menu[] = [
-  { header: 'Dashboard' },
+  { header: '등록' },
   {
-    title: 'Default',
-    icon: DashboardIcon,
-    to: '/dashboard/default'
+    title: '회사 등록',
+    icon: BuildingIcon,
+    to: '/dsa',
   },
-  { divider: true },
-  { header: 'Pages' },
   {
-    title: 'Authentication',
-    icon: KeyIcon,
-    to: '/auth',
+    title: '기초 정보 등록',
+    icon: EditIcon,
+    to: '/asdas',
     children: [
-      {
-        title: 'Login',
-        icon: CircleIcon,
-        to: '/auth/login'
-      },
-      {
-        title: 'Register',
-        icon: CircleIcon,
-        to: '/auth/register'
-      }
+      { title: '거래처 등록', icon: CircleIcon, to: '/asd' },
+      { title: '계좌 등록', icon: CircleIcon, to: '/sad' },
+      { title: '카드 등록', icon: CircleIcon, to: '/asd' },
+      { title: '계정과목 및 적요 등록', icon: CircleIcon, to: '/asdsa' },
+      { title: '고정자산 등록', icon: CircleIcon, to: '/dsadsa' },
+      { title: '업무용 승용차 등록', icon: CircleIcon, to: '/dsadsa' },
     ]
   },
   {
-    title: 'Error 404',
-    icon: BugIcon,
-    to: '/pages/error'
-  },
-  { divider: true },
-  { header: 'Utilities' },
-  {
-    title: 'Typography',
-    icon: TypographyIcon,
-    to: '/utils/typography'
-  },
-  {
-    title: 'Shadows',
-    icon: ShadowIcon,
-    to: '/utils/shadows'
-  },
-  {
-    title: 'Colors',
-    icon: PaletteIcon,
-    to: '/utils/colors'
-  },
-
-  {
-    title: 'Icons',
-    icon: WindmillIcon,
-    to: '/forms/radio',
+    title: '전표 등록',
+    icon: NotebookIcon,
+    to: '/asd',
     children: [
-      {
-        title: 'Tabler Icons',
-        icon: CircleIcon,
-        to: '/icons/tabler'
-      },
-      {
-        title: 'Material Icons',
-        icon: CircleIcon,
-        to: '/icons/material'
-      }
+      { title: '일반 전표', icon: CircleIcon, to: '/sad' },
+      { title: '매입 매출 전표', icon: CircleIcon, to: '/asd' },
+      { title: '현금 거래', icon: CircleIcon, to: '/dasd' },
+      { title: '카드 거래', icon: CircleIcon, to: '/dsa' },
+      { title: '어음 거래', icon: CircleIcon, to: '/asd' },
+      { title: '차량 비용', icon: CircleIcon, to: '/asd' },
     ]
   },
   { divider: true },
+  { header: '장부' },
   {
-    title: 'Sample Page',
-    icon: BrandChromeIcon,
-    to: '/starter'
+    title: '장부',
+    icon: ClipboardDataIcon,
+    to: '/adsa',
+    children: [
+      { title: '분개장', icon: CircleIcon, to: '/adsa' },
+      { title: '일/월계표', icon: CircleIcon, to: '/dssa' },
+      { title: '합계잔액시산표', icon: CircleIcon, to: '/asd' },
+      { title: '계정별원장', icon: CircleIcon, to: '/asd' },
+      { title: '거래처별원장', icon: CircleIcon, to: '/sad' },
+      { title: '현금출납장', icon: CircleIcon, to: '/dasd' },
+      { title: '매입매출장', icon: CircleIcon, to: '/asd' },
+      { title: '차량비용현황', icon: CircleIcon, to: '/asd' },
+      { title: '고정비용현황', icon: CircleIcon, to: '/dsa' },
+    ]
   },
-  {
-    title: 'Documentation',
-    icon: HelpIcon,
-    to: 'https://codedthemes.gitbook.io/berry-vuetify/',
-    type: 'external'
-  }
 ];
 
 export default sidebarItem;

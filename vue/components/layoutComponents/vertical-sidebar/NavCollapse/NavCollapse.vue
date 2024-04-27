@@ -14,7 +14,7 @@ const props = defineProps({ item: Object, level: Number });
     <!---Dropdown  -->
     <!-- ---------------------------------------------- -->
     <template v-slot:activator="{ props }">
-      <v-list-item v-bind="props" :value="item.title" rounded class="mb-1" color="secondary">
+      <v-list-item v-bind="props" :value="item.title" rounded class="mb-1" color="primary">
         <!---Icon  -->
         <template v-slot:prepend>
           <Icon :item="item.icon" :level="level" />
@@ -35,7 +35,6 @@ const props = defineProps({ item: Object, level: Number });
       <NavItem :item="subitem" :level="props.level + 1" v-else></NavItem>
     </template>
   </v-list-group>
-
   <!-- ---------------------------------------------- -->
   <!---End Item Sub Header -->
   <!-- ---------------------------------------------- -->
