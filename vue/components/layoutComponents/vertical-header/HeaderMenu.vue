@@ -29,7 +29,9 @@
 
   const tabs = ref([
   {title: '회계', path: '/'},
-  {title: '게시판', path: '/auth/register'}
+  {title: '세무', path: '/'},
+  {title: '샘플페이지', path: '/sample'},
+  {title: '게시판', path: '/'}
   ]);
 
   const router = useRouter();
