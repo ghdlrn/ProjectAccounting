@@ -1,14 +1,14 @@
 <template>
   <v-tabs
       v-model="tabIndex"
-      class="ml-4"
       dark>
     <v-tab
         v-for="(tab, index) in tabs"
         :key="tab.path"
         @click="changeTab(tab.path, index)"
-        color="primary">
-      {{ tab.title }}
+        color="primary"
+        width="150px">
+     <p class="tab-title">{{ tab.title }}</p>
     </v-tab>
   </v-tabs>
   <v-window v-model="tabIndex">
@@ -27,10 +27,8 @@
   import {useRoute, useRouter} from 'vue-router';
 
   const tabs = ref([
-  {title: '메인화면', path: '/'},
-  {title: 'nuxt페이지', path: '/nuxt'},
-  {title: '로그인페이지', path: '/auth/login'},
-  {title: '회원가입페이지', path: '/auth/register'}
+  {title: '회계', path: '/'},
+  {title: '게시판', path: '/auth/register'}
   ]);
 
   const router = useRouter();
@@ -50,6 +48,9 @@
 
 </script>
 
-<style scoped>
-/* 필요한 스타일 추가 */
+<style lang="scss" scoped>
+.tab-title {
+  font-size: 140%;
+  text-align: center;
+}
 </style>
