@@ -51,10 +51,7 @@ $sizes: (
 }
 
 .customizer-btn {
-  position: fixed;
-  top: 25%;
-  right: 10px;
-  border-radius: 50% 50% 4px;
+  right: 30px;
   .icon {
     animation: progress-circular-rotate 1.4s linear infinite;
     transform-origin: center center;

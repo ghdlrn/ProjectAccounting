@@ -1,7 +1,8 @@
 <template>
   <v-tabs
       v-model="tabIndex"
-      dark>
+      dark
+      height="80px">
     <v-tab
         v-for="(tab, index) in tabs"
         :key="tab.path"

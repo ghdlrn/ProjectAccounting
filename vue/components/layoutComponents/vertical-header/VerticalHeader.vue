@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {computed, ref} from 'vue';
+import {computed} from 'vue';
 import { useCustomizerStore } from '@/stores/customizer';
 // Icon Imports
-import { SettingsIcon, SearchIcon, Menu2Icon } from 'vue-tabler-icons';
+import { SettingsIcon, Menu2Icon } from 'vue-tabler-icons';
 
 // dropdown imports
 
@@ -14,7 +14,7 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/auth';
 import HeaderMenu from "~/components/layoutComponents/vertical-header/HeaderMenu.vue";
 import HeaderSearchBar from "~/components/layoutComponents/vertical-header/HeaderSearchBar.vue";
-import LogoMain from "~/components/logo/LogoMain.vue"
+
 const router = useRouter();
 const authStore = useAuthStore();
 const isLoggedIn = computed(() => !!authStore.user);
@@ -65,7 +65,7 @@ const logout = () => {
     <HeaderMenu />
     <v-spacer />
     <!-- ---------------------------------------------- -->
-    <!-- signUp, login -->
+    <!-- 회원가입 -->
     <!-- ---------------------------------------------- -->
     <NuxtLink to="/auth/signup" class="mr-6">
       <v-btn class="bg-success" size="large" append-icon="mdi-account-plus">회원가입</v-btn>
@@ -78,20 +78,33 @@ const logout = () => {
       </v-btn>
     </template>
     <template v-else>
-      <NuxtLink class="mr-10" to="/auth/login">
+      <NuxtLink class="mr-16" to="/auth/login">
         <v-btn class="bg-blue-accent-2" size="large" append-icon="mdi-login">
           로그인
         </v-btn>
       </NuxtLink>
     </template>
-
     <!-- ---------------------------------------------- -->
-    <!-- User Profile -->
+    <!-- 셋팅 -->
     <!-- ---------------------------------------------- -->
-    <v-menu :close-on-content-click="false">
+    <v-btn
+        class="customizer-btn"
+        size="64"
+        icon
+        variant="flat"
+        color="#9E9E9E"
+        @click.stop="customizer.SET_CUSTOMIZER_DRAWER(!customizer.Customizer_drawer)">
+      <SettingsIcon class="icon" />
+    </v-btn>
+    <!-- ---------------------------------------------- -->
+    <!-- 프로필 -->
+    <!-- ---------------------------------------------- -->
+    <v-menu :close-on-content-click="false" min-width="200" rounded>
       <template v-slot:activator="{ props }">
-        <v-btn icon v-bind="props">
-          <v-avatar image="../../../public/images/profile/user-round.svg"></v-avatar>
+        <v-btn icon v-bind="props" size="64">
+          <v-avatar size="64">
+            <v-img src="../../../public/images/profile/user-round.svg" alt="userImage"></v-img>
+          </v-avatar>
         </v-btn>
       </template>
       <v-sheet rounded="md" width="330" elevation="12">
