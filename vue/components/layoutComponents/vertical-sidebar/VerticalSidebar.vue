@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue';
-import { useCustomizerStore } from '../../../stores/customizer';
+import { useCustomizerStore } from '~/stores/customizer';
 import sidebarItems from './sidebarItem';
 
 import NavGroup from './NavGroup/NavGroup.vue';

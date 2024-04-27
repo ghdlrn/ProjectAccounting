@@ -13,7 +13,7 @@ const customizer = useCustomizerStore();
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/auth';
 import HeaderMenu from "~/components/layoutComponents/vertical-header/HeaderMenu.vue";
-import HeaderSearchBar from "~/components/layoutComponents/vertical-header/HeaderSearchBar.vue";
+import HeaderSearchBar from "~/components/shared/SearchBar.vue";
 import FullScreen from "~/components/layoutComponents/vertical-header/FullScreen.vue";
 
 const router = useRouter();

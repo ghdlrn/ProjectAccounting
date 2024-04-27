@@ -54,13 +54,11 @@ public class SecurityConfig {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                         CorsConfiguration configuration = new CorsConfiguration();
-
                         configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));    //해당 server port 허용
                         configuration.setAllowedMethods(Collections.singletonList("*"));        //메소드 허용
                         configuration.setAllowCredentials(true);
                         configuration.setAllowedHeaders(Collections.singletonList("*"));    //헤더허용
                         configuration.setMaxAge(3600L);     //허용시간
-
                         configuration.setExposedHeaders(Collections.singletonList("Authorization"));        //Authorization헤더 허용
                         return configuration;
                     }
@@ -83,7 +81,6 @@ public class SecurityConfig {
                 .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class);
         http    //기존의 필터를 LoginFilter로 대체함, AuthenticationManager()와 JWTUtil 전달
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
-
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));       //JWT방식 인증/인가 방식은 session을 stateless방식으로 반드시 설정해야함

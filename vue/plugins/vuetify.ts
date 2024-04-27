@@ -4,10 +4,14 @@ import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import {PurpleTheme} from "@/theme/LightTheme";
 import '@/assets/scss/style.scss';
+import {PerfectScrollbar} from 'vue3-perfect-scrollbar';
 import VueApexCharts from 'vue3-apexcharts';
 import VueTablerIcons from 'vue-tabler-icons';
-import {PerfectScrollbar} from "vue3-perfect-scrollbar";
-
+// print
+import print from 'vue3-print-nb';
+// Table
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import 'vue3-easy-data-table/dist/style.css';
 
 export default defineNuxtPlugin((app) => {
     const vuetify = createVuetify({
@@ -26,9 +30,10 @@ export default defineNuxtPlugin((app) => {
             VTooltip: {location: 'top'},
         },
     })
-
-    app.vueApp.use(vuetify);
-    app.vueApp.use(VueApexCharts);
-    app.vueApp.use(VueTablerIcons);
+    app.vueApp.component('EasyDataTable', Vue3EasyDataTable);
     app.vueApp.use(PerfectScrollbar);
+    app.vueApp.use(VueTablerIcons);
+    app.vueApp.use(print);
+    app.vueApp.use(VueApexCharts);
+    app.vueApp.use(vuetify);
 });
