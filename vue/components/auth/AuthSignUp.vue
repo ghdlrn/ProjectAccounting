@@ -21,7 +21,6 @@ const SignUp = async () => {
     alert('이용 약관에 동의해주세요.');
     return;
   }
-
   try {
     await axios.post('http://localhost:8080/auth/signup', {
       username: username.value,
