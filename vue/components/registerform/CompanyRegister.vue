@@ -87,7 +87,7 @@ const CompanyRegister = async () => {
                         persistent-hint
                         variant="outlined"
                         persistent-placeholder
-                        placeholder="ex) 삼성전자"
+                        placeholder="ex) 삼성전자(주)"
                         color="primary">
                     </v-text-field>
                   </v-col>
@@ -108,6 +108,7 @@ const CompanyRegister = async () => {
                         variant="outlined"
                         color="primary"
                         autofocus
+                        hint="본점/지점 여부"
                         persistent-hint
                     ></v-select>
                   </v-col>
@@ -122,6 +123,7 @@ const CompanyRegister = async () => {
                         variant="outlined"
                         color="primary"
                         autofocus
+                        hint="세금본점일괄납부 여부"
                         persistent-hint
                     ></v-select>
                   </v-col>
@@ -129,42 +131,37 @@ const CompanyRegister = async () => {
                 <!-- row 2 -->
                 <v-row class="mt-3">
                   <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">Profile URL</v-label>
+                    <v-label class="mt-2">사업자등록번호</v-label>
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
                     <v-text-field
-                        hint="Please enter your Profile URL"
+                        hint="사업자등록증 등록번호"
                         persistent-hint
                         variant="outlined"
-                        type="password"
                         persistent-placeholder
-                        placeholder="Please enter your Profile URL"
-                        color="primary"
-                    >
-                      <template v-slot:append-inner>
-                        <LinkOutlined :style="{ fontSize: '14px', color: 'rgb(var(--v-theme-lightText))' }" />
-                      </template>
+                        placeholder="ex) 124-81-00998"
+                        color="primary">
                     </v-text-field>
                   </v-col>
                 </v-row>
               </v-col>
             </v-row>
-            <!--2줄------------------------------------>
+            <!--3줄------------------------------------>
             <v-row>
               <!-- column 1 -->
               <v-col cols="12" sm="6">
                 <!-- row 1 -->
                 <v-row>
                   <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">Name</v-label>
+                    <v-label class="mt-2">대표자명</v-label>
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
                     <v-text-field
-                        hint="Please enter your full name"
+                        hint="사업자등록증 대표자 이름"
                         persistent-hint
                         variant="outlined"
                         persistent-placeholder
-                        placeholder="Enter full name"
+                        placeholder="ex) 한종희, 경계현"
                         color="primary"
                     ></v-text-field>
                   </v-col>
@@ -172,81 +169,43 @@ const CompanyRegister = async () => {
                 <!-- row 2 -->
                 <v-row class="mt-3">
                   <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">Password</v-label>
+                    <v-label class="mt-2">우편번호</v-label>
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
                     <v-text-field
-                        hint="Please enter Password"
+                        hint="법인 사업자인 경우 법인등록번호"
                         persistent-hint
                         variant="outlined"
-                        type="password"
                         persistent-placeholder
-                        placeholder="Enter password"
-                        color="primary"
-                    >
-                      <template v-slot:append-inner>
-                        <LockOutlined :style="{ fontSize: '14px', color: 'rgb(var(--v-theme-lightText))' }" />
-                      </template>
+                        placeholder="ex) 130111-0006246"
+                        color="primary">
                     </v-text-field>
                   </v-col>
                 </v-row>
                 <!-- row 3 -->
-                <v-row class="mt-3">
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-0">Language</v-label>
-                  </v-col>
-                  <v-col cols="12" lg="8" md="9">
-                    <div class="d-flex gap-3">
-                      <v-checkbox
-                          density="compact"
-                          v-model="checkbox1"
-                          hide-details
-                          color="primary"
-                          label="English"
-                          class="flex-grow-0"
-                      ></v-checkbox>
-                      <v-checkbox
-                          density="compact"
-                          v-model="checkbox2"
-                          hide-details
-                          color="primary"
-                          label="French"
-                          class="flex-grow-0"
-                      ></v-checkbox>
-                      <v-checkbox
-                          density="compact"
-                          v-model="checkbox3"
-                          hide-details
-                          color="primary"
-                          label="Dutch"
-                          class="flex-grow-0"
-                      ></v-checkbox>
-                    </div>
-                  </v-col>
-                </v-row>
               </v-col>
               <!-- column 2 -->
               <v-col cols="12" sm="6">
                 <!-- row 1 -->
                 <v-row>
                   <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">Email</v-label>
+                    <v-label class="mt-2">법인등록번호</v-label>
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
                     <v-text-field
-                        hint="Please enter your Email"
+                        hint="법인 사업자인 경우 법인등록번호"
                         persistent-hint
                         variant="outlined"
                         persistent-placeholder
-                        placeholder="Enter email"
-                        color="primary"
-                    ></v-text-field>
+                        placeholder="ex) 130111-0006246"
+                        color="primary">
+                    </v-text-field>
                   </v-col>
                 </v-row>
                 <!-- row 2 -->
                 <v-row class="mt-3">
                   <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">Profile URL</v-label>
+                    <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
                     <v-text-field
@@ -256,11 +215,64 @@ const CompanyRegister = async () => {
                         type="password"
                         persistent-placeholder
                         placeholder="Please enter your Profile URL"
-                        color="primary"
-                    >
-                      <template v-slot:append-inner>
-                        <LinkOutlined :style="{ fontSize: '14px', color: 'rgb(var(--v-theme-lightText))' }" />
-                      </template>
+                        color="primary">
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="12" lg="2" md="3" class="pb-md-3 pb-0">
+                <v-label class="mt-2">상세 주소</v-label>
+              </v-col>
+              <v-col cols="12" lg="10" md="9">
+                <v-text-field
+                    hint="사업자등록증 대표자 이름"
+                    persistent-hint
+                    variant="outlined"
+                    persistent-placeholder
+                    placeholder="ex) 한종희, 경계현"
+                    color="primary"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+              <!-- row 2 -->
+            <v-row>
+            <v-col cols="12" sm="6">
+              <v-row class="mt-3">
+                <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                  <v-label class="mt-2">업태</v-label>
+                </v-col>
+                <v-col cols="12" lg="8" md="9">
+                  <v-text-field
+                      hint="법인 사업자인 경우 법인등록번호"
+                      persistent-hint
+                      variant="outlined"
+                      persistent-placeholder
+                      placeholder="ex) 130111-0006246"
+                      color="primary">
+                  </v-text-field>
+                </v-col>
+              </v-row>
+            </v-col>
+                <!-- row 3 -->
+
+              <!-- column 2 -->
+              <v-col cols="12" sm="6">
+                <v-row class="mt-3">
+                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">종목</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="8" md="9">
+                    <v-text-field
+                        hint="Please enter your Profile URL"
+                        persistent-hint
+                        variant="outlined"
+                        type="password"
+                        persistent-placeholder
+                        placeholder="Please enter your Profile URL"
+                        color="primary">
                     </v-text-field>
                   </v-col>
                 </v-row>
