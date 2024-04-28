@@ -1,3 +1,4 @@
+
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
@@ -56,13 +57,13 @@ const CompanyRegister = async () => {
             <!--1줄------------------------------>
             <v-row>
               <!-- column 1 -->
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="5">
                 <!-- row 1 -->
                 <v-row>
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">사업자 유형</v-label>
                   </v-col>
-                  <v-col cols="12" lg="8" md="9">
+                  <v-col cols="12" lg="9" md="9">
                     <v-select
                         v-model="licenseType"
                         :items="['법인사업자', '면세법인사업자', '일반과세자', '면세개인사업자', '간이과세자', '비영리기관 및 국가기관 등']"
@@ -76,11 +77,11 @@ const CompanyRegister = async () => {
                   </v-col>
                 </v-row>
                 <!-- row 2 -->
-                <v-row class="mt-3">
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">회사명</v-label>
                   </v-col>
-                  <v-col cols="12" lg="8" md="9">
+                  <v-col cols="12" lg="9" md="9">
                     <v-text-field
                         v-model="name"
                         hint="법인(단체)/상호 명을 입력해주세요"
@@ -94,13 +95,13 @@ const CompanyRegister = async () => {
                 </v-row>
               </v-col>
               <!-- column 2 -->
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="7">
                 <!-- row 1 -->
                 <v-row>
-                  <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">본점<br />여부</v-label>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">본점 여부</v-label>
                   </v-col>
-                  <v-col cols="12" lg="4" md="9">
+                  <v-col cols="12" lg="3" md="9">
                     <v-select
                         v-model="headOfficeStatus"
                         :items="['본점', '지점']"
@@ -115,7 +116,7 @@ const CompanyRegister = async () => {
                   <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">사업자단위과세<br /> 적용사업자 여부</v-label>
                   </v-col>
-                  <v-col cols="12" lg="4" md="9">
+                  <v-col cols="12" lg="3" md="9">
                     <v-select
                         v-model="paymentHeadOfficeStatus"
                         :items="['여', '부']"
@@ -129,11 +130,11 @@ const CompanyRegister = async () => {
                   </v-col>
                 </v-row>
                 <!-- row 2 -->
-                <v-row class="mt-3">
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">사업자등록번호</v-label>
                   </v-col>
-                  <v-col cols="12" lg="8" md="9">
+                  <v-col cols="12" lg="6" md="9">
                     <v-text-field
                         hint="사업자등록증 등록번호"
                         persistent-hint
@@ -149,13 +150,13 @@ const CompanyRegister = async () => {
             <!--3줄------------------------------------>
             <v-row>
               <!-- column 1 -->
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="5">
                 <!-- row 1 -->
                 <v-row>
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">대표자명</v-label>
                   </v-col>
-                  <v-col cols="12" lg="8" md="9">
+                  <v-col cols="12" lg="9" md="9">
                     <v-text-field
                         hint="사업자등록증 대표자 이름"
                         persistent-hint
@@ -167,31 +168,34 @@ const CompanyRegister = async () => {
                   </v-col>
                 </v-row>
                 <!-- row 2 -->
-                <v-row class="mt-3">
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">우편번호</v-label>
                   </v-col>
-                  <v-col cols="12" lg="8" md="9">
+                  <v-col cols="12" lg="5" md="9">
                     <v-text-field
-                        hint="법인 사업자인 경우 법인등록번호"
+                        hint="오른쪽 버튼으로 조회가능합니다"
                         persistent-hint
                         variant="outlined"
                         persistent-placeholder
-                        placeholder="ex) 130111-0006246"
+                        placeholder="ex) 16677"
                         color="primary">
                     </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="4" md="9">
+                    <v-btn size="large" flat color="primary mt-1" class="address">우편번호조회</v-btn>
                   </v-col>
                 </v-row>
                 <!-- row 3 -->
               </v-col>
               <!-- column 2 -->
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="7">
                 <!-- row 1 -->
                 <v-row>
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">법인등록번호</v-label>
                   </v-col>
-                  <v-col cols="12" lg="8" md="9">
+                  <v-col cols="12" lg="6" md="9">
                     <v-text-field
                         hint="법인 사업자인 경우 법인등록번호"
                         persistent-hint
@@ -203,54 +207,108 @@ const CompanyRegister = async () => {
                   </v-col>
                 </v-row>
                 <!-- row 2 -->
-                <v-row class="mt-3">
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
-                  <v-col cols="12" lg="8" md="9">
+                  <v-col cols="12" lg="6" md="9">
                     <v-text-field
-                        hint="Please enter your Profile URL"
+                        hint="오른쪽 버튼으로 조회가능합니다"
                         persistent-hint
                         variant="outlined"
-                        type="password"
                         persistent-placeholder
-                        placeholder="Please enter your Profile URL"
+                        placeholder="yyyy/MM/dd"
                         color="primary">
                     </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="3">
+                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
                   </v-col>
                 </v-row>
               </v-col>
             </v-row>
-
             <v-row>
-              <v-col cols="12" lg="2" md="3" class="pb-md-3 pb-0">
-                <v-label class="mt-2">상세 주소</v-label>
+              <v-col cols="12" sm="7">
+                <v-row>
+                  <v-col cols="12" lg="2" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">도로명 주소</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="9" md="9" class="ml-1">
+                    <v-text-field
+                        hint="도로명 주소"
+                        persistent-hint
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="ex) 경기도 수원시 영통구 삼성로 129 (매탄동)"
+                        color="primary"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
               </v-col>
-              <v-col cols="12" lg="10" md="9">
-                <v-text-field
-                    hint="사업자등록증 대표자 이름"
-                    persistent-hint
-                    variant="outlined"
-                    persistent-placeholder
-                    placeholder="ex) 한종희, 경계현"
-                    color="primary"
-                ></v-text-field>
+              <v-col cols="12" sm="5">
+                <v-row>
+                  <v-col cols="12" lg="12" md="9">
+                    <v-text-field
+                        hint="지번 주소"
+                        persistent-hint
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="ex) 경기 수원시 영통구 매탄동 416"
+                        color="primary"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+<!---------------------------------------------------------->
+            <v-row>
+              <v-col cols="12" sm="8">
+                <v-row>
+                  <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">상세 주소</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="9" md="9" class="ml-11">
+                    <v-text-field
+                        hint="상세 주소"
+                        persistent-hint
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="ex) OO동 OO호"
+                        color="primary"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <v-row>
+                  <v-col cols="12" lg="12" md="9">
+                    <v-text-field
+                        hint="참고 항목"
+                        persistent-hint
+                        variant="outlined"
+                        persistent-placeholder
+                        readonly
+                        placeholder="ex) (메탄동)"
+                        color="primary"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
               <!-- row 2 -->
             <v-row>
-            <v-col cols="12" sm="6">
-              <v-row class="mt-3">
-                <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+            <v-col cols="12" sm="5">
+              <v-row>
+                <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                   <v-label class="mt-2">업태</v-label>
                 </v-col>
-                <v-col cols="12" lg="8" md="9">
+                <v-col cols="12" lg="9" md="9">
                   <v-text-field
-                      hint="법인 사업자인 경우 법인등록번호"
+                      hint="판매형태/표준산업분류표 대분류(2자리)"
                       persistent-hint
                       variant="outlined"
                       persistent-placeholder
-                      placeholder="ex) 130111-0006246"
+                      placeholder="ex) 제조업"
                       color="primary">
                   </v-text-field>
                 </v-col>
@@ -259,19 +317,19 @@ const CompanyRegister = async () => {
                 <!-- row 3 -->
 
               <!-- column 2 -->
-              <v-col cols="12" sm="6">
-                <v-row class="mt-3">
-                  <v-col cols="12" lg="4" md="3" class="pb-md-3 pb-0">
+              <v-col cols="12" sm="7">
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">종목</v-label>
                   </v-col>
-                  <v-col cols="12" lg="8" md="9">
+                  <v-col cols="12" lg="9" md="9">
                     <v-text-field
-                        hint="Please enter your Profile URL"
+                        hint="판매하는 물건/표준산업분류표 세분류(5자리)"
                         persistent-hint
                         variant="outlined"
                         type="password"
                         persistent-placeholder
-                        placeholder="Please enter your Profile URL"
+                        placeholder="ex) 전자，전기，통신기계기구외"
                         color="primary">
                     </v-text-field>
                   </v-col>
@@ -301,5 +359,7 @@ const CompanyRegister = async () => {
 </template>
 
 <style scoped lang="scss">
-
+.address{
+  font-size: small;
+}
 </style>
