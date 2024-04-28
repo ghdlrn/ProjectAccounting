@@ -11,8 +11,8 @@
   height: calc(100vh - 100px);
   .smallCap {
     padding: 0px 0 0 4px !important;
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 550;
   }
   .v-list {
     color: rgb(var(--v-theme-lightText));
@@ -35,7 +35,7 @@
       }
     }
     .v-list-item-title {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
   .leftPadding {
@@ -45,7 +45,7 @@
   .v-list {
     .v-list-item--active {
       .v-list-item-title {
-        font-weight: 550;
+        font-weight: 500;
       }
     }
     .sidebarchip .v-icon {

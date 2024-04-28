@@ -183,7 +183,7 @@ const CompanyRegister = async () => {
                     </v-text-field>
                   </v-col>
                   <v-col cols="12" lg="4" md="9">
-                    <v-btn size="large" flat color="primary mt-1" class="address">우편번호조회</v-btn>
+                    <v-btn size="large" flat color="primary mt-1" class="address" >우편번호조회</v-btn>
                   </v-col>
                 </v-row>
                 <!-- row 3 -->

@@ -1,27 +1,18 @@
 import { defineStore } from 'pinia';
 
-export const useAddressStore = defineStore('address', {
+export const useAuthUserStore = defineStore('authUser', {
     state: () => ({
-        postcode: '',
-        roadAddress: '',
-        jibunAddress: '',
-        extraAddress: '',
-        guideText: ''
+        username: '',
+        email: '',
     }),
     actions: {
         setAddress(data) {
-            this.postcode = data.zonecode;
-            this.roadAddress = data.roadAddress;
-            this.jibunAddress = data.jibunAddress;
-            this.extraAddress = data.extraRoadAddr;
-            this.guideText = data.guideText;
+            this.username = data.username;
+            this.email = data.email;
         },
         clearAddress() {
-            this.postcode = '';
-            this.roadAddress = '';
-            this.jibunAddress = '';
-            this.extraAddress = '';
-            this.guideText = '';
+            this.username = '';
+            this.email = '';
         }
     }
 });
