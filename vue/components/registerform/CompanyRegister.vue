@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import UiParentCard from '@/components/shared/UiParentCard.vue';
 const tab = ref(null);
-
+const dialog = ref(false)
 const Used = ref(false);
 /* ---------------------------정보 제출------------------------------*/
 const licenseType = ref('')
@@ -15,6 +15,8 @@ const name = ref('')
 const businessRegistrationNumber = ref('')
 const nameOfRepresentative = ref('')
 const corporationRegistrationNumber = ref('')
+
+const privatePracticeDate = ref('')
 
 const CompanyRegister = async () => {
   try {
@@ -32,9 +34,6 @@ const CompanyRegister = async () => {
       extraAddress: addressStore.extraAddress,
       guideText: addressStore.guideText
 
-
-
-
     });
   } catch (error) {
     console.error('회사 등록 실패', error);
@@ -45,6 +44,9 @@ const CompanyRegister = async () => {
 /*----------------------------우편번호 검색---------------------------------*/
 import { useAddressStore } from "~/stores/address.js";
 const addressStore = useAddressStore();
+/*----------------------------날짜 선택기---------------------------------*/
+
+
 </script>
 
 <template>
@@ -293,6 +295,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="3">
                     <v-text-field
+                        v-model="fiscalYear"
                         variant="outlined"
                         persistent-placeholder
                         placeholder="yyyy/MM/dd"
@@ -321,8 +324,6 @@ const addressStore = useAddressStore();
                 </v-row>
               </v-col>
             </v-row>
-
-
             <!-- row 2 -->
             <v-row>
               <v-col cols="12" sm="4">
@@ -332,6 +333,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="6" md="9">
                     <v-text-field
+                        v-model="privatePracticeDate"
                         variant="outlined"
                         persistent-placeholder
                         placeholder="yyyy/MM/dd"
@@ -339,7 +341,7 @@ const addressStore = useAddressStore();
                     </v-text-field>
                   </v-col>
                   <v-col cols="12" lg="2">
-                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                    <v-btn size="large" flat color="primary mt-1" class="address" @click="dialog = true">달력 선택</v-btn>
                   </v-col>
                 </v-row>
               </v-col>
@@ -380,7 +382,8 @@ const addressStore = useAddressStore();
           </v-window-item>
 <!--tab3-->
           <v-window-item value="three">
-            Three
+
+            <StartEndDate />
           </v-window-item>
           <v-col cols="1" offset="11">
 <!--삭제버튼-->
