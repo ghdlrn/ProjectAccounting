@@ -9,7 +9,7 @@
           <v-text-field
               v-model="postcode"
               readonly
-              hint="오른쪽 버튼으로 조회가능합니다"
+              hint="오른쪽 버튼으로 조회"
               persistent-hint
               variant="outlined"
               persistent-placeholder
@@ -21,6 +21,8 @@
           <v-btn size="large" flat color="primary mt-1" class="address" @click="openPostcodePopup">우편번호 조회</v-btn>
         </v-col>
       </v-row>
+    </v-col>
+    <v-col cols="12" sm="7">
     </v-col>
   </v-row>
 
@@ -34,7 +36,7 @@
           <v-text-field
               v-model="roadAddress"
               readonly
-              hint="도로명 주소"
+              hint="도로명 주소(읽기 전용입니다)"
               persistent-hint
               variant="outlined"
               persistent-placeholder
@@ -50,7 +52,7 @@
           <v-text-field
               v-model="jibunAddress"
               readonly
-              hint="지번 주소"
+              hint="지번 주소(읽기 전용입니다)"
               persistent-hint
               variant="outlined"
               persistent-placeholder
@@ -86,7 +88,7 @@
         <v-col cols="12" lg="12" md="9">
           <v-text-field
               v-model="guideText"
-              hint="참고 항목"
+              hint="참고 항목(읽기 전용입니다)"
               persistent-hint
               variant="outlined"
               persistent-placeholder
@@ -124,6 +126,8 @@ onMounted(async () => {
 });
 
 const openPostcodePopup = () => {
+  var width = 500; //팝업의 너비
+  var height = 600; //팝업의 높이
   new daum.Postcode({
     oncomplete: function(data) {
       const extraRoadAddr = getExtraAddress(data);
@@ -132,8 +136,17 @@ const openPostcodePopup = () => {
       jibunAddress.value = data.jibunAddress;
       extraAddress.value = data.roadAddress ? extraRoadAddr : '';
       guideText.value = getGuideText(data, extraRoadAddr);
-    }
-  }).open();
+    },
+    theme: {
+      searchBgColor: "#0091EA", //검색창 배경색
+      queryTextColor: "#FFFFFF" //검색창 글자색
+    },
+    width: width, //생성자에 크기 값을 명시적으로 지정해야 합니다.
+    height: height,
+  }).open({
+    left: (window.screen.width / 2) - (width / 2),
+    top: (window.screen.height / 2) - (height / 2)
+  });
 };
 
 const getExtraAddress = (data) => {
