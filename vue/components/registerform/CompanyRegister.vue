@@ -9,17 +9,28 @@ const tab = ref(null);
 const Used = ref(false);
 /* ---------------------------정보 제출------------------------------*/
 const licenseType = ref('')
-const name = ref('')
 const headOfficeStatus = ref('')
 const paymentHeadOfficeStatus = ref('')
+const name = ref('')
+const businessRegistrationNumber = ref('')
+const nameOfRepresentative = ref('')
+const corporationRegistrationNumber = ref('')
 
 const CompanyRegister = async () => {
   try {
     await axios.post('http://localhost:8080/register/compant-info', {
       licenseType: licenseType.value,
-      name: name.value,
       headOfficeStatus: headOfficeStatus.value,
       paymentHeadOfficeStatus: paymentHeadOfficeStatus.value,
+      name: name.value,
+      businessRegistrationNumber: businessRegistrationNumber.value,
+      nameOfRepresentative: nameOfRepresentative.value,
+      corporationRegistrationNumber: corporationRegistrationNumber.value,
+
+
+
+
+
     });
   } catch (error) {
     console.error('회사 등록 실패', error);
@@ -138,6 +149,7 @@ const CompanyRegister = async () => {
                   </v-col>
                   <v-col cols="12" lg="6" md="9">
                     <v-text-field
+                        v-model="businessRegistrationNumber"
                         hint="사업자등록증 등록번호"
                         persistent-hint
                         variant="outlined"
@@ -160,6 +172,7 @@ const CompanyRegister = async () => {
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-text-field
+                        v-model="nameOfRepresentative"
                         hint="사업자등록증 대표자 이름"
                         persistent-hint
                         variant="outlined"
@@ -181,6 +194,7 @@ const CompanyRegister = async () => {
                   </v-col>
                   <v-col cols="12" lg="6" md="9">
                     <v-text-field
+                        v-model="corporationRegistrationNumber"
                         hint="법인 사업자인 경우 법인등록번호"
                         persistent-hint
                         variant="outlined"
