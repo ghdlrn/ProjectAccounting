@@ -26,6 +26,8 @@ const CompanyRegister = async () => {
     alert('회사 등록 실패');
   }
 };
+
+/*----------------------------우편번호 검색---------------------------------*/
 </script>
 
 <template>
@@ -168,24 +170,6 @@ const CompanyRegister = async () => {
                   </v-col>
                 </v-row>
                 <!-- row 2 -->
-                <v-row>
-                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">우편번호</v-label>
-                  </v-col>
-                  <v-col cols="12" lg="5" md="9">
-                    <v-text-field
-                        hint="오른쪽 버튼으로 조회가능합니다"
-                        persistent-hint
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="ex) 16677"
-                        color="primary">
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" lg="4" md="9">
-                    <v-btn size="large" flat color="primary mt-1" class="address" >우편번호조회</v-btn>
-                  </v-col>
-                </v-row>
                 <!-- row 3 -->
               </v-col>
               <!-- column 2 -->
@@ -206,95 +190,10 @@ const CompanyRegister = async () => {
                     </v-text-field>
                   </v-col>
                 </v-row>
-                <!-- row 2 -->
-                <v-row>
-                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">개업연월일</v-label>
-                  </v-col>
-                  <v-col cols="12" lg="6" md="9">
-                    <v-text-field
-                        hint="오른쪽 버튼으로 조회가능합니다"
-                        persistent-hint
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="yyyy/MM/dd"
-                        color="primary">
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" lg="3">
-                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
-                  </v-col>
-                </v-row>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col cols="12" sm="7">
-                <v-row>
-                  <v-col cols="12" lg="2" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">도로명 주소</v-label>
-                  </v-col>
-                  <v-col cols="12" lg="9" md="9" class="ml-1">
-                    <v-text-field
-                        hint="도로명 주소"
-                        persistent-hint
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="ex) 경기도 수원시 영통구 삼성로 129 (매탄동)"
-                        color="primary"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-col>
-              <v-col cols="12" sm="5">
-                <v-row>
-                  <v-col cols="12" lg="12" md="9">
-                    <v-text-field
-                        hint="지번 주소"
-                        persistent-hint
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="ex) 경기 수원시 영통구 매탄동 416"
-                        color="primary"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-<!---------------------------------------------------------->
-            <v-row>
-              <v-col cols="12" sm="8">
-                <v-row>
-                  <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0">
-                    <v-label class="mt-2">상세 주소</v-label>
-                  </v-col>
-                  <v-col cols="12" lg="9" md="9" class="ml-11">
-                    <v-text-field
-                        hint="상세 주소"
-                        persistent-hint
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="ex) OO동 OO호"
-                        color="primary"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-col>
-              <v-col cols="12" sm="4">
-                <v-row>
-                  <v-col cols="12" lg="12" md="9">
-                    <v-text-field
-                        hint="참고 항목"
-                        persistent-hint
-                        variant="outlined"
-                        persistent-placeholder
-                        readonly
-                        placeholder="ex) (메탄동)"
-                        color="primary"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
+
+            <DaumPostcode />
               <!-- row 2 -->
             <v-row>
             <v-col cols="12" sm="5">
@@ -339,7 +238,25 @@ const CompanyRegister = async () => {
           </v-window-item>
 <!--tab2-->
           <v-window-item value="two">
-            Two
+            <!-- row 2 -->
+            <v-row>
+              <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
+                <v-label class="mt-2">개업연월일</v-label>
+              </v-col>
+              <v-col cols="12" lg="6" md="9">
+                <v-text-field
+                    hint="오른쪽 버튼으로 조회가능합니다"
+                    persistent-hint
+                    variant="outlined"
+                    persistent-placeholder
+                    placeholder="yyyy/MM/dd"
+                    color="primary">
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" lg="3">
+                <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+              </v-col>
+            </v-row>
           </v-window-item>
 <!--tab3-->
           <v-window-item value="three">
