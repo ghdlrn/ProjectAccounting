@@ -53,7 +53,7 @@ const addressStore = useAddressStore();
     <v-card>
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab value="one">기본 정보</v-tab>
-        <v-tab value="two">세무 정보</v-tab>
+        <v-tab value="two">회계/세무 정보</v-tab>
         <v-tab value="three">기타 정보</v-tab>
       </v-tabs>
       <v-form ref="Reform">
@@ -256,25 +256,125 @@ const addressStore = useAddressStore();
               </v-col>
             </v-row>
           </v-window-item>
-<!--tab2-->
+<!-------------------------------------------------------------------------------------->
+<!-------------------------------------회계/세무정보-------------------------------------->
+<!-------------------------------------------------------------------------------------->
           <v-window-item value="two">
+            <v-row>
+              <v-col cols="12" sm="3">
+                <v-row>
+                  <v-col cols="12" lg="5">
+                    <v-label class="mt-2">회계연도</v-label>
+                  </v-col>
+
+                  <v-col cols="12" lg="1">
+                    <v-label class="mt-2">제</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="4">
+                    <v-text-field
+                        hint="숫자"
+                        persistent-hint
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="ex) 1"
+                        color="primary">
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="1">
+                    <v-label class="mt-2">기</v-label>
+                  </v-col>
+                </v-row>
+              </v-col>
+
+              <v-col cols="12" sm="9">
+                <v-row>
+                  <v-col cols="12" lg="1">
+                    <v-label class="mt-2"> 회계연도 <br />시작일</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="3">
+                    <v-text-field
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="yyyy/MM/dd"
+                        color="primary">
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="1">
+                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                  </v-col>
+                  <v-col cols="2" lg="1">
+                  </v-col>
+                  <v-col cols="12" lg="1">
+                    <v-label class="mt-2"> 회계연도 <br />종료일</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="3" md="9">
+                    <v-text-field
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="yyyy/MM/dd"
+                        color="primary">
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="1">
+                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+
+
             <!-- row 2 -->
             <v-row>
-              <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
-                <v-label class="mt-2">개업연월일</v-label>
+              <v-col cols="12" sm="4">
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">개업연월일</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="6" md="9">
+                    <v-text-field
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="yyyy/MM/dd"
+                        color="primary">
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="2">
+                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                  </v-col>
+                </v-row>
               </v-col>
-              <v-col cols="12" lg="6" md="9">
-                <v-text-field
-                    hint="오른쪽 버튼으로 조회가능합니다"
-                    persistent-hint
-                    variant="outlined"
-                    persistent-placeholder
-                    placeholder="yyyy/MM/dd"
-                    color="primary">
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" lg="3">
-                <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+
+              <v-col cols="12" sm="8">
+                <v-row>
+                  <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">사업장 <br/> 세무서</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="3" md="9">
+                    <v-text-field
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="yyyy/MM/dd"
+                        color="primary">
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="1">
+                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                  </v-col>
+                  <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0 ml-11">
+                    <v-label class="mt-2">지방세 <br/> 법정동</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="3" md="9">
+                    <v-text-field
+                        variant="outlined"
+                        persistent-placeholder
+                        placeholder="yyyy/MM/dd"
+                        color="primary">
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="1">
+                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
           </v-window-item>
