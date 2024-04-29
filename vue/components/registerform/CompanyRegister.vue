@@ -26,7 +26,11 @@ const CompanyRegister = async () => {
       businessRegistrationNumber: businessRegistrationNumber.value,
       nameOfRepresentative: nameOfRepresentative.value,
       corporationRegistrationNumber: corporationRegistrationNumber.value,
-
+      postcode: addressStore.postcode,
+      roadAddress: addressStore.roadAddress,
+      jibunAddress: addressStore.jibunAddress,
+      extraAddress: addressStore.extraAddress,
+      guideText: addressStore.guideText
 
 
 
@@ -39,6 +43,8 @@ const CompanyRegister = async () => {
 };
 
 /*----------------------------우편번호 검색---------------------------------*/
+import { useAddressStore } from "~/stores/address.js";
+const addressStore = useAddressStore();
 </script>
 
 <template>

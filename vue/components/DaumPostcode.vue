@@ -7,7 +7,7 @@
         </v-col>
         <v-col cols="12" lg="5" md="9">
           <v-text-field
-              v-model="postcode"
+              v-model="store.postcode"
               readonly
               hint="오른쪽 버튼으로 조회"
               persistent-hint
@@ -34,7 +34,7 @@
         </v-col>
         <v-col cols="12" lg="9" md="9" class="ml-1">
           <v-text-field
-              v-model="roadAddress"
+              v-model="store.roadAddress"
               readonly
               hint="도로명 주소(읽기 전용입니다)"
               persistent-hint
@@ -50,7 +50,7 @@
       <v-row>
         <v-col cols="12" lg="12" md="9">
           <v-text-field
-              v-model="jibunAddress"
+              v-model="store.jibunAddress"
               readonly
               hint="지번 주소(읽기 전용입니다)"
               persistent-hint
@@ -72,7 +72,7 @@
         </v-col>
         <v-col cols="12" lg="9" md="9" class="ml-11">
           <v-text-field
-              v-model="extraAddress"
+              v-model="store.extraAddress"
               hint="상세 주소를 추가해 주세요"
               persistent-hint
               variant="outlined"
@@ -87,7 +87,7 @@
       <v-row>
         <v-col cols="12" lg="12" md="9">
           <v-text-field
-              v-model="guideText"
+              v-model="store.guideText"
               hint="참고 항목(읽기 전용입니다)"
               persistent-hint
               variant="outlined"
@@ -103,13 +103,10 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue';
+import { useAddressStore } from "~/stores/address.js";
+const store = useAddressStore();
 
-const postcode = ref('');
-const roadAddress = ref('');
-const jibunAddress = ref('');
-const extraAddress = ref('');
-const guideText = ref('');
+import { onMounted } from 'vue';
 
 const loadScript = () => {
   return new Promise((resolve, reject) => {
@@ -130,12 +127,7 @@ const openPostcodePopup = () => {
   var height = 600; //팝업의 높이
   new daum.Postcode({
     oncomplete: function(data) {
-      const extraRoadAddr = getExtraAddress(data);
-      postcode.value = data.zonecode;
-      roadAddress.value = data.roadAddress;
-      jibunAddress.value = data.jibunAddress;
-      extraAddress.value = data.roadAddress ? extraRoadAddr : '';
-      guideText.value = getGuideText(data, extraRoadAddr);
+      store.setAddress(data);
     },
     theme: {
       searchBgColor: "#0091EA", //검색창 배경색
@@ -147,28 +139,6 @@ const openPostcodePopup = () => {
     left: (window.screen.width / 2) - (width / 2),
     top: (window.screen.height / 2) - (height / 2)
   });
-};
-
-const getExtraAddress = (data) => {
-  let extraAddr = '';
-  if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-    extraAddr += data.bname;
-  }
-  if (data.buildingName !== '' && data.apartment === 'Y') {
-    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-  }
-  return extraAddr !== '' ? `(${extraAddr})` : '';
-};
-
-const getGuideText = (data, extraAddr) => {
-  if (data.autoRoadAddress) {
-    const expRoadAddr = data.autoRoadAddress + extraAddr;
-    return `(예상 도로명 주소 : ${expRoadAddr})`;
-  } else if (data.autoJibunAddress) {
-    const expJibunAddr = data.autoJibunAddress;
-    return `(예상 지번 주소 : ${expJibunAddr})`;
-  }
-  return '';
 };
 </script>
 
