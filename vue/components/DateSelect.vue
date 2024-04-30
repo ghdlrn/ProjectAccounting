@@ -23,8 +23,7 @@
       </template>
         <DatePicker
             v-model="date"
-            @change="updateFormattedDate"
-            locale="ko-KR" />
+            @change="updateFormattedDate"/>
     </v-menu>
   </div>
 </template>
