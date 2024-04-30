@@ -45,8 +45,8 @@ const CompanyRegister = async () => {
 import { useAddressStore } from "~/stores/address.js";
 const addressStore = useAddressStore();
 /*----------------------------날짜 선택기---------------------------------*/
-
-
+import StartEndDate from "~/components/StartEndDate.vue";
+import DateSelect from "~/components/DateSelect.vue";
 </script>
 
 <template>
@@ -248,7 +248,6 @@ const addressStore = useAddressStore();
                         hint="판매하는 물건/표준산업분류표 세분류(5자리)"
                         persistent-hint
                         variant="outlined"
-                        type="password"
                         persistent-placeholder
                         placeholder="ex) 전자，전기，통신기계기구외"
                         color="primary">
@@ -383,7 +382,8 @@ const addressStore = useAddressStore();
 <!--tab3-->
           <v-window-item value="three">
 
-            <StartEndDate />
+            <DateSelect />
+
           </v-window-item>
           <v-col cols="1" offset="11">
 <!--삭제버튼-->

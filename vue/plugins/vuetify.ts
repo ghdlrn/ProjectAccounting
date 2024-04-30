@@ -12,6 +12,9 @@ import print from 'vue3-print-nb';
 // Table
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
+//calendar
+import VCalendar from 'v-calendar';
+import 'v-calendar/style.css'
 
 export default defineNuxtPlugin((app) => {
     const vuetify = createVuetify({
@@ -36,4 +39,5 @@ export default defineNuxtPlugin((app) => {
     app.vueApp.use(print);
     app.vueApp.use(VueApexCharts);
     app.vueApp.use(vuetify);
+    app.vueApp.use(VCalendar, {});
 });
