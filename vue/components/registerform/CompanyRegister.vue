@@ -15,7 +15,8 @@ const name = ref('')
 const businessRegistrationNumber = ref('')
 const nameOfRepresentative = ref('')
 const corporationRegistrationNumber = ref('')
-
+const fiscalYearStart = ref('')
+const fiscalYearEnd = ref('')
 const privatePracticeDate = ref('')
 
 const CompanyRegister = async () => {
@@ -32,8 +33,11 @@ const CompanyRegister = async () => {
       roadAddress: addressStore.roadAddress,
       jibunAddress: addressStore.jibunAddress,
       extraAddress: addressStore.extraAddress,
-      guideText: addressStore.guideText
+      guideText: addressStore.guideText,
 
+      fiscalYearStart: fiscalYearStart.value,
+      fiscalYearEnd: fiscalYearEnd.value,
+      privatePracticeDate: privatePracticeDate.value,
     });
   } catch (error) {
     console.error('회사 등록 실패', error);
@@ -289,36 +293,18 @@ import DateSelect from "~/components/DateSelect.vue";
 
               <v-col cols="12" sm="9">
                 <v-row>
+                  <v-col cols="12" lg="2">
+                    <v-label class="mt-2"> 회계연도 시작일</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="4">
+                    <DateSelect v-model="fiscalYearStart" />
+                  </v-col>
+
                   <v-col cols="12" lg="1">
-                    <v-label class="mt-2"> 회계연도 <br />시작일</v-label>
+                    <v-label class="mt-2"> 종료일</v-label>
                   </v-col>
-                  <v-col cols="12" lg="3">
-                    <v-text-field
-                        v-model="fiscalYear"
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="yyyy/MM/dd"
-                        color="primary">
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" lg="1">
-                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
-                  </v-col>
-                  <v-col cols="2" lg="1">
-                  </v-col>
-                  <v-col cols="12" lg="1">
-                    <v-label class="mt-2"> 회계연도 <br />종료일</v-label>
-                  </v-col>
-                  <v-col cols="12" lg="3" md="9">
-                    <v-text-field
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="yyyy/MM/dd"
-                        color="primary">
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" lg="1">
-                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                  <v-col cols="12" lg="4" md="9">
+                    <DateSelect v-model="fiscalYearEnd" />
                   </v-col>
                 </v-row>
               </v-col>
@@ -330,18 +316,10 @@ import DateSelect from "~/components/DateSelect.vue";
                   <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
-                  <v-col cols="12" lg="6" md="9">
-                    <v-text-field
-                        v-model="privatePracticeDate"
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="yyyy/MM/dd"
-                        color="primary">
-                    </v-text-field>
+                  <v-col cols="12" lg="9" md="9">
+                    <DateSelect v-model="privatePracticeDate" />
                   </v-col>
-                  <v-col cols="12" lg="2">
-                    <v-btn size="large" flat color="primary mt-1" class="address" @click="dialog = true">달력 선택</v-btn>
-                  </v-col>
+
                 </v-row>
               </v-col>
 
@@ -382,7 +360,7 @@ import DateSelect from "~/components/DateSelect.vue";
 <!--tab3-->
           <v-window-item value="three">
 
-            <DateSelect />
+
 
           </v-window-item>
           <v-col cols="1" offset="11">
