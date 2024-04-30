@@ -21,17 +21,17 @@
           color="primary">
         </v-text-field>
       </template>
-        <v-date-picker
+        <DatePicker
             v-model="date"
             @change="updateFormattedDate"
-            locale="ko-KR">
-        </v-date-picker>
+            locale="ko-KR" />
     </v-menu>
   </div>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue';
+import {DatePicker} from "v-calendar";
 
 const date = ref(new Date());
 const menu = ref(false);
