@@ -30,13 +30,7 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import { defineProps, defineEmits } from 'vue';
 import {DatePicker} from "v-calendar";
-
-const props = defineProps({
-  modelValue: Date
-});
-const emit = defineEmits(['update:modelValue']);
 
 const date = ref(new Date());
 const menu = ref(false);
@@ -46,12 +40,10 @@ const formattedDate = ref('');
 function formatDate(date) {
   if (!date) return '';
   const d = new Date(date);
-  let month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-  return [year, month, day].join('-');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const year = d.getFullYear();
+  return `${year}-${month}-${day}`;
 }
 
 // 포맷된 날짜를 초기 설정
@@ -61,10 +53,7 @@ formattedDate.value = formatDate(date.value);
 function updateFormattedDate(newDate) {
   formattedDate.value = formatDate(newDate);
   menu.value = false;  // 날짜 선택 후 메뉴 닫기
-  emit('update:modelValue', newDate);
 }
 
-watch(date, (newDate) => {
-  updateFormattedDate(newDate);
-});
+watch(date, updateFormattedDate);
 </script>
