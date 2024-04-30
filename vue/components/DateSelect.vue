@@ -11,7 +11,7 @@
         min-width="290px">
       <template v-slot:activator="{ props }">
         <v-text-field
-            v-model="date"
+            v-model="formattedDate"
             v-bind="props"
             placeholder="yyyy-MM-dd"
             persistent-placeholder
@@ -23,17 +23,42 @@
       </template>
         <v-date-picker
             v-model="date"
-        @click="menu = false"
-            locale="ko-KR"
-        >
+            @change="updateFormattedDate"
+            locale="ko-KR">
         </v-date-picker>
     </v-menu>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const date = ref(new Date);
-const menu = ref(false);
+import { ref, watch } from 'vue';
 
+const date = ref(new Date());
+const menu = ref(false);
+const formattedDate = ref('');
+
+// 날짜 포맷 함수
+function formatDate(date) {
+  if (!date) return '';
+  const d = new Date(date);
+  let month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+  return [year, month, day].join('-');
+}
+
+// 포맷된 날짜를 초기 설정
+formattedDate.value = formatDate(date.value);
+
+// 날짜가 변경될 때마다 포맷 업데이트
+function updateFormattedDate(newDate) {
+  formattedDate.value = formatDate(newDate);
+  menu.value = false;  // 날짜 선택 후 메뉴 닫기
+}
+
+watch(date, (newDate) => {
+  updateFormattedDate(newDate);
+});
 </script>
