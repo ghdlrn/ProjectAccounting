@@ -266,9 +266,9 @@ import DateSelect from "~/components/DateSelect.vue";
 <!-------------------------------------------------------------------------------------->
           <v-window-item value="two">
             <v-row>
-              <v-col cols="12" sm="3">
+              <v-col cols="12" sm="4">
                 <v-row>
-                  <v-col cols="12" lg="5">
+                  <v-col cols="12" lg="4">
                     <v-label class="mt-2">회계연도</v-label>
                   </v-col>
 
@@ -291,10 +291,13 @@ import DateSelect from "~/components/DateSelect.vue";
                 </v-row>
               </v-col>
 
-              <v-col cols="12" sm="9">
+              <v-col cols="12" sm="8">
                 <v-row>
                   <v-col cols="12" lg="2">
-                    <v-label class="mt-2"> 회계연도 시작일</v-label>
+                    <v-label class="mt-2"> 회계연도</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="1">
+                    <v-label class="mt-2"> 시작일</v-label>
                   </v-col>
                   <v-col cols="12" lg="4">
                     <DateSelect v-model="fiscalYearStart" />

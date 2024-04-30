@@ -2,15 +2,9 @@ package lkm.starterproject.accounting.entity.company;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.*;
-import lkm.starterproject.accounting.entity.register.*;
-import lkm.starterproject.accounting.entity.statement.PromissoryNote;
-import lkm.starterproject.accounting.entity.statement.Statement;
-import lkm.starterproject.auth.entity.MemberCompanyEntity;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
