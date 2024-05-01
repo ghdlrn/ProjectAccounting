@@ -7,6 +7,7 @@ definePageMeta({
 </script>
 
 <template>
+
   <v-row class="h-screen" no-gutters>
     <!---Left Part-->
     <v-col cols="12" class="d-flex align-center">
@@ -39,6 +40,7 @@ definePageMeta({
     </v-col>
     <!---Left Part-->
   </v-row>
+
 </template>
 <style lang="scss">
 .loginBox {

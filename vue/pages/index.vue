@@ -7,6 +7,7 @@ import PopularStocks from '~/components/dashboards/PopularStocks.vue';
 </script>
 
 <template>
+  <div>
   <v-row>
     <!-- -------------------------------------------------------------------- -->
     <!-- Total Earning -->
@@ -41,4 +42,5 @@ import PopularStocks from '~/components/dashboards/PopularStocks.vue';
       <PopularStocks />
     </v-col>
   </v-row>
+  </div>
 </template>

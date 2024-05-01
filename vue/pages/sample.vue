@@ -21,6 +21,7 @@ const breadcrumbs = shallowRef([
 </script>
 
 <template>
+  <div>
   <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs" />
   <v-row>
     <v-col cols="12" md="12">
@@ -36,4 +37,5 @@ const breadcrumbs = shallowRef([
       </UiChildCard>
     </v-col>
   </v-row>
+  </div>
 </template>

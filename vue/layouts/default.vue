@@ -11,7 +11,7 @@
       <v-main>
         <v-container fluid class="page-wrapper">
           <div>
-            <RouterView />
+            <slot />
           </div>
         </v-container>
         <v-container fluid class="pt-0">
@@ -25,7 +25,6 @@
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router';
 import VerticalSidebarVue from '~/components/layoutComponents/vertical-sidebar/VerticalSidebar.vue';
 import VerticalHeaderVue from '~/components/layoutComponents/vertical-header/VerticalHeader.vue';
 import Customizer from '~/components/layoutComponents/customizer/CustomizerPanel.vue';
