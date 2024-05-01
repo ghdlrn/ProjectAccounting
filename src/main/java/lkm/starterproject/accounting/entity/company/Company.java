@@ -76,7 +76,7 @@ public class Company {  //회사
     @Column(nullable = false)
     private String businessItem;        //업종
 
-    private Integer businessTaxOfficeCode;  //사업장세무서코드
+    private Integer taxOfficeCode;  //사업장세무서코드
 
     private Integer localTaxBillCode;       //지방세 법정동 코드
 

@@ -18,6 +18,7 @@ const corporationRegistrationNumber = ref('')
 const fiscalYearStart = ref('')
 const fiscalYearEnd = ref('')
 const privatePracticeDate = ref('')
+const taxOfficeCode = ref('')
 
 const CompanyRegister = async () => {
   try {
@@ -38,6 +39,7 @@ const CompanyRegister = async () => {
       fiscalYearStart: fiscalYearStart.value,
       fiscalYearEnd: fiscalYearEnd.value,
       privatePracticeDate: privatePracticeDate.value,
+      taxOfficeCode: taxOfficeCode.value,
     });
   } catch (error) {
     console.error('회사 등록 실패', error);
@@ -49,8 +51,8 @@ const CompanyRegister = async () => {
 import { useAddressStore } from "~/stores/address.js";
 const addressStore = useAddressStore();
 /*----------------------------날짜 선택기---------------------------------*/
-import StartEndDate from "~/components/StartEndDate.vue";
 import DateSelect from "~/components/DateSelect.vue";
+import TaxOfficeInfo from "~/components/TaxOfficeInfo.vue";
 </script>
 
 <template>
@@ -332,15 +334,9 @@ import DateSelect from "~/components/DateSelect.vue";
                     <v-label class="mt-2">사업장 <br/> 세무서</v-label>
                   </v-col>
                   <v-col cols="12" lg="3" md="9">
-                    <v-text-field
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="yyyy/MM/dd"
-                        color="primary">
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" lg="1">
-                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                    <TaxOfficeInfo
+                        :initial-tax-office="taxOfficeCode"
+                        @update:taxOffice="CompanyRegister" />
                   </v-col>
                   <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0 ml-11">
                     <v-label class="mt-2">지방세 <br/> 법정동</v-label>
