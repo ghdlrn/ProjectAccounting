@@ -11,7 +11,7 @@
         min-width="290px">
       <template v-slot:activator="{ props }">
         <v-text-field
-            v-model="taxOffice"
+            v-model="selectedTaxOffice.name"
             v-bind="props"
             readonly
             placeholder="OO 세무서"
@@ -22,18 +22,43 @@
         </v-text-field>
       </template>
       <v-data-table
-      @click="menu = false">
+          :headers="headers"
+
+          >
       </v-data-table>
     </v-menu>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const menu = ref(false);
+const taxOffices = ref([]);
+const selectedTaxOffice = ref({});
 
+// Define the headers for the data table
+const headers = ref([
+  { text: 'Code', value: 'code' },
+  { text: 'Name', value: 'name' },
+  { text: 'Jurisdiction', value: 'jurisdiction' }
+]);
 
+async function fetchTaxOffices() {
+  try {
+    const response = await axios.get('/register/company-info');
+    taxOffices.value = response.data;
+  } catch (error) {
+    console.error('Error fetching tax offices:', error);
+  }
+}
+
+function selectTaxOffice(item) {
+  selectedTaxOffice.value = item;
+  menu.value = false; // Close the menu after selection
+}
+
+onMounted(fetchTaxOffices);
 
 </script>
