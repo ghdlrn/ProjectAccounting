@@ -5,7 +5,6 @@ import axios from 'axios';
 
 import UiParentCard from '@/components/shared/UiParentCard.vue';
 const tab = ref(null);
-const dialog = ref(false)
 const Used = ref(false);
 /* ---------------------------정보 제출------------------------------*/
 const licenseType = ref('')
