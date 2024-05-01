@@ -1,5 +1,6 @@
 package lkm.starterproject.accounting.entity.basic;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -12,17 +13,17 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="tax_office")
 public class TaxOffice {
 
     @Id
-    private int code;   //세무서 코드
+    @Column(unique = true, nullable = false)
+    private Integer code;   //세무서 코드
 
     private String name;    //세무서명
 
-    private String address; //세무서주소
+    private String address; //도로명주소
 
-    private String postCode;    //우편번호
+    private Integer postCode;    //우편번호
 
     private String phone;   //전화번호
 
