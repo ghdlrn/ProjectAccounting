@@ -11,14 +11,14 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QMemberEntity is a Querydsl query type for MemberEntity
+ * QMember is a Querydsl query type for Member
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QMemberEntity extends EntityPathBase<Member> {
+public class QMember extends EntityPathBase<Member> {
 
-    private static final long serialVersionUID = -1246915386L;
+    private static final long serialVersionUID = -280866045L;
 
-    public static final QMemberEntity memberEntity = new QMemberEntity("memberEntity");
+    public static final QMember member = new QMember("member1");
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
@@ -36,15 +36,15 @@ public class QMemberEntity extends EntityPathBase<Member> {
 
     public final StringPath username = createString("username");
 
-    public QMemberEntity(String variable) {
+    public QMember(String variable) {
         super(Member.class, forVariable(variable));
     }
 
-    public QMemberEntity(Path<? extends Member> path) {
+    public QMember(Path<? extends Member> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QMemberEntity(PathMetadata metadata) {
+    public QMember(PathMetadata metadata) {
         super(Member.class, metadata);
     }
 
