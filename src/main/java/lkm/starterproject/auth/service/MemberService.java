@@ -1,7 +1,7 @@
 package lkm.starterproject.auth.service;
 
 import lkm.starterproject.auth.entity.Member;
-import lkm.starterproject.auth.repository.UserRepository;
+import lkm.starterproject.auth.repository.MemberRepository;
 import lkm.starterproject.auth.constants.Role;
 import lkm.starterproject.auth.dto.MemberDto;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @Service
 public class MemberService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public MemberService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public MemberService(MemberRepository memberRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -26,7 +26,7 @@ public class MemberService {
         String password = memberDto.getPassword();
         String username = memberDto.getUsername();
 
-        Boolean isMemberExist = userRepository.existsByEmail(email);      //중복되는 email값 있는지 확인
+        Boolean isMemberExist = memberRepository.existsByEmail(email);      //중복되는 email값 있는지 확인
 
         if (isMemberExist) {
 
@@ -40,6 +40,6 @@ public class MemberService {
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
-        userRepository.save(member);
+        memberRepository.save(member);
     }
 }
