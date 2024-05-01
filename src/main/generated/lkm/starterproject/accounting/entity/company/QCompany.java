@@ -31,8 +31,6 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final EnumPath<lkm.starterproject.accounting.constants.BusinessScaleStatus> businessScaleStatus = createEnum("businessScaleStatus", lkm.starterproject.accounting.constants.BusinessScaleStatus.class);
 
-    public final NumberPath<Integer> businessTaxOfficeCode = createNumber("businessTaxOfficeCode", Integer.class);
-
     public final StringPath businessType = createString("businessType");
 
     public final NumberPath<Long> code = createNumber("code", Long.class);
@@ -80,6 +78,8 @@ public class QCompany extends EntityPathBase<Company> {
     public final DatePath<java.time.LocalDate> privatePracticeDate = createDate("privatePracticeDate", java.time.LocalDate.class);
 
     public final StringPath residentRegistrationNumber = createString("residentRegistrationNumber");
+
+    public final NumberPath<Integer> taxOfficeCode = createNumber("taxOfficeCode", Integer.class);
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 

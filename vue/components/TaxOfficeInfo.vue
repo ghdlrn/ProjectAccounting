@@ -1,7 +1,7 @@
+
 <template>
   <div class="text-center">
     <v-menu
-        v-model="menu"
         :close-on-content-click="false"
         :nudge-right="40"
         lazy
@@ -11,54 +11,54 @@
         min-width="290px">
       <template v-slot:activator="{ props }">
         <v-text-field
-            v-model="selectedTaxOffice.name"
             v-bind="props"
             readonly
-            placeholder="OO 세무서"
+            :value="taxOffices.length ? taxOffices[0].name : 'OO 세무서'"
             persistent-placeholder
             prepend-icon="mdi-office-building"
             variant="outlined"
             color="primary">
         </v-text-field>
       </template>
-      <v-data-table
-          :headers="headers"
-
-          >
-      </v-data-table>
+      <v-card title="사업장 세무서 조회" flat>
+        <v-card elevation="0" variant="outlined" class="withbg">
+          <!-- Your additional code -->
+          <!-- Example of listing tax offices -->
+          <div>
+            <ul>
+              <li v-for="office in taxOffices" :key="office.code">
+                {{ office.name }} ({{ office.code }} - {{ office.jurisdiction }})
+              </li>
+            </ul>
+          </div>
+        </v-card>
+      </v-card>
     </v-menu>
   </div>
 </template>
 
+
+
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { onMounted } from 'vue';
+import { useTaxOfficeStore } from '@/stores/accounting/taxOffice.js'; // Ensure the path is correct
 
-const menu = ref(false);
-const taxOffices = ref([]);
-const selectedTaxOffice = ref({});
+const taxOfficeStore = useTaxOfficeStore();
 
-// Define the headers for the data table
-const headers = ref([
-  { text: 'Code', value: 'code' },
-  { text: 'Name', value: 'name' },
-  { text: 'Jurisdiction', value: 'jurisdiction' }
-]);
+// Fetch tax offices when the component mounts
+onMounted(() => {
+  taxOfficeStore.fetchTaxOffices();
+});
 
-async function fetchTaxOffices() {
-  try {
-    const response = await axios.get('/register/company-info');
-    taxOffices.value = response.data;
-  } catch (error) {
-    console.error('Error fetching tax offices:', error);
-  }
-}
-
-function selectTaxOffice(item) {
-  selectedTaxOffice.value = item;
-  menu.value = false; // Close the menu after selection
-}
-
-onMounted(fetchTaxOffices);
-
+// Expose the tax offices data to the template
+const taxOffices = computed(() => taxOfficeStore.taxOffices);
 </script>
+
+
+<style lang="scss">
+.customer-modal {
+  width: calc(100% - 48px);
+  min-width: 340px;
+  max-width: 880px;
+}
+</style>
