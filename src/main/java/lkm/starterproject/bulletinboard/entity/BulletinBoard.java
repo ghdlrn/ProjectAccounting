@@ -1,7 +1,7 @@
 package lkm.starterproject.bulletinboard.entity;
 
 import jakarta.persistence.*;
-import lkm.starterproject.auth.entity.MemberEntity;
+import lkm.starterproject.auth.entity.Member;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -24,7 +24,7 @@ public class BulletinBoard {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
-    private MemberEntity author; // MemberEntity를 참조
+    private Member author; // MemberEntity를 참조
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();  //작성시간

@@ -1,9 +1,9 @@
 package lkm.starterproject.auth.service;
 
+import lkm.starterproject.auth.entity.Member;
 import lkm.starterproject.auth.repository.UserRepository;
 import lkm.starterproject.auth.constants.Role;
 import lkm.starterproject.auth.dto.MemberDto;
-import lkm.starterproject.auth.entity.MemberEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class MemberService {
 
             return;
         }
-        MemberEntity memberEntity = new MemberEntity().builder()    // isMemberExist로 동일한 email이 없으면 해당 유저정보 저장
+        Member member = new Member().builder()    // isMemberExist로 동일한 email이 없으면 해당 유저정보 저장
                 .username(username)
                 .password(passwordEncoder.encode(password))     //비밀번호 암호화해서 저장
                 .email(email)
@@ -40,6 +40,6 @@ public class MemberService {
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
-        userRepository.save(memberEntity);
+        userRepository.save(member);
     }
 }

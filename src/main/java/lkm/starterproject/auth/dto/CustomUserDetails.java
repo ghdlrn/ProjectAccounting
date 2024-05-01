@@ -1,6 +1,6 @@
 package lkm.starterproject.auth.dto;
 
-import lkm.starterproject.auth.entity.MemberEntity;
+import lkm.starterproject.auth.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,10 +9,10 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final MemberEntity memberEntity;
+    private final Member member;
 
-    public CustomUserDetails(MemberEntity memberEntity) {
-        this.memberEntity = memberEntity;
+    public CustomUserDetails(Member member) {
+        this.member = member;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class CustomUserDetails implements UserDetails {
         authorities.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return memberEntity.getRole().name();
+                return member.getRole().name();
             }
         });
         return authorities;
@@ -29,12 +29,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {   //password반환
-        return memberEntity.getPassword();
+        return member.getPassword();
     }
 
     @Override
     public String getUsername() {   //email반환
-        return memberEntity.getEmail();
+        return member.getEmail();
     }
 
     @Override

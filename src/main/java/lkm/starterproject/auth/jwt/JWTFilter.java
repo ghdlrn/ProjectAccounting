@@ -6,7 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lkm.starterproject.auth.constants.Role;
-import lkm.starterproject.auth.entity.MemberEntity;
+import lkm.starterproject.auth.entity.Member;
 import lkm.starterproject.auth.dto.CustomUserDetails;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -58,11 +58,11 @@ public class JWTFilter extends OncePerRequestFilter {
         String email = jwtUtil.getEmail(accessToken);
         String role = jwtUtil.getRole(accessToken);
         // MemberEntity에 이메일, 권한정보 셋
-        MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setEmail(email);
-        memberEntity.setRole(Role.valueOf(role));
+        Member member = new Member();
+        member.setEmail(email);
+        member.setRole(Role.valueOf(role));
 
-        CustomUserDetails customUserDetails = new CustomUserDetails(memberEntity);
+        CustomUserDetails customUserDetails = new CustomUserDetails(member);
 
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);    //SecurityContextHolder에 유저정보를 담아 일시적인 세션 생성

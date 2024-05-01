@@ -1,12 +1,12 @@
 package lkm.starterproject.auth.repository;
 
-import lkm.starterproject.auth.entity.MemberEntity;
+import lkm.starterproject.auth.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface UserRepository extends JpaRepository<MemberEntity, Long>, QuerydslPredicateExecutor<MemberEntity> {
+public interface UserRepository extends JpaRepository<Member, Long>, QuerydslPredicateExecutor<Member> {
 
     Boolean existsByEmail(String email);
 
-    MemberEntity findByEmail(String email);
+    Member findByEmail(String email);
 }

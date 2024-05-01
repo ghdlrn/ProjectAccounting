@@ -14,7 +14,7 @@ import com.querydsl.core.types.dsl.PathInits;
  * QMemberEntity is a Querydsl query type for MemberEntity
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QMemberEntity extends EntityPathBase<MemberEntity> {
+public class QMemberEntity extends EntityPathBase<Member> {
 
     private static final long serialVersionUID = -1246915386L;
 
@@ -37,15 +37,15 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
     public final StringPath username = createString("username");
 
     public QMemberEntity(String variable) {
-        super(MemberEntity.class, forVariable(variable));
+        super(Member.class, forVariable(variable));
     }
 
-    public QMemberEntity(Path<? extends MemberEntity> path) {
+    public QMemberEntity(Path<? extends Member> path) {
         super(path.getType(), path.getMetadata());
     }
 
     public QMemberEntity(PathMetadata metadata) {
-        super(MemberEntity.class, metadata);
+        super(Member.class, metadata);
     }
 
 }
