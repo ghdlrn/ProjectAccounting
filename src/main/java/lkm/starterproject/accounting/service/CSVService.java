@@ -1,7 +1,9 @@
 package lkm.starterproject.accounting.service;
 
 import jakarta.annotation.PostConstruct;
+import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
+import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -20,18 +22,49 @@ import java.util.List;
 public class CSVService {
 
     private final TaxOfficeRepository taxOfficeRepository;
+    private final LocalTaxRepository localTaxRepository;
 
     @Autowired
-    public CSVService(TaxOfficeRepository taxOfficeRepository) {
+    public CSVService(TaxOfficeRepository taxOfficeRepository , LocalTaxRepository localTaxRepository) {
         this.taxOfficeRepository = taxOfficeRepository;
+        this.localTaxRepository = localTaxRepository;
     }
 
     @PostConstruct
     public void init() {
-        loadCSVData();
+        saveTaxOfficeData();
+        saveLocalTaxData();
     }
 
-    public void loadCSVData() {         //세무서별 관할구역 csv파일 저장로직
+    public void saveLocalTaxData() {
+        try (Reader reader = new InputStreamReader(new ClassPathResource("basic_data/local_taxes_data_20240501.csv").getInputStream(), "CP949")) {
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
+            List<LocalTax> localTaxes = new ArrayList<>();
+            for (CSVRecord record : records) {
+                try {
+                    Long code = Long.parseLong(record.get("법정동코드"));
+                    String name = record.get("법정동명");
+                    String status = record.get("폐지여부");
+
+                    LocalTax localTax = LocalTax.builder()
+                            .code(code)
+                            .name(name)
+                            .status(status)
+                            .build();
+                    localTaxes.add(localTax);
+                } catch (Exception e) {
+                    System.err.println("Error processing record: " + record.toString());
+                    e.printStackTrace();
+                }
+            }
+            Collections.sort(localTaxes, Comparator.comparing(LocalTax::getCode, Comparator.nullsLast(Long::compareTo)));
+            localTaxRepository.saveAll(localTaxes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveTaxOfficeData() {         //세무서별 관할구역 csv파일 저장로직
         try (Reader reader = new InputStreamReader(new ClassPathResource("basic_data/tax_office_data_20220418.csv").getInputStream(), "CP949")) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
             List<TaxOffice> taxOffices = new ArrayList<>();
