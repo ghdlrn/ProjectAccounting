@@ -46,12 +46,14 @@ public class CSVService {
                     String name = record.get("법정동명");
                     String status = record.get("폐지여부");
 
-                    LocalTax localTax = LocalTax.builder()
-                            .code(code)
-                            .name(name)
-                            .status(status)
-                            .build();
-                    localTaxes.add(localTax);
+                    if("존재".equals(status)) {
+                        LocalTax localTax = LocalTax.builder()
+                                .code(code)
+                                .name(name)
+                                .status(status)
+                                .build();
+                        localTaxes.add(localTax);
+                    }
                 } catch (Exception e) {
                     System.err.println("Error processing record: " + record.toString());
                     e.printStackTrace();

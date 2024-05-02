@@ -52,6 +52,7 @@ const addressStore = useAddressStore();
 /*----------------------------날짜 선택기---------------------------------*/
 import DateSelect from "~/components/DateSelect.vue";
 import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
+import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 </script>
 
 <template>
@@ -342,7 +343,7 @@ import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
                   </v-col>
                   <v-col cols="12" lg="5" md="9">
 
-
+                    <LocalTaxInfo></LocalTaxInfo>
 
                   </v-col>
                 </v-row>

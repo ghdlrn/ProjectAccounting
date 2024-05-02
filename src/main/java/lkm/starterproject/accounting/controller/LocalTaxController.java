@@ -22,8 +22,7 @@ public class LocalTaxController {
         return localTaxRepository.findAll().stream()
                 .map(localTax -> new LocalTaxDto(
                         localTax.getCode(),
-                        localTax.getName(),
-                        localTax.getStatus()))
+                        localTax.getName()))
                 .collect(Collectors.toList());
     }
 }

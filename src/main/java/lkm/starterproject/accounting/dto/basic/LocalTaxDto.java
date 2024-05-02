@@ -12,6 +12,4 @@ public class LocalTaxDto {
     private Long code;
 
     private String name;
-
-    private String status;
 }

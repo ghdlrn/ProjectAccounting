@@ -11,18 +11,18 @@
         min-width="290px">
       <template v-slot:activator="{ props }">
         <v-text-field
-            v-model="selectedTaxOffice"
+            v-model="selectedLocalTax"
             v-bind="props"
             readonly
-            placeholder="ex) 강남 세무서"
+            placeholder="ex) 서울특별시 종로구 효자동"
             persistent-placeholder
-            prepend-icon="mdi-office-building"
+            prepend-icon="mdi-map-marker"
             variant="outlined"
             color="primary">
         </v-text-field>
       </template>
       <PerfectScrollbar>
-      <v-card title="사업장 세무서 조회" class="taxOfficeTable">
+      <v-card title="지방세 법정동 조회" class="localTaxTable">
         <v-card-item>
           <v-row justify="space-between" class="align-center">
             <v-col cols="12" md="5">
@@ -31,7 +31,7 @@
                   variant="outlined"
                   color="primary"
                   persistent-placeholder
-                  placeholder="세무서명으로 검색하시오"
+                  placeholder="주소명으로 검색하시오"
                   v-model="searchValue"
                   hide-details>
                 <template v-slot:prepend-inner>
@@ -46,7 +46,7 @@
 
           <EasyDataTable
                 :headers="headers"
-                :items="taxOffices"
+                :items="localTax"
                 :search-field="searchField"
                 :search-value="searchValue"
                 @click-row="select"
@@ -64,36 +64,35 @@
 
 <script setup>
 import { ref, computed, onMounted} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
-import { useTaxOfficeStore } from '~/stores/accounting/basicdata/taxOffice.js'
+import { useLocalTaxStore } from '~/stores/accounting/basicdata/localTax.js'
 import {SearchOutlined} from "@ant-design/icons-vue";
-const store = useTaxOfficeStore();
+const store = useLocalTaxStore();
 
 onMounted(() => {
-  store.fetchTaxOffices(); //스토어에서  fetchTaxOffices함수실행시켜 세무서 정보 가져옴
+  store.fetchLocalTax(); //스토어에서  fetchTaxOffices함수실행시켜 세무서 정보 가져옴
 });
-const taxOffices = computed(() => store.taxOffices);
+const localTax = computed(() => store.localTax);
 
 const searchField = ref('name');
 const searchValue = ref('');
 const headers = ref( [
-  { text: '세무서 코드', value: 'code', sortable: true, width: 15, fixed: true },
-  { text: '세무서명', value: 'name', sortable: true, width: 15, fixed: true },
-  { text: '관할구역', value: 'jurisdiction', sortable: true, width: 50, fixed: true }
+  { text: '법정동 코드', value: 'code', sortable: true, width: 20, fixed: true },
+  { text: '법정동 주소', value: 'name', sortable: true, width: 40, fixed: true },
 ]);
 
 const menu = ref(false);
 
-const selectedTaxOffice = ref('');   //선택한 세무서 이름 저장
+const selectedLocalTax = ref('');   //선택한 세무서 이름 저장
 
 function select(item) {
-  selectedTaxOffice.value = item.name;
+  selectedLocalTax.value = item.name;
   menu.value = false
 }
 
 </script>
 
 <style lang="scss">
-.taxOfficeTable {
-  width: 800px;
+.localTaxTable {
+  width: 400px;
 }
 </style>
