@@ -2,6 +2,7 @@
 <template>
   <div class="text-center">
     <v-menu
+        v-model="menu"
         :close-on-content-click="false"
         :nudge-right="40"
         lazy
@@ -61,6 +62,7 @@ const headers = [
   { text: 'Jurisdiction', value: 'jurisdiction' }
 ];
 
+const menu = ref(false);
 </script>
 
 
