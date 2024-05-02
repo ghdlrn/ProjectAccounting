@@ -4,7 +4,7 @@
     <v-menu
         v-model="menu"
         :close-on-content-click="false"
-        :nudge-right="40"
+        :close-on-click="true"
         lazy
         transition="scale-transition"
         offset-y
@@ -22,7 +22,7 @@
         </v-text-field>
       </template>
       <PerfectScrollbar>
-      <v-card title="사업장 세무서 조회" width="25%">
+      <v-card title="사업장 세무서 조회" class="tableCard">
         <v-card-item>
           <v-row justify="space-between" class="align-center">
             <v-col cols="12" md="5">
@@ -93,4 +93,7 @@ function select(item) {
 </script>
 
 <style lang="scss">
+.tableCard {
+  width: 800px;
+}
 </style>
