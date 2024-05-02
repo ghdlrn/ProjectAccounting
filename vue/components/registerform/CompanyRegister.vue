@@ -17,7 +17,8 @@ const corporationRegistrationNumber = ref('')
 const fiscalYearStart = ref('')
 const fiscalYearEnd = ref('')
 const privatePracticeDate = ref('')
-const taxOfficeCode = ref('')
+const taxOfficeName = ref('')
+const localTaxName = ref('')
 
 const CompanyRegister = async () => {
   try {
@@ -38,7 +39,8 @@ const CompanyRegister = async () => {
       fiscalYearStart: fiscalYearStart.value,
       fiscalYearEnd: fiscalYearEnd.value,
       privatePracticeDate: privatePracticeDate.value,
-      taxOfficeCode: taxOfficeCode.value,
+      taxOfficeName: taxOfficeName.value,
+      localTaxName: localTaxName.value,
     });
   } catch (error) {
     console.error('회사 등록 실패', error);
@@ -335,7 +337,7 @@ import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
                   </v-col>
                   <v-col cols="12" lg="5" md="9">
 
-                    <TaxOfficeInfo></TaxOfficeInfo>
+                    <TaxOfficeInfo v-model="taxOfficeName" />
 
                   </v-col>
                   <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0">
@@ -343,7 +345,7 @@ import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
                   </v-col>
                   <v-col cols="12" lg="5" md="9">
 
-                    <LocalTaxInfo></LocalTaxInfo>
+                    <LocalTaxInfo v-model="localTaxName" />
 
                   </v-col>
                 </v-row>
