@@ -14,7 +14,7 @@
             v-model="formattedDate"
             v-bind="props"
             placeholder="yyyy-MM-dd"
-            persistent-placeholder
+           persistent-placeholder
             prepend-icon="mdi-calendar"
             variant="outlined"
             readonly
