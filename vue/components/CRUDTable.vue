@@ -8,12 +8,9 @@ import 'vue3-easy-data-table/dist/style.css';
 // icons
 import {
   SearchOutlined,
-  PlusOutlined,
-  DownloadOutlined,
   EyeOutlined,
   DeleteOutlined,
-  EditOutlined,
-  CloseOutlined
+  EditOutlined
 } from '@ant-design/icons-vue';
 
 const store = useCustomers();
@@ -38,57 +35,11 @@ const headers: Header[] = [
   { text: 'Action', value: 'operation' }
 ];
 const items = ref(getCustomers);
-const themeColor = ref('rgb(var(--v-theme-primary))');
 const { deleteCustomer } = store;
 
 const itemsSelected = ref<Item[]>([]);
 
-const dialog = ref(false);
 
-const radioGroup = ref('1');
-
-const items2 = ref([
-  'Adobe XD',
-  'After Effect',
-  'Angular',
-  'Animation',
-  'ASP.Net',
-  'Bootstrap',
-  'C#',
-  'CC',
-  'Corel draw',
-  'CSS',
-  'DIV',
-  'Dreamweaver',
-  'Figma',
-  'Graphics',
-  'HTML',
-  'Illustrator',
-  'J2Ee',
-  'Java',
-  'Javascript',
-  'Jquery',
-  'Logo design',
-  'Material UI',
-  'Motion',
-  'MVC',
-  'MySQL',
-  'NodeJs',
-  'npm',
-  'Photoshop',
-  'PHP',
-  'React',
-  'Redux',
-  'Reduxjs & tooltit',
-  'SASS',
-  'SCSS',
-  'SQL server',
-  'SVG',
-  'UI/UX',
-  'User interface designing',
-  'Wordpress'
-]);
-const multi_value = ref(['Angular', 'SCSS']);
 </script>
 
 <template>
@@ -121,6 +72,7 @@ const multi_value = ref(['Angular', 'SCSS']);
               <v-text-field
                   type="text"
                   variant="outlined"
+
                   persistent-placeholder
                   placeholder="Search Customer"
                   v-model="searchValue"

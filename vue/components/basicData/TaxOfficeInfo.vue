@@ -11,6 +11,7 @@
         min-width="290px">
       <template v-slot:activator="{ props }">
         <v-text-field
+            v-model="selectedTaxOffice"
             v-bind="props"
             readonly
             placeholder="OO 세무서"
@@ -21,15 +22,16 @@
         </v-text-field>
       </template>
       <PerfectScrollbar>
-      <v-card title="사업장 세무서 조회">
+      <v-card title="사업장 세무서 조회" width="25%">
         <v-card-item>
           <v-row justify="space-between" class="align-center">
             <v-col cols="12" md="5">
               <v-text-field
                   type="text"
                   variant="outlined"
+                  color="primary"
                   persistent-placeholder
-                  placeholder="Search Customer"
+                  placeholder="세무서명으로 검색하시오"
                   v-model="searchValue"
                   hide-details>
                 <template v-slot:prepend-inner>
@@ -47,8 +49,10 @@
                 :items="taxOffices"
                 :search-field="searchField"
                 :search-value="searchValue"
+                @click-row="select"
                 table-class-name="customize-table"
                 :rows-per-page="10"
+                buttons-pagination
           ></EasyDataTable>
 
         </v-card-text>
@@ -62,28 +66,29 @@
 import { ref, computed, onMounted} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
 import { useTaxOfficeStore } from '~/stores/accounting/basicdata/taxOffice.js'
 import {SearchOutlined} from "@ant-design/icons-vue";
-const taxOfficeStore = useTaxOfficeStore();
+const store = useTaxOfficeStore();
 
 onMounted(() => {
-  taxOfficeStore.fetchTaxOffices(); //스토어에서  fetchTaxOffices함수실행시켜 세무서 정보 가져옴
+  store.fetchTaxOffices(); //스토어에서  fetchTaxOffices함수실행시켜 세무서 정보 가져옴
 });
-const taxOffices = computed(() => taxOfficeStore.taxOffices);
+const taxOffices = computed(() => store.taxOffices);
 
 const searchField = ref('name');
 const searchValue = ref('');
-const headers = [
-  { text: '세무서 코드', value: 'code', sortable: true },
-  { text: '세무서명', value: 'name', sortable: true},
-  { text: '관할구역', value: 'jurisdiction', sortable: true }
-];
+const headers = ref( [
+  { text: '세무서 코드', value: 'code', sortable: true, width: 20, fixed: true },
+  { text: '세무서명', value: 'name', sortable: true, width: 20, fixed: true },
+  { text: '관할구역', value: 'jurisdiction', sortable: true, width: 50, fixed: true }
+]);
 
 const menu = ref(false);
 
-const selectedOffice = ref('');   //선택한 세무서 이름 저장
+const selectedTaxOffice = ref('');   //선택한 세무서 이름 저장
 
-const selectTaxOffice = (item) => {
-  selectedOffice.value = item.name; // Update the selected office name
-};
+function select(item) {
+  selectedTaxOffice.value = item.name;
+  menu.value = false
+}
 
 </script>
 
