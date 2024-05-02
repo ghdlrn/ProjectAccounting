@@ -51,6 +51,7 @@ import { useAddressStore } from "~/stores/address.js";
 const addressStore = useAddressStore();
 /*----------------------------날짜 선택기---------------------------------*/
 import DateSelect from "~/components/DateSelect.vue";
+import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
 </script>
 
 <template>
@@ -331,22 +332,18 @@ import DateSelect from "~/components/DateSelect.vue";
                   <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">사업장 <br/> 세무서</v-label>
                   </v-col>
-                  <v-col cols="12" lg="3" md="9">
-<TaxOfficeInfo></TaxOfficeInfo>
+                  <v-col cols="12" lg="5" md="9">
+
+                    <TaxOfficeInfo></TaxOfficeInfo>
+
                   </v-col>
-                  <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0 ml-11">
+                  <v-col cols="12" lg="1" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">지방세 <br/> 법정동</v-label>
                   </v-col>
-                  <v-col cols="12" lg="3" md="9">
-                    <v-text-field
-                        variant="outlined"
-                        persistent-placeholder
-                        placeholder="yyyy/MM/dd"
-                        color="primary">
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" lg="1">
-                    <v-btn size="large" flat color="primary mt-1" class="address">달력 선택</v-btn>
+                  <v-col cols="12" lg="5" md="9">
+
+
+
                   </v-col>
                 </v-row>
               </v-col>
