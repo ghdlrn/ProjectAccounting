@@ -6,6 +6,10 @@ import axios from 'axios';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
 const tab = ref(null);
 const Used = ref(false);
+import DaumPostcode from "~/components/DaumPostcode.vue";
+import DateSelect from "~/components/DateSelect.vue";
+import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
+import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
 const licenseType = ref('')
 const headOfficeStatus = ref('')
@@ -15,8 +19,8 @@ const businessRegistrationNumber = ref('')
 const nameOfRepresentative = ref('')
 const corporationRegistrationNumber = ref('')
 const businessType = ref('')
-const businessItem = ref('')
 
+const businessItem = ref('')
 const fiscalYearClass = ref('')
 const fiscalYearStart = ref('')
 const fiscalYearEnd = ref('')
@@ -28,11 +32,12 @@ const corporationClassifyStatus = ref('')
 const businessScaleStatus = ref('')
 const companyTypeStatus = ref('')
 const localTaxBillDivisionCode = ref('')
-const residentRegistrationNumber = ref('')
 
+const residentRegistrationNumber = ref('')
 const phone = ref('')
 const fax = ref('')
 const chargeName = ref('')
+
 const chargeEmail = ref('')
 
 const CompanyRegister = async () => {
@@ -77,14 +82,10 @@ const CompanyRegister = async () => {
     alert('회사 등록 실패');
   }
 };
-
 /*----------------------------우편번호 검색---------------------------------*/
 import { useAddressStore } from "~/stores/address.js";
 const addressStore = useAddressStore();
 /*----------------------------날짜 선택기---------------------------------*/
-import DateSelect from "~/components/DateSelect.vue";
-import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
-import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 </script>
 
 <template>
