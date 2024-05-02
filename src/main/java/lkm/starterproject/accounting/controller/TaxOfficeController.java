@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/register/company-info")
+@RequestMapping("/register/company-info/tax-office")
 @RequiredArgsConstructor
 public class TaxOfficeController {
 

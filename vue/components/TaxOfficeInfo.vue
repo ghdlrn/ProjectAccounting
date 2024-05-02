@@ -21,17 +21,12 @@
         </v-text-field>
       </template>
       <v-card title="사업장 세무서 조회" flat>
-        <v-card elevation="0" variant="outlined" class="withbg">
-          <!-- Your additional code -->
-          <!-- Example of listing tax offices -->
-          <div>
-            <ul>
-              <li v-for="office in taxOffices" :key="office.code">
-                {{ office.name }} ({{ office.code }} - {{ office.jurisdiction }})
-              </li>
-            </ul>
-          </div>
-        </v-card>
+
+        <EasyDatatable
+          :headers="headers"
+          :items="items"
+        ></EasyDatatable>
+
       </v-card>
     </v-menu>
   </div>
@@ -40,18 +35,36 @@
 
 
 <script setup>
-import { onMounted } from 'vue';
-import { useTaxOfficeStore } from '@/stores/accounting/taxOffice.js'; // Ensure the path is correct
+import { ref, computed, onMounted, shallowRef } from 'vue';
 
+import { useTaxOfficeStore } from '~/stores/accounting/basicdata/taxOffice.js';
 const taxOfficeStore = useTaxOfficeStore();
 
-// Fetch tax offices when the component mounts
 onMounted(() => {
   taxOfficeStore.fetchTaxOffices();
 });
 
-// Expose the tax offices data to the template
 const taxOffices = computed(() => taxOfficeStore.taxOffices);
+
+import type { Header, Item } from "vue3-easy-data-table";
+
+const headers: Header[] = [
+  { text: "PLAYER", value: "player" },
+  { text: "TEAM", value: "team"},
+  { text: "NUMBER", value: "number"},
+  { text: "POSITION", value: "position"},
+  { text: "HEIGHT", value: "indicator.height"},
+  { text: "WEIGHT (lbs)", value: "indicator.weight", sortable: true},
+  { text: "LAST ATTENDED", value: "lastAttended", width: 200},
+  { text: "COUNTRY", value: "country"},
+];
+
+const items: Item[] = [
+  { player: "Stephen Curry", team: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
+  { player: "Lebron James", team: "LAL", number: 6, position: 'F', indicator: {"height": '6-9', "weight": 250}, lastAttended: "St. Vincent-St. Mary HS (OH)", country: "USA"},
+  { player: "Kevin Durant", team: "BKN", number: 7, position: 'F', indicator: {"height": '6-10', "weight": 240}, lastAttended: "Texas-Austin", country: "USA"},
+  { player: "Giannis Antetokounmpo", team: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 242}, lastAttended: "Filathlitikos", country: "Greece"},
+];
 </script>
 
 
