@@ -22,10 +22,15 @@
       </template>
       <v-card title="사업장 세무서 조회" flat>
 
-        <EasyDatatable
-          :headers="headers"
-          :items="items"
-        ></EasyDatatable>
+        <v-card-text>
+          <v-data-table
+              :headers="headers"
+              :items="taxOffices"
+              @click:row="selectTaxOffice"
+              class="elevation-1"
+              hide-default-footer>
+          </v-data-table>
+        </v-card-text>
 
       </v-card>
     </v-menu>
@@ -35,43 +40,28 @@
 
 
 <script setup>
-import { ref, computed, onMounted, shallowRef } from 'vue';
-
-import { useTaxOfficeStore } from '~/stores/accounting/basicdata/taxOffice.js';
+import { ref, computed, onMounted} from 'vue';
+import { useTaxOfficeStore } from '~/stores/accounting/basicdata/taxOffice.js' // Assume store path
 const taxOfficeStore = useTaxOfficeStore();
 
-onMounted(() => {
-  taxOfficeStore.fetchTaxOffices();
-});
+const selectedOffice = ref('');
 
+onMounted(() => {
+  taxOfficeStore.fetchTaxOffices(); // Fetch tax offices when component mounts
+});
+// Computed property to get tax offices from the store
 const taxOffices = computed(() => taxOfficeStore.taxOffices);
 
-import type { Header, Item } from "vue3-easy-data-table";
+// Function to handle selection of a tax office
+const selectTaxOffice = (item) => {
+  selectedOffice.value = item.name; // Update the selected office name
+};
 
-const headers: Header[] = [
-  { text: "PLAYER", value: "player" },
-  { text: "TEAM", value: "team"},
-  { text: "NUMBER", value: "number"},
-  { text: "POSITION", value: "position"},
-  { text: "HEIGHT", value: "indicator.height"},
-  { text: "WEIGHT (lbs)", value: "indicator.weight", sortable: true},
-  { text: "LAST ATTENDED", value: "lastAttended", width: 200},
-  { text: "COUNTRY", value: "country"},
-];
-
-const items: Item[] = [
-  { player: "Stephen Curry", team: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
-  { player: "Lebron James", team: "LAL", number: 6, position: 'F', indicator: {"height": '6-9', "weight": 250}, lastAttended: "St. Vincent-St. Mary HS (OH)", country: "USA"},
-  { player: "Kevin Durant", team: "BKN", number: 7, position: 'F', indicator: {"height": '6-10', "weight": 240}, lastAttended: "Texas-Austin", country: "USA"},
-  { player: "Giannis Antetokounmpo", team: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 242}, lastAttended: "Filathlitikos", country: "Greece"},
+const headers = [
+  { text: 'Code', value: 'code' },
+  { text: 'Tax Office Name', value: 'name' },
+  { text: 'Jurisdiction', value: 'jurisdiction' }
 ];
 </script>
 
 
-<style lang="scss">
-.customer-modal {
-  width: calc(100% - 48px);
-  min-width: 340px;
-  max-width: 880px;
-}
-</style>
