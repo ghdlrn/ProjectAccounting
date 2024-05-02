@@ -1,10 +1,12 @@
-package lkm.starterproject.accounting.dto;
+package lkm.starterproject.accounting.dto.basic;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 public class LocalTaxDto {
 
     private Long code;

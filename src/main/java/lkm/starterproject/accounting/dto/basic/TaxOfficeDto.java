@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.dto;
+package lkm.starterproject.accounting.dto.basic;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
