@@ -19,6 +19,11 @@ const fiscalYearEnd = ref('')
 const privatePracticeDate = ref('')
 const taxOfficeName = ref('')
 const localTaxName = ref('')
+const accountNumber = ref('')
+const corporationClassifyStatus = ref('')
+const businessScaleStatus = ref('')
+const companyTypeStatus = ref('')
+const localTaxBillDivisionCode = ref('')
 
 const CompanyRegister = async () => {
   try {
@@ -41,6 +46,11 @@ const CompanyRegister = async () => {
       privatePracticeDate: privatePracticeDate.value,
       taxOfficeName: taxOfficeName.value,
       localTaxName: localTaxName.value,
+      accountNumber: accountNumber.value,
+      corporationClassifyStatus: corporationClassifyStatus.value,
+      businessScaleStatus: businessScaleStatus.value,
+      companyTypeStatus: companyTypeStatus.value,
+      localTaxBillDivisionCode: localTaxBillDivisionCode.value,
     });
   } catch (error) {
     console.error('회사 등록 실패', error);
@@ -130,7 +140,7 @@ import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
                   <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">본점 여부</v-label>
                   </v-col>
-                  <v-col cols="12" lg="3" md="9">
+                  <v-col cols="12" lg="3" md="6">
                     <v-select
                         v-model="headOfficeStatus"
                         :items="['본점', '지점']"
@@ -145,7 +155,7 @@ import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
                   <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
                     <v-label class="mt-2">사업자단위과세<br /> 적용사업자 여부</v-label>
                   </v-col>
-                  <v-col cols="12" lg="3" md="9">
+                  <v-col cols="12" lg="3" md="6">
                     <v-select
                         v-model="paymentHeadOfficeStatus"
                         :items="['여', '부']"
@@ -351,6 +361,104 @@ import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
                 </v-row>
               </v-col>
             </v-row>
+<!--                3줄---------------------------------------->
+            <v-row>
+              <v-col cols="12" sm="6">
+                <v-row>
+                  <v-col cols="12" lg="4">
+                    <v-label class="mt-2">국세 환급금 계좌번호</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="8">
+                    <v-text-field v-model="accountNumber"></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-row>
+                    <v-col cols="12" lg="4">
+                      <v-text-field readonly></v-text-field>
+                    </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+            <v-row>
+              <!-- column 1 -->
+              <v-col cols="12" sm="5">
+                <!-- row 1 -->
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">법인 구분</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="9" md="9">
+                    <v-select
+                        v-model="corporationClassifyStatus"
+                        :items="['내국', '외국', '외투']"
+                        hint="ex) 내국/외국/외국투자 기업"
+                        persistent-hint
+                        variant="outlined"
+                        color="primary"
+                        autofocus
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <!-- row 2 -->
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">중소기업 여부</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="9" md="9">
+                    <v-select
+                        v-model="businessScaleStatus"
+                        :items="['중소기업', '비중소기업']"
+                        hint="ex) 여 / 부"
+                        persistent-hint
+                        variant="outlined"
+                        color="primary"
+                        autofocus
+                    ></v-select>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <!-- column 2 -->
+              <v-col cols="12" sm="7">
+                <!-- row 1 -->
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">종류별 구분</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="7" md="9">
+                    <v-select
+                        v-model="companyTypeStatus"
+                        :items="['중소기업', '일반', '상장', '비영리', '협회 등록']"
+                        label="ex) 본점"
+                        variant="outlined"
+                        color="primary"
+                        autofocus
+                        hint="ex) 중소기업 / 일반 / 비영리 기업 등"
+                        persistent-hint
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <!-- row 2 -->
+                <v-row>
+                  <v-col cols="12" lg="3" md="3" class="pb-md-3 pb-0">
+                    <v-label class="mt-2">지방소득세 신고 구분</v-label>
+                  </v-col>
+                  <v-col cols="12" lg="7" md="9">
+                    <v-select
+                        v-model="localTaxBillDivisionCode"
+                        :items="['개인 (내국인)', '일반', '상장', '비영리', '협회 등록']"
+                        variant="outlined"
+                        color="primary"
+                        autofocus
+                        hint="ex) 체류자격 ( 개인, 외국인, OO주식회사 등)"
+                        persistent-hint
+                    ></v-select>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+
           </v-window-item>
 <!--tab3-->
           <v-window-item value="three">
