@@ -8,7 +8,7 @@ export const useTaxOfficeStore = defineStore('taxOffice', {
     actions: {
         async fetchTaxOffices() {
             try {
-                const response = await axios.get('http://localhost:8080/register/company-info/tax-office');
+                const response = await axios.get('http://localhost:8080/register/company/tax-office');
                 this.taxOffices = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);

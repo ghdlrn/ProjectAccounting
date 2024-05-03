@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.controller;
+package lkm.starterproject.accounting.controller.basic;
 
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
@@ -17,7 +17,7 @@ public class TaxOfficeController {
 
     private final TaxOfficeRepository taxOfficeRepository;
 
-    @GetMapping("/register/company-info/tax-office")
+    @GetMapping("/register/company/tax-office")
     public List<TaxOfficeDto> getAllTaxOffices() {      //사업장 세무서 조회
         return taxOfficeRepository.findAll().stream()
                 .map(taxOffice -> new TaxOfficeDto(
