@@ -4,6 +4,7 @@ import {ref} from "vue";
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import CompanyRegister from "~/components/registerform/CompanyRegister.vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
+import CompanyReference from "~/components/reference/CompanyReference.vue";
 
 
 const page = ref({ title: '회사 등록/조회' });
@@ -25,7 +26,7 @@ const breadcrumbs = ref([
     <v-col cols="5">
       <UiParentCard title="회사 조회">
 
-
+        <CompanyReference />
 
       </UiParentCard>
     </v-col>

@@ -17,7 +17,7 @@ public class LocalTaxController {
 
     private final LocalTaxRepository localTaxRepository;
 
-    @GetMapping("/register/company-info/local-tax")
+    @GetMapping("/register/company/local-tax")
     public List<LocalTaxDto> getAllLocalTax() {      //지방세 법정동 조회
         return localTaxRepository.findAll().stream()
                 .map(localTax -> new LocalTaxDto(
