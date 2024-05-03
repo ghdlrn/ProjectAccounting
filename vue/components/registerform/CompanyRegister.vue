@@ -388,12 +388,8 @@ const addressStore = useAddressStore();
                     <v-label class="mt-2">국세 환급금 <br />계좌</v-label>
                   </v-col>
                   <v-col cols="12" lg="8">
-                    <v-text-field v-model="accountNumber"
-                                  variant="outlined"
-                                  color="primary"
-                                  hint="ex) 계좌번호"
-                                  persistent-hint
-                    ></v-text-field>
+                    <v-text-field v-model="accountNumber" variant="outlined"
+                                  color="primary"></v-text-field>
                   </v-col>
                 </v-row>
               </v-col>
@@ -401,17 +397,11 @@ const addressStore = useAddressStore();
                 <v-row>
                     <v-col cols="12" lg="6">
                       <v-text-field readonly variant="outlined"
-                                    color="primary"
-                                    hint="ex) 은행명(자동입력)"
-                                    persistent-hint
-                      ></v-text-field>
+                                    color="primary"></v-text-field>
                     </v-col>
                   <v-col cols="12" lg="6">
                     <v-text-field readonly variant="outlined"
-                                  color="primary"
-                                  hint="ex) 계좌명(자동입력)"
-                                  persistent-hint
-                    ></v-text-field>
+                                  color="primary"></v-text-field>
                   </v-col>
                 </v-row>
               </v-col>
