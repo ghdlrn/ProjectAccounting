@@ -23,7 +23,7 @@ const sidebarItem: menu[] = [
   {
     title: '회사 등록',
     icon: BuildingIcon,
-    to: '/register/company-info',
+    to: '/register/company',
   },
   {
     title: '기초 정보 등록',
