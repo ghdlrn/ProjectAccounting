@@ -28,21 +28,21 @@ const privatePracticeDate = ref('')
 const taxOfficeName = ref('')
 const localTaxName = ref('')
 const accountNumber = ref('')
-const corporationClassifyStatus = ref('')
-const businessScaleStatus = ref('')
-const companyTypeStatus = ref('')
-const localTaxBillDivisionCode = ref('')
+const corporationClassify = ref('')
+const businessScale = ref('')
+const companyType = ref('')
+const localTaxBillDivision = ref('')
 
 const residentRegistrationNumber = ref('')
 const phone = ref('')
 const fax = ref('')
 const chargeName = ref('')
-
 const chargeEmail = ref('')
+const note = ref('')
 
 const CompanyRegister = async () => {
   try {
-    await axios.post('http://localhost:8080/register/compant-info', {
+    await axios.post('http://localhost:8080/register/company', {
       licenseType: licenseType.value,
       headOfficeStatus: headOfficeStatus.value,
       paymentHeadOfficeStatus: paymentHeadOfficeStatus.value,
@@ -50,7 +50,6 @@ const CompanyRegister = async () => {
       businessRegistrationNumber: businessRegistrationNumber.value,
       nameOfRepresentative: nameOfRepresentative.value,
       corporationRegistrationNumber: corporationRegistrationNumber.value,
-
       postcode: addressStore.postcode,
       roadAddress: addressStore.roadAddress,
       jibunAddress: addressStore.jibunAddress,
@@ -66,16 +65,17 @@ const CompanyRegister = async () => {
       taxOfficeName: taxOfficeName.value,
       localTaxName: localTaxName.value,
       accountNumber: accountNumber.value,
-      corporationClassifyStatus: corporationClassifyStatus.value,
-      businessScaleStatus: businessScaleStatus.value,
-      companyTypeStatus: companyTypeStatus.value,
-      localTaxBillDivisionCode: localTaxBillDivisionCode.value,
+      corporationClassify: corporationClassify.value,
+      businessScale: businessScale.value,
+      companyType: companyType.value,
+      localTaxBillDivision: localTaxBillDivision.value,
       residentRegistrationNumber: residentRegistrationNumber.value,
 
       phone: phone.value,
       fax: fax.value,
       chargeName: chargeName.value,
       chargeEmail: chargeEmail.value,
+      note: note.value,
     });
   } catch (error) {
     console.error('회사 등록 실패', error);
@@ -425,7 +425,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="corporationClassifyStatus"
+                        v-model="corporationClassify"
                         :items="['내국', '외국', '외투']"
                         hint="ex) 내국/외국/외국투자 기업"
                         persistent-hint
@@ -442,7 +442,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="businessScaleStatus"
+                        v-model="businessScale"
                         :items="['중소기업', '비중소기업']"
                         hint="ex) 여 / 부"
                         persistent-hint
@@ -462,7 +462,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="companyTypeStatus"
+                        v-model="companyType"
                         :items="['중소기업', '일반', '상장', '비영리', '협회 등록']"
                         label="ex) 본점"
                         variant="outlined"
@@ -480,7 +480,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="localTaxBillDivisionCode"
+                        v-model="localTaxBillDivision"
                         :items="['개인(내국인)', '외국인', '종중, 문중', '종교단체', '마을회', '기타단체', 'OO 주식회사', '주식회사 OO', 'OO 합자회사', '합자회사 OO', 'OO 합병회사', '합병회사 OO', 'OO 유한(책임)회사', '유한(책임)회사 OO', '농업회사법인', 'OO 재단법인', '재단법인 OO', 'OO 사단법인', '사단법인 OO', 'OO 학교법인', '학교법인 OO', '의료법인', '사회복지법인', '특수법인', '광역자치단체', '기초자치단체', '외국정부 및 주한국제기관', '자치단체조합', '기타법인']"
                         variant="outlined"
                         color="primary"
@@ -585,6 +585,14 @@ const addressStore = useAddressStore();
                     ></v-text-field>
                   </v-col>
                 </v-row>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" lg="2">
+                <v-label class="mt-2">비고</v-label>
+              </v-col>
+              <v-col cols="12" lg="10">
+                <v-textarea v-model="note" variant="outlined" color="primary" auto-grow clearable />
               </v-col>
             </v-row>
 

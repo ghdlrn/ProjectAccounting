@@ -67,5 +67,6 @@ public class Finance {
 
     private String note;    //비고
 
-
+    @OneToOne(mappedBy = "finance")
+    private Company company;
 }

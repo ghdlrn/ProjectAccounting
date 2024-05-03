@@ -1,7 +1,6 @@
 package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.constants.CompanyUnitVATTaxationStatus;
 import lkm.starterproject.accounting.constants.LiquorRetailStatus;
 import lkm.starterproject.accounting.constants.TradeStatus;
 import lkm.starterproject.accounting.constants.UseStatus;

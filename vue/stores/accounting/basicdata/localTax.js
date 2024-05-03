@@ -8,7 +8,7 @@ export const useLocalTaxStore = defineStore('localLax', {
     actions: {
         async fetchLocalTax() {
             try {
-                const response = await axios.get('http://localhost:8080/register/company-info/local-tax');
+                const response = await axios.get('http://localhost:8080/register/company/local-tax');
                 this.localTax = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);
