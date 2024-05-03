@@ -53,7 +53,7 @@ public class Customer {      //거래처
     private Integer chargeCode; //담당사원
 
     @Enumerated(EnumType.STRING)    //사업자단위 주사업장여부
-    private CompanyUnitVATTaxationStatus companyUnitVATTaxationStatus;
+    private String companyUnitVATTaxationStatus;
 
     private Integer UnitReportingCustomerCode;  //단위신고거래처
 

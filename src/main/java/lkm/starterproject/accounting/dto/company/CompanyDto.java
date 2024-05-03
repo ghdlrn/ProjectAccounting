@@ -15,9 +15,9 @@ public class CompanyDto {
 
     private String licenseType; //사업자 유형
 
-    private HeadOfficeStatus headOfficeStatus;      //본점여부
+    private String headOfficeStatus;      //본점여부
 
-    private PaymentHeadOfficeStatus paymentHeadOfficeStatus;        //본점일괄납부여부
+    private String paymentHeadOfficeStatus;        //본점일괄납부여부
 
     private String name;        //회사명
 
