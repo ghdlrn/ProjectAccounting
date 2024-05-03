@@ -37,8 +37,8 @@ const residentRegistrationNumber = ref('')
 const phone = ref('')
 const fax = ref('')
 const chargeName = ref('')
-
 const chargeEmail = ref('')
+const note = ref('')
 
 const CompanyRegister = async () => {
   try {
@@ -76,6 +76,7 @@ const CompanyRegister = async () => {
       fax: fax.value,
       chargeName: chargeName.value,
       chargeEmail: chargeEmail.value,
+      note: note.value,
     });
   } catch (error) {
     console.error('회사 등록 실패', error);
@@ -577,7 +578,20 @@ const addressStore = useAddressStore();
                 </v-row>
               </v-col>
             </v-row>
-
+            <v-row>
+              <v-col cols="12" lg="2">
+                <v-label class="mt-2">비고</v-label>
+              </v-col>
+              <v-col cols="12" lg="10">
+                <v-textarea
+                  v-model="note"
+                  variant="outlined"
+                  color="primary"
+                  auto-grow
+                  clearable
+                ></v-textarea>
+              </v-col>
+            </v-row>
           </v-window-item>
           <v-col cols="1" offset="11">
 <!--삭제버튼-->
