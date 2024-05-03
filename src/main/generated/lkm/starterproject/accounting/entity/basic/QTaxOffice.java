@@ -23,7 +23,7 @@ public class QTaxOffice extends EntityPathBase<TaxOffice> {
 
     public final StringPath address = createString("address");
 
-    public final NumberPath<Integer> code = createNumber("code", Integer.class);
+    public final NumberPath<Long> code = createNumber("code", Long.class);
 
     public final StringPath fax = createString("fax");
 
@@ -33,7 +33,7 @@ public class QTaxOffice extends EntityPathBase<TaxOffice> {
 
     public final StringPath phone = createString("phone");
 
-    public final NumberPath<Integer> postCode = createNumber("postCode", Integer.class);
+    public final NumberPath<Long> postCode = createNumber("postCode", Long.class);
 
     public QTaxOffice(String variable) {
         super(TaxOffice.class, forVariable(variable));

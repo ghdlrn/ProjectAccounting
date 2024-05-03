@@ -72,8 +72,8 @@ public class CSVService {
             List<TaxOffice> taxOffices = new ArrayList<>();
             for (CSVRecord record : records) {
                 try {
-                    Integer code = parseInteger(record.get("세무서코드"));
-                    Integer postCode = parseInteger(record.get("우편번호"));
+                    Long code = parseLong(record.get("세무서코드"));
+                    Long postCode = parseLong(record.get("우편번호"));
                     TaxOffice taxOffice = TaxOffice.builder()
                             .code(code)
                             .name(record.get("세무서명"))
@@ -97,12 +97,12 @@ public class CSVService {
         }
     }
 
-    private Integer parseInteger(String value) {
+    private Long parseLong(String value) {
         if (value == null || value.trim().isEmpty()) {
             return null; // Return null or a default value if the string is empty
         }
         try {
-            return Integer.parseInt(value.trim());
+            return Long.parseLong(value.trim());
         } catch (NumberFormatException e) {
             return null; // Return null or log this as needed
         }

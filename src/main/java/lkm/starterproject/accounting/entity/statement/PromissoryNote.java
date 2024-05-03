@@ -14,11 +14,12 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="promissory_note")
+@Table(name = "promissory_note")
 public class PromissoryNote {   //어음
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "promissory_note_code")
     private Long code;        //코드번호
 
     private PromissoryNoteTypeStatus promissoryNoteTypeStatus;  //어음종류

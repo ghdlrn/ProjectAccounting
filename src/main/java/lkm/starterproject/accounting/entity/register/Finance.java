@@ -14,11 +14,12 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="finance")
+@Table(name = "finance")
 public class Finance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "finance_code")
     private Long code;
 
     @Column(nullable = false)
@@ -43,13 +44,13 @@ public class Finance {
     @Column(nullable = false, length = 12, unique = true)
     private String businessRegistrationNumber;  //사업자등록번호
 
-    private Integer accountTitle;   //계정과목
+    private Long accountTitle;   //계정과목
 
-    private Integer zipCode;    //우편번호
+    private Long zipCode;    //우편번호
 
     private String address; //주소
 
-    private Integer localTaxBillCode;   //지방세법정동코드
+    private Long localTaxBillCode;   //지방세법정동코드
 
     @Column(length = 13)
     private String phone;   //전화번호

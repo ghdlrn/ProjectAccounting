@@ -15,11 +15,12 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="fixed_asset")
+@Table(name = "fixed_asset")
 public class FixedAsset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "fixed_asset_code")
     private Long code;        //고정자산 코드번호
 
     @Column(nullable = false)
@@ -34,7 +35,7 @@ public class FixedAsset {
 
     private DepreciationStatus depreciationStatus;  //감가상각법
 
-    private Integer durableYears;   //내용연수
+    private Long durableYears;   //내용연수
 
     private UseStatus useStatus;    //사용여부
 

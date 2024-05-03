@@ -25,7 +25,7 @@ public class QFinance extends EntityPathBase<Finance> {
 
     public final NumberPath<Integer> accountNumber = createNumber("accountNumber", Integer.class);
 
-    public final NumberPath<Integer> accountTitle = createNumber("accountTitle", Integer.class);
+    public final NumberPath<Long> accountTitle = createNumber("accountTitle", Long.class);
 
     public final StringPath address = createString("address");
 
@@ -41,7 +41,7 @@ public class QFinance extends EntityPathBase<Finance> {
 
     public final NumberPath<Double> interestRate = createNumber("interestRate", Double.class);
 
-    public final NumberPath<Integer> localTaxBillCode = createNumber("localTaxBillCode", Integer.class);
+    public final NumberPath<Long> localTaxBillCode = createNumber("localTaxBillCode", Long.class);
 
     public final StringPath name = createString("name");
 
@@ -55,7 +55,7 @@ public class QFinance extends EntityPathBase<Finance> {
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 
-    public final NumberPath<Integer> zipCode = createNumber("zipCode", Integer.class);
+    public final NumberPath<Long> zipCode = createNumber("zipCode", Long.class);
 
     public QFinance(String variable) {
         super(Finance.class, forVariable(variable));

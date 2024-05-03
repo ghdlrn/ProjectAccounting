@@ -21,7 +21,7 @@ public class QCard extends EntityPathBase<Card> {
 
     public final DatePath<java.time.LocalDate> accountDay = createDate("accountDay", java.time.LocalDate.class);
 
-    public final NumberPath<Integer> accountTitle = createNumber("accountTitle", Integer.class);
+    public final NumberPath<Long> accountTitle = createNumber("accountTitle", Long.class);
 
     public final StringPath address = createString("address");
 
@@ -33,13 +33,13 @@ public class QCard extends EntityPathBase<Card> {
 
     public final NumberPath<Double> commission = createNumber("commission", Double.class);
 
-    public final NumberPath<Integer> commissionAccountTitle = createNumber("commissionAccountTitle", Integer.class);
+    public final NumberPath<Long> commissionAccountTitle = createNumber("commissionAccountTitle", Long.class);
 
     public final DatePath<java.time.LocalDate> constractCloseDate = createDate("constractCloseDate", java.time.LocalDate.class);
 
     public final DatePath<java.time.LocalDate> constractOpenDate = createDate("constractOpenDate", java.time.LocalDate.class);
 
-    public final NumberPath<Integer> customerGroupingCode = createNumber("customerGroupingCode", Integer.class);
+    public final NumberPath<Long> customerGroupingCode = createNumber("customerGroupingCode", Long.class);
 
     public final StringPath fax = createString("fax");
 
@@ -55,7 +55,7 @@ public class QCard extends EntityPathBase<Card> {
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 
-    public final NumberPath<Integer> zipCode = createNumber("zipCode", Integer.class);
+    public final NumberPath<Long> zipCode = createNumber("zipCode", Long.class);
 
     public QCard(String variable) {
         super(Card.class, forVariable(variable));

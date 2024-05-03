@@ -2,22 +2,20 @@ package lkm.starterproject.auth.entity;
 
 import jakarta.persistence.*;
 import lkm.starterproject.auth.constants.Role;
-import lkm.starterproject.bulletinboard.entity.BulletinBoard;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name="member")
+@Table(name = "member")
 public class Member {     //회원
 
     @Id
-    @Column(name="member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     @Column(nullable=false, length=16)
@@ -36,6 +34,4 @@ public class Member {     //회원
 
     private LocalDateTime updatedAt;    //계정업데이트일
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<BulletinBoard> posts = new ArrayList<>(); // 게시글 목록 추가
 }

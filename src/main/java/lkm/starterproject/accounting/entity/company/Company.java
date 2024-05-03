@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="company")
+@Table(name = "company")
 public class Company {  //회사
 
     @Id
@@ -33,7 +33,7 @@ public class Company {  //회사
     private UseStatus useStatus;        //사용구분
 
     @Column(nullable = false)
-    private Integer fiscalYearClass;        //회계연도기수
+    private Long fiscalYearClass;        //회계연도기수
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
@@ -58,7 +58,7 @@ public class Company {  //회사
     @Enumerated(EnumType.STRING)
     private ForeignerStatus foreignerStatus;        //대표자 내,외국인구분
 
-    private Integer zipCode;        //우편번호
+    private Long zipCode;        //우편번호
 
     private String address;     //주소
 
@@ -68,7 +68,7 @@ public class Company {  //회사
     @Column(length = 13)
     private String fax;    //사업장팩스번호
 
-    private Integer mainIndustryCode;       //메인업종코드
+    private Long mainIndustryCode;       //메인업종코드
 
     @Column(nullable = false)
     private String businessType;        //업태
@@ -76,11 +76,11 @@ public class Company {  //회사
     @Column(nullable = false)
     private String businessItem;        //업종
 
-    private Integer taxOfficeCode;  //사업장세무서코드
+    private Long taxOfficeCode;  //사업장세무서코드
 
-    private Integer localTaxBillCode;       //지방세 법정동 코드
+    private Long localTaxBillCode;       //지방세 법정동 코드
 
-    private Integer localTaxBillDivisionCode;       //지방세구분코드
+    private Long localTaxBillDivisionCode;       //지방세구분코드
 
     @Temporal(TemporalType.DATE)
     private LocalDate establishmentDate;        //설립연월일
@@ -91,7 +91,7 @@ public class Company {  //회사
     @Temporal(TemporalType.DATE)
     private LocalDate businessClosureDate;      //폐업연월일
 
-    private Integer accountNumber;      //국세환급금 계좌
+    private Long accountNumber;      //국세환급금 계좌
 
     @Enumerated(EnumType.STRING)
     private HeadOfficeStatus headOfficeStatus;      //본점여부
@@ -99,7 +99,7 @@ public class Company {  //회사
     @Enumerated(EnumType.STRING)
     private PaymentHeadOfficeStatus paymentHeadOfficeStatus;        //본점일괄납부여부
 
-    private Integer headOfficeCode;     //본점코드
+    private Long headOfficeCode;     //본점코드
 
     @Enumerated(EnumType.STRING)
     private CorporationClassifyStatus corporationClassifyStatus;    //법인구분

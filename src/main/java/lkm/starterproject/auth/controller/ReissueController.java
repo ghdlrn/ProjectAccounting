@@ -4,7 +4,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lkm.starterproject.auth.entity.RefreshEntity;
+import lkm.starterproject.auth.entity.Refresh;
 import lkm.starterproject.auth.repository.RefreshRepository;
 import lkm.starterproject.auth.jwt.JWTUtil;
 import org.springframework.http.HttpStatus;
@@ -74,7 +74,7 @@ public class ReissueController {
 
         Date date = new Date(System.currentTimeMillis() + expiredMs);
 
-        RefreshEntity refreshEntity = new RefreshEntity();
+        Refresh refreshEntity = new Refresh();
         refreshEntity.setEmail(email);
         refreshEntity.setRefresh(refresh);
         refreshEntity.setExpiration(date.toString());

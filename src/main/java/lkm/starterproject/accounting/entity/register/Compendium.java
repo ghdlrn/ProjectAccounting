@@ -10,12 +10,13 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="compendium")
+@Table(name = "compendium")
 public class Compendium { //적요
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer code;     //적요코드
+    @Column(name = "compendium_code")
+    private Long code;     //적요코드
 
     @Column(nullable=false)
     private String name;  //적요명

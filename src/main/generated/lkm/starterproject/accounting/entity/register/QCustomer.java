@@ -19,19 +19,19 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public static final QCustomer customer = new QCustomer("customer");
 
-    public final NumberPath<Integer> accountNumber = createNumber("accountNumber", Integer.class);
+    public final NumberPath<Long> accountNumber = createNumber("accountNumber", Long.class);
 
     public final StringPath address = createString("address");
 
-    public final NumberPath<Integer> amountOfCollateral = createNumber("amountOfCollateral", Integer.class);
+    public final NumberPath<Long> amountOfCollateral = createNumber("amountOfCollateral", Long.class);
 
-    public final NumberPath<Integer> bankLine = createNumber("bankLine", Integer.class);
+    public final NumberPath<Long> bankLine = createNumber("bankLine", Long.class);
 
     public final StringPath businessItem = createString("businessItem");
 
     public final StringPath businessType = createString("businessType");
 
-    public final NumberPath<Integer> chargeCode = createNumber("chargeCode", Integer.class);
+    public final NumberPath<Long> chargeCode = createNumber("chargeCode", Long.class);
 
     public final NumberPath<Long> code = createNumber("code", Long.class);
 
@@ -39,7 +39,7 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath customerAccountHolder = createString("customerAccountHolder");
 
-    public final NumberPath<Integer> customerBankAccountNumber = createNumber("customerBankAccountNumber", Integer.class);
+    public final NumberPath<Long> customerBankAccountNumber = createNumber("customerBankAccountNumber", Long.class);
 
     public final StringPath customerChargeDepartment = createString("customerChargeDepartment");
 
@@ -57,9 +57,9 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final EnumPath<lkm.starterproject.accounting.constants.LiquorRetailStatus> liquorRetailStatus = createEnum("liquorRetailStatus", lkm.starterproject.accounting.constants.LiquorRetailStatus.class);
 
-    public final NumberPath<Integer> localTaxBillCode = createNumber("localTaxBillCode", Integer.class);
+    public final NumberPath<Long> localTaxBillCode = createNumber("localTaxBillCode", Long.class);
 
-    public final NumberPath<Integer> myAccountTitle = createNumber("myAccountTitle", Integer.class);
+    public final NumberPath<Long> myAccountTitle = createNumber("myAccountTitle", Long.class);
 
     public final StringPath name = createString("name");
 
@@ -67,13 +67,13 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath note = createString("note");
 
-    public final NumberPath<Integer> otherAccountTitle = createNumber("otherAccountTitle", Integer.class);
+    public final NumberPath<Long> otherAccountTitle = createNumber("otherAccountTitle", Long.class);
 
     public final StringPath phone = createString("phone");
 
     public final StringPath RegistrationNumber = createString("RegistrationNumber");
 
-    public final NumberPath<Integer> taxRegistrationCode = createNumber("taxRegistrationCode", Integer.class);
+    public final NumberPath<Long> taxRegistrationCode = createNumber("taxRegistrationCode", Long.class);
 
     public final DatePath<java.time.LocalDate> tradeEndDate = createDate("tradeEndDate", java.time.LocalDate.class);
 
@@ -81,11 +81,11 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final EnumPath<lkm.starterproject.accounting.constants.TradeStatus> tradeStatus = createEnum("tradeStatus", lkm.starterproject.accounting.constants.TradeStatus.class);
 
-    public final NumberPath<Integer> UnitReportingCustomerCode = createNumber("UnitReportingCustomerCode", Integer.class);
+    public final NumberPath<Long> UnitReportingCustomerCode = createNumber("UnitReportingCustomerCode", Long.class);
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 
-    public final NumberPath<Integer> zipCode = createNumber("zipCode", Integer.class);
+    public final NumberPath<Long> zipCode = createNumber("zipCode", Long.class);
 
     public QCustomer(String variable) {
         super(Customer.class, forVariable(variable));

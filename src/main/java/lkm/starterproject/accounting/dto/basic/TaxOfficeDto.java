@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class TaxOfficeDto {
 
-    private Integer code;
+    private Long code;
 
     private String name;
 

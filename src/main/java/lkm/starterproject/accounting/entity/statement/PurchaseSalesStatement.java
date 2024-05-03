@@ -18,11 +18,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="purchase_sales_statement")
+@Table(name = "purchase_sales_statement")
 public class PurchaseSalesStatement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "purchase_sales_code")
     private Long code;
 
     @Temporal(TemporalType.DATE)
@@ -47,8 +48,6 @@ public class PurchaseSalesStatement {
     private Long surtax;    //부가세
 
     private Long ExtendedPrice; //총액
-
-
 
     private String resentment;  //분개종류
 

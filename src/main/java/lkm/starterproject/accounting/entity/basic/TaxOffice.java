@@ -13,17 +13,18 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "tax_office")
 public class TaxOffice {
 
     @Id
-    @Column(unique = true, nullable = false)
-    private Integer code;   //세무서 코드
+    @Column(name = "tax_office_code", unique = true, nullable = false)
+    private Long code;   //세무서 코드
 
     private String name;    //세무서명
 
     private String address; //도로명주소
 
-    private Integer postCode;    //우편번호
+    private Long postCode;    //우편번호
 
     private String phone;   //전화번호
 

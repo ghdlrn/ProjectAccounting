@@ -15,11 +15,12 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="cash_statement")
+@Table(name = "cash_statement")
 public class CashStatement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "cash_statement_code")
     private Long code;        //코드번호
 
     @Temporal(TemporalType.DATE)

@@ -12,11 +12,12 @@ import java.time.LocalDate;
 @Entity
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name="customer")
+@Table(name = "customer")
 public class Customer {      //거래처
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "customer_code")
     private Long code;        //거래처 코드번호
 
     @Column(nullable = false)
@@ -41,7 +42,7 @@ public class Customer {      //거래처
     @Column(nullable = false)
     private String businessItem;    //업종
 
-    private Integer zipCode;    //우편번호
+    private Long zipCode;    //우편번호
 
     private String address; //주소
 
@@ -51,14 +52,14 @@ public class Customer {      //거래처
     @Column(length = 13)
     private String fax;     //팩스번호
 
-    private Integer chargeCode; //담당사원
+    private Long chargeCode; //담당사원
 
     @Enumerated(EnumType.STRING)    //사업자단위 주사업장여부
     private CompanyUnitVATTaxationStatus companyUnitVATTaxationStatus;
 
-    private Integer UnitReportingCustomerCode;  //단위신고거래처
+    private Long UnitReportingCustomerCode;  //단위신고거래처
 
-    private Integer taxRegistrationCode;    //종사업장번호
+    private Long taxRegistrationCode;    //종사업장번호
 
     @Temporal(TemporalType.DATE)
     private LocalDate tradeStartDate;   //거래시작일
@@ -80,22 +81,22 @@ public class Customer {      //거래처
 
     private String homePage;    //거래처 홈페이지
 
-    private Integer customerBankAccountNumber;  //거래처 은행계좌
+    private Long customerBankAccountNumber;  //거래처 은행계좌
 
     private String customerAccountHolder;   //거래처 예금주
 
-    private Integer accountNumber;  //입금계좌
+    private Long accountNumber;  //입금계좌
 
-    private Integer myAccountTitle; //내 계정과목
+    private Long myAccountTitle; //내 계정과목
 
-    private Integer otherAccountTitle;  //상대 계정과목
+    private Long otherAccountTitle;  //상대 계정과목
 
-    private Integer bankLine;   //여신한도액
+    private Long bankLine;   //여신한도액
 
-    private Integer amountOfCollateral; //담보설정액
+    private Long amountOfCollateral; //담보설정액
 
     @Enumerated(EnumType.STRING)
     private LiquorRetailStatus liquorRetailStatus;  //주류코드(소매)
 
-    private Integer localTaxBillCode;   //지방세 법정동 코드
+    private Long localTaxBillCode;   //지방세 법정동 코드
 }

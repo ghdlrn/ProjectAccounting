@@ -17,11 +17,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="card")
+@Table(name = "card")
 public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "card_code")
     private Long code;
 
     @Column(nullable = false)
@@ -41,18 +42,18 @@ public class Card {
 
     private Double commission;      //수수료
 
-    private Integer commissionAccountTitle; //수수료 계정과목
+    private Long commissionAccountTitle; //수수료 계정과목
 
     private LocalDate accountDay;   //결제일
 
     @Column(nullable = false, length = 12, unique = true)
     private String businessRegistrationNumber;  //사업자등록번호
 
-    private Integer accountTitle;   //계정과목
+    private Long accountTitle;   //계정과목
 
-    private Integer customerGroupingCode;       //거래처분류코드
+    private Long customerGroupingCode;       //거래처분류코드
 
-    private Integer zipCode;    //우편번호
+    private Long zipCode;    //우편번호
 
     private String address; //주소
 

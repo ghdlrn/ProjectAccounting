@@ -19,7 +19,7 @@ public class QCompany extends EntityPathBase<Company> {
 
     public static final QCompany company = new QCompany("company");
 
-    public final NumberPath<Integer> accountNumber = createNumber("accountNumber", Integer.class);
+    public final NumberPath<Long> accountNumber = createNumber("accountNumber", Long.class);
 
     public final StringPath address = createString("address");
 
@@ -49,7 +49,7 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final StringPath fax = createString("fax");
 
-    public final NumberPath<Integer> fiscalYearClass = createNumber("fiscalYearClass", Integer.class);
+    public final NumberPath<Long> fiscalYearClass = createNumber("fiscalYearClass", Long.class);
 
     public final DatePath<java.time.LocalDate> fiscalYearEnd = createDate("fiscalYearEnd", java.time.LocalDate.class);
 
@@ -57,15 +57,15 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final EnumPath<lkm.starterproject.accounting.constants.ForeignerStatus> foreignerStatus = createEnum("foreignerStatus", lkm.starterproject.accounting.constants.ForeignerStatus.class);
 
-    public final NumberPath<Integer> headOfficeCode = createNumber("headOfficeCode", Integer.class);
+    public final NumberPath<Long> headOfficeCode = createNumber("headOfficeCode", Long.class);
 
     public final EnumPath<lkm.starterproject.accounting.constants.HeadOfficeStatus> headOfficeStatus = createEnum("headOfficeStatus", lkm.starterproject.accounting.constants.HeadOfficeStatus.class);
 
-    public final NumberPath<Integer> localTaxBillCode = createNumber("localTaxBillCode", Integer.class);
+    public final NumberPath<Long> localTaxBillCode = createNumber("localTaxBillCode", Long.class);
 
-    public final NumberPath<Integer> localTaxBillDivisionCode = createNumber("localTaxBillDivisionCode", Integer.class);
+    public final NumberPath<Long> localTaxBillDivisionCode = createNumber("localTaxBillDivisionCode", Long.class);
 
-    public final NumberPath<Integer> mainIndustryCode = createNumber("mainIndustryCode", Integer.class);
+    public final NumberPath<Long> mainIndustryCode = createNumber("mainIndustryCode", Long.class);
 
     public final StringPath name = createString("name");
 
@@ -79,11 +79,11 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final StringPath residentRegistrationNumber = createString("residentRegistrationNumber");
 
-    public final NumberPath<Integer> taxOfficeCode = createNumber("taxOfficeCode", Integer.class);
+    public final NumberPath<Long> taxOfficeCode = createNumber("taxOfficeCode", Long.class);
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 
-    public final NumberPath<Integer> zipCode = createNumber("zipCode", Integer.class);
+    public final NumberPath<Long> zipCode = createNumber("zipCode", Long.class);
 
     public QCompany(String variable) {
         super(Company.class, forVariable(variable));

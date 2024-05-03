@@ -16,11 +16,12 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="statement")
+@Table(name = "statement")
 public class Statement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "statement_code")
     private Long code;
 
     @Temporal(TemporalType.DATE)
@@ -28,9 +29,6 @@ public class Statement {
 
     @Enumerated(EnumType.STRING)
     private StatementTypeStatus statementTypeStatus;    //전표종류
-
-
-
 
     private Long debit;      //차변금액
 

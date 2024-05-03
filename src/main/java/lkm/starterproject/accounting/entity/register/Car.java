@@ -13,11 +13,12 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="car")
+@Table(name = "car")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "car_code")
     private Long code;
 
     @Column(nullable = false)

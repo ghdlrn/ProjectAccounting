@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QRefreshEntity is a Querydsl query type for RefreshEntity
+ * QRefresh is a Querydsl query type for Refresh
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QRefreshEntity extends EntityPathBase<RefreshEntity> {
+public class QRefresh extends EntityPathBase<Refresh> {
 
-    private static final long serialVersionUID = 939471381L;
+    private static final long serialVersionUID = 19650450L;
 
-    public static final QRefreshEntity refreshEntity = new QRefreshEntity("refreshEntity");
+    public static final QRefresh refresh1 = new QRefresh("refresh1");
 
     public final StringPath email = createString("email");
 
@@ -27,16 +27,16 @@ public class QRefreshEntity extends EntityPathBase<RefreshEntity> {
 
     public final StringPath refresh = createString("refresh");
 
-    public QRefreshEntity(String variable) {
-        super(RefreshEntity.class, forVariable(variable));
+    public QRefresh(String variable) {
+        super(Refresh.class, forVariable(variable));
     }
 
-    public QRefreshEntity(Path<? extends RefreshEntity> path) {
+    public QRefresh(Path<? extends Refresh> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QRefreshEntity(PathMetadata metadata) {
-        super(RefreshEntity.class, metadata);
+    public QRefresh(PathMetadata metadata) {
+        super(Refresh.class, metadata);
     }
 
 }
