@@ -21,6 +21,16 @@ public class QAddress extends EntityPathBase<Address> {
 
     public final NumberPath<Long> code = createNumber("code", Long.class);
 
+    public final StringPath extraAddress = createString("extraAddress");
+
+    public final StringPath guideText = createString("guideText");
+
+    public final StringPath jibunAddress = createString("jibunAddress");
+
+    public final NumberPath<Integer> postcode = createNumber("postcode", Integer.class);
+
+    public final StringPath roadAddress = createString("roadAddress");
+
     public QAddress(String variable) {
         super(Address.class, forVariable(variable));
     }
