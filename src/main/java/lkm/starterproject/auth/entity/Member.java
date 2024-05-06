@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -33,5 +34,8 @@ public class Member {     //회원
     private LocalDateTime createdAt;    //계정생성일
 
     private LocalDateTime updatedAt;    //계정업데이트일
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberCompany> memberCompanies = new ArrayList<>();
 
 }

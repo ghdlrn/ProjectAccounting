@@ -2,7 +2,6 @@ package lkm.starterproject.accounting.entity.basic;
 
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
 
 @Entity

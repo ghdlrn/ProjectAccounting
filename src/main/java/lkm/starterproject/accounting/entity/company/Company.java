@@ -1,14 +1,16 @@
 package lkm.starterproject.accounting.entity.company;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.constants.*;
 import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
 import lkm.starterproject.accounting.entity.register.Finance;
+import lkm.starterproject.auth.entity.MemberCompany;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -107,5 +109,9 @@ public class Company {  //회사
     private String chargeEmail;       //담당자 이메일
     
     private String note;    //비고
-
+    /*------------------------------------------------------------------------------------
+     * ----------------------------------Mapping------------------------------------------
+     * ----------------------------------------------------------------------------------*/
+    @OneToMany(mappedBy = "company")
+    private List<MemberCompany> memberCompanies = new ArrayList<>();
 }
