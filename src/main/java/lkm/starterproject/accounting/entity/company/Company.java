@@ -27,11 +27,9 @@ public class Company {  //회사
 
     private String businessPersonType;    //사업자 유형
 
-    @Enumerated(EnumType.STRING)
-    private HeadOfficeStatus headOfficeStatus;      //본점여부
+    private String headOfficeStatus;      //본점여부
 
-    @Enumerated(EnumType.STRING)
-    private PaymentHeadOfficeStatus paymentHeadOfficeStatus;        //본점일괄납부여부
+    private String paymentHeadOfficeStatus;        //본점일괄납부여부
 
     @Column(nullable = false)
     private String name;        //회사명
@@ -83,20 +81,15 @@ public class Company {  //회사
     @JoinColumn(name = "finance_code")
     private Finance finance;            //국세환급금 계좌
 
-    @Enumerated(EnumType.STRING)
-    private CorporationClassifyStatus corporationClassifyStatus;    //법인구분
+    private String corporationClassifyStatus;    //법인구분
 
-    @Enumerated(EnumType.STRING)
-    private CompanyTypeStatus companyTypeStatus;    //회사종류구분
+    private String companyTypeStatus;    //회사종류구분
 
-    @Enumerated(EnumType.STRING)
-    private BusinessScaleStatus businessScaleStatus;    //중소기업여부
+    private String businessScaleStatus;    //중소기업여부
+    
+    private String companyStatus;        //회사종류(주식회사, 개인회사)
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CompanyStatus companyStatus;        //회사종류(주식회사, 개인회사)
-
-    private String localTaxBillDivision;       //지방세구분
+    private String localTaxBillDivision;       //지방세 신고 구분
 
     @Column(length = 14)
     private String residentRegistrationNumber;      //대표자 주민번호
