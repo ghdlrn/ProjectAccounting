@@ -37,8 +37,6 @@ public class MemberService {
                 .password(passwordEncoder.encode(password))     //비밀번호 암호화해서 저장
                 .email(email)
                 .role(Role.USER)    //회원가입대상자는 모두 권한 USER
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .build();
         memberRepository.save(member);
     }

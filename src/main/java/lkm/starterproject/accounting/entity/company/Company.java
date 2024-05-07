@@ -5,6 +5,7 @@ import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
 import lkm.starterproject.accounting.entity.register.Finance;
+import lkm.starterproject.auth.entity.BaseEntity;
 import lkm.starterproject.auth.entity.MemberCompany;
 import lombok.*;
 
@@ -20,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "company")
-public class Company {  //회사
+public class Company extends BaseEntity {  //회사
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

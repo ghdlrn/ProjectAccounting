@@ -12,7 +12,7 @@ import java.util.List;
 @Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "member")
-public class Member {     //회원
+public class Member extends BaseEntity {     //회원
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +30,6 @@ public class Member {     //회원
 
     @Enumerated(EnumType.STRING)
     private Role role;      //권한
-
-    private LocalDateTime createdAt;    //계정생성일
-
-    private LocalDateTime updatedAt;    //계정업데이트일
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
