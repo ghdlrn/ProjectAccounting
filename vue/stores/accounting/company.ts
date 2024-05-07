@@ -15,8 +15,8 @@ interface companies {
     fiscalYearStart: string;
     fiscalYearEnd: string;
     privatePracticeDate: string;
-    taxOfficeName: string;
-    localTaxName: string;
+    taxOffice: string;
+    localTax: string;
     accountNumber: string;
     corporationClassifyStatus: string;
     businessScaleStatus: string;
