@@ -140,6 +140,7 @@ const openPostcodePopup = () => {
     top: (window.screen.height / 2) - (height / 2)
   });
 };
+
 </script>
 
 <style scoped lang="scss">

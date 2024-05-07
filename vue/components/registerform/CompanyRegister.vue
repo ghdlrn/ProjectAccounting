@@ -11,12 +11,22 @@ import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
 import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
 import { useCompanyStore } from "~/stores/accounting/company.ts"
+import { useAddressStore } from '@/stores/address';
 import { storeToRefs }  from "pinia";
 const companyStore = useCompanyStore();
+const addressStore = useAddressStore();
 const { companies } = storeToRefs(companyStore);
 const currentCompany = ref(companies.value || {});
 
 const saveOrUpdateCompany = () => {
+  const companyAddress = {
+    ...currentCompany.value,
+    postcode: addressStore.postcode,
+    roadAddress: addressStore.roadAddress,
+    jibunAddress: addressStore.jibunAddress,
+    extraAddress: addressStore.extraAddress,
+    guideText: addressStore.guideText
+  };
   if (currentCompany.value.code) {
     companyStore.updateCompany(currentCompany.value);
   } else {
@@ -187,7 +197,7 @@ const deleteCompany = () => {
               </v-col>
             </v-row>
 
-            <DaumPostcode />
+            <DaumPostcode @update:address="addressStore.setAddress" />
               <!-- row 2 -->
             <v-row>
             <v-col cols="12" sm="5">
