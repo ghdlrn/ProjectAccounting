@@ -43,7 +43,6 @@ const company = reactive({
   chargeName: '',
   chargeEmail: '',
   note: '',
-  // Including the address properties
   postcode: addressStore.postcode,
   roadAddress: addressStore.roadAddress,
   jibunAddress: addressStore.jibunAddress,
@@ -593,7 +592,7 @@ function clearForm() {
               <v-btn :disabled="!Used" color="secondary"  @click="clearForm">clear</v-btn>
             </v-col>
             <v-col cols="1">
-              <v-btn :disabled="!Used" color="error" v-if="company.code" @click="deleteCompany(company.code)">삭제</v-btn>
+              <v-btn :disabled="!Used" color="error" v-if="company.code"  @click="deleteCompany(company.code)">삭제</v-btn>
             </v-col>
           </v-row>
         </v-window>

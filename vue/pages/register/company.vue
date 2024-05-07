@@ -26,7 +26,6 @@ const breadcrumbs = ref([
     <v-col cols="5">
       <UiParentCard title="회사 조회">
 
-        <CompanyReference />
 
       </UiParentCard>
     </v-col>

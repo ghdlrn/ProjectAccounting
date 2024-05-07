@@ -2,6 +2,7 @@ package lkm.starterproject.accounting.controller;
 
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.service.CompanyService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,28 +18,36 @@ public class CompanyController {
     }
 
     @PostMapping
-    public Company createCompany(@RequestBody Company company) {
-        return companyService.saveCompany(company);
+    public ResponseEntity<Company> createCompany(@RequestBody Company company) {
+        Company createdCompany = companyService.createCompany(company);
+        return ResponseEntity.ok(createdCompany);
     }
 
-    @GetMapping("/{code}")
-    public Company getCompany(@PathVariable Long code) {
-        return companyService.getCompany(code);
-    }
-
-    @PutMapping("/{code}")
-    public Company updateCompany(@PathVariable Long code, @RequestBody Company company) {
-        company.setCode(code);
-        return companyService.saveCompany(company);
-    }
-
-    @DeleteMapping("/{code}")
-    public void deleteCompany(@PathVariable Long code) {
-        companyService.deleteCompany(code);
-    }
-
+    // Retrieve all companies
     @GetMapping
-    public List<Company> listCompanies() {
-        return companyService.listAllCompanies();
+    public ResponseEntity<List<Company>> getAllCompanies() {
+        List<Company> companies = companyService.getAllCompanies();
+        return ResponseEntity.ok(companies);
+    }
+
+    // Retrieve a single company by ID
+    @GetMapping("/{code}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Long code) {
+        Company company = companyService.getCompanyById(code);
+        return ResponseEntity.ok(company);
+    }
+
+    // Update a company
+    @PutMapping("/{code}")
+    public ResponseEntity<Company> updateCompany(@PathVariable Long code, @RequestBody Company companyDetails) {
+        Company updatedCompany = companyService.updateCompany(code, companyDetails);
+        return ResponseEntity.ok(updatedCompany);
+    }
+
+    // Delete a company
+    @DeleteMapping("/{code}")
+    public ResponseEntity<Void> deleteCompany(@PathVariable Long code) {
+        companyService.deleteCompany(code);
+        return ResponseEntity.ok().build();
     }
 }
