@@ -28,9 +28,9 @@ const saveOrUpdateCompany = () => {
     guideText: addressStore.guideText
   };
   if (currentCompany.value.code) {
-    companyStore.updateCompany(currentCompany.value);
+    companyStore.updateCompany(companyAddress);
   } else {
-    companyStore.createCompany(currentCompany.value);
+    companyStore.createCompany(companyAddress);
   }
 }
 
