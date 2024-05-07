@@ -30,8 +30,14 @@ public class Member extends BaseEntity {     //회원
 
     @Enumerated(EnumType.STRING)
     private Role role;      //권한
-
+    /*------------------------------------------------------------------------------------
+     * ----------------------------------Mapping------------------------------------------
+     * ----------------------------------------------------------------------------------*/
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "member_img_id")
+    private MemberImg memberImg;
 
 }
