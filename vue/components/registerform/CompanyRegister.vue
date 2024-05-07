@@ -1,9 +1,8 @@
 
 <script setup>
-import { ref, reactive, watchEffect } from 'vue';
-import axios from 'axios';
+import { ref } from 'vue';
 
-import UiParentCard from '@/components/shared/UiParentCard.vue';
+import UiParentCard from '~/components/shared/UiParentCard.vue';
 const tab = ref(null);
 const Used = ref(false);
 import DaumPostcode from "~/components/DaumPostcode.vue";
@@ -11,68 +10,23 @@ import DateSelect from "~/components/DateSelect.vue";
 import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
 import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
-import { useAddressStore } from "~/stores/address.js";
-import { useCompanyStore } from "~/stores/accounting/company.js";
-const addressStore = useAddressStore();
+import { useCompanyStore } from "~/stores/accounting/company.ts"
+import { storeToRefs }  from "pinia";
 const companyStore = useCompanyStore();
+const { companies } = storeToRefs(companyStore);
+const currentCompany = ref(companies.value || {});
 
-const company = reactive({
-  licenseType: '',
-  headOfficeStatus: '',
-  paymentHeadOfficeStatus: '',
-  name: '',
-  businessRegistrationNumber: '',
-  nameOfRepresentative: '',
-  corporationRegistrationNumber: '',
-  businessType: '',
-  businessItem: '',
-  fiscalYearClass: '',
-  fiscalYearStart: '',
-  fiscalYearEnd: '',
-  privatePracticeDate: '',
-  taxOfficeName: '',
-  localTaxName: '',
-  accountNumber: '',
-  corporationClassifyStatus: '',
-  businessScaleStatus: '',
-  companyTypeStatus: '',
-  localTaxBillDivisionCode: '',
-  residentRegistrationNumber: '',
-  phone: '',
-  fax: '',
-  chargeName: '',
-  chargeEmail: '',
-  note: '',
-  postcode: addressStore.postcode,
-  roadAddress: addressStore.roadAddress,
-  jibunAddress: addressStore.jibunAddress,
-  extraAddress: addressStore.extraAddress,
-  guideText: addressStore.guideText
-})
-
-function saveOrUpdateCompany() {
-  if (company.code) {
-    companyStore.updateCompany(company);
+const saveOrUpdateCompany = () => {
+  if (currentCompany.value.code) {
+    companyStore.updateCompany(currentCompany.value);
   } else {
-    companyStore.saveCompany(company);
+    companyStore.createCompany(currentCompany.value);
   }
 }
 
-watchEffect(() => {
-  if (companyStore.currentCompany) {
-    Object.assign(company, companyStore.currentCompany);
-  }
-});
-
-function deleteCompany() {
-  companyStore.deleteCompany(company);
+const deleteCompany = () => {
+  companyStore.deleteCompany();
 }
-
-function clearForm() {
-  Object.keys(company).forEach(key => company[key] = '');
-  company.code = null;  // Ensure new entries do not carry an old ID
-}
-
 </script>
 
 <template>
@@ -109,7 +63,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-select
-                        v-model="company.licenseType"
+                        v-model="currentCompany.licenseType"
                         :items="['법인사업자', '면세법인사업자', '일반과세자', '면세개인사업자', '간이과세자', '비영리기관 및 국가기관 등']"
                         label="ex) 법인사업자/일반과세자"
                         variant="outlined"
@@ -127,7 +81,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-text-field
-                        v-model="company.name"
+                        v-model="currentCompany.name"
                         hint="법인(단체)/상호 명을 입력해주세요"
                         persistent-hint
                         variant="outlined"
@@ -147,7 +101,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="3" md="6">
                     <v-select
-                        v-model="company.headOfficeStatus"
+                        v-model="currentCompany.headOfficeStatus"
                         :items="['본점', '지점']"
                         label="ex) 본점"
                         variant="outlined"
@@ -162,7 +116,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="3" md="6">
                     <v-select
-                        v-model="company.paymentHeadOfficeStatus"
+                        v-model="currentCompany.paymentHeadOfficeStatus"
                         :items="['여', '부']"
                         label="ex) 여"
                         variant="outlined"
@@ -180,7 +134,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="6" md="9">
                     <v-text-field
-                        v-model="company.businessRegistrationNumber"
+                        v-model="currentCompany.businessRegistrationNumber"
                         hint="사업자등록증 등록번호"
                         persistent-hint
                         variant="outlined"
@@ -201,7 +155,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-text-field
-                        v-model="company.nameOfRepresentative"
+                        v-model="currentCompany.nameOfRepresentative"
                         hint="사업자등록증 대표자 이름"
                         persistent-hint
                         variant="outlined"
@@ -220,7 +174,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="6" md="9">
                     <v-text-field
-                        v-model="company.corporationRegistrationNumber"
+                        v-model="currentCompany.corporationRegistrationNumber"
                         hint="법인 사업자인 경우 법인등록번호"
                         persistent-hint
                         variant="outlined"
@@ -243,7 +197,7 @@ function clearForm() {
                 </v-col>
                 <v-col cols="12" lg="9" md="9">
                   <v-text-field
-                      v-model="company.businessType"
+                      v-model="currentCompany.businessType"
                       hint="판매형태/표준산업분류표 대분류(2자리)"
                       persistent-hint
                       variant="outlined"
@@ -264,7 +218,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-text-field
-                        v-model="company.businessItem"
+                        v-model="currentCompany.businessItem"
                         hint="판매하는 물건/표준산업분류표 세분류(5자리)"
                         persistent-hint
                         variant="outlined"
@@ -293,7 +247,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="4">
                     <v-text-field
-                        v-model="company.fiscalYearClass"
+                        v-model="currentCompany.fiscalYearClass"
                         hint="숫자"
                         persistent-hint
                         variant="outlined"
@@ -317,14 +271,14 @@ function clearForm() {
                     <v-label class="mt-2"> 시작일</v-label>
                   </v-col>
                   <v-col cols="12" lg="4">
-                    <DateSelect v-model="company.fiscalYearStart" />
+                    <DateSelect v-model="currentCompany.fiscalYearStart" />
                   </v-col>
 
                   <v-col cols="12" lg="1">
                     <v-label class="mt-2"> 종료일</v-label>
                   </v-col>
                   <v-col cols="12" lg="4" md="9">
-                    <DateSelect v-model="company.fiscalYearEnd" />
+                    <DateSelect v-model="currentCompany.fiscalYearEnd" />
                   </v-col>
                 </v-row>
               </v-col>
@@ -337,7 +291,7 @@ function clearForm() {
                     <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
-                    <DateSelect v-model="company.privatePracticeDate" />
+                    <DateSelect v-model="currentCompany.privatePracticeDate" />
                   </v-col>
 
                 </v-row>
@@ -350,7 +304,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="4" md="9">
 
-                    <TaxOfficeInfo v-model="company.taxOfficeName" />
+                    <TaxOfficeInfo />
 
                   </v-col>
                   <v-col cols="12" lg="1">
@@ -358,7 +312,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="6">
 
-                    <LocalTaxInfo v-model="company.localTaxName" />
+                    <LocalTaxInfo />
 
                   </v-col>
                 </v-row>
@@ -372,7 +326,7 @@ function clearForm() {
                     <v-label class="mt-2">국세 환급금 <br />계좌</v-label>
                   </v-col>
                   <v-col cols="12" lg="8">
-                    <v-text-field v-model="company.accountNumber"
+                    <v-text-field v-model="currentCompany.accountNumber"
                                   variant="outlined"
                                   color="primary"
                                   hint="ex) 계좌번호"
@@ -409,7 +363,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="company.corporationClassifyStatus"
+                        v-model="currentCompany.corporationClassifyStatus"
                         :items="['내국', '외국', '외투']"
                         hint="ex) 내국/외국/외국투자 기업"
                         persistent-hint
@@ -426,7 +380,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="company.businessScaleStatus"
+                        v-model="currentCompany.businessScaleStatus"
                         :items="['중소기업', '비중소기업']"
                         hint="ex) 여 / 부"
                         persistent-hint
@@ -446,7 +400,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="company.companyTypeStatus"
+                        v-model="currentCompany.companyTypeStatus"
                         :items="['중소기업', '일반', '상장', '비영리', '협회 등록']"
                         label="ex) 본점"
                         variant="outlined"
@@ -464,7 +418,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="company.localTaxBillDivisionCode"
+                        v-model="currentCompany.localTaxBillDivisionCode"
                         :items="['개인(내국인)', '외국인', '종중, 문중', '종교단체', '마을회', '기타단체', 'OO 주식회사', '주식회사 OO', 'OO 합자회사', '합자회사 OO', 'OO 합병회사', '합병회사 OO', 'OO 유한(책임)회사', '유한(책임)회사 OO', '농업회사법인', 'OO 재단법인', '재단법인 OO', 'OO 사단법인', '사단법인 OO', 'OO 학교법인', '학교법인 OO', '의료법인', '사회복지법인', '특수법인', '광역자치단체', '기초자치단체', '외국정부 및 주한국제기관', '자치단체조합', '기타법인']"
                         variant="outlined"
                         color="primary"
@@ -485,7 +439,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
                     <v-text-field
-                        v-model="company.residentRegistrationNumber"
+                        v-model="currentCompany.residentRegistrationNumber"
                         hint="사업자등록증 대표자 주민등록번호"
                         persistent-hint
                         variant="outlined"
@@ -509,7 +463,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-text-field
-                        v-model="company.phone"
+                        v-model="currentCompany.phone"
                         placeholder="000-0000-0000"
                         persistent-placeholder
                         hint="-까지 포함하여 입력"
@@ -526,7 +480,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-text-field
-                        v-model="company.chargeName"
+                        v-model="currentCompany.chargeName"
                         placeholder="김OO"
                         persistent-placeholder
                         variant="outlined"
@@ -544,7 +498,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-text-field
-                        v-model="company.fax"
+                        v-model="currentCompany.fax"
                         placeholder="000-0000-0000"
                         persistent-placeholder
                         hint="-까지 포함하여 입력"
@@ -561,7 +515,7 @@ function clearForm() {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-text-field
-                        v-model="company.chargeEmail"
+                        v-model="currentCompany.chargeEmail"
                         placeholder="OOO@OOOO.OOO"
                         persistent-placeholder
                         variant="outlined"
@@ -577,7 +531,7 @@ function clearForm() {
               </v-col>
               <v-col cols="12" lg="10">
                 <v-textarea
-                    v-model="company.note"
+                    v-model="currentCompany.note"
                     variant="outlined"
                     color="primary"
                     auto-grow
@@ -588,11 +542,8 @@ function clearForm() {
 
           </v-window-item>
           <v-row>
-            <v-col cols="1" offset="10">
-              <v-btn :disabled="!Used" color="secondary"  @click="clearForm">clear</v-btn>
-            </v-col>
-            <v-col cols="1">
-              <v-btn :disabled="!Used" color="error" v-if="company.code"  @click="deleteCompany(company.code)">삭제</v-btn>
+            <v-col cols="1" offset="11">
+              <v-btn :disabled="!Used" color="error"  @click="deleteCompany">삭제</v-btn>
             </v-col>
           </v-row>
         </v-window>

@@ -20,7 +20,7 @@ public class Address {
     @Column(name = "address_code")
     private Long code;        //회사코드
 
-    private Integer postcode;   //우편번호
+    private String postcode;   //우편번호
 
     private String roadAddress; //도로명주소
 

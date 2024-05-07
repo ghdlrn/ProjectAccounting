@@ -32,7 +32,7 @@ public class QAddress extends EntityPathBase<Address> {
 
     public final StringPath jibunAddress = createString("jibunAddress");
 
-    public final NumberPath<Integer> postcode = createNumber("postcode", Integer.class);
+    public final StringPath postcode = createString("postcode");
 
     public final StringPath roadAddress = createString("roadAddress");
 
