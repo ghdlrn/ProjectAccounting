@@ -2,6 +2,7 @@ package lkm.starterproject.accounting.entity.basic;
 
 
 import jakarta.persistence.*;
+import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
 
 @Entity
@@ -28,5 +29,9 @@ public class Address {
     private String extraAddress;    //상세주소
 
     private String guideText;   //참고사항
-
+    /*------------------------------------------------------------------------------------
+     * ----------------------------------Mapping------------------------------------------
+     * ----------------------------------------------------------------------------------*/
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Company company;
 }

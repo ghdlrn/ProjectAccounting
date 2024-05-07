@@ -45,7 +45,7 @@ public class Company {  //회사
     @Column(length = 14)
     private String corporationRegistrationNumber;       //법인등록번호
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_code")
     private Address address;        //주소
 
@@ -112,6 +112,6 @@ public class Company {  //회사
     /*------------------------------------------------------------------------------------
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 }

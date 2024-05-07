@@ -1,9 +1,7 @@
 package lkm.starterproject.accounting.entity.basic;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
 
 @Entity
@@ -33,4 +31,9 @@ public class TaxOffice {
     private String accountNumber;   //계좌번호
 
     private String jurisdiction;    //관할구역
+    /*------------------------------------------------------------------------------------
+     * ----------------------------------Mapping------------------------------------------
+     * ----------------------------------------------------------------------------------*/
+    @OneToOne(mappedBy = "taxOffice",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Company company;
 }

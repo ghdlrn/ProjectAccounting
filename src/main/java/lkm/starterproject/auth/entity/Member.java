@@ -35,7 +35,7 @@ public class Member {     //회원
 
     private LocalDateTime updatedAt;    //계정업데이트일
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 
 }

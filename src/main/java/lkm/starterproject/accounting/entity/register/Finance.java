@@ -67,6 +67,9 @@ public class Finance {
     private LocalDate accountCloseDate; //계좌해지일
 
     private String note;    //비고
-
-
+    /*------------------------------------------------------------------------------------
+     * ----------------------------------Mapping------------------------------------------
+     * ----------------------------------------------------------------------------------*/
+    @OneToOne(mappedBy = "finance", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Company company;
 }

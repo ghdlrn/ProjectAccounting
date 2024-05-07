@@ -1,9 +1,7 @@
 package lkm.starterproject.accounting.entity.basic;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
 
 @Entity
@@ -23,4 +21,9 @@ public class LocalTax {
     private String name;
 
     private String status;
+    /*------------------------------------------------------------------------------------
+     * ----------------------------------Mapping------------------------------------------
+     * ----------------------------------------------------------------------------------*/
+    @OneToOne(mappedBy = "localTax", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Company company;
 }
