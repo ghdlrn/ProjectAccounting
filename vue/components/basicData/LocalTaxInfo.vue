@@ -64,7 +64,8 @@
 
 <script setup>
 import { ref, computed, onMounted} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
-import { useLocalTaxStore } from '~/stores/accounting/basicdata/localTax.js'
+
+import { useLocalTaxStore } from '~/stores/accounting/basicdata/localTax.ts'
 import {SearchOutlined} from "@ant-design/icons-vue";
 const store = useLocalTaxStore();
 
@@ -82,10 +83,11 @@ const headers = ref( [
 
 const menu = ref(false);
 
-const selectedLocalTax = ref('');   //선택한 세무서 저장
+const selectedLocalTax = ref({});   //선택한 세무서 저장
 
 function select(item) {
   selectedLocalTax.value = item.name;
+  store.setSelectedLocalTax(item);
   menu.value = false;
 }
 

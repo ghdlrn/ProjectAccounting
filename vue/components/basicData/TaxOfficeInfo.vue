@@ -64,7 +64,7 @@
 
 <script setup>
 import { ref, computed, onMounted} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
-import { useTaxOfficeStore } from '~/stores/accounting/basicdata/taxOffice.js'
+import { useTaxOfficeStore } from '~/stores/accounting/basicdata/taxOffice.ts'
 import {SearchOutlined} from "@ant-design/icons-vue";
 const store = useTaxOfficeStore();
 

@@ -1,9 +1,15 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-export const useLocalTaxStore = defineStore('localLax', {
+interface LocalTax {
+    code: number;
+    name: string;
+}
+
+export const useLocalTaxStore = defineStore('localTax', {
     state: () => ({
-        localTax: []
+        localTax: [] as LocalTax[],
+        selectedLocalTax: {} as LocalTax | null
     }),
     actions: {
         async fetchLocalTax() {
@@ -13,6 +19,9 @@ export const useLocalTaxStore = defineStore('localLax', {
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);
             }
+        },
+        setSelectedLocalTax(localTax: LocalTax) {
+            this.selectedLocalTax = localTax;
         }
     }
 })

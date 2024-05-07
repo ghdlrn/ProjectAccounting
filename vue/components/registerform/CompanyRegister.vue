@@ -12,9 +12,13 @@ import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
 import { useCompanyStore } from "~/stores/accounting/company.ts"
 import { useAddressStore } from '@/stores/address';
+import { useTaxOfficeStore } from "~/stores/accounting/basicdata/taxOffice.ts";
+import { useLocalTaxStore } from "~/stores/accounting/basicdata/localTax.ts";
 import { storeToRefs }  from "pinia";
 const companyStore = useCompanyStore();
 const addressStore = useAddressStore();
+const taxOfficeStore = useTaxOfficeStore();
+const localTaxStore = useLocalTaxStore();
 const { companies } = storeToRefs(companyStore);
 const currentCompany = ref(companies.value || {});
 
@@ -22,6 +26,8 @@ const saveOrUpdateCompany = () => {
   const companyData = {
     ...currentCompany.value,
     ...addressStore.$state,
+    ...taxOfficeStore,
+    localTax: localTaxStore.selectedLocalTax
   };
   if (currentCompany.value.code) {
     companyStore.updateCompany(companyData);
@@ -312,7 +318,7 @@ const deleteCompany = () => {
                   </v-col>
                   <v-col cols="12" lg="4" md="9">
 
-                    <TaxOfficeInfo />
+                    <TaxOfficeInfo @update:taxOffice="taxOfficeStore.fetchTaxOffices" />
 
                   </v-col>
                   <v-col cols="12" lg="1">
@@ -320,7 +326,7 @@ const deleteCompany = () => {
                   </v-col>
                   <v-col cols="12" lg="6">
 
-                    <LocalTaxInfo />
+                    <LocalTaxInfo @update:localTax="localTaxStore.fetchLocalTax" />
 
                   </v-col>
                 </v-row>
@@ -334,7 +340,7 @@ const deleteCompany = () => {
                     <v-label class="mt-2">국세 환급금 <br />계좌</v-label>
                   </v-col>
                   <v-col cols="12" lg="8">
-                    <v-text-field v-model="currentCompany.accountNumber"
+                    <v-text-field v-model="currentCompany.finance"
                                   variant="outlined"
                                   color="primary"
                                   hint="ex) 계좌번호"
@@ -426,7 +432,7 @@ const deleteCompany = () => {
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="currentCompany.localTaxBillDivisionCode"
+                        v-model="currentCompany.localTaxBillDivision"
                         :items="['개인(내국인)', '외국인', '종중, 문중', '종교단체', '마을회', '기타단체', 'OO 주식회사', '주식회사 OO', 'OO 합자회사', '합자회사 OO', 'OO 합병회사', '합병회사 OO', 'OO 유한(책임)회사', '유한(책임)회사 OO', '농업회사법인', 'OO 재단법인', '재단법인 OO', 'OO 사단법인', '사단법인 OO', 'OO 학교법인', '학교법인 OO', '의료법인', '사회복지법인', '특수법인', '광역자치단체', '기초자치단체', '외국정부 및 주한국제기관', '자치단체조합', '기타법인']"
                         variant="outlined"
                         color="primary"

@@ -1,9 +1,15 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+interface TaxOffice {
+    code: number;
+    name: string;
+    jurisdiction: string;
+}
+
 export const useTaxOfficeStore = defineStore('taxOffice', {
     state: () => ({
-        taxOffices: []
+        taxOffices: [] as TaxOffice[],
     }),
     actions: {
         async fetchTaxOffices() {
