@@ -19,24 +19,22 @@ const { companies } = storeToRefs(companyStore);
 const currentCompany = ref(companies.value || {});
 
 const saveOrUpdateCompany = () => {
-  const companyAddress = {
+  const companyData = {
     ...currentCompany.value,
-    postcode: addressStore.postcode,
-    roadAddress: addressStore.roadAddress,
-    jibunAddress: addressStore.jibunAddress,
-    extraAddress: addressStore.extraAddress,
-    guideText: addressStore.guideText
+    ...addressStore.$state,
   };
   if (currentCompany.value.code) {
-    companyStore.updateCompany(companyAddress);
+    companyStore.updateCompany(companyData);
   } else {
-    companyStore.createCompany(companyAddress);
+    companyStore.createCompany(companyData);
   }
 }
 
 const deleteCompany = () => {
   companyStore.deleteCompany();
 }
+
+
 </script>
 
 <template>

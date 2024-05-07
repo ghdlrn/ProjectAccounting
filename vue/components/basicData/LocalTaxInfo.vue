@@ -82,11 +82,11 @@ const headers = ref( [
 
 const menu = ref(false);
 
-const selectedLocalTax = ref('');   //선택한 세무서 이름 저장
+const selectedLocalTax = ref('');   //선택한 세무서 저장
 
 function select(item) {
   selectedLocalTax.value = item.name;
-  menu.value = false
+  menu.value = false;
 }
 
 </script>
