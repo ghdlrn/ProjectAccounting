@@ -1,36 +1,33 @@
 import { defineStore } from 'pinia';
-import { useAddressStore }  from "~/stores/address.js";
-import  axios from 'axios';
+import axios from 'axios';
 
 export const useCompanyStore = defineStore('company', {
     state: () => ({
+        companies: [],
+        currentCompany: null,
     }),
-
     actions: {
-        createCompany(data) {
-            const addressStore = useAddressStore();
-            const companyData ={
-                postcode: addressStore.postcode,
-                roadAddress: addressStore.roadAddress,
-                jibunAddress: addressStore.jibunAddress,
-                extraAddress: addressStore.extraAddress,
-                guideText: addressStore.guideText,
-                // 회사 정보
-                companyName: this.companyName,
-                registrationNumber: this.registrationNumber,
-                taxOffice: this.taxOffice,
-                dateEstablished: this.dateEstablished,
-            }
-
+        async fetchCompanies() {
+            const response = await axios.get('http://localhost:8080/register/company');
+            this.companies = response.data;
         },
-        readCompany(id) {
-
+        async fetchCompany(code) {
+            const response = await axios.get(`http://localhost:8080/register/company/${code}`);
+            this.currentCompany = response.data;
         },
-        updateCompany(id, data) {
-
+        async saveCompany(company) {
+            const response = await axios.post('http://localhost:8080/register/company', company);
+            await this.fetchCompanies(); // Refresh the list
+            return response.data;
         },
-        deleteCompany(id) {
-
-        }
+        async updateCompany(company) {
+            const response = await axios.put(`http://localhost:8080/register/company/${company.code}`, company);
+            await this.fetchCompanies(); // Refresh the list
+            return response.data;
+        },
+        async deleteCompany(code) {
+            await axios.delete(`/register/company/${code}`);
+            await this.fetchCompanies(); // Refresh the list
+        },
     }
 });

@@ -1,6 +1,6 @@
 
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive, watchEffect } from 'vue';
 import axios from 'axios';
 
 import UiParentCard from '@/components/shared/UiParentCard.vue';
@@ -11,82 +11,69 @@ import DateSelect from "~/components/DateSelect.vue";
 import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
 import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
-const licenseType = ref('')
-const headOfficeStatus = ref('')
-const paymentHeadOfficeStatus = ref('')
-const name = ref('')
-const businessRegistrationNumber = ref('')
-const nameOfRepresentative = ref('')
-const corporationRegistrationNumber = ref('')
-const businessType = ref('')
-
-const businessItem = ref('')
-const fiscalYearClass = ref('')
-const fiscalYearStart = ref('')
-const fiscalYearEnd = ref('')
-const privatePracticeDate = ref('')
-const taxOfficeName = ref('')
-const localTaxName = ref('')
-const accountNumber = ref('')
-const corporationClassifyStatus = ref('')
-const businessScaleStatus = ref('')
-const companyTypeStatus = ref('')
-const localTaxBillDivisionCode = ref('')
-
-const residentRegistrationNumber = ref('')
-const phone = ref('')
-const fax = ref('')
-const chargeName = ref('')
-const chargeEmail = ref('')
-const note = ref('')
-
-const CompanyRegister = async () => {
-  try {
-    await axios.post('http://localhost:8080/register/compant-info', {
-      licenseType: licenseType.value,
-      headOfficeStatus: headOfficeStatus.value,
-      paymentHeadOfficeStatus: paymentHeadOfficeStatus.value,
-      name: name.value,
-      businessRegistrationNumber: businessRegistrationNumber.value,
-      nameOfRepresentative: nameOfRepresentative.value,
-      corporationRegistrationNumber: corporationRegistrationNumber.value,
-
-      postcode: addressStore.postcode,
-      roadAddress: addressStore.roadAddress,
-      jibunAddress: addressStore.jibunAddress,
-      extraAddress: addressStore.extraAddress,
-      guideText: addressStore.guideText,
-      businessType: businessType.value,
-      businessItem: businessItem.value,
-
-      fiscalYearClass: fiscalYearClass.value,
-      fiscalYearStart: fiscalYearStart.value,
-      fiscalYearEnd: fiscalYearEnd.value,
-      privatePracticeDate: privatePracticeDate.value,
-      taxOfficeName: taxOfficeName.value,
-      localTaxName: localTaxName.value,
-      accountNumber: accountNumber.value,
-      corporationClassifyStatus: corporationClassifyStatus.value,
-      businessScaleStatus: businessScaleStatus.value,
-      companyTypeStatus: companyTypeStatus.value,
-      localTaxBillDivisionCode: localTaxBillDivisionCode.value,
-      residentRegistrationNumber: residentRegistrationNumber.value,
-
-      phone: phone.value,
-      fax: fax.value,
-      chargeName: chargeName.value,
-      chargeEmail: chargeEmail.value,
-      note: note.value,
-    });
-  } catch (error) {
-    console.error('회사 등록 실패', error);
-    alert('회사 등록 실패');
-  }
-};
-/*----------------------------우편번호 검색---------------------------------*/
 import { useAddressStore } from "~/stores/address.js";
+import { useCompanyStore } from "~/stores/accounting/company.js";
 const addressStore = useAddressStore();
-/*----------------------------날짜 선택기---------------------------------*/
+const companyStore = useCompanyStore();
+
+const company = reactive({
+  licenseType: '',
+  headOfficeStatus: '',
+  paymentHeadOfficeStatus: '',
+  name: '',
+  businessRegistrationNumber: '',
+  nameOfRepresentative: '',
+  corporationRegistrationNumber: '',
+  businessType: '',
+  businessItem: '',
+  fiscalYearClass: '',
+  fiscalYearStart: '',
+  fiscalYearEnd: '',
+  privatePracticeDate: '',
+  taxOfficeName: '',
+  localTaxName: '',
+  accountNumber: '',
+  corporationClassifyStatus: '',
+  businessScaleStatus: '',
+  companyTypeStatus: '',
+  localTaxBillDivisionCode: '',
+  residentRegistrationNumber: '',
+  phone: '',
+  fax: '',
+  chargeName: '',
+  chargeEmail: '',
+  note: '',
+  // Including the address properties
+  postcode: addressStore.postcode,
+  roadAddress: addressStore.roadAddress,
+  jibunAddress: addressStore.jibunAddress,
+  extraAddress: addressStore.extraAddress,
+  guideText: addressStore.guideText
+})
+
+function saveOrUpdateCompany() {
+  if (company.code) {
+    companyStore.updateCompany(company);
+  } else {
+    companyStore.saveCompany(company);
+  }
+}
+
+watchEffect(() => {
+  if (companyStore.currentCompany) {
+    Object.assign(company, companyStore.currentCompany);
+  }
+});
+
+function deleteCompany() {
+  companyStore.deleteCompany(company);
+}
+
+function clearForm() {
+  Object.keys(company).forEach(key => company[key] = '');
+  company.code = null;  // Ensure new entries do not carry an old ID
+}
+
 </script>
 
 <template>
@@ -98,7 +85,7 @@ const addressStore = useAddressStore();
         <v-tab value="two">회계/세무 정보</v-tab>
         <v-tab value="three">기타 정보</v-tab>
       </v-tabs>
-      <v-form ref="Reform">
+      <v-form @submit.prevent="saveOrUpdateCompany">
       <v-card-text>
         <v-window v-model="tab">
 <!--공통속성-->
@@ -107,10 +94,7 @@ const addressStore = useAddressStore();
               <v-switch v-model="Used" class="mt-0 ms-2" color="primary" density="compact" label="회사 정보 등록/변경하기" hide-details></v-switch>
             </v-col>
             <v-col cols="1" offset="5">
-              <v-btn :disabled="!Used" color="success" variant="flat">수정</v-btn>
-            </v-col>
-            <v-col cols="1">
-              <v-btn :disabled="!Used" color="primary" variant="flat" @click="CompanyRegister()">등록</v-btn>
+              <v-btn type="submit" :disabled="!Used" color="success" variant="flat" >등록 / 수정</v-btn>
             </v-col>
           </v-row>
 <!--tab1-->
@@ -126,7 +110,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-select
-                        v-model="licenseType"
+                        v-model="company.licenseType"
                         :items="['법인사업자', '면세법인사업자', '일반과세자', '면세개인사업자', '간이과세자', '비영리기관 및 국가기관 등']"
                         label="ex) 법인사업자/일반과세자"
                         variant="outlined"
@@ -144,7 +128,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-text-field
-                        v-model="name"
+                        v-model="company.name"
                         hint="법인(단체)/상호 명을 입력해주세요"
                         persistent-hint
                         variant="outlined"
@@ -164,7 +148,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="3" md="6">
                     <v-select
-                        v-model="headOfficeStatus"
+                        v-model="company.headOfficeStatus"
                         :items="['본점', '지점']"
                         label="ex) 본점"
                         variant="outlined"
@@ -179,7 +163,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="3" md="6">
                     <v-select
-                        v-model="paymentHeadOfficeStatus"
+                        v-model="company.paymentHeadOfficeStatus"
                         :items="['여', '부']"
                         label="ex) 여"
                         variant="outlined"
@@ -197,7 +181,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="6" md="9">
                     <v-text-field
-                        v-model="businessRegistrationNumber"
+                        v-model="company.businessRegistrationNumber"
                         hint="사업자등록증 등록번호"
                         persistent-hint
                         variant="outlined"
@@ -218,7 +202,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-text-field
-                        v-model="nameOfRepresentative"
+                        v-model="company.nameOfRepresentative"
                         hint="사업자등록증 대표자 이름"
                         persistent-hint
                         variant="outlined"
@@ -237,7 +221,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="6" md="9">
                     <v-text-field
-                        v-model="corporationRegistrationNumber"
+                        v-model="company.corporationRegistrationNumber"
                         hint="법인 사업자인 경우 법인등록번호"
                         persistent-hint
                         variant="outlined"
@@ -260,7 +244,7 @@ const addressStore = useAddressStore();
                 </v-col>
                 <v-col cols="12" lg="9" md="9">
                   <v-text-field
-                      v-model="businessType"
+                      v-model="company.businessType"
                       hint="판매형태/표준산업분류표 대분류(2자리)"
                       persistent-hint
                       variant="outlined"
@@ -281,7 +265,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="9" md="9">
                     <v-text-field
-                        v-model="businessItem"
+                        v-model="company.businessItem"
                         hint="판매하는 물건/표준산업분류표 세분류(5자리)"
                         persistent-hint
                         variant="outlined"
@@ -310,7 +294,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="4">
                     <v-text-field
-                        v-model="fiscalYearClass"
+                        v-model="company.fiscalYearClass"
                         hint="숫자"
                         persistent-hint
                         variant="outlined"
@@ -334,14 +318,14 @@ const addressStore = useAddressStore();
                     <v-label class="mt-2"> 시작일</v-label>
                   </v-col>
                   <v-col cols="12" lg="4">
-                    <DateSelect v-model="fiscalYearStart" />
+                    <DateSelect v-model="company.fiscalYearStart" />
                   </v-col>
 
                   <v-col cols="12" lg="1">
                     <v-label class="mt-2"> 종료일</v-label>
                   </v-col>
                   <v-col cols="12" lg="4" md="9">
-                    <DateSelect v-model="fiscalYearEnd" />
+                    <DateSelect v-model="company.fiscalYearEnd" />
                   </v-col>
                 </v-row>
               </v-col>
@@ -354,7 +338,7 @@ const addressStore = useAddressStore();
                     <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
-                    <DateSelect v-model="privatePracticeDate" />
+                    <DateSelect v-model="company.privatePracticeDate" />
                   </v-col>
 
                 </v-row>
@@ -367,7 +351,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="4" md="9">
 
-                    <TaxOfficeInfo v-model="taxOfficeName" />
+                    <TaxOfficeInfo v-model="company.taxOfficeName" />
 
                   </v-col>
                   <v-col cols="12" lg="1">
@@ -375,7 +359,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="6">
 
-                    <LocalTaxInfo v-model="localTaxName" />
+                    <LocalTaxInfo v-model="company.localTaxName" />
 
                   </v-col>
                 </v-row>
@@ -389,7 +373,7 @@ const addressStore = useAddressStore();
                     <v-label class="mt-2">국세 환급금 <br />계좌</v-label>
                   </v-col>
                   <v-col cols="12" lg="8">
-                    <v-text-field v-model="accountNumber"
+                    <v-text-field v-model="company.accountNumber"
                                   variant="outlined"
                                   color="primary"
                                   hint="ex) 계좌번호"
@@ -426,7 +410,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="corporationClassifyStatus"
+                        v-model="company.corporationClassifyStatus"
                         :items="['내국', '외국', '외투']"
                         hint="ex) 내국/외국/외국투자 기업"
                         persistent-hint
@@ -443,7 +427,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="businessScaleStatus"
+                        v-model="company.businessScaleStatus"
                         :items="['중소기업', '비중소기업']"
                         hint="ex) 여 / 부"
                         persistent-hint
@@ -463,7 +447,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="companyTypeStatus"
+                        v-model="company.companyTypeStatus"
                         :items="['중소기업', '일반', '상장', '비영리', '협회 등록']"
                         label="ex) 본점"
                         variant="outlined"
@@ -481,7 +465,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-select
-                        v-model="localTaxBillDivisionCode"
+                        v-model="company.localTaxBillDivisionCode"
                         :items="['개인(내국인)', '외국인', '종중, 문중', '종교단체', '마을회', '기타단체', 'OO 주식회사', '주식회사 OO', 'OO 합자회사', '합자회사 OO', 'OO 합병회사', '합병회사 OO', 'OO 유한(책임)회사', '유한(책임)회사 OO', '농업회사법인', 'OO 재단법인', '재단법인 OO', 'OO 사단법인', '사단법인 OO', 'OO 학교법인', '학교법인 OO', '의료법인', '사회복지법인', '특수법인', '광역자치단체', '기초자치단체', '외국정부 및 주한국제기관', '자치단체조합', '기타법인']"
                         variant="outlined"
                         color="primary"
@@ -502,7 +486,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
                     <v-text-field
-                        v-model="residentRegistrationNumber"
+                        v-model="company.residentRegistrationNumber"
                         hint="사업자등록증 대표자 주민등록번호"
                         persistent-hint
                         variant="outlined"
@@ -526,7 +510,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-text-field
-                        v-model="phone"
+                        v-model="company.phone"
                         placeholder="000-0000-0000"
                         persistent-placeholder
                         hint="-까지 포함하여 입력"
@@ -543,7 +527,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-text-field
-                        v-model="chargeName"
+                        v-model="company.chargeName"
                         placeholder="김OO"
                         persistent-placeholder
                         variant="outlined"
@@ -561,7 +545,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-text-field
-                        v-model="fax"
+                        v-model="company.fax"
                         placeholder="000-0000-0000"
                         persistent-placeholder
                         hint="-까지 포함하여 입력"
@@ -578,7 +562,7 @@ const addressStore = useAddressStore();
                   </v-col>
                   <v-col cols="12" lg="8">
                     <v-text-field
-                        v-model="chargeEmail"
+                        v-model="company.chargeEmail"
                         placeholder="OOO@OOOO.OOO"
                         persistent-placeholder
                         variant="outlined"
@@ -594,7 +578,7 @@ const addressStore = useAddressStore();
               </v-col>
               <v-col cols="12" lg="10">
                 <v-textarea
-                    v-model="note"
+                    v-model="company.note"
                     variant="outlined"
                     color="primary"
                     auto-grow
@@ -604,10 +588,14 @@ const addressStore = useAddressStore();
             </v-row>
 
           </v-window-item>
-          <v-col cols="1" offset="11">
-<!--삭제버튼-->
-            <v-btn :disabled="!Used" color="error">삭제</v-btn>
-          </v-col>
+          <v-row>
+            <v-col cols="1" offset="10">
+              <v-btn :disabled="!Used" color="secondary"  @click="clearForm">clear</v-btn>
+            </v-col>
+            <v-col cols="1">
+              <v-btn :disabled="!Used" color="error" v-if="company.code" @click="deleteCompany(company.code)">삭제</v-btn>
+            </v-col>
+          </v-row>
         </v-window>
       </v-card-text>
       </v-form>
