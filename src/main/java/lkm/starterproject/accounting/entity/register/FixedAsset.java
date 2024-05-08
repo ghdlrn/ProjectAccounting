@@ -3,6 +3,7 @@ package lkm.starterproject.accounting.entity.register;
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.DepreciationStatus;
 import lkm.starterproject.accounting.constants.UseStatus;
+import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.company.Department;
 import lombok.*;
 
@@ -40,7 +41,7 @@ public class FixedAsset {
     private UseStatus useStatus;    //사용여부
 
     private LocalDate endOfUseDate; //사용종료일
-
     
     private String note;    //비고
+
 }

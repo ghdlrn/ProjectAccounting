@@ -1,7 +1,6 @@
 package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.constants.CompanyUnitVATTaxationStatus;
 import lkm.starterproject.accounting.constants.LiquorRetailStatus;
 import lkm.starterproject.accounting.constants.TradeStatus;
 import lkm.starterproject.accounting.constants.UseStatus;
@@ -55,7 +54,7 @@ public class Customer {      //거래처
     private Long chargeCode; //담당사원
 
     @Enumerated(EnumType.STRING)    //사업자단위 주사업장여부
-    private CompanyUnitVATTaxationStatus companyUnitVATTaxationStatus;
+    private String companyUnitVATTaxationStatus;
 
     private Long UnitReportingCustomerCode;  //단위신고거래처
 

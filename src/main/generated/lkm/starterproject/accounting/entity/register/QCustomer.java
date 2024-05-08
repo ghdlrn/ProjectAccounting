@@ -35,7 +35,7 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final NumberPath<Long> code = createNumber("code", Long.class);
 
-    public final EnumPath<lkm.starterproject.accounting.constants.CompanyUnitVATTaxationStatus> companyUnitVATTaxationStatus = createEnum("companyUnitVATTaxationStatus", lkm.starterproject.accounting.constants.CompanyUnitVATTaxationStatus.class);
+    public final StringPath companyUnitVATTaxationStatus = createString("companyUnitVATTaxationStatus");
 
     public final StringPath customerAccountHolder = createString("customerAccountHolder");
 

@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.controller;
+package lkm.starterproject.accounting.controller.basic;
 
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
