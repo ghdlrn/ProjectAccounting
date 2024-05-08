@@ -3,7 +3,6 @@ package lkm.starterproject.accounting.service;
 import lkm.starterproject.accounting.dto.CompanyDto;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.repository.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
