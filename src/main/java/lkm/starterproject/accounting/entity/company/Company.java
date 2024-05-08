@@ -78,8 +78,6 @@ public class Company extends BaseEntity {  //회사
     private String companyTypeStatus;    //회사종류구분
 
     private String businessScaleStatus;    //중소기업여부
-    
-    private String companyStatus;        //회사종류(주식회사, 개인회사)
 
     private String localTaxBillDivision;       //지방세 신고 구분
 
