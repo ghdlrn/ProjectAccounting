@@ -1,11 +1,18 @@
 package lkm.starterproject.accounting.dto;
 
+import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
+import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class CompanyDto {
 
     private Long code;  // 회사코드
-    private String businessPersonType;  // 사업자 유형
+    private String licenseType;  // 사업자 유형
     private String headOfficeStatus;  // 본점여부
     private String paymentHeadOfficeStatus;  // 본점일괄납부여부
     private String name;  // 회사명
@@ -18,9 +25,9 @@ public class CompanyDto {
     private LocalDate fiscalYearStart;  // 회계연도시작일
     private LocalDate fiscalYearEnd;  // 회계연도마감일
     private LocalDate privatePracticeDate;  // 개업연월일
-    private String taxOfficeCode;  // 사업장 세무서 코드
-    private String localTaxCode;  // 지방세 법정동 코드
-    private String financeCode;  // 국세환급금 계좌 코드
+    private TaxOfficeDto taxOfficeCode;  // 사업장 세무서 코드
+    private LocalTaxDto localTaxCode;  // 지방세 법정동 코드
+    private FinanceDto finance;  // 국세환급금 계좌 코드
     private String corporationClassifyStatus;  // 법인구분
     private String companyTypeStatus;  // 회사종류구분
     private String businessScaleStatus;  // 중소기업여부
