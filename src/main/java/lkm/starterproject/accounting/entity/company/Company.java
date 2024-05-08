@@ -40,7 +40,6 @@ public class Company extends BaseEntity {  //회사
     @Column(nullable = false, length = 12, unique = true)
     private String businessRegistrationNumber;      //사업자등록번호
 
-    @Column(nullable = false)
     private String nameOfRepresentative;        //대표자명
 
     @Column(length = 14)
@@ -50,26 +49,18 @@ public class Company extends BaseEntity {  //회사
     @JoinColumn(name = "address_code")
     private Address address;        //주소
 
-    @Column(nullable = false)
     private String businessType;        //업태
 
-    @Column(nullable = false)
     private String businessItem;        //업종
 /*------------------------------------------------------------------------------------
 * ----------------------------------회계 / 세무 정보------------------------------------
 * ----------------------------------------------------------------------------------*/
-    @Column(nullable = false)
     private Long fiscalYearClass;        //회계연도기수
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate fiscalYearStart;  //회계연도시작일
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate fiscalYearEnd;    //회계연도마감일
 
-    @Temporal(TemporalType.DATE)
     private LocalDate privatePracticeDate;      //개업연월일
 
     @OneToOne

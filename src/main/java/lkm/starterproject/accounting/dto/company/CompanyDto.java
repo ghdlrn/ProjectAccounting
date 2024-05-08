@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.dto;
+package lkm.starterproject.accounting.dto.company;
 
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;

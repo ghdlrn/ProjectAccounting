@@ -53,7 +53,7 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final StringPath fax = createString("fax");
 
-    public final lkm.starterproject.accounting.entity.register.QFinance finance;
+    public final StringPath finance = createString("finance");
 
     public final NumberPath<Long> fiscalYearClass = createNumber("fiscalYearClass", Long.class);
 
@@ -115,7 +115,6 @@ public class QCompany extends EntityPathBase<Company> {
     public QCompany(Class<? extends Company> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.address = inits.isInitialized("address") ? new lkm.starterproject.accounting.entity.basic.QAddress(forProperty("address"), inits.get("address")) : null;
-        this.finance = inits.isInitialized("finance") ? new lkm.starterproject.accounting.entity.register.QFinance(forProperty("finance"), inits.get("finance")) : null;
         this.localTax = inits.isInitialized("localTax") ? new lkm.starterproject.accounting.entity.basic.QLocalTax(forProperty("localTax"), inits.get("localTax")) : null;
         this.taxOffice = inits.isInitialized("taxOffice") ? new lkm.starterproject.accounting.entity.basic.QTaxOffice(forProperty("taxOffice"), inits.get("taxOffice")) : null;
     }
