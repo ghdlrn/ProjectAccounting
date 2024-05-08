@@ -69,9 +69,9 @@ import {SearchOutlined} from "@ant-design/icons-vue";
 const store = useTaxOfficeStore();
 
 onMounted(() => {
-  store.fetchTaxOffices(); //스토어에서  fetchTaxOffices함수실행시켜 세무서 정보 가져옴
+  store.fetchTaxOffice(); //스토어에서  fetchTaxOffices함수실행시켜 세무서 정보 가져옴
 });
-const taxOffices = computed(() => store.taxOffices);
+const taxOffices = computed(() => store.taxOffice);
 
 const searchField = ref('name');
 const searchValue = ref('');
@@ -83,10 +83,11 @@ const headers = ref( [
 
 const menu = ref(false);
 
-const selectedTaxOffice = ref('');   //선택한 세무서 이름 저장
+const selectedTaxOffice = ref({});   //선택한 세무서 이름 저장
 
 function select(item) {
   selectedTaxOffice.value = item.name;
+  store.setSelectedTaxOffice(item);
   menu.value = false
 }
 

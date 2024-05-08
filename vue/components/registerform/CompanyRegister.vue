@@ -2,9 +2,9 @@
 <script setup>
 import { ref } from 'vue';
 
-import UiParentCard from '~/components/shared/UiParentCard.vue';
 const tab = ref(null);
 const Used = ref(false);
+import UiParentCard from '~/components/shared/UiParentCard.vue';
 import DaumPostcode from "~/components/DaumPostcode.vue";
 import DateSelect from "~/components/DateSelect.vue";
 import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
@@ -26,8 +26,8 @@ const saveOrUpdateCompany = () => {
   const companyData = {
     ...currentCompany.value,
     ...addressStore.$state,
-    ...taxOfficeStore,
-    localTax: localTaxStore.selectedLocalTax
+    taxOffice: taxOfficeStore.selectedTaxOffice,
+    localTax: localTaxStore.selectedLocalTax,
   };
   if (currentCompany.value.code) {
     companyStore.updateCompany(companyData);

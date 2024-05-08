@@ -9,16 +9,20 @@ interface TaxOffice {
 
 export const useTaxOfficeStore = defineStore('taxOffice', {
     state: () => ({
-        taxOffices: [] as TaxOffice[],
+        taxOffice: [] as TaxOffice[],
+        selectedTaxOffice: {} as TaxOffice | null
     }),
     actions: {
-        async fetchTaxOffices() {
+        async fetchTaxOffice() {
             try {
                 const response = await axios.get('http://localhost:8080/register/company/tax-office');
-                this.taxOffices = response.data;
+                this.taxOffice = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);
             }
+        },
+        setSelectedTaxOffice(taxOffice: TaxOffice) {
+            this.selectedTaxOffice = taxOffice;
         }
     }
 })
