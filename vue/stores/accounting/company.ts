@@ -67,7 +67,7 @@ export const useCompanyStore = defineStore('company', {
             try {
                 const response = await axios.get('http://localhost:8080/register/company');
                 this.companies = response.data;
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Failed to fetch companies:', error.message);
                 throw new Error('Failed to fetch companies');
             }
@@ -76,7 +76,7 @@ export const useCompanyStore = defineStore('company', {
             try {
                 const response = await axios.post('http://localhost:8080/register/company', data);
                 this.companies.push(response.data);
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Failed to create company:', error.message);
                 throw new Error('Failed to create company');
             }
@@ -88,7 +88,7 @@ export const useCompanyStore = defineStore('company', {
                 if (index !== -1) {
                     this.companies[index] = { ...this.companies[index], ...response.data };
                 }
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Failed to update company:', error.message);
                 throw new Error('Failed to update company');
             }
@@ -97,7 +97,7 @@ export const useCompanyStore = defineStore('company', {
             try {
                 await axios.delete(`http://localhost:8080/register/company/${code}`);
                 this.companies = this.companies.filter(company => company.code !== code);
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Failed to delete company:', error.message);
                 throw new Error('Failed to delete company');
             }
