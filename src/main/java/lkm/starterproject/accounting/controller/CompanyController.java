@@ -16,15 +16,28 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping("/{code}")
-    public ResponseEntity<CompanyDto> getCompanyById(@PathVariable Long code) {
-        return ResponseEntity.ok(companyService.getCompanyById(code));
-    }
-
     @PostMapping
     public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
-        CompanyDto savedCompany = companyService.createCompany(companyDto);
-        return new ResponseEntity<>(savedCompany, HttpStatus.CREATED);
+        CompanyDto createdCompany = companyService.createCompany(companyDto);
+        return ResponseEntity.ok(createdCompany);
+    }
+
+    @GetMapping("/{code}")
+    public ResponseEntity<CompanyDto> getCompany(@PathVariable Long code) {
+        CompanyDto companyDto = companyService.getCompany(code);
+        return ResponseEntity.ok(companyDto);
+    }
+
+    @PutMapping("/{code}")
+    public ResponseEntity<CompanyDto> updateCompany(@PathVariable Long code, @RequestBody CompanyDto companyDto) {
+        CompanyDto updatedCompany = companyService.updateCompany(code, companyDto);
+        return ResponseEntity.ok(updatedCompany);
+    }
+
+    @DeleteMapping("/{code}")
+    public ResponseEntity<Void> deleteCompany(@PathVariable Long code) {
+        companyService.deleteCompany(code);
+        return ResponseEntity.ok().build();
     }
 
 }
