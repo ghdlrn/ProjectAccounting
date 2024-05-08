@@ -1,15 +1,15 @@
 package lkm.starterproject.accounting.service;
 
+import lkm.starterproject.accounting.dto.CompanyDto;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.repository.CompanyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
@@ -18,27 +18,48 @@ public class CompanyService {
         this.companyRepository = companyRepository;
     }
 
-    public Company createCompany(Company company) {
-        return companyRepository.save(company);
+    // Create a new company
+    public CompanyDto createCompany(CompanyDto companyDto) {
+        Company company = convertToEntity(companyDto);
+        company = companyRepository.save(company);
+        return convertToDto(company);
     }
 
-    public List<Company> getAllCompanies() {
-        return companyRepository.findAll();
+    // Get a single company by ID
+    public CompanyDto getCompanyById(Long code) {
+        Company company = companyRepository.findById(code).orElseThrow(() -> new RuntimeException("Company not found"));
+        return convertToDto(company);
     }
 
-    public Company getCompanyById(Long code) {
-        Optional<Company> company = companyRepository.findById(code);
-        return company.orElseThrow(() -> new RuntimeException("Company not found for this code :: " + code));
+    // Get all companies
+    public List<CompanyDto> getAllCompanies() {
+        List<Company> companies = companyRepository.findAll();
+        return companies.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    public Company updateCompany(Long code, Company companyDetails) {
-        Company company = getCompanyById(code);
-        company.setName(companyDetails.getName());
-        company.setBusinessRegistrationNumber(companyDetails.getBusinessRegistrationNumber());
-        return companyRepository.save(company);
+    // Update an existing company
+    public CompanyDto updateCompany(Long code, CompanyDto companyDto) {
+        Company company = companyRepository.findById(code).orElseThrow(() -> new RuntimeException("Company not found"));
+        // Update entity fields here
+        company = companyRepository.save(company);
+        return convertToDto(company);
     }
 
+    // Delete a company
     public void deleteCompany(Long code) {
-        companyRepository.deleteById(code);
+        Company company = companyRepository.findById(code).orElseThrow(() -> new RuntimeException("Company not found"));
+        companyRepository.delete(company);
+    }
+
+    // Helper to convert DTO to Entity
+    private Company convertToEntity(CompanyDto companyDto) {
+        // Implement this method based on your DTO and Entity structure
+        return new Company(); // Placeholder
+    }
+
+    // Helper to convert Entity to DTO
+    private CompanyDto convertToDto(Company company) {
+        // Implement this method based on your DTO and Entity structure
+        return new CompanyDto(); // Placeholder
     }
 }
