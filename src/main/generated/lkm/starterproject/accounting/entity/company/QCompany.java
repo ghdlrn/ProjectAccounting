@@ -40,8 +40,6 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final NumberPath<Long> code = createNumber("code", Long.class);
 
-    public final StringPath companyStatus = createString("companyStatus");
-
     public final StringPath companyTypeStatus = createString("companyTypeStatus");
 
     public final StringPath corporationClassifyStatus = createString("corporationClassifyStatus");

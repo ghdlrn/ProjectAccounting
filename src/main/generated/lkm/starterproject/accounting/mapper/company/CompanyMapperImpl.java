@@ -1,13 +1,19 @@
 package lkm.starterproject.accounting.mapper.company;
 
 import javax.annotation.processing.Generated;
+import lkm.starterproject.accounting.dto.basic.AddressDto;
+import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
+import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
+import lkm.starterproject.accounting.entity.basic.Address;
+import lkm.starterproject.accounting.entity.basic.LocalTax;
+import lkm.starterproject.accounting.entity.basic.TaxOffice;
 import lkm.starterproject.accounting.entity.company.Company;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-08T17:40:15+0900",
+    date = "2024-05-08T18:04:23+0900",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 21.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -29,17 +35,19 @@ public class CompanyMapperImpl implements CompanyMapper {
         companyDto.setBusinessRegistrationNumber( company.getBusinessRegistrationNumber() );
         companyDto.setNameOfRepresentative( company.getNameOfRepresentative() );
         companyDto.setCorporationRegistrationNumber( company.getCorporationRegistrationNumber() );
+        companyDto.setAddress( addressToAddressDto( company.getAddress() ) );
         companyDto.setBusinessType( company.getBusinessType() );
         companyDto.setBusinessItem( company.getBusinessItem() );
         companyDto.setFiscalYearClass( company.getFiscalYearClass() );
         companyDto.setFiscalYearStart( company.getFiscalYearStart() );
         companyDto.setFiscalYearEnd( company.getFiscalYearEnd() );
         companyDto.setPrivatePracticeDate( company.getPrivatePracticeDate() );
+        companyDto.setTaxOffice( taxOfficeToTaxOfficeDto( company.getTaxOffice() ) );
+        companyDto.setLocalTax( localTaxToLocalTaxDto( company.getLocalTax() ) );
         companyDto.setFinance( company.getFinance() );
         companyDto.setCorporationClassifyStatus( company.getCorporationClassifyStatus() );
         companyDto.setCompanyTypeStatus( company.getCompanyTypeStatus() );
         companyDto.setBusinessScaleStatus( company.getBusinessScaleStatus() );
-        companyDto.setCompanyStatus( company.getCompanyStatus() );
         companyDto.setLocalTaxBillDivision( company.getLocalTaxBillDivision() );
         companyDto.setResidentRegistrationNumber( company.getResidentRegistrationNumber() );
         companyDto.setPhone( company.getPhone() );
@@ -67,17 +75,19 @@ public class CompanyMapperImpl implements CompanyMapper {
         company.businessRegistrationNumber( companyDto.getBusinessRegistrationNumber() );
         company.nameOfRepresentative( companyDto.getNameOfRepresentative() );
         company.corporationRegistrationNumber( companyDto.getCorporationRegistrationNumber() );
+        company.address( addressDtoToAddress( companyDto.getAddress() ) );
         company.businessType( companyDto.getBusinessType() );
         company.businessItem( companyDto.getBusinessItem() );
         company.fiscalYearClass( companyDto.getFiscalYearClass() );
         company.fiscalYearStart( companyDto.getFiscalYearStart() );
         company.fiscalYearEnd( companyDto.getFiscalYearEnd() );
         company.privatePracticeDate( companyDto.getPrivatePracticeDate() );
+        company.taxOffice( taxOfficeDtoToTaxOffice( companyDto.getTaxOffice() ) );
+        company.localTax( localTaxDtoToLocalTax( companyDto.getLocalTax() ) );
         company.finance( companyDto.getFinance() );
         company.corporationClassifyStatus( companyDto.getCorporationClassifyStatus() );
         company.companyTypeStatus( companyDto.getCompanyTypeStatus() );
         company.businessScaleStatus( companyDto.getBusinessScaleStatus() );
-        company.companyStatus( companyDto.getCompanyStatus() );
         company.localTaxBillDivision( companyDto.getLocalTaxBillDivision() );
         company.residentRegistrationNumber( companyDto.getResidentRegistrationNumber() );
         company.phone( companyDto.getPhone() );
@@ -103,17 +113,43 @@ public class CompanyMapperImpl implements CompanyMapper {
         company.setBusinessRegistrationNumber( companyDto.getBusinessRegistrationNumber() );
         company.setNameOfRepresentative( companyDto.getNameOfRepresentative() );
         company.setCorporationRegistrationNumber( companyDto.getCorporationRegistrationNumber() );
+        if ( companyDto.getAddress() != null ) {
+            if ( company.getAddress() == null ) {
+                company.setAddress( Address.builder().build() );
+            }
+            addressDtoToAddress1( companyDto.getAddress(), company.getAddress() );
+        }
+        else {
+            company.setAddress( null );
+        }
         company.setBusinessType( companyDto.getBusinessType() );
         company.setBusinessItem( companyDto.getBusinessItem() );
         company.setFiscalYearClass( companyDto.getFiscalYearClass() );
         company.setFiscalYearStart( companyDto.getFiscalYearStart() );
         company.setFiscalYearEnd( companyDto.getFiscalYearEnd() );
         company.setPrivatePracticeDate( companyDto.getPrivatePracticeDate() );
+        if ( companyDto.getTaxOffice() != null ) {
+            if ( company.getTaxOffice() == null ) {
+                company.setTaxOffice( TaxOffice.builder().build() );
+            }
+            taxOfficeDtoToTaxOffice1( companyDto.getTaxOffice(), company.getTaxOffice() );
+        }
+        else {
+            company.setTaxOffice( null );
+        }
+        if ( companyDto.getLocalTax() != null ) {
+            if ( company.getLocalTax() == null ) {
+                company.setLocalTax( LocalTax.builder().build() );
+            }
+            localTaxDtoToLocalTax1( companyDto.getLocalTax(), company.getLocalTax() );
+        }
+        else {
+            company.setLocalTax( null );
+        }
         company.setFinance( companyDto.getFinance() );
         company.setCorporationClassifyStatus( companyDto.getCorporationClassifyStatus() );
         company.setCompanyTypeStatus( companyDto.getCompanyTypeStatus() );
         company.setBusinessScaleStatus( companyDto.getBusinessScaleStatus() );
-        company.setCompanyStatus( companyDto.getCompanyStatus() );
         company.setLocalTaxBillDivision( companyDto.getLocalTaxBillDivision() );
         company.setResidentRegistrationNumber( companyDto.getResidentRegistrationNumber() );
         company.setPhone( companyDto.getPhone() );
@@ -121,5 +157,132 @@ public class CompanyMapperImpl implements CompanyMapper {
         company.setChargeName( companyDto.getChargeName() );
         company.setChargeEmail( companyDto.getChargeEmail() );
         company.setNote( companyDto.getNote() );
+    }
+
+    protected AddressDto addressToAddressDto(Address address) {
+        if ( address == null ) {
+            return null;
+        }
+
+        AddressDto addressDto = new AddressDto();
+
+        addressDto.setCode( address.getCode() );
+        addressDto.setPostcode( address.getPostcode() );
+        addressDto.setRoadAddress( address.getRoadAddress() );
+        addressDto.setJibunAddress( address.getJibunAddress() );
+        addressDto.setExtraAddress( address.getExtraAddress() );
+        addressDto.setGuideText( address.getGuideText() );
+
+        return addressDto;
+    }
+
+    protected TaxOfficeDto taxOfficeToTaxOfficeDto(TaxOffice taxOffice) {
+        if ( taxOffice == null ) {
+            return null;
+        }
+
+        Long code = null;
+        String name = null;
+        String jurisdiction = null;
+
+        code = taxOffice.getCode();
+        name = taxOffice.getName();
+        jurisdiction = taxOffice.getJurisdiction();
+
+        TaxOfficeDto taxOfficeDto = new TaxOfficeDto( code, name, jurisdiction );
+
+        return taxOfficeDto;
+    }
+
+    protected LocalTaxDto localTaxToLocalTaxDto(LocalTax localTax) {
+        if ( localTax == null ) {
+            return null;
+        }
+
+        Long code = null;
+        String name = null;
+
+        code = localTax.getCode();
+        name = localTax.getName();
+
+        LocalTaxDto localTaxDto = new LocalTaxDto( code, name );
+
+        return localTaxDto;
+    }
+
+    protected Address addressDtoToAddress(AddressDto addressDto) {
+        if ( addressDto == null ) {
+            return null;
+        }
+
+        Address.AddressBuilder address = Address.builder();
+
+        address.code( addressDto.getCode() );
+        address.postcode( addressDto.getPostcode() );
+        address.roadAddress( addressDto.getRoadAddress() );
+        address.jibunAddress( addressDto.getJibunAddress() );
+        address.extraAddress( addressDto.getExtraAddress() );
+        address.guideText( addressDto.getGuideText() );
+
+        return address.build();
+    }
+
+    protected TaxOffice taxOfficeDtoToTaxOffice(TaxOfficeDto taxOfficeDto) {
+        if ( taxOfficeDto == null ) {
+            return null;
+        }
+
+        TaxOffice.TaxOfficeBuilder taxOffice = TaxOffice.builder();
+
+        taxOffice.code( taxOfficeDto.getCode() );
+        taxOffice.name( taxOfficeDto.getName() );
+        taxOffice.jurisdiction( taxOfficeDto.getJurisdiction() );
+
+        return taxOffice.build();
+    }
+
+    protected LocalTax localTaxDtoToLocalTax(LocalTaxDto localTaxDto) {
+        if ( localTaxDto == null ) {
+            return null;
+        }
+
+        LocalTax.LocalTaxBuilder localTax = LocalTax.builder();
+
+        localTax.code( localTaxDto.getCode() );
+        localTax.name( localTaxDto.getName() );
+
+        return localTax.build();
+    }
+
+    protected void addressDtoToAddress1(AddressDto addressDto, Address mappingTarget) {
+        if ( addressDto == null ) {
+            return;
+        }
+
+        mappingTarget.setCode( addressDto.getCode() );
+        mappingTarget.setPostcode( addressDto.getPostcode() );
+        mappingTarget.setRoadAddress( addressDto.getRoadAddress() );
+        mappingTarget.setJibunAddress( addressDto.getJibunAddress() );
+        mappingTarget.setExtraAddress( addressDto.getExtraAddress() );
+        mappingTarget.setGuideText( addressDto.getGuideText() );
+    }
+
+    protected void taxOfficeDtoToTaxOffice1(TaxOfficeDto taxOfficeDto, TaxOffice mappingTarget) {
+        if ( taxOfficeDto == null ) {
+            return;
+        }
+
+        mappingTarget.setCode( taxOfficeDto.getCode() );
+        mappingTarget.setName( taxOfficeDto.getName() );
+        mappingTarget.setJurisdiction( taxOfficeDto.getJurisdiction() );
+    }
+
+    protected void localTaxDtoToLocalTax1(LocalTaxDto localTaxDto, LocalTax mappingTarget) {
+        if ( localTaxDto == null ) {
+            return;
+        }
+
+        mappingTarget.setCode( localTaxDto.getCode() );
+        mappingTarget.setName( localTaxDto.getName() );
     }
 }
