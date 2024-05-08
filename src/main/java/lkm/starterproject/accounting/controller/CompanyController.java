@@ -1,6 +1,6 @@
 package lkm.starterproject.accounting.controller;
 
-import lkm.starterproject.accounting.entity.company.Company;
+import lkm.starterproject.accounting.dto.CompanyDto;
 import lkm.starterproject.accounting.service.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,31 +17,28 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
+    // Create a new company
     @PostMapping
-    public ResponseEntity<Company> createCompany(@RequestBody Company company) {
-        Company createdCompany = companyService.createCompany(company);
-        return ResponseEntity.ok(createdCompany);
+    public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
+        return ResponseEntity.ok(companyService.createCompany(companyDto));
     }
 
-    // Retrieve all companies
-    @GetMapping
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = companyService.getAllCompanies();
-        return ResponseEntity.ok(companies);
-    }
-
-    // Retrieve a single company by ID
+    // Get a single company by ID
     @GetMapping("/{code}")
-    public ResponseEntity<Company> getCompanyById(@PathVariable Long code) {
-        Company company = companyService.getCompanyById(code);
-        return ResponseEntity.ok(company);
+    public ResponseEntity<CompanyDto> getCompanyById(@PathVariable Long code) {
+        return ResponseEntity.ok(companyService.getCompanyById(code));
     }
 
-    // Update a company
+    // Get all companies
+    @GetMapping
+    public ResponseEntity<List<CompanyDto>> getAllCompanies() {
+        return ResponseEntity.ok(companyService.getAllCompanies());
+    }
+
+    // Update an existing company
     @PutMapping("/{code}")
-    public ResponseEntity<Company> updateCompany(@PathVariable Long code, @RequestBody Company companyDetails) {
-        Company updatedCompany = companyService.updateCompany(code, companyDetails);
-        return ResponseEntity.ok(updatedCompany);
+    public ResponseEntity<CompanyDto> updateCompany(@PathVariable Long code, @RequestBody CompanyDto companyDto) {
+        return ResponseEntity.ok(companyService.updateCompany(code, companyDto));
     }
 
     // Delete a company
