@@ -28,8 +28,6 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final StringPath businessItem = createString("businessItem");
 
-    public final StringPath businessPersonType = createString("businessPersonType");
-
     public final StringPath businessRegistrationNumber = createString("businessRegistrationNumber");
 
     public final StringPath businessScaleStatus = createString("businessScaleStatus");
@@ -64,6 +62,8 @@ public class QCompany extends EntityPathBase<Company> {
     public final DatePath<java.time.LocalDate> fiscalYearStart = createDate("fiscalYearStart", java.time.LocalDate.class);
 
     public final StringPath headOfficeStatus = createString("headOfficeStatus");
+
+    public final StringPath licenseType = createString("licenseType");
 
     public final lkm.starterproject.accounting.entity.basic.QLocalTax localTax;
 

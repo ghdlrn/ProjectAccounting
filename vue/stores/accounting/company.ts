@@ -28,7 +28,6 @@ interface Finance {
 interface Company {
     code: number;
     licenseType: string;
-    businessPersonType: string;
     headOfficeStatus: string;
     paymentHeadOfficeStatus: string;
     name: string;

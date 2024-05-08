@@ -28,7 +28,7 @@ public class Company extends BaseEntity {  //회사
     @Column(name = "company_code")
     private Long code;        //회사코드
 
-    private String businessPersonType;    //사업자 유형
+    private String licenseType;    //사업자 유형
 
     private String headOfficeStatus;      //본점여부
 
