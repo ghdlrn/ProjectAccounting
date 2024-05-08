@@ -318,7 +318,7 @@ const deleteCompany = () => {
                   </v-col>
                   <v-col cols="12" lg="4" md="9">
 
-                    <TaxOfficeInfo @update:taxOffice="taxOfficeStore.fetchTaxOffices" />
+                    <TaxOfficeInfo />
 
                   </v-col>
                   <v-col cols="12" lg="1">
@@ -326,7 +326,7 @@ const deleteCompany = () => {
                   </v-col>
                   <v-col cols="12" lg="6">
 
-                    <LocalTaxInfo @update:localTax="localTaxStore.fetchLocalTax" />
+                    <LocalTaxInfo />
 
                   </v-col>
                 </v-row>

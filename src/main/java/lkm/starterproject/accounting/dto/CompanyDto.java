@@ -27,7 +27,7 @@ public class CompanyDto {
     private LocalDate privatePracticeDate;  // 개업연월일
     private TaxOfficeDto taxOfficeCode;  // 사업장 세무서 코드
     private LocalTaxDto localTaxCode;  // 지방세 법정동 코드
-    private FinanceDto finance;  // 국세환급금 계좌 코드
+    private String finance;  // 국세환급금 계좌 코드
     private String corporationClassifyStatus;  // 법인구분
     private String companyTypeStatus;  // 회사종류구분
     private String businessScaleStatus;  // 중소기업여부

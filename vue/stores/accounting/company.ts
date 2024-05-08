@@ -43,7 +43,7 @@ interface Company {
     privatePracticeDate: Date;
     taxOffice: TaxOffice;
     localTax: LocalTax;
-    finance: Finance;
+    finance: string;
     corporationClassifyStatus: string;
     companyTypeStatus: string;
     businessScaleStatus: string;

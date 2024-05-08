@@ -80,9 +80,7 @@ public class Company extends BaseEntity {  //회사
     @JoinColumn(name = "local_tax_code")
     private LocalTax localTax;          //지방세 법정동
 
-    @OneToOne
-    @JoinColumn(name = "finance_code")
-    private Finance finance;            //국세환급금 계좌
+    private String finance;            //국세환급금 계좌
 
     private String corporationClassifyStatus;    //법인구분
 
