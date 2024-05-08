@@ -285,14 +285,14 @@ const deleteCompany = () => {
                     <v-label class="mt-2"> 시작일</v-label>
                   </v-col>
                   <v-col cols="12" lg="4">
-                    <DateSelect v-model="currentCompany.fiscalYearStart" />
+                    <DateSelect @update="currentCompany.fiscalYearStart = $event" />
                   </v-col>
 
                   <v-col cols="12" lg="1">
                     <v-label class="mt-2"> 종료일</v-label>
                   </v-col>
                   <v-col cols="12" lg="4" md="9">
-                    <DateSelect v-model="currentCompany.fiscalYearEnd" />
+                    <DateSelect @update="currentCompany.fiscalYearEnd = $event" />
                   </v-col>
                 </v-row>
               </v-col>
@@ -305,7 +305,7 @@ const deleteCompany = () => {
                     <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
                   <v-col cols="12" lg="8" md="9">
-                    <DateSelect v-model="currentCompany.privatePracticeDate" />
+                    <DateSelect @update="currentCompany.privatePracticeDate = $event" />
                   </v-col>
 
                 </v-row>

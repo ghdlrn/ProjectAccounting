@@ -29,12 +29,13 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, defineEmits } from 'vue';
 import {DatePicker} from "v-calendar";
 
 const date = ref(new Date());
 const menu = ref(false);
 const formattedDate = ref('');
+const emits = defineEmits(['update']);
 
 // 날짜 포맷 함수
 function formatDate(date) {
@@ -53,6 +54,7 @@ formattedDate.value = formatDate(date.value);
 function updateFormattedDate(newDate) {
   formattedDate.value = formatDate(newDate);
   menu.value = false;  // 날짜 선택 후 메뉴 닫기
+  emits('update', formattedDate.value);
 }
 
 watch(date, updateFormattedDate);
