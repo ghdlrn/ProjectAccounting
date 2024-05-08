@@ -1,15 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-interface Address {
-    code: number;
-    postcode: string;
-    roadAddress: string;
-    jibunAddress: string;
-    extraAddress: string;
-    guideText: string;
-}
-
 interface TaxOffice {
     code: number;
     name: string;
@@ -34,7 +25,11 @@ interface Company {
     businessRegistrationNumber: string;
     nameOfRepresentative: string;
     corporationRegistrationNumber: string;
-    address: Address;
+    postcode: string;   //우편번호
+    roadAddress: string; //도로명주소
+    jibunAddress: string;    //지번주소
+    extraAddress: string;    //상세주소
+    guideText: string;   //참고사항
     businessType: string;
     businessItem: string;
     fiscalYearClass: number;

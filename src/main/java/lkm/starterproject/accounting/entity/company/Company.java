@@ -1,10 +1,8 @@
 package lkm.starterproject.accounting.entity.company;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
-import lkm.starterproject.accounting.entity.register.Finance;
 import lkm.starterproject.auth.entity.BaseEntity;
 import lkm.starterproject.auth.entity.MemberCompany;
 import lombok.*;
@@ -45,9 +43,15 @@ public class Company extends BaseEntity {  //회사
     @Column(length = 14)
     private String corporationRegistrationNumber;       //법인등록번호
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "address_code")
-    private Address address;        //주소
+    private String postcode;   //우편번호
+
+    private String roadAddress; //도로명주소
+
+    private String jibunAddress;    //지번주소
+
+    private String extraAddress;    //상세주소
+
+    private String guideText;   //참고사항
 
     private String businessType;        //업태
 

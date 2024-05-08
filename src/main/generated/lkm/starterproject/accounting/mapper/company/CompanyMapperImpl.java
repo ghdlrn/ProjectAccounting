@@ -1,11 +1,9 @@
 package lkm.starterproject.accounting.mapper.company;
 
 import javax.annotation.processing.Generated;
-import lkm.starterproject.accounting.dto.basic.AddressDto;
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
-import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
 import lkm.starterproject.accounting.entity.company.Company;
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-08T18:04:23+0900",
+    date = "2024-05-08T22:32:43+0900",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 21.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -35,7 +33,11 @@ public class CompanyMapperImpl implements CompanyMapper {
         companyDto.setBusinessRegistrationNumber( company.getBusinessRegistrationNumber() );
         companyDto.setNameOfRepresentative( company.getNameOfRepresentative() );
         companyDto.setCorporationRegistrationNumber( company.getCorporationRegistrationNumber() );
-        companyDto.setAddress( addressToAddressDto( company.getAddress() ) );
+        companyDto.setPostcode( company.getPostcode() );
+        companyDto.setRoadAddress( company.getRoadAddress() );
+        companyDto.setJibunAddress( company.getJibunAddress() );
+        companyDto.setExtraAddress( company.getExtraAddress() );
+        companyDto.setGuideText( company.getGuideText() );
         companyDto.setBusinessType( company.getBusinessType() );
         companyDto.setBusinessItem( company.getBusinessItem() );
         companyDto.setFiscalYearClass( company.getFiscalYearClass() );
@@ -75,7 +77,11 @@ public class CompanyMapperImpl implements CompanyMapper {
         company.businessRegistrationNumber( companyDto.getBusinessRegistrationNumber() );
         company.nameOfRepresentative( companyDto.getNameOfRepresentative() );
         company.corporationRegistrationNumber( companyDto.getCorporationRegistrationNumber() );
-        company.address( addressDtoToAddress( companyDto.getAddress() ) );
+        company.postcode( companyDto.getPostcode() );
+        company.roadAddress( companyDto.getRoadAddress() );
+        company.jibunAddress( companyDto.getJibunAddress() );
+        company.extraAddress( companyDto.getExtraAddress() );
+        company.guideText( companyDto.getGuideText() );
         company.businessType( companyDto.getBusinessType() );
         company.businessItem( companyDto.getBusinessItem() );
         company.fiscalYearClass( companyDto.getFiscalYearClass() );
@@ -113,15 +119,11 @@ public class CompanyMapperImpl implements CompanyMapper {
         company.setBusinessRegistrationNumber( companyDto.getBusinessRegistrationNumber() );
         company.setNameOfRepresentative( companyDto.getNameOfRepresentative() );
         company.setCorporationRegistrationNumber( companyDto.getCorporationRegistrationNumber() );
-        if ( companyDto.getAddress() != null ) {
-            if ( company.getAddress() == null ) {
-                company.setAddress( Address.builder().build() );
-            }
-            addressDtoToAddress1( companyDto.getAddress(), company.getAddress() );
-        }
-        else {
-            company.setAddress( null );
-        }
+        company.setPostcode( companyDto.getPostcode() );
+        company.setRoadAddress( companyDto.getRoadAddress() );
+        company.setJibunAddress( companyDto.getJibunAddress() );
+        company.setExtraAddress( companyDto.getExtraAddress() );
+        company.setGuideText( companyDto.getGuideText() );
         company.setBusinessType( companyDto.getBusinessType() );
         company.setBusinessItem( companyDto.getBusinessItem() );
         company.setFiscalYearClass( companyDto.getFiscalYearClass() );
@@ -159,23 +161,6 @@ public class CompanyMapperImpl implements CompanyMapper {
         company.setNote( companyDto.getNote() );
     }
 
-    protected AddressDto addressToAddressDto(Address address) {
-        if ( address == null ) {
-            return null;
-        }
-
-        AddressDto addressDto = new AddressDto();
-
-        addressDto.setCode( address.getCode() );
-        addressDto.setPostcode( address.getPostcode() );
-        addressDto.setRoadAddress( address.getRoadAddress() );
-        addressDto.setJibunAddress( address.getJibunAddress() );
-        addressDto.setExtraAddress( address.getExtraAddress() );
-        addressDto.setGuideText( address.getGuideText() );
-
-        return addressDto;
-    }
-
     protected TaxOfficeDto taxOfficeToTaxOfficeDto(TaxOffice taxOffice) {
         if ( taxOffice == null ) {
             return null;
@@ -210,23 +195,6 @@ public class CompanyMapperImpl implements CompanyMapper {
         return localTaxDto;
     }
 
-    protected Address addressDtoToAddress(AddressDto addressDto) {
-        if ( addressDto == null ) {
-            return null;
-        }
-
-        Address.AddressBuilder address = Address.builder();
-
-        address.code( addressDto.getCode() );
-        address.postcode( addressDto.getPostcode() );
-        address.roadAddress( addressDto.getRoadAddress() );
-        address.jibunAddress( addressDto.getJibunAddress() );
-        address.extraAddress( addressDto.getExtraAddress() );
-        address.guideText( addressDto.getGuideText() );
-
-        return address.build();
-    }
-
     protected TaxOffice taxOfficeDtoToTaxOffice(TaxOfficeDto taxOfficeDto) {
         if ( taxOfficeDto == null ) {
             return null;
@@ -252,19 +220,6 @@ public class CompanyMapperImpl implements CompanyMapper {
         localTax.name( localTaxDto.getName() );
 
         return localTax.build();
-    }
-
-    protected void addressDtoToAddress1(AddressDto addressDto, Address mappingTarget) {
-        if ( addressDto == null ) {
-            return;
-        }
-
-        mappingTarget.setCode( addressDto.getCode() );
-        mappingTarget.setPostcode( addressDto.getPostcode() );
-        mappingTarget.setRoadAddress( addressDto.getRoadAddress() );
-        mappingTarget.setJibunAddress( addressDto.getJibunAddress() );
-        mappingTarget.setExtraAddress( addressDto.getExtraAddress() );
-        mappingTarget.setGuideText( addressDto.getGuideText() );
     }
 
     protected void taxOfficeDtoToTaxOffice1(TaxOfficeDto taxOfficeDto, TaxOffice mappingTarget) {
