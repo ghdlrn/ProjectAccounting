@@ -5,13 +5,10 @@ import lkm.starterproject.accounting.entity.company.Company;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 
 @Mapper(componentModel = "spring")
 public interface CompanyMapper {
-
-    CompanyMapper INSTANCE = Mappers.getMapper(CompanyMapper.class);
 
 
     @Mapping(target = "taxOffice", source = "taxOffice")
