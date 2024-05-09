@@ -1,9 +1,7 @@
-<script setup lang="ts">
-import { ref, computed, onMounted, shallowRef } from 'vue';
-import { useCustomers } from '~/stores/accounting/customers';
-
-import type { Header, Item } from 'vue3-easy-data-table';
-import 'vue3-easy-data-table/dist/style.css';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useCompanyStore } from '~/stores/accounting/company';
+const store = useCompanyStore();
 
 // icons
 import {
@@ -13,47 +11,37 @@ import {
   EditOutlined
 } from '@ant-design/icons-vue';
 
-const page = ref({ title: 'Customer list' });
-
-const store = useCustomers();
-
-const getCustomers = computed(() => {
-  return store.getCustomers;
-});
-
 onMounted(() => {
-  store.fetchCustomers();
+  store.fetchCompanies();
 });
+const company = computed(() => store.fetchCompanies );
 
-const searchField = ref('name');
+const searchField = ref(['name', 'code']);
 const searchValue = ref('');
-
-const headers: Header[] = [
-  { text: 'User Info', value: 'name', sortable: true },
-  { text: 'Contact', value: 'date', sortable: true },
-  { text: 'Age', value: 'orders', sortable: true },
-  { text: 'Country', value: 'location', sortable: true },
-  { text: 'Status', value: 'status', sortable: true },
-  { text: 'Action', value: 'operation' }
-];
-const items = ref(getCustomers);
+const headers = ref([
+  { text: '회사 코드', value: 'code', sortable: true },
+  { text: '회사명', value: 'name', sortable: true },
+  { text: '사업자 등록번호', value: 'businessRegistrationNumber', sortable: true },
+  { text: '조회/수정/삭제', value: 'operation' }
+]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
-const { deleteCustomer } = store;
 
-const itemsSelected = ref<Item[]>([]);
+const { deleteCompany } = store;
+
+const selectedCompany = ref<Company>({});
+
 </script>
 
 <template>
-
-  <v-row>
-    <v-col cols="12" md="12">
-      <v-card elevation="0" variant="outlined" class="withbg">
+  <PerfectScrollbar>
+      <v-card title="회사 조회 및 등록">
         <v-card-item>
           <v-row justify="space-between" class="align-center">
             <v-col cols="12" md="6">
               <v-text-field
                   type="text"
                   variant="outlined"
+                  color="primary"
                   persistent-placeholder
                   placeholder="회사명 검색"
                   v-model="searchValue"
@@ -69,26 +57,14 @@ const itemsSelected = ref<Item[]>([]);
         <v-card-text class="pa-0">
           <EasyDataTable
               :headers="headers"
-              :items="items"
+              :items="company"
               table-class-name="customize-table"
               :theme-color="themeColor"
               :search-field="searchField"
               :search-value="searchValue"
               :rows-per-page="10"
-              v-model:items-selected="itemsSelected"
-          >
-            <template #item-name="{ name, email }">
-              <div class="player-wrapper">
-                <h6 class="text-subtitle-1 mb-0">{{ name }}</h6>
-                <small class="text-h6 text-lightText">{{ email }}</small>
-              </div>
-            </template>
-            <template #item-status="{ status }">
-              <v-chip color="success" v-if="status === 1" size="small" label> Verified </v-chip>
-              <v-chip color="error" v-if="status === 2" size="small" label> Rejected </v-chip>
-              <v-chip color="info" v-if="status === 3" size="small" label> Pending </v-chip>
-            </template>
-            <template #item-operation="item">
+              v-model:items-selected="selectedCompany">
+            <template #item-operation="company">
               <div class="operation-wrapper">
                 <v-btn icon color="secondary" variant="text" rounded>
                   <EyeOutlined />
@@ -96,7 +72,7 @@ const itemsSelected = ref<Item[]>([]);
                 <v-btn icon color="primary" variant="text" rounded>
                   <EditOutlined />
                 </v-btn>
-                <v-btn icon color="error" variant="text" @click="deleteCustomer(item.name)" rounded>
+                <v-btn icon color="error" variant="text" @click="deleteCompany(company.code)" rounded>
                   <DeleteOutlined />
                 </v-btn>
               </div>
@@ -104,8 +80,7 @@ const itemsSelected = ref<Item[]>([]);
           </EasyDataTable>
         </v-card-text>
       </v-card>
-    </v-col>
-  </v-row>
+  </PerfectScrollbar>
 </template>
 
 <style lang="scss">
