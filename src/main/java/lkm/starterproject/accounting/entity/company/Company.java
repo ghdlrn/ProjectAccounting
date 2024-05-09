@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "company")
-public class Company {  //회사
+public class Company extends BaseEntity {  //회사
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -22,6 +22,8 @@ public class QCompany extends EntityPathBase<Company> {
 
     public static final QCompany company = new QCompany("company");
 
+    public final lkm.starterproject.auth.entity.QBaseEntity _super = new lkm.starterproject.auth.entity.QBaseEntity(this);
+
     public final StringPath businessItem = createString("businessItem");
 
     public final StringPath businessRegistrationNumber = createString("businessRegistrationNumber");
@@ -41,6 +43,9 @@ public class QCompany extends EntityPathBase<Company> {
     public final StringPath corporationClassifyStatus = createString("corporationClassifyStatus");
 
     public final StringPath corporationRegistrationNumber = createString("corporationRegistrationNumber");
+
+    //inherited
+    public final StringPath createdBy = _super.createdBy;
 
     public final StringPath extraAddress = createString("extraAddress");
 
@@ -68,6 +73,9 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final ListPath<lkm.starterproject.auth.entity.MemberCompany, lkm.starterproject.auth.entity.QMemberCompany> memberCompanies = this.<lkm.starterproject.auth.entity.MemberCompany, lkm.starterproject.auth.entity.QMemberCompany>createList("memberCompanies", lkm.starterproject.auth.entity.MemberCompany.class, lkm.starterproject.auth.entity.QMemberCompany.class, PathInits.DIRECT2);
 
+    //inherited
+    public final StringPath modifiedBy = _super.modifiedBy;
+
     public final StringPath name = createString("name");
 
     public final StringPath nameOfRepresentative = createString("nameOfRepresentative");
@@ -82,11 +90,17 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final DatePath<java.time.LocalDate> privatePracticeDate = createDate("privatePracticeDate", java.time.LocalDate.class);
 
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regTime = _super.regTime;
+
     public final StringPath residentRegistrationNumber = createString("residentRegistrationNumber");
 
     public final StringPath roadAddress = createString("roadAddress");
 
     public final lkm.starterproject.accounting.entity.basic.QTaxOffice taxOffice;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;
 
     public QCompany(String variable) {
         this(Company.class, forVariable(variable), INITS);
