@@ -2,6 +2,7 @@ package lkm.starterproject.accounting.dto.company;
 
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
+import lkm.starterproject.auth.entity.MemberCompany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,5 +44,5 @@ public class CompanyDto {
     private String chargeName;  // 담당자 이름
     private String chargeEmail;  // 담당자 이메일
     private String note;  // 비고
-
+    private MemberCompany memberCompany;
 }
