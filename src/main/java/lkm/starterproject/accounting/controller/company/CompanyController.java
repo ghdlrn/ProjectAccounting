@@ -5,6 +5,8 @@ import lkm.starterproject.accounting.service.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/register/company")
 public class CompanyController {
@@ -19,6 +21,12 @@ public class CompanyController {
     public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
         CompanyDto createdCompany = companyService.createCompany(companyDto);
         return ResponseEntity.ok(createdCompany);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CompanyDto>> getAllCompanies() {
+        List<CompanyDto> companies = companyService.getAllCompanies();
+        return ResponseEntity.ok(companies);
     }
 
     @GetMapping("/{code}")

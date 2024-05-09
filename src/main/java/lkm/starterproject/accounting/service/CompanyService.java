@@ -6,7 +6,9 @@ import lkm.starterproject.accounting.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
@@ -22,6 +24,13 @@ public class CompanyService {
         Company company = toEntity(companyDto);
         company = companyRepository.save(company);
         return toDto(company);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CompanyDto> getAllCompanies() {
+        return companyRepository.findAll().stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -49,13 +58,11 @@ public class CompanyService {
     }
 
     private CompanyDto toDto(Company company) {
-        CompanyDto dto = new CompanyDto();
-        return dto;
+        return new CompanyDto();
     }
 
     private Company toEntity(CompanyDto dto) {
-        Company company = new Company();
-        return company;
+        return new Company();
     }
 
     private void updateEntityFromDto(CompanyDto dto, Company company) {
