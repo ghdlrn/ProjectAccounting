@@ -4,17 +4,10 @@ import { useCompanyStore } from '~/stores/accounting/company';
 const store = useCompanyStore();
 
 // icons
-import {
-  SearchOutlined,
-  EyeOutlined,
-  DeleteOutlined,
-  EditOutlined
-} from '@ant-design/icons-vue';
+import {SearchOutlined, EyeOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons-vue';
 
-onMounted(() => {
-  store.fetchCompanies();
-});
-const company = computed(() => store.fetchCompanies );
+onMounted(() => { store.fetchCompanies(); });
+const company = computed(() => store.companies );
 
 const searchField = ref(['name', 'code']);
 const searchValue = ref('');
@@ -26,9 +19,11 @@ const headers = ref([
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
-const { deleteCompany } = store;
+const deleteCompany = (code) => {
+  store.deleteCompany(code);
+};
 
-const selectedCompany = ref<Company>({});
+const itemsSelected = ref([]);
 
 </script>
 
@@ -63,8 +58,8 @@ const selectedCompany = ref<Company>({});
               :search-field="searchField"
               :search-value="searchValue"
               :rows-per-page="10"
-              v-model:items-selected="selectedCompany">
-            <template #item-operation="company">
+              v-model:items-selected="itemsSelected">
+            <template #item-operation="item">
               <div class="operation-wrapper">
                 <v-btn icon color="secondary" variant="text" rounded>
                   <EyeOutlined />
@@ -72,7 +67,7 @@ const selectedCompany = ref<Company>({});
                 <v-btn icon color="primary" variant="text" rounded>
                   <EditOutlined />
                 </v-btn>
-                <v-btn icon color="error" variant="text" @click="deleteCompany(company.code)" rounded>
+                <v-btn icon color="error" variant="text" @click="deleteCompany(item.code)" rounded>
                   <DeleteOutlined />
                 </v-btn>
               </div>
