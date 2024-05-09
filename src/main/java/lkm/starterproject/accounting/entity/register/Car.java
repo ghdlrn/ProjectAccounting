@@ -1,7 +1,6 @@
 package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.constants.CarNameStatus;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -26,13 +25,13 @@ public class Car {
 
     private String carModel;    //차종
 
-    private CarNameStatus carNameStatus;    //차량명의
+    private String carNameStatus;    //차량명의
 
     private LocalDate startTenancy; //임차시작일
 
     private LocalDate endTenancy;   //임차종료일
 
-    private Integer mileage;    //주행거리
+    private Long mileage;    //주행거리
 
     private String insurance;   //가입보험
 

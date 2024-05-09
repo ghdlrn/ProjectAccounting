@@ -55,7 +55,7 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath homePage = createString("homePage");
 
-    public final EnumPath<lkm.starterproject.accounting.constants.LiquorRetailStatus> liquorRetailStatus = createEnum("liquorRetailStatus", lkm.starterproject.accounting.constants.LiquorRetailStatus.class);
+    public final StringPath liquorRetailStatus = createString("liquorRetailStatus");
 
     public final NumberPath<Long> localTaxBillCode = createNumber("localTaxBillCode", Long.class);
 

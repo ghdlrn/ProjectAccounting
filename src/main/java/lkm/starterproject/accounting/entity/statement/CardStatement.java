@@ -23,10 +23,7 @@ public class CardStatement {
     @Column(name = "card_statement_code")
     private Long code;        //코드번호
 
-    @Temporal(TemporalType.DATE)
     private LocalDate RegistrationDate;     //등록일자
-
-
 
     private String customerName;    //거래처명
 

@@ -23,11 +23,8 @@ public class CashStatement {
     @Column(name = "cash_statement_code")
     private Long code;        //코드번호
 
-    @Temporal(TemporalType.DATE)
     private LocalDate RegistrationDate;     //등록일자
 
-
-    
     private String customerName;    //거래처명
     
     private Long money; //금액

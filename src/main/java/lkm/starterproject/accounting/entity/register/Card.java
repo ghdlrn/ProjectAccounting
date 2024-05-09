@@ -39,7 +39,6 @@ public class Card {
     private UseStatus useStatus;    //사용구분
 
 
-
     private Double commission;      //수수료
 
     private Long commissionAccountTitle; //수수료 계정과목
@@ -65,15 +64,10 @@ public class Card {
 
     private String homePage;        //홈페이지주소
 
-    @Temporal(TemporalType.DATE)
     private LocalDate constractOpenDate;    //계약시작일
 
-    @Temporal(TemporalType.DATE)
     private LocalDate constractCloseDate;       //계약종료일
 
     private String note;    //비고
-
-
-
 
 }

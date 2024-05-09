@@ -33,7 +33,7 @@ public class QPromissoryNote extends EntityPathBase<PromissoryNote> {
 
     public final StringPath promissoryNoteNumber = createString("promissoryNoteNumber");
 
-    public final EnumPath<lkm.starterproject.accounting.constants.PromissoryNoteTypeStatus> promissoryNoteTypeStatus = createEnum("promissoryNoteTypeStatus", lkm.starterproject.accounting.constants.PromissoryNoteTypeStatus.class);
+    public final StringPath promissoryNoteTypeStatus = createString("promissoryNoteTypeStatus");
 
     public QPromissoryNote(String variable) {
         super(PromissoryNote.class, forVariable(variable));

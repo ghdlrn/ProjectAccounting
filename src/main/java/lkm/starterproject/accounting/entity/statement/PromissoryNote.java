@@ -1,8 +1,6 @@
 package lkm.starterproject.accounting.entity.statement;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.constants.PromissoryNoteTypeStatus;
-import lkm.starterproject.accounting.entity.register.Customer;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,15 +20,13 @@ public class PromissoryNote {   //어음
     @Column(name = "promissory_note_code")
     private Long code;        //코드번호
 
-    private PromissoryNoteTypeStatus promissoryNoteTypeStatus;  //어음종류
+    private String promissoryNoteTypeStatus;  //어음종류
 
     private LocalDate issuingDate;  //발행일
 
     private LocalDate expirationDate;   //만기일
 
     private String promissoryNoteNumber;    //어음번호
-
-
 
     private Long money;     //금액
     

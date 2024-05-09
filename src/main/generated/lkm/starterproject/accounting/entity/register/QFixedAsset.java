@@ -27,7 +27,7 @@ public class QFixedAsset extends EntityPathBase<FixedAsset> {
 
     public final NumberPath<Long> code = createNumber("code", Long.class);
 
-    public final EnumPath<lkm.starterproject.accounting.constants.DepreciationStatus> depreciationStatus = createEnum("depreciationStatus", lkm.starterproject.accounting.constants.DepreciationStatus.class);
+    public final StringPath depreciationStatus = createString("depreciationStatus");
 
     public final NumberPath<Long> durableYears = createNumber("durableYears", Long.class);
 

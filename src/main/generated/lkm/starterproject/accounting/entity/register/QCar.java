@@ -21,7 +21,7 @@ public class QCar extends EntityPathBase<Car> {
 
     public final StringPath carModel = createString("carModel");
 
-    public final EnumPath<lkm.starterproject.accounting.constants.CarNameStatus> carNameStatus = createEnum("carNameStatus", lkm.starterproject.accounting.constants.CarNameStatus.class);
+    public final StringPath carNameStatus = createString("carNameStatus");
 
     public final NumberPath<Long> code = createNumber("code", Long.class);
 
@@ -33,7 +33,7 @@ public class QCar extends EntityPathBase<Car> {
 
     public final StringPath licensePlateNumber = createString("licensePlateNumber");
 
-    public final NumberPath<Integer> mileage = createNumber("mileage", Integer.class);
+    public final NumberPath<Long> mileage = createNumber("mileage", Long.class);
 
     public final DatePath<java.time.LocalDate> startInsuranceDate = createDate("startInsuranceDate", java.time.LocalDate.class);
 

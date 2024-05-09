@@ -1,17 +1,12 @@
 package lkm.starterproject.accounting.controller.company;
 
 import lkm.starterproject.accounting.dto.company.CompanyDto;
-import lkm.starterproject.accounting.entity.company.Company;
-import lkm.starterproject.accounting.repository.CompanyRepository;
 import lkm.starterproject.accounting.service.CompanyService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/register/company")
 public class CompanyController {
 
     private final CompanyService companyService;
@@ -21,8 +16,27 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Company> addCompany(@RequestBody CompanyDto companyDto) {
-        Company company = companyService.addCompany(companyDto);
-        return ResponseEntity.ok(company);
+    public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
+        CompanyDto createdCompany = companyService.createCompany(companyDto);
+        return ResponseEntity.ok(createdCompany);
     }
+
+    @GetMapping("/{code}")
+    public ResponseEntity<CompanyDto> getCompany(@PathVariable Long code) {
+        CompanyDto companyDto = companyService.getCompany(code);
+        return ResponseEntity.ok(companyDto);
+    }
+
+    @PutMapping("/{code}")
+    public ResponseEntity<CompanyDto> updateCompany(@PathVariable Long code, @RequestBody CompanyDto companyDto) {
+        CompanyDto updatedCompany = companyService.updateCompany(code, companyDto);
+        return ResponseEntity.ok(updatedCompany);
+    }
+
+    @DeleteMapping("/{code}")
+    public ResponseEntity<Void> deleteCompany(@PathVariable Long code) {
+        companyService.deleteCompany(code);
+        return ResponseEntity.ok().build();
+    }
+
 }

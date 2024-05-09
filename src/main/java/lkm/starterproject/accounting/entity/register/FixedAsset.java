@@ -1,10 +1,7 @@
 package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.constants.DepreciationStatus;
 import lkm.starterproject.accounting.constants.UseStatus;
-import lkm.starterproject.accounting.entity.company.Company;
-import lkm.starterproject.accounting.entity.company.Department;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -27,17 +24,18 @@ public class FixedAsset {
     @Column(nullable = false)
     private String name;        //자산 명
 
-
     private LocalDate acquisitionDate; //취득일
 
     private Long amount;    //취득수량
 
     private Long acquisitionValue;   //취득가액
 
-    private DepreciationStatus depreciationStatus;  //감가상각법
+    private String depreciationStatus;  //감가상각법
 
     private Long durableYears;   //내용연수
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UseStatus useStatus;    //사용여부
 
     private LocalDate endOfUseDate; //사용종료일

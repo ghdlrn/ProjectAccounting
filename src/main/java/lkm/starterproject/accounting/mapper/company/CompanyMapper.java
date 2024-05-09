@@ -9,6 +9,8 @@ import org.mapstruct.MappingTarget;
 public interface CompanyMapper {
 
     CompanyDto toDto(Company company);
+
     Company toEntity(CompanyDto companyDto);
+
     void updateEntity(CompanyDto companyDto, @MappingTarget Company company);
 }

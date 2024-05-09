@@ -53,17 +53,14 @@ public class Customer {      //거래처
 
     private Long chargeCode; //담당사원
 
-    @Enumerated(EnumType.STRING)    //사업자단위 주사업장여부
     private String companyUnitVATTaxationStatus;
 
     private Long UnitReportingCustomerCode;  //단위신고거래처
 
     private Long taxRegistrationCode;    //종사업장번호
 
-    @Temporal(TemporalType.DATE)
     private LocalDate tradeStartDate;   //거래시작일
 
-    @Temporal(TemporalType.DATE)
     private LocalDate tradeEndDate;     //거래종료일
 
     private String note;    //비고
@@ -94,8 +91,7 @@ public class Customer {      //거래처
 
     private Long amountOfCollateral; //담보설정액
 
-    @Enumerated(EnumType.STRING)
-    private LiquorRetailStatus liquorRetailStatus;  //주류코드(소매)
+    private String liquorRetailStatus;  //주류코드(소매)
 
     private Long localTaxBillCode;   //지방세 법정동 코드
 }

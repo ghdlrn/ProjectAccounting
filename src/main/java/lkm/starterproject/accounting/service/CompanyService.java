@@ -4,6 +4,7 @@ import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import lkm.starterproject.accounting.repository.CompanyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final CompanyMapper companyMapper;
 
+    @Autowired
     public CompanyService(CompanyRepository companyRepository, CompanyMapper companyMapper) {
         this.companyRepository = companyRepository;
         this.companyMapper = companyMapper;

@@ -24,7 +24,6 @@ public class Statement {
     @Column(name = "statement_code")
     private Long code;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate RegistrationDate;     //등록일자
 
     @Enumerated(EnumType.STRING)

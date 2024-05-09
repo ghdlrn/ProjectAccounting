@@ -21,6 +21,7 @@ public class Employee {
 
     private String name;    //사원명
 
+    @Enumerated(EnumType.STRING)
     private UseStatus useStatus;    //사용여부
 
     private String phone;   //사원전화번호

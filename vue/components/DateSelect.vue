@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, watch, defineEmits } from 'vue';
+import { ref, watch } from 'vue';
 import {DatePicker} from "v-calendar";
 
 const date = ref(new Date());

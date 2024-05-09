@@ -38,7 +38,6 @@ public class Finance {
 
     private Long overdraftLimit; //당좌한도액
 
-    @Temporal(TemporalType.DATE)
     private LocalDate overdraftDate;    //당좌차월기일
 
     @Column(nullable = false, length = 12, unique = true)
@@ -60,10 +59,8 @@ public class Finance {
 
     private String homePage;    //홈페이지주소
 
-    @Temporal(TemporalType.DATE)
     private LocalDate accoountOpenDate; //계좌개설일
 
-    @Temporal(TemporalType.DATE)
     private LocalDate accountCloseDate; //계좌해지일
 
     private String note;    //비고

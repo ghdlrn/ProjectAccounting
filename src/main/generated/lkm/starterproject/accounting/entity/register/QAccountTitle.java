@@ -23,7 +23,7 @@ public class QAccountTitle extends EntityPathBase<AccountTitle> {
 
     public final NumberPath<Integer> code = createNumber("code", Integer.class);
 
-    public final EnumPath<lkm.starterproject.accounting.constants.DebitAndCreditStatus> debitAndCredit = createEnum("debitAndCredit", lkm.starterproject.accounting.constants.DebitAndCreditStatus.class);
+    public final StringPath debitAndCredit = createString("debitAndCredit");
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 

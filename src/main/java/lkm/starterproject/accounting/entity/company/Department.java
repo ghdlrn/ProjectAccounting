@@ -20,6 +20,7 @@ public class Department {
     private Long code;
     
     private String name;    //부서명
-    
+
+    @Enumerated(EnumType.STRING)
     private UseStatus useStatus;    //사용여부
 }
