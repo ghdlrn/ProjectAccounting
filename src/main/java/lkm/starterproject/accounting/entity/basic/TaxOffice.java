@@ -34,6 +34,6 @@ public class TaxOffice {
     /*------------------------------------------------------------------------------------
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
-    @OneToOne(mappedBy = "taxOffice",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "taxOffice", orphanRemoval = true)
     private Company company;
 }

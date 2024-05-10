@@ -24,6 +24,6 @@ public class LocalTax {
     /*------------------------------------------------------------------------------------
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
-    @OneToOne(mappedBy = "localTax", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "localTax", orphanRemoval = true)
     private Company company;
 }

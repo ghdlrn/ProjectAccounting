@@ -4,6 +4,9 @@ import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.mapper.CompanyMapper;
 import lkm.starterproject.accounting.repository.CompanyRepository;
+import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
+import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +18,14 @@ import java.util.stream.Collectors;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
+    private final LocalTaxRepository localTaxRepository;
+    private final TaxOfficeRepository taxOfficeRepository;
     private final CompanyMapper companyMapper;
 
-    public CompanyService(CompanyRepository companyRepository, CompanyMapper companyMapper) {
+    public CompanyService(CompanyRepository companyRepository, LocalTaxRepository localTaxRepository, TaxOfficeRepository taxOfficeRepository, CompanyMapper companyMapper) {
         this.companyRepository = companyRepository;
+        this.localTaxRepository = localTaxRepository;
+        this.taxOfficeRepository = taxOfficeRepository;
         this.companyMapper = companyMapper;
     }
 
@@ -54,6 +61,10 @@ public class CompanyService {
 
     @Transactional
     public void deleteCompany(Long code) {
-        companyRepository.deleteById(code);
+        Company company = companyRepository.findById(code)
+                .orElseThrow(() -> new RuntimeException("Company not found"));
+        localTaxRepository.delete(company.getLocalTax());
+        taxOfficeRepository.delete(company.getTaxOffice());
+        companyRepository.delete(company);
     }
 }
