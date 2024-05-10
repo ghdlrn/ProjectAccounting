@@ -46,7 +46,7 @@ const deleteCompany = () => {
 <template>
   <UiParentCard title="회사등록">
 
-    <v-card>
+    <v-card class="company-form">
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab value="one">기본 정보</v-tab>
         <v-tab value="two">회계/세무 정보</v-tab>
@@ -293,7 +293,7 @@ const deleteCompany = () => {
                   <v-col cols="5">
                     <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
-                  <v-col cols="6">
+                  <v-col cols="7">
                     <DateSelect @update="currentCompany.privatePracticeDate = $event" />
                   </v-col>
 
@@ -305,10 +305,10 @@ const deleteCompany = () => {
                   <v-col cols="1">
                     <v-label class="mt-2">사업장 <br/> 세무서</v-label>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col cols="5" class="pl-5">
                     <TaxOfficeInfo />
                   </v-col>
-                  <v-col cols="1" class="ml-14" >
+                  <v-col cols="1">
                     <v-label class="mt-2">지방세 <br/> 법정동</v-label>
                   </v-col>
                   <v-col cols="5">
@@ -403,7 +403,6 @@ const deleteCompany = () => {
                     <v-select
                         v-model="currentCompany.companyTypeStatus"
                         :items="['중소기업', '일반', '상장', '비영리', '협회 등록']"
-                        label="ex) 본점"
                         variant="outlined"
                         color="primary"
                         autofocus
@@ -560,6 +559,12 @@ const deleteCompany = () => {
 </template>
 
 <style scoped lang="scss">
+.company-form {
+  width: 50%;
+  height: 80%;
+  min-width: 1000px;
+  min-height: 800px;
+}
 .address{
   font-size: small;
 }

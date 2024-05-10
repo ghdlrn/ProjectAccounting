@@ -9,10 +9,8 @@
       <VerticalHeaderVue />
 
       <v-main>
-        <v-container fluid class="page-wrapper">
-          <div>
-            <slot />
-          </div>
+        <v-container fluid class="page-wrapper  position-relative" no-gutters>
+          <NuxtPage />
         </v-container>
         <v-container fluid class="pt-0">
           <div>

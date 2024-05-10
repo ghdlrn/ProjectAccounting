@@ -4,7 +4,8 @@ import { useCompanyStore } from '~/stores/accounting/company.ts';
 const store = useCompanyStore();
 
 // icons
-import {SearchOutlined, EyeOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons-vue';
+import {SearchOutlined, PlusOutlined, EyeOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons-vue';
+import UiParentCard from "~/components/shared/UiParentCard.vue";
 
 onMounted(() => { store.fetchCompanies(); });
 const company = computed(() => store.companies );
@@ -29,14 +30,18 @@ const deleteCompany = (item) => {
     }
 };
 
+const dialog = ref(false);
+
 </script>
 
 <template>
+  <UiParentCard title="회사 조회" class="reference">
   <PerfectScrollbar>
-      <v-card title="회사 조회 및 등록">
+      <v-card>
         <v-card-item>
+
           <v-row justify="space-between" class="align-center">
-            <v-col cols="12" md="6">
+            <v-col cols="6">
               <v-text-field
                   type="text"
                   variant="outlined"
@@ -50,7 +55,23 @@ const deleteCompany = (item) => {
                 </template>
               </v-text-field>
             </v-col>
+            <v-col cols="3" offset="3">
+              <div class="d-flex gap-2 justify-end">
+                <v-dialog v-model="dialog" class="register">
+                  <template v-slot:activator="{ props }">
+                    <v-btn variant="flat" color="primary" v-bind="props" size="large">
+                      <template v-slot:prepend>
+                        <PlusOutlined />
+                      </template>
+                      회사 등록
+                    </v-btn>
+                  </template>
+                  <CompanyRegister />
+                </v-dialog>
+              </div>
+            </v-col>
           </v-row>
+
         </v-card-item>
         <v-divider></v-divider>
         <v-card-text class="pa-0">
@@ -80,7 +101,18 @@ const deleteCompany = (item) => {
         </v-card-text>
       </v-card>
   </PerfectScrollbar>
+  </UiParentCard>
 </template>
 
 <style lang="scss">
+.reference {
+  width: 50%;
+  min-width: 1000px;
+}
+.register {
+  width: 50%;
+  height: 80%;
+  min-width: 1000px;
+  min-height: 1300px;
+}
 </style>
