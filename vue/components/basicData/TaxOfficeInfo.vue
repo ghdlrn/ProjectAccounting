@@ -31,7 +31,7 @@
                   variant="outlined"
                   color="primary"
                   persistent-placeholder
-                  placeholder="세무서명으로 검색하시오"
+                  placeholder="테이블 항목으로 조회 가능"
                   v-model="searchValue"
                   hide-details>
                 <template v-slot:prepend-inner>
@@ -73,7 +73,7 @@ onMounted(() => {
 });
 const taxOffices = computed(() => store.taxOffice);
 
-const searchField = ref('name');
+const searchField = ref(['name', 'code', 'jurisdiction']);
 const searchValue = ref('');
 const headers = ref( [
   { text: '세무서 코드', value: 'code', sortable: true, width: 15, fixed: true },
