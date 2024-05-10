@@ -560,9 +560,8 @@ const deleteCompany = () => {
 
 <style scoped lang="scss">
 .company-form {
-  width: 50%;
+  width: 100%;
   height: 80%;
-  min-width: 1000px;
   min-height: 800px;
 }
 .address{
