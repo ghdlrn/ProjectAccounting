@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
 
-import CompanyRegister from "~/components/registerform/CompanyRegister.vue";
+import CompanyRegister from "~/components/company/CompanyRegister.vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
-import CompanyReference from "~/components/reference/CompanyReference.vue";
+import CompanyReference from "~/components/company/CompanyReference.vue";
 
 
 </script>

@@ -30,19 +30,19 @@ public class CompanyController {
     }
 
     @GetMapping("/{code}")
-    public ResponseEntity<CompanyDto> getCompany(@PathVariable Long code) {
+    public ResponseEntity<CompanyDto> getCompany(@PathVariable("code") Long code) {
         CompanyDto companyDto = companyService.getCompany(code);
         return ResponseEntity.ok(companyDto);
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<CompanyDto> updateCompany(@PathVariable Long code, @RequestBody CompanyDto companyDto) {
+    public ResponseEntity<CompanyDto> updateCompany(@PathVariable("code") Long code, @RequestBody CompanyDto companyDto) {
         CompanyDto updatedCompany = companyService.updateCompany(code, companyDto);
         return ResponseEntity.ok(updatedCompany);
     }
 
     @DeleteMapping("/{code}")
-    public ResponseEntity<Void> deleteCompany(@PathVariable Long code) {
+    public ResponseEntity<Void> deleteCompany(@PathVariable("code") Long code) {
         companyService.deleteCompany(code);
         return ResponseEntity.ok().build();
     }

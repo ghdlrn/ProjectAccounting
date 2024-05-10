@@ -27,7 +27,6 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
-    runtimeOnly 'com.h2database:h2'
 
     //Querydsl 5.0.0
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'

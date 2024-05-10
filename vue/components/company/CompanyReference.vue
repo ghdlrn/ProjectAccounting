@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useCompanyStore } from '~/stores/accounting/company';
+import { useCompanyStore } from '~/stores/accounting/company.ts';
 const store = useCompanyStore();
 
 // icons
@@ -19,11 +19,15 @@ const headers = ref([
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
-const deleteCompany = (code) => {
-  store.deleteCompany(code);
+const getCompany = (item) => {
+  store.getCompany(item.code)
 };
 
-const itemsSelected = ref([]);
+const deleteCompany = (item) => {
+    if (confirm("정말로 삭제하시겠습니까?")) {
+      store.deleteCompany(item.code)
+    }
+};
 
 </script>
 
@@ -57,8 +61,8 @@ const itemsSelected = ref([]);
               :theme-color="themeColor"
               :search-field="searchField"
               :search-value="searchValue"
-              :rows-per-page="10"
-              v-model:items-selected="itemsSelected">
+              @click-row="getCompany"
+              :rows-per-page="10">
             <template #item-operation="item">
               <div class="operation-wrapper">
                 <v-btn icon color="secondary" variant="text" rounded>
@@ -67,7 +71,7 @@ const itemsSelected = ref([]);
                 <v-btn icon color="primary" variant="text" rounded>
                   <EditOutlined />
                 </v-btn>
-                <v-btn icon color="error" variant="text" @click="deleteCompany(item.code)" rounded>
+                <v-btn icon color="error" variant="text" @click="deleteCompany(item)" rounded>
                   <DeleteOutlined />
                 </v-btn>
               </div>

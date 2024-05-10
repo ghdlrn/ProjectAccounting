@@ -55,6 +55,7 @@ interface Company {
 export const useCompanyStore = defineStore('company', {
     state: () => ({
         companies: [] as Company[],
+        currentCompany: null as Company | null,  // 현재 선택된 회사 정보
     }),
     actions: {
         async fetchCompanies() {
@@ -62,8 +63,17 @@ export const useCompanyStore = defineStore('company', {
                 const response = await axios.get('http://localhost:8080/register/company');
                 this.companies = response.data;
             } catch (error: any) {
-                console.error('Failed to fetch companies:', error.message);
-                throw new Error('Failed to fetch companies');
+                console.error('회사목록 조회 실패:', error.message);
+                throw new Error('회사목록 조회 실패');
+            }
+        },
+        async getCompany(code: number) {
+            try {
+                const response = await axios.get(`http://localhost:8080/register/company/${code}`);
+                this.currentCompany = response.data;  // 현재 회사 정보를 currentCompany에 저장
+            } catch (error: any) {
+                console.error('회사정보 조회 실패:', error.message);
+                throw new Error('회사정보 조회 실패');
             }
         },
         async createCompany(data: Company) {
@@ -71,30 +81,39 @@ export const useCompanyStore = defineStore('company', {
                 const response = await axios.post('http://localhost:8080/register/company', data);
                 this.companies.push(response.data);
             } catch (error: any) {
-                console.error('Failed to create company:', error.message);
-                throw new Error('Failed to create company');
+                console.error('회사등록 실패:', error.message);
+                throw new Error('회사등록 실패');
             }
         },
-        async updateCompany(data: Partial<Company>) {
+        async updateCompany(data: Company) {
             try {
                 const response = await axios.put(`http://localhost:8080/register/company/${data.code}`, data);
                 const index = this.companies.findIndex(company => company.code === data.code);
                 if (index !== -1) {
-                    this.companies[index] = { ...this.companies[index], ...response.data };
+                    this.companies[index] = response.data;
+                } else {
+                    this.companies.push(response.data); // 새로운 데이터가 배열에 없다면 추가
                 }
             } catch (error: any) {
-                console.error('Failed to update company:', error.message);
-                throw new Error('Failed to update company');
+                console.error('회사 정보 수정 실패:', error.message);
+                throw new Error('회사 정보 수정 실패');
             }
         },
         async deleteCompany(code: number) {
             try {
-                await axios.delete(`http://localhost:8080/register/company/${code}`);
-                this.companies = this.companies.filter(company => company.code !== code);
+                const response = await axios.delete(`http://localhost:8080/register/company/${code}`);
+                if (response.status === 200) {
+                    // 데이터 삭제 성공 후 목록 새로고침
+                    await this.fetchCompanies();  // 삭제 후 전체 목록을 다시 불러옴
+                } else {
+                    console.error('회사 정보 삭제 실패:', response.status);
+                    throw new Error('회사 정보 삭제 실패: 서버 응답 ' + response.status);
+                }
             } catch (error: any) {
-                console.error('Failed to delete company:', error.message);
-                throw new Error('Failed to delete company');
+                console.error('회사 정보 삭제 실패:', error.message);
+                throw new Error('회사 정보 삭제 실패');
             }
         }
+
     }
 });
