@@ -63,8 +63,6 @@ public class CompanyService {
     public void deleteCompany(Long code) {
         Company company = companyRepository.findById(code)
                 .orElseThrow(() -> new RuntimeException("Company not found"));
-        localTaxRepository.delete(company.getLocalTax());
-        taxOfficeRepository.delete(company.getTaxOffice());
         companyRepository.delete(company);
     }
 }
