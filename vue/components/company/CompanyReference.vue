@@ -37,55 +37,59 @@ const menu = ref(false);
 </script>
 
 <template>
-  <v-menu
-      v-model="menu"
-      :close-on-content-click="false"
-      :close-on-click="true"
-      lazy
-      transition="scale-transition"
-      offset-y
-      min-width="290px">
-    <template v-slot:activator="{ props }">
-      <UiParentCard title="회사 조회" class="reference" v-bind="props">
-      <PerfectScrollbar>
-          <v-card>
-            <v-card-item>
-              <v-row justify="space-between" class="align-center">
-                <v-col cols="6">
-                  <v-text-field
-                      type="text"
-                      variant="outlined"
-                      color="primary"
-                      persistent-placeholder
-                      placeholder="회사명 검색"
-                      v-model="searchValue"
-                      hide-details>
-                    <template v-slot:prepend-inner>
-                      <SearchOutlined :style="{ fontSize: '14px' }" />
-                    </template>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="3" offset="3">
-                  <div class="d-flex gap-2 justify-end">
-                    <v-dialog v-model="dialog" class="register">
-                      <template v-slot:activator="{ props }">
-                        <v-btn variant="flat" color="primary" v-bind="props" size="large">
-                          <template v-slot:prepend>
-                            <PlusOutlined />
-                          </template>
-                          회사 등록
-                        </v-btn>
-                      </template>
-                      <CompanyRegister />
-                    </v-dialog>
-                  </div>
-                </v-col>
-              </v-row>
 
-            </v-card-item>
-            <v-divider></v-divider>
-            <v-card-text class="pa-0">
+  <UiParentCard title="회사 조회" class="reference" >
+  <PerfectScrollbar>
+      <v-card>
+        <v-card-item>
+          <v-row justify="space-between" class="align-center">
+            <v-col cols="6">
+              <v-text-field
+                  type="text"
+                  variant="outlined"
+                  color="primary"
+                  persistent-placeholder
+                  placeholder="회사명 검색"
+                  v-model="searchValue"
+                  hide-details>
+                <template v-slot:prepend-inner>
+                  <SearchOutlined :style="{ fontSize: '14px' }" />
+                </template>
+              </v-text-field>
+            </v-col>
+            <v-col cols="3" offset="3">
+              <div class="d-flex gap-2 justify-end">
+                <v-dialog v-model="dialog" class="register">
+                  <template v-slot:activator="{ props }">
+                    <v-btn variant="flat" color="primary" v-bind="props" size="large">
+                      <template v-slot:prepend>
+                        <PlusOutlined />
+                      </template>
+                      회사 등록
+                    </v-btn>
+                  </template>
+                  <CompanyRegister />
+                </v-dialog>
+              </div>
+            </v-col>
+          </v-row>
+
+        </v-card-item>
+
+        <v-divider v-bind="props"></v-divider>
+
+        <v-card-text class="pa-0">
+          <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :close-on-click="true"
+              lazy
+              transition="scale-transition"
+              offset-y
+              min-width="290px">
+            <template v-slot:activator="{ props }">
               <EasyDataTable
+                  v-bind="props"
                   :headers="headers"
                   :items="company"
                   table-class-name="customize-table"
@@ -108,15 +112,13 @@ const menu = ref(false);
                   </div>
                 </template>
               </EasyDataTable>
-            </v-card-text>
-          </v-card>
-        </PerfectScrollbar>
-      </UiParentCard>
-      </template>
-
-    <CompanyUpdate />
-
-  </v-menu>
+            </template>
+            <CompanyUpdate />
+          </v-menu>
+        </v-card-text>
+      </v-card>
+    </PerfectScrollbar>
+  </UiParentCard>
 </template>
 
 <style lang="scss">
