@@ -567,4 +567,8 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
 .v-card-text{
   width: 100%;
 }
+.v-window-item {
+  min-height: 500px;
+  width: 100%;
+}
 </style>
