@@ -10,12 +10,7 @@ const checkbox = ref(false);
 const show1 = ref(false);
 const email = ref('');
 const password = ref('');
-
-const passwordRules = ref([
-  (v: string) => !!v || '비밀번호 입력은 필수입니다',
-  (v: string) => (v && v.length <= 16) || '패스워드는 16자리 수를 넘을 수 없습니다'
-]);
-const emailRules = ref([(v: string) => !!v || '이메일 입력은 필수입니다', (v: string) => /.+@.+\..+/.test(v) || '이메일 양식이 아닙니다']);
+import { emailRules, passwordRules } from "~/rules";
 
 const login = async (event: any) => {
   event.preventDefault();  // Prevent default form submission
@@ -59,6 +54,8 @@ const login = async (event: any) => {
     <v-text-field
         v-model="password"
         :rules="passwordRules"
+        hint="8이상 16이하, 숫자 및 특수문자 하나이상 포함"
+        persistent-hint
         label="비밀번호"
         required
         density="comfortable"

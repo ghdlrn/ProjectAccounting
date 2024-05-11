@@ -3,7 +3,6 @@
 import { ref } from 'vue';
 
 const tab = ref(null);
-const Used = ref(false);
 import UiParentCard from '~/components/shared/UiParentCard.vue';
 import DaumPostcode from "~/components/DaumPostcode.vue";
 import DateSelect from "~/components/DateSelect.vue";
@@ -35,12 +34,8 @@ const saveOrUpdateCompany = () => {
     companyStore.createCompany(companyData);
   }
 }
-
-const deleteCompany = () => {
-  companyStore.deleteCompany();
-}
-
-
+/*----------------------------양식 검증------------------------------------*/
+import { nameRules, businessRegistrationNumberRules } from "~/rules";
 </script>
 
 <template>
@@ -124,6 +119,7 @@ const deleteCompany = () => {
                   <v-col cols="9">
                     <v-text-field
                         v-model="currentCompany.name"
+                        :rules="nameRules"
                         hint="법인(단체)/상호 명을 입력해주세요"
                         persistent-hint
                         variant="outlined"
@@ -142,6 +138,7 @@ const deleteCompany = () => {
                   <v-col cols="6">
                     <v-text-field
                         v-model="currentCompany.businessRegistrationNumber"
+                        :rules="businessRegistrationNumberRules"
                         hint="사업자등록증 등록번호"
                         persistent-hint
                         variant="outlined"
