@@ -99,6 +99,7 @@ export const useCompanyStore = defineStore('company', {
                 throw new Error('회사 정보 수정 실패');
             }
         },
+
         async deleteCompany(code: number) {
             try {
                 const response = await axios.delete(`http://localhost:8080/register/company/${code}`);

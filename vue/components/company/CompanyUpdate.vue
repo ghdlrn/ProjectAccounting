@@ -21,6 +21,14 @@ const localTaxStore = useLocalTaxStore();
 const { companies } = storeToRefs(companyStore);
 const currentCompany = ref({});
 
+function handleAddressUpdate(updatedAddress) {
+  currentCompany.value.postcode = updatedAddress;
+  currentCompany.value.roadAddress = updatedAddress;
+  currentCompany.value.jibunAddress = updatedAddress;
+  currentCompany.value.extraAddress = updatedAddress;
+  currentCompany.value.guideText = updatedAddress;
+}
+
 onMounted(async () => {
   await companyStore.fetchCompanies();  // 초기 데이터 로드
   currentCompany.value = companyStore.currentCompany || {};
@@ -190,7 +198,13 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
               </v-col>
             </v-row>
 <!--------------------------4줄-------------------------------------------------------->
-            <DaumPostcode @update:address="companyStore.currentCompany" />
+            <DaumPostcode
+                :postcode="currentCompany.postcode"
+                :roadAddress="currentCompany.roadAddress"
+                :jibunAddress="currentCompany.jibunAddress"
+                :extraAddress="currentCompany.extraAddress"
+                :guideText="currentCompany.guideText"
+                @update:address="handleAddressUpdate"/>
 <!--------------------------7줄-------------------------------------------------------->
             <v-row>
               <v-col cols="5">

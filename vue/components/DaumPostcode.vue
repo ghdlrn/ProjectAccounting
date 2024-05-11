@@ -8,6 +8,7 @@
         <v-col cols="12" lg="5" md="9">
           <v-text-field
               v-model="store.postcode"
+              :value="postcode" @input="updateAddress($event.target.value)"
               readonly
               hint="오른쪽 버튼으로 조회"
               persistent-hint
@@ -35,6 +36,7 @@
         <v-col cols="12" lg="9" md="9" class="ml-1">
           <v-text-field
               v-model="store.roadAddress"
+              :value="roadAddress" @input="updateAddress($event.target.value)"
               readonly
               hint="도로명 주소(읽기 전용입니다)"
               persistent-hint
@@ -51,6 +53,7 @@
         <v-col cols="12" lg="12" md="9">
           <v-text-field
               v-model="store.jibunAddress"
+              :value="jibunAddress" @input="updateAddress($event.target.value)"
               readonly
               hint="지번 주소(읽기 전용입니다)"
               persistent-hint
@@ -73,6 +76,7 @@
         <v-col cols="12" lg="9" md="9">
           <v-text-field
               v-model="store.extraAddress"
+              :value="extraAddress" @input="updateAddress($event.target.value)"
               hint="상세 주소를 추가해 주세요"
               persistent-hint
               variant="outlined"
@@ -88,6 +92,7 @@
         <v-col cols="12" lg="12" md="9">
           <v-text-field
               v-model="store.guideText"
+              :value="guideText" @input="updateAddress($event.target.value)"
               hint="참고 항목(읽기 전용입니다)"
               persistent-hint
               variant="outlined"
@@ -106,7 +111,7 @@
 import { useAddressStore } from "~/stores/address.js";
 const store = useAddressStore();
 
-import { onMounted } from 'vue';
+import { onMounted, defineProps, defineEmits } from 'vue';
 
 const loadScript = () => {
   return new Promise((resolve, reject) => {
@@ -141,6 +146,18 @@ const openPostcodePopup = () => {
   });
 };
 
+const props = defineProps({
+  postcode: String,
+  roadAddress: String,
+  jibunAddress: String,
+  extraAddress: String,
+  guideText: String
+});
+
+const emit = defineEmits(['update:address']);
+function updateAddress(newAddress) {
+  emit('update:address', newAddress);
+}
 </script>
 
 <style scoped lang="scss">
