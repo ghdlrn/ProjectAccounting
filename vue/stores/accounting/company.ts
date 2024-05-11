@@ -12,10 +12,6 @@ interface LocalTax {
     name: string;
 }
 
-interface Finance {
-    code: number;
-}
-
 interface Company {
     code: number;
     licenseType: string;
@@ -75,6 +71,9 @@ export const useCompanyStore = defineStore('company', {
                 console.error('회사정보 조회 실패:', error.message);
                 throw new Error('회사정보 조회 실패');
             }
+        },
+        setCompany(data) {
+            this.currentCompany = data;
         },
         async createCompany(data: Company) {
             try {

@@ -17,6 +17,13 @@ export const useAddressStore = defineStore('address', {
             this.extraAddress = this.getExtraAddress(data);
             this.guideText = this.getGuideText(data, this.extraAddress);
         },
+        updateAddress(data) {
+            this.postcode = data.postcode;
+            this.roadAddress = data.roadAddress;
+            this.jibunAddress = data.jibunAddress;
+            this.extraAddress = data.extraAddress;
+            this.guideText = data.guideText;
+        },
         getExtraAddress(data) {
             let extraAddr = '';
             if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {

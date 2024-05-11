@@ -21,17 +21,16 @@ const localTaxStore = useLocalTaxStore();
 const { companies } = storeToRefs(companyStore);
 const currentCompany = ref({});
 
-function handleAddressUpdate(updatedAddress) {
-  currentCompany.value.postcode = updatedAddress;
-  currentCompany.value.roadAddress = updatedAddress;
-  currentCompany.value.jibunAddress = updatedAddress;
-  currentCompany.value.extraAddress = updatedAddress;
-  currentCompany.value.guideText = updatedAddress;
+function updateAddressData(updatedData) {
+  // Updating the currentCompany based on the address component output
+  currentCompany.value = { ...currentCompany.value, ...updatedData };
 }
 
 onMounted(async () => {
   await companyStore.fetchCompanies();  // 초기 데이터 로드
-  currentCompany.value = companyStore.currentCompany || {};
+  if (companyStore.currentCompany) {
+    currentCompany.value = {...companyStore.currentCompany};
+  }
 });
 
 const saveOrUpdateCompany = async () => {
@@ -198,13 +197,12 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
               </v-col>
             </v-row>
 <!--------------------------4줄-------------------------------------------------------->
-            <DaumPostcode
-                :postcode="currentCompany.postcode"
-                :roadAddress="currentCompany.roadAddress"
-                :jibunAddress="currentCompany.jibunAddress"
-                :extraAddress="currentCompany.extraAddress"
-                :guideText="currentCompany.guideText"
-                @update:address="handleAddressUpdate"/>
+            <DaumPostcode :initialPostcode="currentCompany.postcode"
+                          :initialRoadAddress="currentCompany.roadAddress"
+                          :initialJibunAddress="currentCompany.jibunAddress"
+                          :initialExtraAddress="currentCompany.extraAddress"
+                          :initialGuideText="currentCompany.guideText"
+                          @updateAddress="updateAddressData" />
 <!--------------------------7줄-------------------------------------------------------->
             <v-row>
               <v-col cols="5">
@@ -285,13 +283,13 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
                     <v-label class="mt-2"> 시작일</v-label>
                   </v-col>
                   <v-col cols="4">
-                    <DateSelect @update="currentCompany.fiscalYearStart = $event" />
+                    <DateSelect v-model="currentCompany.fiscalYearStart" />
                   </v-col>
                   <v-col cols="1">
                     <v-label class="mt-2"> 종료일</v-label>
                   </v-col>
                   <v-col cols="4">
-                    <DateSelect @update="currentCompany.fiscalYearEnd = $event" />
+                    <DateSelect v-model="currentCompany.fiscalYearEnd" />
                   </v-col>
                 </v-row>
               </v-col>
@@ -304,7 +302,7 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
                     <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
                   <v-col cols="7">
-                    <DateSelect @update="currentCompany.privatePracticeDate = $event" />
+                    <DateSelect v-model="currentCompany.privatePracticeDate" />
                   </v-col>
 
                 </v-row>
