@@ -190,7 +190,7 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
               </v-col>
             </v-row>
 <!--------------------------4줄-------------------------------------------------------->
-            <DaumPostcode @update:address="addressStore.setAddress" />
+            <DaumPostcode @update:address="companyStore.currentCompany" />
 <!--------------------------7줄-------------------------------------------------------->
             <v-row>
               <v-col cols="5">

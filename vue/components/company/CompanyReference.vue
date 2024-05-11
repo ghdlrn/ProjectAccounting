@@ -76,7 +76,7 @@ const menu = ref(false);
 
         </v-card-item>
 
-        <v-divider v-bind="props"></v-divider>
+        <v-divider></v-divider>
 
         <v-card-text class="pa-0">
           <v-menu
