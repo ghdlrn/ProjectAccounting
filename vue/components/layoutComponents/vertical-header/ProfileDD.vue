@@ -26,7 +26,7 @@ const authStore = useAuthStore();
   <div>
     <div class="d-flex align-center pa-5">
       <v-avatar size="54" class="mr-2">
-        <img src="@/public/images/profile/user-round.svg" width="54" alt="Julia" />
+        <img src="@/public/images/profile/user-round.svg" width="54" alt="" />
       </v-avatar>
       <div>
         <h6 class="text-h6 mb-0">유저이름</h6>

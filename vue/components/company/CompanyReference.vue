@@ -9,7 +9,6 @@ import UiParentCard from "~/components/shared/UiParentCard.vue";
 
 onMounted(() => { store.fetchCompanies(); });
 const company = computed(() => store.companies );
-
 const searchField = ref(['name', 'code']);
 const searchValue = ref('');
 const headers = ref([
@@ -35,6 +34,7 @@ const dialog = ref(false);
 </script>
 
 <template>
+
   <UiParentCard title="회사 조회" class="reference">
   <PerfectScrollbar>
       <v-card>
