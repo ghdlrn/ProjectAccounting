@@ -10,19 +10,10 @@ import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
 import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
 import { useCompanyStore } from "~/stores/accounting/company.ts"
-import { useAddressStore } from '~/stores/address.js';
-import { useTaxOfficeStore } from "~/stores/accounting/basicdata/taxOffice.ts";
-import { useLocalTaxStore } from "~/stores/accounting/basicdata/localTax.ts";
-import { storeToRefs }  from "pinia";
 const companyStore = useCompanyStore();
-const addressStore = useAddressStore();
-const taxOfficeStore = useTaxOfficeStore();
-const localTaxStore = useLocalTaxStore();
-const { companies } = storeToRefs(companyStore);
 const currentCompany = ref({});
 
 function updateAddressData(updatedData) {
-  // Updating the currentCompany based on the address component output
   currentCompany.value = { ...currentCompany.value, ...updatedData };
 }
 
