@@ -82,11 +82,9 @@ const menu = ref(false);
           <v-menu
               v-model="menu"
               :close-on-content-click="false"
-              :close-on-click="true"
               lazy
               transition="scale-transition"
-              offset-y
-              min-width="290px">
+              origin="top right">
             <template v-slot:activator="{ props }">
               <EasyDataTable
                   v-bind="props"
@@ -123,8 +121,9 @@ const menu = ref(false);
 
 <style lang="scss">
 .reference {
-  width: 50%;
-  min-width: 1000px;
+  width: 40%;
+  min-width: 900px;
+  min-height: 850px;
 }
 .register {
   width: 50%;
