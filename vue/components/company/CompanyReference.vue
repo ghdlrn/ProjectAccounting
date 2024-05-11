@@ -16,7 +16,7 @@ const headers = ref([
   { text: '회사 코드', value: 'code', sortable: true },
   { text: '회사명', value: 'name', sortable: true },
   { text: '사업자 등록번호', value: 'businessRegistrationNumber', sortable: true },
-  { text: '조회/수정/삭제', value: 'operation' }
+  { text: '삭제', value: 'operation' }
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
@@ -98,12 +98,6 @@ const menu = ref(false);
                   :rows-per-page="10">
                 <template #item-operation="item">
                   <div class="operation-wrapper">
-                    <v-btn icon color="secondary" variant="text" rounded>
-                      <EyeOutlined />
-                    </v-btn>
-                    <v-btn icon color="primary" variant="text" rounded>
-                      <EditOutlined />
-                    </v-btn>
                     <v-btn icon color="error" variant="text" @click="deleteCompany(item)" rounded>
                       <DeleteOutlined />
                     </v-btn>
