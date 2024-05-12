@@ -11,7 +11,7 @@
         min-width="290px">
       <template v-slot:activator="{ props }">
         <v-text-field
-            v-model="selectedTaxOffice"
+            v-model="displayValue"
             v-bind="props"
             readonly
             placeholder="ex) 강남 세무서"
@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
+import { ref, computed, onMounted, watch} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
 import { useTaxOfficeStore } from '~/stores/accounting/basicdata/taxOffice.ts'
 import {SearchOutlined} from "@ant-design/icons-vue";
 const store = useTaxOfficeStore();
@@ -83,14 +83,28 @@ const headers = ref( [
 
 const menu = ref(false);
 
-const selectedTaxOffice = ref({});   //선택한 세무서 이름 저장
-
 function select(item) {
-  selectedTaxOffice.value = item.name;
+  emit('update:modelValue', item);
   store.setSelectedTaxOffice(item);
   menu.value = false
 }
 
+const props = defineProps({
+  modelValue: Object
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+watch(() => props.modelValue, (newValue) => {
+  store.setSelectedTaxOffice(newValue);
+}, { immediate: true });
+
+const displayValue = computed({
+  get: () => props.modelValue.name,
+  set: (value) => {
+    store.setSelectedTaxOffice(value);
+  }
+});
 </script>
 
 <style lang="scss">

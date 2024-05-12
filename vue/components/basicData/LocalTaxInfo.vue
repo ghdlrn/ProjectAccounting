@@ -88,6 +88,7 @@ function select(item) {
   store.setSelectedLocalTax(item);  // This updates the selected item in the store
   menu.value = false;
 }
+
 const props = defineProps({
   modelValue: Object
 });
