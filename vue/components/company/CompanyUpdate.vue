@@ -305,13 +305,13 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
                     <v-label class="mt-2">사업장 <br/> 세무서</v-label>
                   </v-col>
                   <v-col cols="5" class="pl-5">
-                    <TaxOfficeInfo />
+                    <TaxOfficeInfo v-model="currentCompany.taxOffice"/>
                   </v-col>
                   <v-col cols="1">
                     <v-label class="mt-2">지방세 <br/> 법정동</v-label>
                   </v-col>
                   <v-col cols="5">
-                    <LocalTaxInfo />
+                    <LocalTaxInfo v-model="currentCompany.localTax"/>
                   </v-col>
                 </v-row>
               </v-col>

@@ -11,7 +11,7 @@
         min-width="290px">
       <template v-slot:activator="{ props }">
         <v-text-field
-            v-model="selectedLocalTax"
+            v-model="displayValue"
             v-bind="props"
             readonly
             placeholder="ex) 서울특별시 종로구 효자동"
@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
+import { ref, computed, onMounted, watch} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
 
 import { useLocalTaxStore } from '~/stores/accounting/basicdata/localTax.ts'
 import {SearchOutlined} from "@ant-design/icons-vue";
@@ -83,14 +83,27 @@ const headers = ref( [
 
 const menu = ref(false);
 
-const selectedLocalTax = ref({});   //선택한 세무서 저장
-
 function select(item) {
-  selectedLocalTax.value = item.name;
-  store.setSelectedLocalTax(item);
+  emit('update:modelValue', item);  // This updates the v-model in the parent
+  store.setSelectedLocalTax(item);  // This updates the selected item in the store
   menu.value = false;
 }
+const props = defineProps({
+  modelValue: Object
+});
 
+const emit = defineEmits(['update:modelValue']);
+
+watch(() => props.modelValue, (newValue) => {
+  store.setSelectedLocalTax(newValue);
+}, { immediate: true });
+
+const displayValue = computed({
+  get: () => props.modelValue.name,
+  set: (value) => {
+    store.setSelectedLocalTax(value);
+  }
+});
 </script>
 
 <style lang="scss">
