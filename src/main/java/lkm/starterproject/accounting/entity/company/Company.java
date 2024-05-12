@@ -67,11 +67,11 @@ public class Company extends BaseEntity {  //회사
 
     private LocalDate privatePracticeDate;      //개업연월일
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tax_office_code")
     private TaxOffice taxOffice;        //사업장 세무서
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "local_tax_code")
     private LocalTax localTax;          //지방세 법정동
 

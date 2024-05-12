@@ -90,7 +90,10 @@ function select(item) {
 }
 
 const props = defineProps({
-  modelValue: Object
+  modelValue: {
+    type: Object,
+    default: () => ({ name: '', code: '', jurisdiction: '' })
+  }
 });
 
 const emit = defineEmits(['update:modelValue']);

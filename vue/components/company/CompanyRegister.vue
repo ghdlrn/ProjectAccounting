@@ -272,13 +272,13 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
                     <v-label class="mt-2"> 시작일</v-label>
                   </v-col>
                   <v-col cols="4">
-                    <DateSelect @update="currentCompany.fiscalYearStart = $event" />
+                    <DateSelect v-model="currentCompany.fiscalYearStart" />
                   </v-col>
                   <v-col cols="1">
                     <v-label class="mt-2"> 종료일</v-label>
                   </v-col>
                   <v-col cols="4">
-                    <DateSelect @update="currentCompany.fiscalYearEnd = $event" />
+                    <DateSelect v-model="currentCompany.fiscalYearEnd" />
                   </v-col>
                 </v-row>
               </v-col>
@@ -291,7 +291,7 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
                     <v-label class="mt-2">개업연월일</v-label>
                   </v-col>
                   <v-col cols="7">
-                    <DateSelect @update="currentCompany.privatePracticeDate = $event" />
+                    <DateSelect v-model="currentCompany.privatePracticeDate" />
                   </v-col>
 
                 </v-row>
@@ -303,13 +303,13 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
                     <v-label class="mt-2">사업장 <br/> 세무서</v-label>
                   </v-col>
                   <v-col cols="5" class="pl-5">
-                    <TaxOfficeInfo />
+                    <TaxOfficeInfo v-model="currentCompany.taxOffice" />
                   </v-col>
                   <v-col cols="1">
                     <v-label class="mt-2">지방세 <br/> 법정동</v-label>
                   </v-col>
                   <v-col cols="5">
-                    <LocalTaxInfo />
+                    <LocalTaxInfo v-model="currentCompany.localTax" />
                   </v-col>
                 </v-row>
               </v-col>
