@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, nextTick } from 'vue';
+import { ref, watch, computed } from 'vue';
 import {DatePicker} from "v-calendar";
 
 const props = defineProps({
@@ -43,9 +43,7 @@ const menu = ref(false);
 const innerDate = ref(new Date(props.modelValue));
 
 const formattedDate = computed(() => {
-  nextTick(() => {
-    menu.value = false;
-  });
+  menu.value = false;
   if (!innerDate.value) return '';
   const d = new Date(innerDate.value);
   return `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`;
