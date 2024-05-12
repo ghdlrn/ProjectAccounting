@@ -18,14 +18,10 @@ import java.util.stream.Collectors;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
-    private final LocalTaxRepository localTaxRepository;
-    private final TaxOfficeRepository taxOfficeRepository;
     private final CompanyMapper companyMapper;
 
-    public CompanyService(CompanyRepository companyRepository, LocalTaxRepository localTaxRepository, TaxOfficeRepository taxOfficeRepository, CompanyMapper companyMapper) {
+    public CompanyService(CompanyRepository companyRepository, CompanyMapper companyMapper) {
         this.companyRepository = companyRepository;
-        this.localTaxRepository = localTaxRepository;
-        this.taxOfficeRepository = taxOfficeRepository;
         this.companyMapper = companyMapper;
     }
 
