@@ -22,40 +22,47 @@
         </v-text-field>
       </template>
         <DatePicker
-            v-model="date"
-            @change="updateFormattedDate"/>
+            v-model="innerDate"
+            @input="updateDate" />
     </v-menu>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed, nextTick } from 'vue';
 import {DatePicker} from "v-calendar";
 
-const date = ref(new Date());
 const menu = ref(false);
-const formattedDate = ref('');
-const emits = defineEmits(['update']);
-
+const props = defineProps({
+  modelValue: {
+    type: [Date, String],
+    default: () => new Date()
+  }
+});
+const emits = defineEmits(['update:modelValue']);
+const innerDate = ref(new Date(props.modelValue));
 // 날짜 포맷 함수
-function formatDate(date) {
-  if (!date) return '';
-  const d = new Date(date);
+const formattedDate = computed(() => {
+  if (!innerDate.value) return '';
+  const d = new Date(innerDate.value);
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
   const year = d.getFullYear();
   return `${year}-${month}-${day}`;
+});
+
+function updateDate(value) {
+  const dateValue = new Date(value);
+  innerDate.value = dateValue;
+  emits('update:modelValue', dateValue);
+  menu.value = false
 }
 
-// 포맷된 날짜를 초기 설정
-formattedDate.value = formatDate(date.value);
+watch(() => props.modelValue, (newVal) => {
+  const newDate = newVal instanceof Date ? newVal : new Date(newVal);
+  if (newDate.getTime() !== innerDate.value.getTime()) {
+    innerDate.value = newDate;
+  }
+});
 
-// 날짜가 변경될 때마다 포맷 업데이트
-function updateFormattedDate(newDate) {
-  formattedDate.value = formatDate(newDate);
-  menu.value = false;  // 날짜 선택 후 메뉴 닫기
-  emits('update', formattedDate.value);
-}
-
-watch(date, updateFormattedDate);
 </script>
