@@ -35,7 +35,7 @@ import {DatePicker} from "v-calendar";
 const props = defineProps({
   modelValue: {
     type: String,
-    default: () => new Date().toISOString().substr(0, 10)  // 기본값은 오늘 날짜
+    default: () => new Date().toISOString().slice(0, 10)  // 기본값은 오늘 날짜
   }
 });
 
@@ -51,15 +51,15 @@ const formattedDate = computed(() => {
 
 function updateDate(value) {
   innerDate.value = new Date(value);
-  emit('update:modelValue', innerDate.value.toISOString().substr(0, 10));  // ISO 문자열의 날짜 부분만 발송
+  emit('update:modelValue', innerDate.value.toISOString().slice(0, 10));  // ISO 문자열의 날짜 부분만 발송
   nextTick(() => {
     menu.value = false;
   });
 }
 
 watch(innerDate, (newValue) => {
-  if (newValue.toISOString().substr(0, 10) !== props.modelValue) {
-    emit('update:modelValue', newValue.toISOString().substr(0, 10));
+  if (newValue.toISOString().slice(0, 10) !== props.modelValue) {
+    emit('update:modelValue', newValue.toISOString().slice(0, 10));
   }
 }, { deep: true });
 
