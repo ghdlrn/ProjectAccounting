@@ -72,9 +72,6 @@ export const useCompanyStore = defineStore('company', {
                 throw new Error('회사정보 조회 실패');
             }
         },
-        setCompany(data) {
-            this.currentCompany = data;
-        },
         async createCompany(data: Company) {
             try {
                 const response = await axios.post('http://localhost:8080/register/company', data);

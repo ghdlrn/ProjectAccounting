@@ -111,7 +111,7 @@
 import { useAddressStore } from "~/stores/address.js";
 const store = useAddressStore();
 
-import { onMounted, ref, watch, defineEmits, defineProps } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const loadScript = () => {
   return new Promise((resolve, reject) => {
