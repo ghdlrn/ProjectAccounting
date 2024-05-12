@@ -32,37 +32,35 @@
 import { ref, watch, computed, nextTick } from 'vue';
 import {DatePicker} from "v-calendar";
 
-const menu = ref(false);
 const props = defineProps({
   modelValue: {
-    type: [Date, String],
-    default: () => new Date()
+    type: String,
+    default: () => new Date().toISOString().substr(0, 10)  // 기본값은 오늘 날짜
   }
 });
-const emits = defineEmits(['update:modelValue']);
-const innerDate = ref(new Date(props.modelValue));
-// 날짜 포맷 함수
+
+const emit = defineEmits(['update:modelValue']);
+const menu = ref(false);
+const innerDate = ref(new Date(props.modelValue));  // 문자열 날짜를 Date 객체로 변환
+
 const formattedDate = computed(() => {
   if (!innerDate.value) return '';
   const d = new Date(innerDate.value);
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  const year = d.getFullYear();
-  return `${year}-${month}-${day}`;
+  return `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`;
 });
 
 function updateDate(value) {
-  const dateValue = new Date(value);
-  innerDate.value = dateValue;
-  emits('update:modelValue', dateValue);
-  menu.value = false
+  innerDate.value = new Date(value);
+  emit('update:modelValue', innerDate.value.toISOString().substr(0, 10));  // ISO 문자열의 날짜 부분만 발송
+  nextTick(() => {
+    menu.value = false;
+  });
 }
 
-watch(() => props.modelValue, (newVal) => {
-  const newDate = newVal instanceof Date ? newVal : new Date(newVal);
-  if (newDate.getTime() !== innerDate.value.getTime()) {
-    innerDate.value = newDate;
+watch(innerDate, (newValue) => {
+  if (newValue.toISOString().substr(0, 10) !== props.modelValue) {
+    emit('update:modelValue', newValue.toISOString().substr(0, 10));
   }
-});
+}, { deep: true });
 
 </script>
