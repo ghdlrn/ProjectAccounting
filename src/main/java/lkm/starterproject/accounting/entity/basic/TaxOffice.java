@@ -12,8 +12,8 @@ import org.hibernate.annotations.Immutable;
 public class TaxOffice {
 
     @Id
-    @Column(name = "tax_office_code", unique = true, nullable = false)
-    private Long code;   //세무서 코드
+    @Column(name = "tax_office_id", unique = true, nullable = false)
+    private Long id;   //세무서 코드
 
     private String name;    //세무서명
 

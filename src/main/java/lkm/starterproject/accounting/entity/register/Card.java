@@ -22,8 +22,8 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "card_code")
-    private Long code;
+    @Column(name = "card_id")
+    private Long id;
 
     @Column(nullable = false)
     private String name;    //카드(사)명

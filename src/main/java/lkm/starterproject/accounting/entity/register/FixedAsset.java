@@ -18,8 +18,8 @@ public class FixedAsset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "fixed_asset_code")
-    private Long code;        //고정자산 코드번호
+    @Column(name = "fixed_asset_id")
+    private Long id;        //고정자산 코드번호
 
     @Column(nullable = false)
     private String name;        //자산 명

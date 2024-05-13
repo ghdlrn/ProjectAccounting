@@ -16,8 +16,8 @@ public class Customer {      //거래처
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "customer_code")
-    private Long code;        //거래처 코드번호
+    @Column(name = "customer_id")
+    private Long id;        //거래처 코드번호
 
     @Column(nullable = false)
     private String name;        //거래처명

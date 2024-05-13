@@ -17,8 +17,8 @@ public class PromissoryNote {   //어음
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "promissory_note_code")
-    private Long code;        //코드번호
+    @Column(name = "promissory_note_id")
+    private Long id;        //코드번호
 
     private String promissoryNoteTypeStatus;  //어음종류
 

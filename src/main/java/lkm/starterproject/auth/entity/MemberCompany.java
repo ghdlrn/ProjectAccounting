@@ -12,14 +12,14 @@ public class MemberCompany {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_company_code")
-    private Long code;
+    @Column(name = "member_company_id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_code")
+    @JoinColumn(name = "company_id")
     private Company company;
 }

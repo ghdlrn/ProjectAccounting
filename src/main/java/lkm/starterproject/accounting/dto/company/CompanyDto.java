@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class CompanyDto {
 
-    private Long code;  // 회사코드
+    private Long id;  // 회사코드
     private String licenseType;  // 사업자 유형
     private String headOfficeStatus;  // 본점여부
     private String paymentHeadOfficeStatus;  // 본점일괄납부여부

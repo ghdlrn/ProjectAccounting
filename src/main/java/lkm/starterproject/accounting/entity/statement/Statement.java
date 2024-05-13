@@ -21,8 +21,8 @@ public class Statement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "statement_code")
-    private Long code;
+    @Column(name = "statement_id")
+    private Long id;
 
     private LocalDate RegistrationDate;     //등록일자
 

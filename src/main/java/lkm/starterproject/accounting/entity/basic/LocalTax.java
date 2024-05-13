@@ -12,8 +12,8 @@ import org.hibernate.annotations.Immutable;
 public class LocalTax {
 
     @Id
-    @Column(name = "local_tax_code" , unique = true, nullable = false)
-    private Long code;
+    @Column(name = "local_tax_id" , unique = true, nullable = false)
+    private Long id;
 
     private String name;
 

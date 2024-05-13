@@ -21,7 +21,7 @@ public class LocalTaxController {
     public List<LocalTaxDto> getAllLocalTax() {      //지방세 법정동 조회
         return localTaxRepository.findAll().stream()
                 .map(localTax -> new LocalTaxDto(
-                        localTax.getCode(),
+                        localTax.getId(),
                         localTax.getName()))
                 .collect(Collectors.toList());
     }

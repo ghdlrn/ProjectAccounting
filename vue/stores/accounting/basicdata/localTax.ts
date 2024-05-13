@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 interface LocalTax {
-    code: number;
+    id: number;
     name: string;
 }
 

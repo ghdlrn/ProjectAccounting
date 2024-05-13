@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 public class LocalTaxDto {
 
-    private Long code;
+    private Long id;
 
     private String name;
 }

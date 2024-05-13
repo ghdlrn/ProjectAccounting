@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TaxOfficeDto {
 
-    private Long code;
+    private Long id;
 
     private String name;
 

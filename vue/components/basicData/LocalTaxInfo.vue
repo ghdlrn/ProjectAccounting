@@ -74,10 +74,10 @@ onMounted(() => {
 });
 const localTax = computed(() => store.localTax);
 
-const searchField = ref(['name', 'code']);
+const searchField = ref(['name', 'id']);
 const searchValue = ref('');
 const headers = ref( [
-  { text: '법정동 코드', value: 'code', sortable: true, width: 20, fixed: true },
+  { text: '법정동 코드', value: 'id', sortable: true, width: 20, fixed: true },
   { text: '법정동 주소', value: 'name', sortable: true, width: 40, fixed: true },
 ]);
 
@@ -92,7 +92,7 @@ function select(item) {
 const props = defineProps({
   modelValue: {
     type: Object,
-    default: () => ({ name: '', code: '', jurisdiction: '' })
+    default: () => ({ name: '', id: '', jurisdiction: '' })
   }
 });
 

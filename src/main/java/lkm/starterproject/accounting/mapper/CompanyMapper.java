@@ -15,7 +15,7 @@ public interface CompanyMapper {
 
     CompanyDto toDto(Company company);
 
-    @Mapping(target = "code", source = "companyDto.code")
+    @Mapping(target = "id", source = "companyDto.id")
     @Mapping(target = "licenseType", source = "companyDto.licenseType")
     @Mapping(target = "headOfficeStatus", source = "companyDto.headOfficeStatus")
     @Mapping(target = "paymentHeadOfficeStatus", source = "companyDto.paymentHeadOfficeStatus")

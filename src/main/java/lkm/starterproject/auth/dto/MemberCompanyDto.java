@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class MemberCompanyDto {
 
-    private Long code;
+    private Long id;
 
     private MemberDto member;
 

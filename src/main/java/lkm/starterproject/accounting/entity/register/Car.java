@@ -17,8 +17,8 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "car_code")
-    private Long code;
+    @Column(name = "car_id")
+    private Long id;
 
     @Column(nullable = false)
     private String licensePlateNumber;  //차량번호

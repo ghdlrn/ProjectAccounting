@@ -15,8 +15,8 @@ public class Compendium { //적요
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "compendium_code")
-    private Long code;     //적요코드
+    @Column(name = "compendium_id")
+    private Long id;     //적요코드
 
     @Column(nullable=false)
     private String name;  //적요명

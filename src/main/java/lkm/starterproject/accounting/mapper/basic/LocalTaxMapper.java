@@ -8,12 +8,12 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface LocalTaxMapper {
 
-    @Mapping(target = "code", source = "dto.code")
+    @Mapping(target = "id", source = "dto.id")
     @Mapping(target = "name", source = "dto.name")
     @Mapping(target = "status", ignore = true)
     LocalTax toEntity(LocalTaxDto dto);
 
-    @Mapping(target = "code", source = "entity.code")
+    @Mapping(target = "id", source = "entity.id")
     @Mapping(target = "name", source = "entity.name")
     LocalTaxDto toDto(LocalTax entity);
 }

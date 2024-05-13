@@ -28,7 +28,7 @@ const saveOrUpdateCompany = () => {
     taxOffice: taxOfficeStore.selectedTaxOffice,
     localTax: localTaxStore.selectedLocalTax,
   };
-  if (currentCompany.value.code) {
+  if (currentCompany.value.id) {
     companyStore.updateCompany(companyData);
   } else {
     companyStore.createCompany(companyData);

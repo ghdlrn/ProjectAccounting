@@ -20,8 +20,8 @@ public class CardStatement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "card_statement_code")
-    private Long code;        //코드번호
+    @Column(name = "card_statement_id")
+    private Long id;        //코드번호
 
     private LocalDate RegistrationDate;     //등록일자
 

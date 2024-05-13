@@ -2,18 +2,18 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 interface TaxOffice {
-    code: number;
+    id: number;
     name: string;
     jurisdiction: string;
 }
 
 interface LocalTax {
-    code: number;
+    id: number;
     name: string;
 }
 
 interface Company {
-    code: number;
+    id: number;
     licenseType: string;
     headOfficeStatus: string;
     paymentHeadOfficeStatus: string;
@@ -63,9 +63,9 @@ export const useCompanyStore = defineStore('company', {
                 throw new Error('회사목록 조회 실패');
             }
         },
-        async getCompany(code: number) {
+        async getCompany(id: number) {
             try {
-                const response = await axios.get(`http://localhost:8080/register/company/${code}`);
+                const response = await axios.get(`http://localhost:8080/register/company/${id}`);
                 this.currentCompany = response.data;  // 현재 회사 정보를 currentCompany에 저장
             } catch (error: any) {
                 console.error('회사정보 조회 실패:', error.message);
@@ -83,8 +83,8 @@ export const useCompanyStore = defineStore('company', {
         },
         async updateCompany(data: Company) {
             try {
-                const response = await axios.put(`http://localhost:8080/register/company/${data.code}`, data);
-                const index = this.companies.findIndex(company => company.code === data.code);
+                const response = await axios.put(`http://localhost:8080/register/company/${data.id}`, data);
+                const index = this.companies.findIndex(company => company.id === data.id);
                 if (index !== -1) {
                     this.companies[index] = response.data;
                 } else {
@@ -96,9 +96,9 @@ export const useCompanyStore = defineStore('company', {
             }
         },
 
-        async deleteCompany(code: number) {
+        async deleteCompany(id: number) {
             try {
-                const response = await axios.delete(`http://localhost:8080/register/company/${code}`);
+                const response = await axios.delete(`http://localhost:8080/register/company/${id}`);
                 if (response.status === 200) {
                     // 데이터 삭제 성공 후 목록 새로고침
                     await this.fetchCompanies();  // 삭제 후 전체 목록을 다시 불러옴

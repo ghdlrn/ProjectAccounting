@@ -25,7 +25,7 @@ onMounted(async () => {
 });
 
 const saveOrUpdateCompany = async () => {
-  if (currentCompany.value.code) {
+  if (currentCompany.value.id) {
     await companyStore.updateCompany(currentCompany.value);
   } else {
     await companyStore.createCompany(currentCompany.value);

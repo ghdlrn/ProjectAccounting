@@ -42,13 +42,13 @@ public class CSVService {
             List<LocalTax> localTaxes = new ArrayList<>();
             for (CSVRecord record : records) {
                 try {
-                    Long code = Long.parseLong(record.get("법정동코드"));
+                    Long id = Long.parseLong(record.get("법정동코드"));
                     String name = record.get("법정동명");
                     String status = record.get("폐지여부");
 
                     if("존재".equals(status)) {
                         LocalTax localTax = LocalTax.builder()
-                                .code(code)
+                                .id(id)
                                 .name(name)
                                 .status(status)
                                 .build();
@@ -59,7 +59,7 @@ public class CSVService {
                     e.printStackTrace();
                 }
             }
-            Collections.sort(localTaxes, Comparator.comparing(LocalTax::getCode, Comparator.nullsLast(Long::compareTo)));
+            Collections.sort(localTaxes, Comparator.comparing(LocalTax::getId, Comparator.nullsLast(Long::compareTo)));
             localTaxRepository.saveAll(localTaxes);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,10 +72,10 @@ public class CSVService {
             List<TaxOffice> taxOffices = new ArrayList<>();
             for (CSVRecord record : records) {
                 try {
-                    Long code = parseLong(record.get("세무서코드"));
+                    Long id = parseLong(record.get("세무서코드"));
                     Long postCode = parseLong(record.get("우편번호"));
                     TaxOffice taxOffice = TaxOffice.builder()
-                            .code(code)
+                            .id(id)
                             .name(record.get("세무서명"))
                             .address(record.get("도로명 주소"))
                             .postCode(postCode)
@@ -90,7 +90,7 @@ public class CSVService {
                     e.printStackTrace();
                 }
             }
-            Collections.sort(taxOffices, Comparator.comparing(TaxOffice::getCode));
+            Collections.sort(taxOffices, Comparator.comparing(TaxOffice::getId));
             taxOfficeRepository.saveAll(taxOffices);
         } catch (Exception e) {
             e.printStackTrace();

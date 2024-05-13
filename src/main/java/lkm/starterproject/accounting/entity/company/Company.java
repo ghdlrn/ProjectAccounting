@@ -19,8 +19,8 @@ public class Company extends BaseEntity {  //회사
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "company_code")
-    private Long code;        //회사코드
+    @Column(name = "company_id")
+    private Long id;        //회사코드
 
     private String licenseType;    //사업자 유형
 
@@ -63,12 +63,12 @@ public class Company extends BaseEntity {  //회사
 
     private LocalDate privatePracticeDate;      //개업연월일
 
-    @OneToOne
-    @JoinColumn(name = "tax_office_code")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "tax_office_id")
     private TaxOffice taxOffice;        //사업장 세무서
 
-    @OneToOne
-    @JoinColumn(name = "local_tax_code")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "local_tax_id")
     private LocalTax localTax;          //지방세 법정동
 
     private String finance;            //국세환급금 계좌

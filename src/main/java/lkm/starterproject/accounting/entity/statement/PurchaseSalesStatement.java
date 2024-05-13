@@ -23,8 +23,8 @@ public class PurchaseSalesStatement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "purchase_sales_code")
-    private Long code;
+    @Column(name = "purchase_sales_id")
+    private Long id;
 
     private LocalDate RegistrationDate;     //등록일자
 

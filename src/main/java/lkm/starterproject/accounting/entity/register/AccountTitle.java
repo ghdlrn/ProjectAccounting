@@ -15,8 +15,8 @@ import lombok.*;
 public class AccountTitle {        //계정과목
 
     @Id
-    @Column(name = "account_title_code")
-    private Integer code;     //코드번호
+    @Column(name = "account_title_id")
+    private Long id;     //코드번호
 
     private String accountTitle;    //계정과목
 

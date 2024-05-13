@@ -45,15 +45,15 @@ public class CompanyService {
     }
 
     @Transactional(readOnly = true)
-    public CompanyDto getCompany(Long code) {
-        Optional<Company> company = companyRepository.findById(code);
+    public CompanyDto getCompany(Long id) {
+        Optional<Company> company = companyRepository.findById(id);
         return company.map(companyMapper::toDto)
                 .orElseThrow(() -> new RuntimeException("Company not found"));
     }
 
     @Transactional
-    public CompanyDto updateCompany(Long code, CompanyDto companyDto) {
-        Company company = companyRepository.findById(code)
+    public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
+        Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Company not found"));
         companyMapper.updateEntityFromDto(companyDto, company);
         company = companyRepository.save(company);
@@ -61,8 +61,8 @@ public class CompanyService {
     }
 
     @Transactional
-    public void deleteCompany(Long code) {
-        Company company = companyRepository.findById(code)
+    public void deleteCompany(Long id) {
+        Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Company not found"));
         companyRepository.delete(company);
     }

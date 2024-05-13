@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface TaxOfficeMapper {
 
-    @Mapping(target = "code", source = "dto.code")
+    @Mapping(target = "id", source = "dto.id")
     @Mapping(target = "name", source = "dto.name")
     @Mapping(target = "address", ignore = true)
     @Mapping(target = "postCode", ignore = true)
@@ -18,7 +18,7 @@ public interface TaxOfficeMapper {
     @Mapping(target = "jurisdiction", source = "dto.jurisdiction")
     TaxOffice toEntity(TaxOfficeDto dto);
 
-    @Mapping(target = "code", source = "entity.code")
+    @Mapping(target = "id", source = "entity.id")
     @Mapping(target = "name", source = "entity.name")
     @Mapping(target = "jurisdiction", source = "entity.jurisdiction")
     TaxOfficeDto toDto(TaxOffice entity);

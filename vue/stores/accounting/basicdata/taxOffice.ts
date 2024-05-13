@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 interface TaxOffice {
-    code: number;
+    id: number;
     name: string;
     jurisdiction: string;
 }

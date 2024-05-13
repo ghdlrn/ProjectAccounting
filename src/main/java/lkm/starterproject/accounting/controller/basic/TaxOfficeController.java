@@ -21,7 +21,7 @@ public class TaxOfficeController {
     public List<TaxOfficeDto> getAllTaxOffices() {      //사업장 세무서 조회
         return taxOfficeRepository.findAll().stream()
                 .map(taxOffice -> new TaxOfficeDto(
-                        taxOffice.getCode(),
+                        taxOffice.getId(),
                         taxOffice.getName(),
                         taxOffice.getJurisdiction()))
                 .collect(Collectors.toList());

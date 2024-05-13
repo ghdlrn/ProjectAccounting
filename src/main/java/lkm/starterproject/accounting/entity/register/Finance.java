@@ -19,8 +19,8 @@ public class Finance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "finance_code")
-    private Long code;
+    @Column(name = "finance_id")
+    private Long id;
 
     @Column(nullable = false)
     private String name;    //은행(계좌)명
