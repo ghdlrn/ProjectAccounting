@@ -33,8 +33,6 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final NumberPath<Long> chargeCode = createNumber("chargeCode", Long.class);
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final StringPath companyUnitVATTaxationStatus = createString("companyUnitVATTaxationStatus");
 
     public final StringPath customerAccountHolder = createString("customerAccountHolder");
@@ -54,6 +52,8 @@ public class QCustomer extends EntityPathBase<Customer> {
     public final StringPath fax = createString("fax");
 
     public final StringPath homePage = createString("homePage");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath liquorRetailStatus = createString("liquorRetailStatus");
 

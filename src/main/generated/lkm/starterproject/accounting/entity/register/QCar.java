@@ -23,11 +23,11 @@ public class QCar extends EntityPathBase<Car> {
 
     public final StringPath carNameStatus = createString("carNameStatus");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final DatePath<java.time.LocalDate> endInsuranceDate = createDate("endInsuranceDate", java.time.LocalDate.class);
 
     public final DatePath<java.time.LocalDate> endTenancy = createDate("endTenancy", java.time.LocalDate.class);
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath insurance = createString("insurance");
 

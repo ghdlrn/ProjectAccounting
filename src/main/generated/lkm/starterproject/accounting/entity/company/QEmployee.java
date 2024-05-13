@@ -19,9 +19,9 @@ public class QEmployee extends EntityPathBase<Employee> {
 
     public static final QEmployee employee = new QEmployee("employee");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final StringPath email = createString("email");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath name = createString("name");
 

@@ -29,8 +29,6 @@ public class QCard extends EntityPathBase<Card> {
 
     public final StringPath cardNumber = createString("cardNumber");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final NumberPath<Double> commission = createNumber("commission", Double.class);
 
     public final NumberPath<Long> commissionAccountTitle = createNumber("commissionAccountTitle", Long.class);
@@ -44,6 +42,8 @@ public class QCard extends EntityPathBase<Card> {
     public final StringPath fax = createString("fax");
 
     public final StringPath homePage = createString("homePage");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath name = createString("name");
 

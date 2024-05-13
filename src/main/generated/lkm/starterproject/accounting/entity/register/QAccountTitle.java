@@ -21,9 +21,9 @@ public class QAccountTitle extends EntityPathBase<AccountTitle> {
 
     public final StringPath accountTitle = createString("accountTitle");
 
-    public final NumberPath<Integer> code = createNumber("code", Integer.class);
-
     public final StringPath debitAndCredit = createString("debitAndCredit");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 

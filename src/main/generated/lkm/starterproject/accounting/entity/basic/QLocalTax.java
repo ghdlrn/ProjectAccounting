@@ -19,7 +19,7 @@ public class QLocalTax extends EntityPathBase<LocalTax> {
 
     public static final QLocalTax localTax = new QLocalTax("localTax");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath name = createString("name");
 

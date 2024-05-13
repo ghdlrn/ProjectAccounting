@@ -31,13 +31,13 @@ public class QFinance extends EntityPathBase<Finance> {
 
     public final StringPath businessRegistrationNumber = createString("businessRegistrationNumber");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final StringPath depositType = createString("depositType");
 
     public final StringPath fax = createString("fax");
 
     public final StringPath homePage = createString("homePage");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final NumberPath<Double> interestRate = createNumber("interestRate", Double.class);
 

@@ -36,8 +36,6 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final StringPath chargeName = createString("chargeName");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final StringPath companyTypeStatus = createString("companyTypeStatus");
 
     public final StringPath corporationClassifyStatus = createString("corporationClassifyStatus");
@@ -62,6 +60,8 @@ public class QCompany extends EntityPathBase<Company> {
     public final StringPath guideText = createString("guideText");
 
     public final StringPath headOfficeStatus = createString("headOfficeStatus");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath jibunAddress = createString("jibunAddress");
 

@@ -23,9 +23,9 @@ public class QPurchaseSalesStatement extends EntityPathBase<PurchaseSalesStateme
 
     public final StringPath approvalNumber = createString("approvalNumber");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final NumberPath<Long> ExtendedPrice = createNumber("ExtendedPrice", Long.class);
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final EnumPath<lkm.starterproject.accounting.constants.MissingScheduleStatus> missingScheduleStatus = createEnum("missingScheduleStatus", lkm.starterproject.accounting.constants.MissingScheduleStatus.class);
 

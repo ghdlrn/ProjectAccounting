@@ -19,11 +19,11 @@ public class QStatement extends EntityPathBase<Statement> {
 
     public static final QStatement statement = new QStatement("statement");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final NumberPath<Long> credit = createNumber("credit", Long.class);
 
     public final NumberPath<Long> debit = createNumber("debit", Long.class);
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final DatePath<java.time.LocalDate> RegistrationDate = createDate("RegistrationDate", java.time.LocalDate.class);
 

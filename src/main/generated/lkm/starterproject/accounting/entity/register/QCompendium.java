@@ -19,7 +19,7 @@ public class QCompendium extends EntityPathBase<Compendium> {
 
     public static final QCompendium compendium = new QCompendium("compendium");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath name = createString("name");
 

@@ -19,9 +19,9 @@ public class QCardStatement extends EntityPathBase<CardStatement> {
 
     public static final QCardStatement cardStatement = new QCardStatement("cardStatement");
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final StringPath customerName = createString("customerName");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final NumberPath<Long> money = createNumber("money", Long.class);
 

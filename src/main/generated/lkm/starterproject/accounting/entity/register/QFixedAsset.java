@@ -25,13 +25,13 @@ public class QFixedAsset extends EntityPathBase<FixedAsset> {
 
     public final NumberPath<Long> amount = createNumber("amount", Long.class);
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final StringPath depreciationStatus = createString("depreciationStatus");
 
     public final NumberPath<Long> durableYears = createNumber("durableYears", Long.class);
 
     public final DatePath<java.time.LocalDate> endOfUseDate = createDate("endOfUseDate", java.time.LocalDate.class);
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath name = createString("name");
 

@@ -21,11 +21,11 @@ public class QPromissoryNote extends EntityPathBase<PromissoryNote> {
 
     public final NumberPath<Long> amount = createNumber("amount", Long.class);
 
-    public final NumberPath<Long> code = createNumber("code", Long.class);
-
     public final DatePath<java.time.LocalDate> expirationDate = createDate("expirationDate", java.time.LocalDate.class);
 
     public final StringPath finance = createString("finance");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final DatePath<java.time.LocalDate> issuingDate = createDate("issuingDate", java.time.LocalDate.class);
 
