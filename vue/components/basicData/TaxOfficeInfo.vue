@@ -92,7 +92,7 @@ function select(item) {
 const props = defineProps({
   modelValue: {
     type: Object,
-    default: () => ({ name: '', id: '', jurisdiction: '' })
+    default: () => null
   }
 });
 
@@ -103,7 +103,7 @@ watch(() => props.modelValue, (newValue) => {
 }, { immediate: true });
 
 const displayValue = computed({
-  get: () => props.modelValue.name,
+  get: () => props.modelValue ? props.modelValue.name : '',
   set: (value) => {
     store.setSelectedTaxOffice(value);
   }

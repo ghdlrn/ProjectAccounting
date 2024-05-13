@@ -64,9 +64,9 @@
 
 <script setup>
 import { ref, computed, onMounted, watch} from 'vue';  // onMounted : 반응상태 관리, 계산된속성 생성
+import {SearchOutlined} from "@ant-design/icons-vue";
 
 import { useLocalTaxStore } from '~/stores/accounting/basicdata/localTax.ts'
-import {SearchOutlined} from "@ant-design/icons-vue";
 const store = useLocalTaxStore();
 
 onMounted(() => {
@@ -92,7 +92,7 @@ function select(item) {
 const props = defineProps({
   modelValue: {
     type: Object,
-    default: () => ({ name: '', id: '', jurisdiction: '' })
+    default: () => null
   }
 });
 
@@ -103,7 +103,7 @@ watch(() => props.modelValue, (newValue) => {
 }, { immediate: true });
 
 const displayValue = computed({
-  get: () => props.modelValue.name,
+  get: () => props.modelValue ? props.modelValue.name : '',
   set: (value) => {
     store.setSelectedLocalTax(value);
   }
