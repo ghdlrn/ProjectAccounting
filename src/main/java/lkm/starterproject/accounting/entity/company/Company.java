@@ -104,6 +104,7 @@ public class Company extends BaseEntity {  //회사
     /*------------------------------------------------------------------------------------
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
+    @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 }

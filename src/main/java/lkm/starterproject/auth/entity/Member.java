@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lkm.starterproject.auth.constants.Role;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +32,7 @@ public class Member extends BaseEntity {     //회원
     /*------------------------------------------------------------------------------------
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
+    @Builder.Default
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 
