@@ -4,20 +4,13 @@ import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
 import lkm.starterproject.auth.entity.BaseEntity;
-import lkm.starterproject.auth.entity.MemberCompany;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter @ToString
+@Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "company")
 public class Company extends BaseEntity {  //회사
 
@@ -68,11 +61,11 @@ public class Company extends BaseEntity {  //회사
     private LocalDate privatePracticeDate;      //개업연월일
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tax_office_code")
+    @JoinColumn(name = "tax_office_code", referencedColumnName = "tax_office_code")
     private TaxOffice taxOffice;        //사업장 세무서
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "local_tax_code")
+    @JoinColumn(name = "local_tax_code", referencedColumnName = "local_tax_code")
     private LocalTax localTax;          //지방세 법정동
 
     private String finance;            //국세환급금 계좌
@@ -104,6 +97,4 @@ public class Company extends BaseEntity {  //회사
     /*------------------------------------------------------------------------------------
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<MemberCompany> memberCompanies = new ArrayList<>();
 }

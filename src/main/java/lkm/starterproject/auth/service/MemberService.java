@@ -32,7 +32,8 @@ public class MemberService {
 
             return;
         }
-        Member member = new Member().builder()    // isMemberExist로 동일한 email이 없으면 해당 유저정보 저장
+        new Member();
+        Member member = Member.builder()    // isMemberExist로 동일한 email이 없으면 해당 유저정보 저장
                 .username(username)
                 .password(passwordEncoder.encode(password))     //비밀번호 암호화해서 저장
                 .email(email)

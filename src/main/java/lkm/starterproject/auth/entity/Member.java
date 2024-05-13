@@ -33,11 +33,6 @@ public class Member extends BaseEntity {     //회원
     /*------------------------------------------------------------------------------------
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<MemberCompany> memberCompanies = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "member_img_id")
-    private MemberImg memberImg;
 
 }
