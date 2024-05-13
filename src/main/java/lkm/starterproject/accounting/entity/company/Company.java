@@ -12,12 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter @ToString
+@Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "company")
 public class Company extends BaseEntity {  //회사
 
@@ -67,11 +63,11 @@ public class Company extends BaseEntity {  //회사
 
     private LocalDate privatePracticeDate;      //개업연월일
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "tax_office_code")
     private TaxOffice taxOffice;        //사업장 세무서
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "local_tax_code")
     private LocalTax localTax;          //지방세 법정동
 

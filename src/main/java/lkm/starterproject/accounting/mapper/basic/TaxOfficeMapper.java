@@ -16,7 +16,6 @@ public interface TaxOfficeMapper {
     @Mapping(target = "fax", ignore = true)
     @Mapping(target = "accountNumber", ignore = true)
     @Mapping(target = "jurisdiction", source = "dto.jurisdiction")
-    @Mapping(target = "company", ignore = true)
     TaxOffice toEntity(TaxOfficeDto dto);
 
     @Mapping(target = "code", source = "entity.code")

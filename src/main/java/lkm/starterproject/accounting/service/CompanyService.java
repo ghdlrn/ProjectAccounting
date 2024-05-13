@@ -33,16 +33,6 @@ public class CompanyService {
     @Transactional
     public CompanyDto createCompany(CompanyDto companyDto) {
         Company company = companyMapper.toEntity(companyDto);
-        if (company.getTaxOffice() != null && company.getTaxOffice().getCode() != null) {
-            TaxOffice managedTaxOffice = taxOfficeRepository.findById(company.getTaxOffice().getCode())
-                    .orElseThrow(() -> new RuntimeException("Tax Office not found"));
-            company.setTaxOffice(managedTaxOffice);
-        }
-        if (company.getLocalTax() != null && company.getLocalTax().getCode() != null) {
-            LocalTax managedLocalTax = localTaxRepository.findById(company.getLocalTax().getCode())
-                    .orElseThrow(() -> new RuntimeException("Local Tax not found"));
-            company.setLocalTax(managedLocalTax);
-        }
         company = companyRepository.save(company);
         return companyMapper.toDto(company);
     }

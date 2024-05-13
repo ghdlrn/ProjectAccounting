@@ -8,7 +8,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface MemberCompanyMapper {
 
+    @Mapping(target = "code", ignore = true)
+    @Mapping(target = "member", ignore = true)
+    @Mapping(target = "company", ignore = true)
     MemberCompanyDto toDto(MemberCompany memberCompany);
 
+    @Mapping(target = "code", ignore = true)
+    @Mapping(target = "member", ignore = true)
+    @Mapping(target = "company", ignore = true)
     MemberCompany toEntity(MemberCompanyDto memberCompanyDto);
 }

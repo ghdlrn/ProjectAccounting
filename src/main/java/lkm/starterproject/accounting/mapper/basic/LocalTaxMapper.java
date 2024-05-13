@@ -11,7 +11,6 @@ public interface LocalTaxMapper {
     @Mapping(target = "code", source = "dto.code")
     @Mapping(target = "name", source = "dto.name")
     @Mapping(target = "status", ignore = true)
-    @Mapping(target = "company", ignore = true)
     LocalTax toEntity(LocalTaxDto dto);
 
     @Mapping(target = "code", source = "entity.code")

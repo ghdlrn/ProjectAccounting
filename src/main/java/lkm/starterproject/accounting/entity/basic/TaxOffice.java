@@ -3,14 +3,11 @@ package lkm.starterproject.accounting.entity.basic;
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
+import org.hibernate.annotations.Immutable;
 
-@Entity
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity @Immutable
+@Getter @Setter @ToString
+@Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "tax_office")
 public class TaxOffice {
 
@@ -31,9 +28,5 @@ public class TaxOffice {
     private String accountNumber;   //계좌번호
 
     private String jurisdiction;    //관할구역
-    /*------------------------------------------------------------------------------------
-     * ----------------------------------Mapping------------------------------------------
-     * ----------------------------------------------------------------------------------*/
-    @OneToOne(mappedBy = "taxOffice")
-    private Company company;
+
 }

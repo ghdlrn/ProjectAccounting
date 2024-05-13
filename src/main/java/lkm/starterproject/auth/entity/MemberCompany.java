@@ -2,8 +2,12 @@ package lkm.starterproject.auth.entity;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.company.Company;
+import lombok.*;
 
 @Entity
+@Getter @Setter @ToString
+@Builder @NoArgsConstructor @AllArgsConstructor
+@Table(name = "member_company")
 public class MemberCompany {
 
     @Id

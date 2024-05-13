@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,8 +17,6 @@ public class QTaxOffice extends EntityPathBase<TaxOffice> {
 
     private static final long serialVersionUID = -769108559L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QTaxOffice taxOffice = new QTaxOffice("taxOffice");
 
     public final StringPath accountNumber = createString("accountNumber");
@@ -27,8 +24,6 @@ public class QTaxOffice extends EntityPathBase<TaxOffice> {
     public final StringPath address = createString("address");
 
     public final NumberPath<Long> code = createNumber("code", Long.class);
-
-    public final lkm.starterproject.accounting.entity.company.QCompany company;
 
     public final StringPath fax = createString("fax");
 
@@ -41,24 +36,15 @@ public class QTaxOffice extends EntityPathBase<TaxOffice> {
     public final NumberPath<Long> postCode = createNumber("postCode", Long.class);
 
     public QTaxOffice(String variable) {
-        this(TaxOffice.class, forVariable(variable), INITS);
+        super(TaxOffice.class, forVariable(variable));
     }
 
     public QTaxOffice(Path<? extends TaxOffice> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QTaxOffice(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QTaxOffice(PathMetadata metadata, PathInits inits) {
-        this(TaxOffice.class, metadata, inits);
-    }
-
-    public QTaxOffice(Class<? extends TaxOffice> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.company = inits.isInitialized("company") ? new lkm.starterproject.accounting.entity.company.QCompany(forProperty("company"), inits.get("company")) : null;
+        super(TaxOffice.class, metadata);
     }
 
 }

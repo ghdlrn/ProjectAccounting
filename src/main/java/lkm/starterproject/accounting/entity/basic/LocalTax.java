@@ -3,14 +3,11 @@ package lkm.starterproject.accounting.entity.basic;
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
+import org.hibernate.annotations.Immutable;
 
-@Entity
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity @Immutable
+@Getter @Setter @ToString
+@Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "local_tax")
 public class LocalTax {
 
@@ -21,9 +18,5 @@ public class LocalTax {
     private String name;
 
     private String status;
-    /*------------------------------------------------------------------------------------
-     * ----------------------------------Mapping------------------------------------------
-     * ----------------------------------------------------------------------------------*/
-    @OneToOne(mappedBy = "localTax")
-    private Company company;
+
 }

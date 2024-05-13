@@ -120,8 +120,8 @@ public class QCompany extends EntityPathBase<Company> {
 
     public QCompany(Class<? extends Company> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.localTax = inits.isInitialized("localTax") ? new lkm.starterproject.accounting.entity.basic.QLocalTax(forProperty("localTax"), inits.get("localTax")) : null;
-        this.taxOffice = inits.isInitialized("taxOffice") ? new lkm.starterproject.accounting.entity.basic.QTaxOffice(forProperty("taxOffice"), inits.get("taxOffice")) : null;
+        this.localTax = inits.isInitialized("localTax") ? new lkm.starterproject.accounting.entity.basic.QLocalTax(forProperty("localTax")) : null;
+        this.taxOffice = inits.isInitialized("taxOffice") ? new lkm.starterproject.accounting.entity.basic.QTaxOffice(forProperty("taxOffice")) : null;
     }
 
 }
