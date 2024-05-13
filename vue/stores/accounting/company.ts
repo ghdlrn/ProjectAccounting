@@ -76,7 +76,9 @@ export const useCompanyStore = defineStore('company', {
             try {
                 const response = await axios.post('http://localhost:8080/register/company', data);
                 this.companies.push(response.data);
+                alert('회사 정보가 등록되었습니다');
             } catch (error: any) {
+                alert('회사등록 실패');
                 console.error('회사등록 실패:', error.message);
                 throw new Error('회사등록 실패');
             }
@@ -87,10 +89,13 @@ export const useCompanyStore = defineStore('company', {
                 const index = this.companies.findIndex(company => company.id === data.id);
                 if (index !== -1) {
                     this.companies[index] = response.data;
+                    alert('회사 정보가 수정되었습니다');
                 } else {
                     this.companies.push(response.data); // 새로운 데이터가 배열에 없다면 추가
+                    alert('회사 정보가 등록되었습니다');
                 }
             } catch (error: any) {
+                alert('회사 정보 수정 실패');
                 console.error('회사 정보 수정 실패:', error.message);
                 throw new Error('회사 정보 수정 실패');
             }
@@ -100,13 +105,15 @@ export const useCompanyStore = defineStore('company', {
             try {
                 const response = await axios.delete(`http://localhost:8080/register/company/${id}`);
                 if (response.status === 200) {
-                    // 데이터 삭제 성공 후 목록 새로고침
-                    await this.fetchCompanies();  // 삭제 후 전체 목록을 다시 불러옴
+                    await this.fetchCompanies();
+                    alert('회사 정보 삭제에 성공했습니다');
                 } else {
+                    alert('회사 정보 삭제에 실패했습니다');
                     console.error('회사 정보 삭제 실패:', response.status);
                     throw new Error('회사 정보 삭제 실패: 서버 응답 ' + response.status);
                 }
             } catch (error: any) {
+                alert('회사 정보 삭제에 실패했습니다');
                 console.error('회사 정보 삭제 실패:', error.message);
                 throw new Error('회사 정보 삭제 실패');
             }

@@ -36,7 +36,7 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
 </script>
 
 <template>
-  <UiParentCard title="회사등록">
+  <UiParentCard title="회사 정보 조회 / 수정">
 
     <v-card class="company-form">
       <v-tabs v-model="tab" bg-color="primary">
