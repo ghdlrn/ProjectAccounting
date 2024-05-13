@@ -23,7 +23,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
-    private RefreshRepository refreshRepository;
+    private final RefreshRepository refreshRepository;
 
     public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, RefreshRepository refreshRepository) {
         this.authenticationManager = authenticationManager;

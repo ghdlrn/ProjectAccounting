@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,8 +16,6 @@ import com.querydsl.core.types.dsl.PathInits;
 public class QMember extends EntityPathBase<Member> {
 
     private static final long serialVersionUID = -280866045L;
-
-    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QMember member = new QMember("member1");
 
@@ -30,10 +27,6 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath email = createString("email");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final ListPath<MemberCompany, QMemberCompany> memberCompanies = this.<MemberCompany, QMemberCompany>createList("memberCompanies", MemberCompany.class, QMemberCompany.class, PathInits.DIRECT2);
-
-    public final QMemberImg memberImg;
 
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
@@ -51,24 +44,15 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath username = createString("username");
 
     public QMember(String variable) {
-        this(Member.class, forVariable(variable), INITS);
+        super(Member.class, forVariable(variable));
     }
 
     public QMember(Path<? extends Member> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QMember(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QMember(PathMetadata metadata, PathInits inits) {
-        this(Member.class, metadata, inits);
-    }
-
-    public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.memberImg = inits.isInitialized("memberImg") ? new QMemberImg(forProperty("memberImg")) : null;
+        super(Member.class, metadata);
     }
 
 }
