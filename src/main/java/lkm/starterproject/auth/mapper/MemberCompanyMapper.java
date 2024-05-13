@@ -10,7 +10,5 @@ public interface MemberCompanyMapper {
 
     MemberCompanyDto toDto(MemberCompany memberCompany);
 
-    @Mapping(target = "member", source = "memberCompanyDto.member")
-    @Mapping(target = "company", source = "memberCompanyDto.company")
     MemberCompany toEntity(MemberCompanyDto memberCompanyDto);
 }

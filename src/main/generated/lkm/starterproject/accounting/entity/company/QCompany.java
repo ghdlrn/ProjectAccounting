@@ -71,6 +71,8 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final StringPath localTaxBillDivision = createString("localTaxBillDivision");
 
+    public final ListPath<lkm.starterproject.auth.entity.MemberCompany, lkm.starterproject.auth.entity.QMemberCompany> memberCompanies = this.<lkm.starterproject.auth.entity.MemberCompany, lkm.starterproject.auth.entity.QMemberCompany>createList("memberCompanies", lkm.starterproject.auth.entity.MemberCompany.class, lkm.starterproject.auth.entity.QMemberCompany.class, PathInits.DIRECT2);
+
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
 

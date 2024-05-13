@@ -33,7 +33,7 @@ public class Member extends BaseEntity {     //회원
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
     @Builder.Default
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member")
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 
     @OneToOne

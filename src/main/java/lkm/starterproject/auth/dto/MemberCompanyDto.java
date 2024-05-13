@@ -1,7 +1,6 @@
 package lkm.starterproject.auth.dto;
 
-import lkm.starterproject.accounting.entity.company.Company;
-import lkm.starterproject.auth.entity.Member;
+import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ public class MemberCompanyDto {
 
     private Long code;
 
-    private Member member;
+    private MemberDto member;
 
-    private Company company;
+    private CompanyDto company;
 }
