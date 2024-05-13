@@ -21,19 +21,26 @@ const localTaxStore = useLocalTaxStore();
 const { companies } = storeToRefs(companyStore);
 const currentCompany = ref(companies.value || {});
 
-const saveOrUpdateCompany = () => {
+const emit = defineEmits(['closeDialog']);
+
+const saveOrUpdateCompany = async () => {
   const companyData = {
     ...currentCompany.value,
     ...addressStore.$state,
     taxOffice: taxOfficeStore.selectedTaxOffice,
     localTax: localTaxStore.selectedLocalTax,
   };
-  if (currentCompany.value.id) {
-    companyStore.updateCompany(companyData);
-  } else {
-    companyStore.createCompany(companyData);
+  try {
+    if (currentCompany.value.id) {
+      await companyStore.updateCompany(companyData);
+    } else {
+      await companyStore.createCompany(companyData);
+    }
+    emit('closeDialog');
+  } catch (error) {
+    console.error("Error saving or updating company: ", error);
   }
-}
+};
 /*----------------------------양식 검증------------------------------------*/
 import { nameRules, businessRegistrationNumberRules } from "~/rules";
 </script>

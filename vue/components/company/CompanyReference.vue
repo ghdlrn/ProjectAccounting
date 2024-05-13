@@ -68,7 +68,7 @@ const menu = ref(false);
                       회사 등록
                     </v-btn>
                   </template>
-                  <CompanyRegister />
+                  <CompanyRegister @closeDialog="dialog = false" />
                 </v-dialog>
               </div>
             </v-col>
