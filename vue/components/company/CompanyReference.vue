@@ -98,7 +98,7 @@ const menu = ref(false);
                   :rows-per-page="10">
                 <template #item-operation="item">
                   <div class="operation-wrapper">
-                    <v-btn icon color="error" variant="text" @click="deleteCompany(item)" rounded>
+                    <v-btn icon color="error" variant="text" @click.stop="deleteCompany(item)" rounded>
                       <DeleteOutlined />
                     </v-btn>
                   </div>
