@@ -1,7 +1,6 @@
 package lkm.starterproject.accounting.entity.basic;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.entity.company.Company;
 import lombok.*;
 import org.hibernate.annotations.Immutable;
 
@@ -12,7 +11,7 @@ import org.hibernate.annotations.Immutable;
 public class TaxOffice {
 
     @Id
-    @Column(name = "tax_office_id", unique = true, nullable = false)
+    @Column(name = "tax_office_id")
     private Long id;   //세무서 코드
 
     private String name;    //세무서명
