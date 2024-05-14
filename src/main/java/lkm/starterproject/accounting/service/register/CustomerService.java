@@ -6,12 +6,15 @@ import lkm.starterproject.accounting.entity.register.Customer;
 import lkm.starterproject.accounting.mapper.register.CustomerMapper;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.register.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class CustomerService {
 
     private final CustomerRepository customerRepository;

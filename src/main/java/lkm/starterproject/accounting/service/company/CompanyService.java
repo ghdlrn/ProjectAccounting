@@ -24,7 +24,6 @@ public class CompanyService {
     private final LocalTaxRepository localTaxRepository;
     private final CompanyMapper companyMapper;
 
-    @Autowired
     public CompanyService(CompanyRepository companyRepository, TaxOfficeRepository taxOfficeRepository,
                           LocalTaxRepository localTaxRepository, CompanyMapper companyMapper) {
         this.companyRepository = companyRepository;

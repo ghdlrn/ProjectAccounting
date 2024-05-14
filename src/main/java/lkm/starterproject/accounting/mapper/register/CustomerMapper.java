@@ -8,7 +8,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring", uses = {CompanyMapper.class, LocalTaxMapper.class})
+@Mapper(componentModel = "spring", uses = {
+        CompanyMapper.class, LocalTaxMapper.class
+})
 public interface CustomerMapper {
 
     CustomerDto toDto(Customer entity);
