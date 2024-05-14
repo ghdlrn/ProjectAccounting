@@ -45,6 +45,8 @@ public class QCompany extends EntityPathBase<Company> {
     //inherited
     public final StringPath createdBy = _super.createdBy;
 
+    public final ListPath<lkm.starterproject.accounting.entity.register.Customer, lkm.starterproject.accounting.entity.register.QCustomer> customers = this.<lkm.starterproject.accounting.entity.register.Customer, lkm.starterproject.accounting.entity.register.QCustomer>createList("customers", lkm.starterproject.accounting.entity.register.Customer.class, lkm.starterproject.accounting.entity.register.QCustomer.class, PathInits.DIRECT2);
+
     public final StringPath extraAddress = createString("extraAddress");
 
     public final StringPath fax = createString("fax");

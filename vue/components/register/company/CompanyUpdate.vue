@@ -1,6 +1,6 @@
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const tab = ref(null);
 import UiParentCard from '~/components/shared/UiParentCard.vue';
@@ -10,43 +10,33 @@ import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
 import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
 import { useCompanyStore } from "~/stores/accounting/company.ts"
-import { useAddressStore } from '~/stores/address.js';
-import { useTaxOfficeStore } from "~/stores/accounting/basicdata/taxOffice.ts";
-import { useLocalTaxStore } from "~/stores/accounting/basicdata/localTax.ts";
-import { storeToRefs }  from "pinia";
 const companyStore = useCompanyStore();
-const addressStore = useAddressStore();
-const taxOfficeStore = useTaxOfficeStore();
-const localTaxStore = useLocalTaxStore();
-const { companies } = storeToRefs(companyStore);
-const currentCompany = ref(companies.value || {});
+const currentCompany = ref({});
 
-const emit = defineEmits(['closeDialog']);
+function updateAddressData(updatedData) {
+  currentCompany.value = { ...currentCompany.value, ...updatedData };
+}
+
+onMounted(async () => {
+  await companyStore.fetchCompanies();  // 초기 데이터 로드
+  if (companyStore.currentCompany) {
+    currentCompany.value = {...companyStore.currentCompany};
+  }
+});
 
 const saveOrUpdateCompany = async () => {
-  const companyData = {
-    ...currentCompany.value,
-    ...addressStore.$state,
-    taxOffice: taxOfficeStore.selectedTaxOffice,
-    localTax: localTaxStore.selectedLocalTax,
-  };
-  try {
-    if (currentCompany.value.id) {
-      await companyStore.updateCompany(companyData);
-    } else {
-      await companyStore.createCompany(companyData);
-    }
-    emit('closeDialog');
-  } catch (error) {
-    console.error("Error saving or updating company: ", error);
+  if (currentCompany.value.id) {
+    await companyStore.updateCompany(currentCompany.value);
+  } else {
+    await companyStore.createCompany(currentCompany.value);
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import { nameRules, businessRegistrationNumberRules } from "~/rules";
+import { nameRules, businessRegistrationNumberRules } from "~/rules/index.js";
 </script>
 
 <template>
-  <UiParentCard title="회사등록">
+  <UiParentCard title="회사 정보 조회 / 수정">
 
     <v-card class="company-form">
       <v-tabs v-model="tab" bg-color="primary">
@@ -198,7 +188,12 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
               </v-col>
             </v-row>
 <!--------------------------4줄-------------------------------------------------------->
-            <DaumPostcode @update:address="addressStore.setAddress" />
+            <DaumPostcode :initialPostcode="currentCompany.postcode"
+                          :initialRoadAddress="currentCompany.roadAddress"
+                          :initialJibunAddress="currentCompany.jibunAddress"
+                          :initialExtraAddress="currentCompany.extraAddress"
+                          :initialGuideText="currentCompany.guideText"
+                          @updateAddress="updateAddressData" />
 <!--------------------------7줄-------------------------------------------------------->
             <v-row>
               <v-col cols="5">
@@ -310,13 +305,13 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
                     <v-label class="mt-2">사업장 <br/> 세무서</v-label>
                   </v-col>
                   <v-col cols="5" class="pl-5">
-                    <TaxOfficeInfo v-model="currentCompany.taxOffice" />
+                    <TaxOfficeInfo v-model="currentCompany.taxOffice"/>
                   </v-col>
                   <v-col cols="1">
                     <v-label class="mt-2">지방세 <br/> 법정동</v-label>
                   </v-col>
                   <v-col cols="5">
-                    <LocalTaxInfo v-model="currentCompany.localTax" />
+                    <LocalTaxInfo v-model="currentCompany.localTax"/>
                   </v-col>
                 </v-row>
               </v-col>

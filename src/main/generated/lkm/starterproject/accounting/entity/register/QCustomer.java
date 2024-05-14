@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,11 +18,9 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     private static final long serialVersionUID = -657394253L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QCustomer customer = new QCustomer("customer");
-
-    public final NumberPath<Long> accountNumber = createNumber("accountNumber", Long.class);
-
-    public final StringPath address = createString("address");
 
     public final NumberPath<Long> amountOfCollateral = createNumber("amountOfCollateral", Long.class);
 
@@ -31,13 +30,11 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath businessType = createString("businessType");
 
-    public final NumberPath<Long> chargeCode = createNumber("chargeCode", Long.class);
-
-    public final StringPath companyUnitVATTaxationStatus = createString("companyUnitVATTaxationStatus");
+    public final lkm.starterproject.accounting.entity.company.QCompany company;
 
     public final StringPath customerAccountHolder = createString("customerAccountHolder");
 
-    public final NumberPath<Long> customerBankAccountNumber = createNumber("customerBankAccountNumber", Long.class);
+    public final StringPath customerAccountNumber = createString("customerAccountNumber");
 
     public final StringPath customerChargeDepartment = createString("customerChargeDepartment");
 
@@ -49,17 +46,21 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath customerChargePosition = createString("customerChargePosition");
 
+    public final StringPath extraAddress = createString("extraAddress");
+
     public final StringPath fax = createString("fax");
+
+    public final StringPath guideText = createString("guideText");
 
     public final StringPath homePage = createString("homePage");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath jibunAddress = createString("jibunAddress");
+
     public final StringPath liquorRetailStatus = createString("liquorRetailStatus");
 
-    public final NumberPath<Long> localTaxBillCode = createNumber("localTaxBillCode", Long.class);
-
-    public final NumberPath<Long> myAccountTitle = createNumber("myAccountTitle", Long.class);
+    public final lkm.starterproject.accounting.entity.basic.QLocalTax localTax;
 
     public final StringPath name = createString("name");
 
@@ -67,11 +68,15 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath note = createString("note");
 
-    public final NumberPath<Long> otherAccountTitle = createNumber("otherAccountTitle", Long.class);
-
     public final StringPath phone = createString("phone");
 
-    public final StringPath RegistrationNumber = createString("RegistrationNumber");
+    public final StringPath postcode = createString("postcode");
+
+    public final StringPath registrationNumber = createString("registrationNumber");
+
+    public final StringPath registrationNumberType = createString("registrationNumberType");
+
+    public final StringPath roadAddress = createString("roadAddress");
 
     public final NumberPath<Long> taxRegistrationCode = createNumber("taxRegistrationCode", Long.class);
 
@@ -79,24 +84,30 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final DatePath<java.time.LocalDate> tradeStartDate = createDate("tradeStartDate", java.time.LocalDate.class);
 
-    public final EnumPath<lkm.starterproject.accounting.constants.TradeStatus> tradeStatus = createEnum("tradeStatus", lkm.starterproject.accounting.constants.TradeStatus.class);
-
-    public final NumberPath<Long> UnitReportingCustomerCode = createNumber("UnitReportingCustomerCode", Long.class);
+    public final NumberPath<Long> unitReportingCustomerCode = createNumber("unitReportingCustomerCode", Long.class);
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 
-    public final NumberPath<Long> zipCode = createNumber("zipCode", Long.class);
-
     public QCustomer(String variable) {
-        super(Customer.class, forVariable(variable));
+        this(Customer.class, forVariable(variable), INITS);
     }
 
     public QCustomer(Path<? extends Customer> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QCustomer(PathMetadata metadata) {
-        super(Customer.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QCustomer(PathMetadata metadata, PathInits inits) {
+        this(Customer.class, metadata, inits);
+    }
+
+    public QCustomer(Class<? extends Customer> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.company = inits.isInitialized("company") ? new lkm.starterproject.accounting.entity.company.QCompany(forProperty("company"), inits.get("company")) : null;
+        this.localTax = inits.isInitialized("localTax") ? new lkm.starterproject.accounting.entity.basic.QLocalTax(forProperty("localTax")) : null;
     }
 
 }

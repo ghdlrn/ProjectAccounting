@@ -1,11 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-
-interface TaxOffice {
-    id: number;
-    name: string;
-    jurisdiction: string;
-}
+import type {TaxOffice} from "~/types/accounting/basicdata/taxOffice";
 
 export const useTaxOfficeStore = defineStore('taxOffice', {
     state: () => ({

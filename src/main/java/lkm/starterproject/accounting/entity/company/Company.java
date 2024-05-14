@@ -3,6 +3,7 @@ package lkm.starterproject.accounting.entity.company;
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
+import lkm.starterproject.accounting.entity.register.Customer;
 import lkm.starterproject.auth.entity.BaseEntity;
 import lkm.starterproject.auth.entity.MemberCompany;
 import lombok.*;
@@ -103,4 +104,8 @@ public class Company extends BaseEntity {  //회사
     @Builder.Default
     @OneToMany(mappedBy = "company")
     private List<MemberCompany> memberCompanies = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "company")
+    private List<Customer> customers = new ArrayList<>();;        //사업장 세무서
 }

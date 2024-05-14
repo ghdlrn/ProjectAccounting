@@ -1,7 +1,7 @@
 package lkm.starterproject.accounting.controller.company;
 
 import lkm.starterproject.accounting.dto.company.CompanyDto;
-import lkm.starterproject.accounting.service.CompanyService;
+import lkm.starterproject.accounting.service.company.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

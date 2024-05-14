@@ -1,10 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-
-interface LocalTax {
-    id: number;
-    name: string;
-}
+import type {LocalTax} from "~/types/accounting/basicdata/localTax";
 
 export const useLocalTaxStore = defineStore('localTax', {
     state: () => ({

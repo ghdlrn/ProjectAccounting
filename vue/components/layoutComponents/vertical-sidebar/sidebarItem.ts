@@ -30,7 +30,7 @@ const sidebarItem: menu[] = [
     icon: EditIcon,
     to: '/',
     children: [
-      { title: '거래처 등록', icon: CircleIcon, to: '/' },
+      { title: '거래처 등록', icon: CircleIcon, to: '/register/customer' },
       { title: '계좌 등록', icon: CircleIcon, to: '/' },
       { title: '카드 등록', icon: CircleIcon, to: '/' },
       { title: '계정과목 및 적요 등록', icon: CircleIcon, to: '/' },

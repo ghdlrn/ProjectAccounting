@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 
-import CompanyReference from "~/components/company/CompanyReference.vue";
+import CompanyReference from "~/components/register/company/CompanyReference.vue";
 
 
 </script>

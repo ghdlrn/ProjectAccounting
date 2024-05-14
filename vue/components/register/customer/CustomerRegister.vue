@@ -1,42 +1,10 @@
 
 <script setup>
-import { ref, onMounted } from 'vue';
 
-const tab = ref(null);
-import UiParentCard from '~/components/shared/UiParentCard.vue';
-import DaumPostcode from "~/components/DaumPostcode.vue";
-import DateSelect from "~/components/DateSelect.vue";
-import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
-import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
-/* ---------------------------정보 제출------------------------------*/
-import { useCompanyStore } from "~/stores/accounting/company.ts"
-const companyStore = useCompanyStore();
-const currentCompany = ref({});
-
-function updateAddressData(updatedData) {
-  currentCompany.value = { ...currentCompany.value, ...updatedData };
-}
-
-onMounted(async () => {
-  await companyStore.fetchCompanies();  // 초기 데이터 로드
-  if (companyStore.currentCompany) {
-    currentCompany.value = {...companyStore.currentCompany};
-  }
-});
-
-const saveOrUpdateCompany = async () => {
-  if (currentCompany.value.id) {
-    await companyStore.updateCompany(currentCompany.value);
-  } else {
-    await companyStore.createCompany(currentCompany.value);
-  }
-};
-/*----------------------------양식 검증------------------------------------*/
-import { nameRules, businessRegistrationNumberRules } from "~/rules";
 </script>
 
 <template>
-  <UiParentCard title="회사 정보 조회 / 수정">
+  <UiParentCard title="회사등록">
 
     <v-card class="company-form">
       <v-tabs v-model="tab" bg-color="primary">
@@ -188,12 +156,7 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
               </v-col>
             </v-row>
 <!--------------------------4줄-------------------------------------------------------->
-            <DaumPostcode :initialPostcode="currentCompany.postcode"
-                          :initialRoadAddress="currentCompany.roadAddress"
-                          :initialJibunAddress="currentCompany.jibunAddress"
-                          :initialExtraAddress="currentCompany.extraAddress"
-                          :initialGuideText="currentCompany.guideText"
-                          @updateAddress="updateAddressData" />
+            <DaumPostcode @update:address="addressStore.setAddress" />
 <!--------------------------7줄-------------------------------------------------------->
             <v-row>
               <v-col cols="5">
@@ -305,13 +268,13 @@ import { nameRules, businessRegistrationNumberRules } from "~/rules";
                     <v-label class="mt-2">사업장 <br/> 세무서</v-label>
                   </v-col>
                   <v-col cols="5" class="pl-5">
-                    <TaxOfficeInfo v-model="currentCompany.taxOffice"/>
+                    <TaxOfficeInfo v-model="currentCompany.taxOffice" />
                   </v-col>
                   <v-col cols="1">
                     <v-label class="mt-2">지방세 <br/> 법정동</v-label>
                   </v-col>
                   <v-col cols="5">
-                    <LocalTaxInfo v-model="currentCompany.localTax"/>
+                    <LocalTaxInfo v-model="currentCompany.localTax" />
                   </v-col>
                 </v-row>
               </v-col>

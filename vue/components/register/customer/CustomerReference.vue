@@ -1,38 +1,4 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { useCompanyStore } from '~/stores/accounting/company.ts';
-const store = useCompanyStore();
-
-// icons
-import {SearchOutlined, PlusOutlined, EyeOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons-vue';
-import UiParentCard from "~/components/shared/UiParentCard.vue";
-
-onMounted(() => { store.fetchCompanies(); });
-const company = computed(() => store.companies );
-
-const searchField = ref(['name', 'id']);
-const searchValue = ref('');
-const headers = ref([
-  { text: '회사 코드', value: 'id', sortable: true },
-  { text: '회사명', value: 'name', sortable: true },
-  { text: '사업자 등록번호', value: 'businessRegistrationNumber', sortable: true },
-  { text: '삭제', value: 'operation' }
-]);
-const themeColor = ref('rgb(var(--v-theme-primary))');
-
-const getCompany = (item) => {
-  store.getCompany(item.id)
-  menu.value = false;
-};
-
-const deleteCompany = (item) => {
-    if (confirm("정말로 삭제하시겠습니까?")) {
-      store.deleteCompany(item.id)
-    }
-};
-
-const dialog = ref(false);
-const menu = ref(false);
 
 </script>
 

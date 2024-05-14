@@ -1,11 +1,11 @@
-package lkm.starterproject.accounting.service;
+package lkm.starterproject.accounting.service.company;
 
 import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
 import lkm.starterproject.accounting.entity.company.Company;
-import lkm.starterproject.accounting.mapper.CompanyMapper;
-import lkm.starterproject.accounting.repository.CompanyRepository;
+import lkm.starterproject.accounting.mapper.company.CompanyMapper;
+import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

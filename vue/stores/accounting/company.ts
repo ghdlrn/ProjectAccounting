@@ -1,52 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-
-interface TaxOffice {
-    id: number;
-    name: string;
-    jurisdiction: string;
-}
-
-interface LocalTax {
-    id: number;
-    name: string;
-}
-
-interface Company {
-    id: number;
-    licenseType: string;
-    headOfficeStatus: string;
-    paymentHeadOfficeStatus: string;
-    name: string;
-    businessRegistrationNumber: string;
-    nameOfRepresentative: string;
-    corporationRegistrationNumber: string;
-    postcode: string;   //우편번호
-    roadAddress: string; //도로명주소
-    jibunAddress: string;    //지번주소
-    extraAddress: string;    //상세주소
-    guideText: string;   //참고사항
-    businessType: string;
-    businessItem: string;
-    fiscalYearClass: number;
-    fiscalYearStart: Date;
-    fiscalYearEnd: Date;
-    privatePracticeDate: Date;
-    taxOffice: TaxOffice;
-    localTax: LocalTax;
-    finance: string;
-    corporationClassifyStatus: string;
-    companyTypeStatus: string;
-    businessScaleStatus: string;
-    companyStatus: string;
-    localTaxBillDivision: string;
-    residentRegistrationNumber: string;
-    phone: string;
-    fax: string;
-    chargeName: string;
-    chargeEmail: string;
-    note: string;
-}
+import type {Company} from "~/types/accounting/company";
 
 export const useCompanyStore = defineStore('company', {
     state: () => ({

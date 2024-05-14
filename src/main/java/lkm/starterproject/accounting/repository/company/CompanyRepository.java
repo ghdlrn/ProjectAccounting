@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.repository;
+package lkm.starterproject.accounting.repository.company;
 
 import lkm.starterproject.accounting.entity.company.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
