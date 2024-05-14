@@ -1,4 +1,5 @@
 <template>
+  <v-form @submit.prevent="openPostcodePopup">
   <v-row>
     <v-col cols="12" sm="5">
       <v-row>
@@ -7,8 +8,7 @@
         </v-col>
         <v-col cols="12" lg="5" md="9">
           <v-text-field
-              v-model="localPostcode"
-              @change="emitUpdate"
+              v-model="address.postcode"
               readonly
               hint="오른쪽 버튼으로 조회"
               persistent-hint
@@ -19,7 +19,7 @@
           </v-text-field>
         </v-col>
         <v-col cols="12" lg="4" md="9">
-          <v-btn size="large" flat color="primary mt-1" class="address" @click="openPostcodePopup">우편번호 조회</v-btn>
+          <v-btn size="large" flat color="primary mt-1" class="address" type="submit">우편번호 조회</v-btn>
         </v-col>
       </v-row>
     </v-col>
@@ -35,8 +35,7 @@
         </v-col>
         <v-col cols="12" lg="9" md="9" class="ml-1">
           <v-text-field
-              v-model="localRoadAddress"
-              @change="emitUpdate"
+              v-model="address.roadAddress"
               readonly
               hint="도로명 주소(읽기 전용입니다)"
               persistent-hint
@@ -52,8 +51,7 @@
       <v-row>
         <v-col cols="12" lg="12" md="9">
           <v-text-field
-              v-model="localJibunAddress"
-              @change="emitUpdate"
+              v-model="address.jibunAddress"
               readonly
               hint="지번 주소(읽기 전용입니다)"
               persistent-hint
@@ -75,8 +73,7 @@
         </v-col>
         <v-col cols="12" lg="9" md="9">
           <v-text-field
-              v-model="localExtraAddress"
-              @change="emitUpdate"
+              v-model="address.extraAddress"
               hint="상세 주소를 추가해 주세요"
               persistent-hint
               variant="outlined"
@@ -91,8 +88,7 @@
       <v-row>
         <v-col cols="12" lg="12" md="9">
           <v-text-field
-              v-model="localGuideText"
-              @change="emitUpdate"
+              v-model="address.guideText"
               hint="참고 항목(읽기 전용입니다)"
               persistent-hint
               variant="outlined"
@@ -105,14 +101,14 @@
       </v-row>
     </v-col>
   </v-row>
+  </v-form>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import { onMounted, ref, watch } from 'vue';
+
 import { useAddressStore } from "~/stores/accounting/basicdata/address";
 const store = useAddressStore();
-
-import { onMounted, ref, watch } from 'vue';
-import type { Address, AddressData } from '~/types/accounting/basicdata/address.ts';
 
 const loadScript = () => {
   return new Promise((resolve, reject) => {
@@ -132,21 +128,17 @@ const openPostcodePopup = () => {
   var width = 500; //팝업의 너비
   var height = 600; //팝업의 높이
   new daum.Postcode({
-    oncomplete: function(data: AddressData) {
-      const newAddress: Address = {
+    oncomplete: function(data) {
+      const newAddress = {
         postcode: data.zonecode,
         roadAddress: data.roadAddress,
         jibunAddress: data.jibunAddress,
         extraAddress: store.getExtraAddress(data),
         guideText: store.getGuideText(data, store.getExtraAddress(data))
       };
+      address.value = newAddress;
       store.updateAddress(newAddress);
-      localPostcode.value = newAddress.postcode;
-      localRoadAddress.value = newAddress.roadAddress;
-      localJibunAddress.value = newAddress.jibunAddress;
-      localExtraAddress.value = newAddress.extraAddress;
-      localGuideText.value = newAddress.guideText;
-      emitUpdate();
+      emit('update:modelValue', newAddress);
     },
     theme: {
       searchBgColor: "#0091EA", //검색창 배경색
@@ -161,40 +153,20 @@ const openPostcodePopup = () => {
 };
 
 const props = defineProps({
-  initialPostcode: String,
-  initialRoadAddress: String,
-  initialJibunAddress: String,
-  initialExtraAddress: String,
-  initialGuideText: String
+  modelValue: {
+    type: Object,
+    required: true,
+    default: () => null
+  },
 });
 
-const emit = defineEmits(['updateAddress']);
+const address = ref({ ...props.modelValue });
 
-const localPostcode = ref(props.initialPostcode);
-const localRoadAddress = ref(props.initialRoadAddress);
-const localJibunAddress = ref(props.initialJibunAddress);
-const localExtraAddress = ref(props.initialExtraAddress);
-const localGuideText = ref(props.initialGuideText);
+const emit = defineEmits(['update:modelValue']);
 
-function emitUpdate() {
-  emit('updateAddress', {
-    postcode: localPostcode.value,
-    roadAddress: localRoadAddress.value,
-    jibunAddress: localJibunAddress.value,
-    extraAddress: localExtraAddress.value,
-    guideText: localGuideText.value,
-  });
-}
-
-watch(props, (newProps) => {
-  localPostcode.value = newProps.initialPostcode;
-  localRoadAddress.value = newProps.initialRoadAddress;
-  localJibunAddress.value = newProps.initialJibunAddress;
-  localExtraAddress.value = newProps.initialExtraAddress;
-  localGuideText.value = newProps.initialGuideText;
-}, { deep: true });
-
-
+watch(() => props.modelValue, (newValue) => {
+  store.updateAddress(newValue)
+}, { immediate: true });
 </script>
 
 <style scoped lang="scss">

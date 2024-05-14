@@ -5,7 +5,7 @@ import type {Address, AddressData} from "~/types/accounting/basicdata/address";
 
 export const useAddressStore = defineStore('address', {
     state: () => ({
-        address: {} as Address,
+        address: {} as Address | null,
     }),
     actions: {
         setAddress(data: AddressData) {

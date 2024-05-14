@@ -27,7 +27,7 @@ const emit = defineEmits(['closeDialog']);
 const saveOrUpdateCompany = async () => {
   const companyData = {
     ...currentCompany.value,
-    ...addressStore.$state,
+    address: addressStore.address,
     taxOffice: taxOfficeStore.selectedTaxOffice,
     localTax: localTaxStore.selectedLocalTax,
   };
@@ -199,7 +199,7 @@ import {businessRegistrationNumberRules, nameRules} from "~/utils/form.ts";
               </v-col>
             </v-row>
 <!--------------------------4줄-------------------------------------------------------->
-            <DaumPostcode @update:address="addressStore.setAddress" />
+            <DaumPostcode v-model="currentCompany.address" />
 <!--------------------------7줄-------------------------------------------------------->
             <v-row>
               <v-col cols="5">

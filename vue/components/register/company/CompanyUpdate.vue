@@ -14,11 +14,6 @@ import { useCompanyStore } from "~/stores/accounting/company.ts"
 const companyStore = useCompanyStore();
 const currentCompany = ref({});
 
-
-function updateAddressData(updatedData) {
-  currentCompany.value = { ...currentCompany.value, ...updatedData };
-}
-
 onMounted(async () => {
   await companyStore.fetchCompanies();  // 초기 데이터 로드
   if (companyStore.currentCompany) {
@@ -190,12 +185,7 @@ import {businessRegistrationNumberRules, nameRules} from "~/utils/form.ts"
               </v-col>
             </v-row>
 <!--------------------------4줄-------------------------------------------------------->
-            <DaumPostcode :initialPostcode="currentCompany.postcode"
-                          :initialRoadAddress="currentCompany.roadAddress"
-                          :initialJibunAddress="currentCompany.jibunAddress"
-                          :initialExtraAddress="currentCompany.extraAddress"
-                          :initialGuideText="currentCompany.guideText"
-                          @updateAddress="updateAddressData" />
+            <DaumPostcode v-model="currentCompany.address" />
 <!--------------------------7줄-------------------------------------------------------->
             <v-row>
               <v-col cols="5">
