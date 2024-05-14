@@ -2,6 +2,7 @@ package lkm.starterproject.accounting.dto.company;
 
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
+import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.register.Customer;
 import lkm.starterproject.auth.dto.MemberCompanyDto;
 import lombok.Getter;
@@ -22,11 +23,7 @@ public class CompanyDto {
     private String businessRegistrationNumber;  // 사업자등록번호
     private String nameOfRepresentative;  // 대표자명
     private String corporationRegistrationNumber;  // 법인등록번호
-    private String postcode;   //우편번호
-    private String roadAddress; //도로명주소
-    private String jibunAddress;    //지번주소
-    private String extraAddress;    //상세주소
-    private String guideText;   //참고사항
+    private Address address;    //주소
     private String businessType;  // 업태
     private String businessItem;  // 업종
     private Long fiscalYearClass;  // 회계연도기수
