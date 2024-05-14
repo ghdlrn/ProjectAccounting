@@ -18,6 +18,6 @@ public interface MemberMapper {
     @Mapping(target = "password", source = "dto.password")
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "memberImg", ignore = true)
-    @Mapping(target = "memberCompanies", source = "dto.memberCompanies")
+    @Mapping(target = "memberCompanies", ignore = true)
     Member toEntity(MemberDto dto);
 }
