@@ -36,8 +36,5 @@ public class Member extends BaseEntity {     //회원
     @OneToMany(mappedBy = "member")
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "member_img_id")
-    private MemberImg memberImg;
 
 }

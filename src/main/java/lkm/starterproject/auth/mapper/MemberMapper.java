@@ -1,23 +1,22 @@
 package lkm.starterproject.auth.mapper;
 
+import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import lkm.starterproject.auth.dto.MemberDto;
 import lkm.starterproject.auth.entity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {
-        MemberCompanyMapper.class
-})
+@Mapper(componentModel = "spring")
 public interface MemberMapper {
 
-    MemberDto toDto(Member entity);
+    MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "username", source = "dto.username")
-    @Mapping(target = "email", source = "dto.email")
-    @Mapping(target = "password", source = "dto.password")
+    @Mapping(target = "email", ignore = true)
     @Mapping(target = "role", ignore = true)
-    @Mapping(target = "memberImg", ignore = true)
     @Mapping(target = "memberCompanies", ignore = true)
     Member toEntity(MemberDto dto);
+
+    MemberDto toDto(Member entity);
 }
