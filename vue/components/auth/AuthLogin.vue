@@ -10,7 +10,7 @@ const checkbox = ref(false);
 const show1 = ref(false);
 const email = ref('');
 const password = ref('');
-import { emailRules, passwordRules } from "~/rules";
+import { emailRules, passwordRules } from "../../utils/form";
 
 const login = async (event: any) => {
   event.preventDefault();  // Prevent default form submission

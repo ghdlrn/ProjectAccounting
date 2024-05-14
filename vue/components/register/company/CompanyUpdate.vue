@@ -10,6 +10,7 @@ import TaxOfficeInfo from "~/components/basicData/TaxOfficeInfo.vue"
 import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
 import { useCompanyStore } from "~/stores/accounting/company.ts"
+
 const companyStore = useCompanyStore();
 const currentCompany = ref({});
 
@@ -32,7 +33,7 @@ const saveOrUpdateCompany = async () => {
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import { nameRules, businessRegistrationNumberRules } from "~/rules/index.js";
+import {businessRegistrationNumberRules, nameRules} from "~/utils/form.ts"
 </script>
 
 <template>

@@ -6,6 +6,8 @@ const store = useCompanyStore();
 // icons
 import {SearchOutlined, PlusOutlined, DeleteOutlined} from '@ant-design/icons-vue';
 import UiParentCard from "~/components/shared/UiParentCard.vue";
+import CompanyRegister from "~/components/register/company/CompanyRegister.vue";
+import CompanyUpdate from "~/components/register/company/CompanyUpdate.vue";
 
 onMounted(() => { store.fetchCompanies(); });
 const company = computed(() => store.companies );

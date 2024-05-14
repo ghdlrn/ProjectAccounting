@@ -58,8 +58,6 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath jibunAddress = createString("jibunAddress");
 
-    public final StringPath liquorRetailStatus = createString("liquorRetailStatus");
-
     public final lkm.starterproject.accounting.entity.basic.QLocalTax localTax;
 
     public final StringPath name = createString("name");

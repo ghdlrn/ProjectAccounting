@@ -9,7 +9,7 @@ const show1 = ref(false);
 const username = ref('');
 const password = ref('');
 const email = ref('');
-import { emailRules, passwordRules, nameRules } from "~/rules";
+import { emailRules, passwordRules, nameRules } from "../../utils/form";
 
 const SignUp = async () => {
   if (!checkbox.value) {

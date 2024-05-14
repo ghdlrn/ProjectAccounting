@@ -14,6 +14,7 @@ import { useAddressStore } from '~/stores/address.js';
 import { useTaxOfficeStore } from "~/stores/accounting/basicdata/taxOffice.ts";
 import { useLocalTaxStore } from "~/stores/accounting/basicdata/localTax.ts";
 import { storeToRefs }  from "pinia";
+
 const companyStore = useCompanyStore();
 const addressStore = useAddressStore();
 const taxOfficeStore = useTaxOfficeStore();
@@ -42,7 +43,7 @@ const saveOrUpdateCompany = async () => {
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import { nameRules, businessRegistrationNumberRules } from "~/rules/index.js";
+import {businessRegistrationNumberRules, nameRules} from "~/utils/form.ts";
 </script>
 
 <template>
