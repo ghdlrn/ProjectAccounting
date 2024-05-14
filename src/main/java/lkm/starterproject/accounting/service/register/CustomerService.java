@@ -38,7 +38,7 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public List<CustomerDto> getAllCompanies() {
+    public List<CustomerDto> getAllCustomers() {
         return customerRepository.findAll().stream()
                 .map(customerMapper::toDto)
                 .collect(Collectors.toList());
