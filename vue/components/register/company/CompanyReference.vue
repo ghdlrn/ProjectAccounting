@@ -22,9 +22,13 @@ const headers = ref([
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
+const selectedCompany = ref(null);
+
 const getCompany = (item) => {
-  store.getCompany(item.id)
-  menu.value = false;
+  store.getCompany(item.id).then(companyData => {
+    selectedCompany.value = companyData;
+    menu.value = true;
+  });
 };
 
 const deleteCompany = (item) => {
@@ -101,13 +105,13 @@ const menu = ref(false);
                 <template #item-operation="item">
                   <div class="operation-wrapper">
                     <v-btn icon color="error" variant="text" @click.stop="deleteCompany(item)" rounded>
-                      <DeleteOutlined />
+                      <DeleteOutlined  />
                     </v-btn>
                   </div>
                 </template>
               </EasyDataTable>
             </template>
-            <CompanyUpdate />
+              <CompanyUpdate :company="selectedCompany" @closeDialog="menu = false"/>
           </v-menu>
         </v-card-text>
       </v-card>
@@ -126,5 +130,10 @@ const menu = ref(false);
   height: 80%;
   min-width: 1000px;
   min-height: 1300px;
+}
+.company-form {
+  width: 100%;
+  height: 80%;
+  min-height: 800px;
 }
 </style>

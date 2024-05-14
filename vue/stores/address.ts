@@ -1,30 +1,29 @@
 // stores/address.js
 import { defineStore } from 'pinia';
+import type {Address, AddressData} from "~/types/accounting/basicdata/address";
+
 
 export const useAddressStore = defineStore('address', {
     state: () => ({
-        postcode: '',
-        roadAddress: '',
-        jibunAddress: '',
-        extraAddress: '',
-        guideText: ''
+        address: [] as Address[],
     }),
     actions: {
-        setAddress(data) {
-            this.postcode = data.zonecode;
-            this.roadAddress = data.roadAddress;
-            this.jibunAddress = data.jibunAddress;
-            this.extraAddress = this.getExtraAddress(data);
-            this.guideText = this.getGuideText(data, this.extraAddress);
+        setAddress(data: AddressData) {
+            const newAddress: Address = {
+            postcode: data.zonecode,
+            roadAddress: data.roadAddress,
+            jibunAddress: data.jibunAddress,
+            extraAddress: this.getExtraAddress(data),
+            guideText: this.getGuideText(data, this.getExtraAddress(data))
+            };
+            this.address.push(newAddress);
         },
-        updateAddress(data) {
-            this.postcode = data.postcode;
-            this.roadAddress = data.roadAddress;
-            this.jibunAddress = data.jibunAddress;
-            this.extraAddress = data.extraAddress;
-            this.guideText = data.guideText;
+        updateAddress(index: number, data: Address) {
+            if (index >= 0 && index < this.address.length) {
+                this.address[index] = { ...data };
+            }
         },
-        getExtraAddress(data) {
+        getExtraAddress(data: AddressData) {
             let extraAddr = '';
             if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
                 extraAddr += data.bname;
@@ -34,7 +33,7 @@ export const useAddressStore = defineStore('address', {
             }
             return extraAddr !== '' ? `(${extraAddr})` : '';
         },
-        getGuideText(data, extraAddr) {
+        getGuideText(data: AddressData, extraAddr: string) {
             if (data.autoRoadAddress) {
                 return `(예상 도로명 주소 : ${data.autoRoadAddress + extraAddr})`;
             } else if (data.autoJibunAddress) {

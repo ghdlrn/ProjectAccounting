@@ -107,11 +107,12 @@
   </v-row>
 </template>
 
-<script setup>
-import { useAddressStore } from "~/stores/address.js";
+<script setup lang="ts">
+import { useAddressStore } from "~/stores/address";
 const store = useAddressStore();
 
 import { onMounted, ref, watch } from 'vue';
+import type { Address, AddressData } from '~/types/accounting/basicdata/address.ts';
 
 const loadScript = () => {
   return new Promise((resolve, reject) => {
@@ -131,13 +132,20 @@ const openPostcodePopup = () => {
   var width = 500; //팝업의 너비
   var height = 600; //팝업의 높이
   new daum.Postcode({
-    oncomplete: function(data) {
-      store.setAddress(data);
-      localPostcode.value = data.zonecode;
-      localRoadAddress.value = data.roadAddress;
-      localJibunAddress.value = data.jibunAddress;
-      localExtraAddress.value = store.getExtraAddress(data);
-      localGuideText.value = store.getGuideText(data, localExtraAddress.value);
+    oncomplete: function(data: AddressData) {
+      const newAddress: Address = {
+        postcode: data.zonecode,
+        roadAddress: data.roadAddress,
+        jibunAddress: data.jibunAddress,
+        extraAddress: store.getExtraAddress(data),
+        guideText: store.getGuideText(data, store.getExtraAddress(data))
+      };
+      store.setAddress(newAddress);
+      localPostcode.value = newAddress.postcode;
+      localRoadAddress.value = newAddress.roadAddress;
+      localJibunAddress.value = newAddress.jibunAddress;
+      localExtraAddress.value = newAddress.extraAddress;
+      localGuideText.value = newAddress.guideText;
       emitUpdate();
     },
     theme: {
@@ -186,10 +194,7 @@ watch(props, (newProps) => {
   localGuideText.value = newProps.initialGuideText;
 }, { deep: true });
 
-function updateLocalAddress(data) {
-  store.setAddress(data);
-  emit('updateAddress', data);
-}
+
 </script>
 
 <style scoped lang="scss">

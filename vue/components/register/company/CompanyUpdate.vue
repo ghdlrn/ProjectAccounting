@@ -14,6 +14,7 @@ import { useCompanyStore } from "~/stores/accounting/company.ts"
 const companyStore = useCompanyStore();
 const currentCompany = ref({});
 
+
 function updateAddressData(updatedData) {
   currentCompany.value = { ...currentCompany.value, ...updatedData };
 }
