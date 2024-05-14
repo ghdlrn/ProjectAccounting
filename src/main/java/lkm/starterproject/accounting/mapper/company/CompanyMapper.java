@@ -23,11 +23,13 @@ public interface CompanyMapper {
 
     @Mapping(target = "taxOffice", source = "entity.taxOffice")
     @Mapping(target = "localTax", source = "entity.localTax")
+    @Mapping(target = "address", source = "entity.address")
     CompanyDto toDto(Company entity);
 
 
     @Mapping(target = "taxOffice", source = "dto.taxOffice")
     @Mapping(target = "localTax", source = "dto.localTax")
+    @Mapping(target = "address", source = "dto.address")
     Company toEntity(CompanyDto dto);
 
     @Mapping(target = "regTime", ignore = true)

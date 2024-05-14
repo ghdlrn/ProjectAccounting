@@ -41,7 +41,7 @@ public class Company extends BaseEntity {  //회사
     @Column(length = 14)
     private String corporationRegistrationNumber;       //법인등록번호
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 

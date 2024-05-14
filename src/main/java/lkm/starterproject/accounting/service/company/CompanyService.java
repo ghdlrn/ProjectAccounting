@@ -34,9 +34,7 @@ public class CompanyService {
     @Transactional
     public CompanyDto createCompany(CompanyDto companyDto) {
         Company company = companyMapper.toEntity(companyDto);
-        company.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
-        company.setTaxOffice(findTaxOffice(companyDto.getTaxOffice().getId()));
-
+        assignLocalTaxAndTaxOffice(company, companyDto);
         company = companyRepository.save(company);
         return companyMapper.toDto(company);
     }
@@ -59,11 +57,8 @@ public class CompanyService {
     public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
-
-        company.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
-        company.setTaxOffice(findTaxOffice(companyDto.getTaxOffice().getId()));
         companyMapper.updateEntityFromDto(companyDto, company);
-
+        assignLocalTaxAndTaxOffice(company, companyDto);
         company = companyRepository.save(company);
         return companyMapper.toDto(company);
     }
@@ -73,6 +68,20 @@ public class CompanyService {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
         companyRepository.delete(company);
+    }
+
+    private void assignLocalTaxAndTaxOffice(Company company, CompanyDto companyDto) {
+        if (companyDto.getLocalTax() != null && companyDto.getLocalTax().getId() != null) {
+            company.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
+        } else {
+            company.setLocalTax(null);
+        }
+
+        if (companyDto.getTaxOffice() != null && companyDto.getTaxOffice().getId() != null) {
+            company.setTaxOffice(findTaxOffice(companyDto.getTaxOffice().getId()));
+        } else {
+            company.setTaxOffice(null);
+        }
     }
 
     private LocalTax findLocalTax(Long id) {

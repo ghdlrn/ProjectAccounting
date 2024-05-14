@@ -108,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAddressStore } from "~/stores/address";
+import { useAddressStore } from "~/stores/accounting/basicdata/address";
 const store = useAddressStore();
 
 import { onMounted, ref, watch } from 'vue';
@@ -140,7 +140,7 @@ const openPostcodePopup = () => {
         extraAddress: store.getExtraAddress(data),
         guideText: store.getGuideText(data, store.getExtraAddress(data))
       };
-      store.setAddress(newAddress);
+      store.updateAddress(newAddress);
       localPostcode.value = newAddress.postcode;
       localRoadAddress.value = newAddress.roadAddress;
       localJibunAddress.value = newAddress.jibunAddress;

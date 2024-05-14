@@ -5,7 +5,7 @@ import type {Address, AddressData} from "~/types/accounting/basicdata/address";
 
 export const useAddressStore = defineStore('address', {
     state: () => ({
-        address: [] as Address[],
+        address: {} as Address,
     }),
     actions: {
         setAddress(data: AddressData) {
@@ -16,12 +16,10 @@ export const useAddressStore = defineStore('address', {
             extraAddress: this.getExtraAddress(data),
             guideText: this.getGuideText(data, this.getExtraAddress(data))
             };
-            this.address.push(newAddress);
+            this.address = newAddress;
         },
-        updateAddress(index: number, data: Address) {
-            if (index >= 0 && index < this.address.length) {
-                this.address[index] = { ...data };
-            }
+        updateAddress(data: Address) {
+            this.address = data;
         },
         getExtraAddress(data: AddressData) {
             let extraAddr = '';
