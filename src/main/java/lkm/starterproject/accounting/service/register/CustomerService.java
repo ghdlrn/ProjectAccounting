@@ -6,7 +6,6 @@ import lkm.starterproject.accounting.entity.register.Customer;
 import lkm.starterproject.accounting.mapper.register.CustomerMapper;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.register.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,8 @@ public class CustomerService {
     private final LocalTaxRepository localTaxRepository;
     private final CustomerMapper customerMapper;
 
-    public CustomerService(CustomerRepository customerRepository, LocalTaxRepository localTaxRepository, CustomerMapper customerMapper) {
+    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper,
+                           LocalTaxRepository localTaxRepository) {
         this.customerRepository = customerRepository;
         this.localTaxRepository = localTaxRepository;
         this.customerMapper = customerMapper;
@@ -29,14 +29,8 @@ public class CustomerService {
 
     @Transactional
     public CustomerDto createCustomer(CustomerDto companyDto) {
-        LocalTax localTax = null;
-        if (companyDto.getLocalTax() != null && companyDto.getLocalTax().getId() != null) {
-            localTax = localTaxRepository.findById(companyDto.getLocalTax().getId())
-                    .orElse(null);
-        }
-
         Customer customer = customerMapper.toEntity(companyDto);
-        customer.setLocalTax(localTax);
+        customer.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
 
         customer = customerRepository.save(customer);
         return customerMapper.toDto(customer);
@@ -60,13 +54,8 @@ public class CustomerService {
     public CustomerDto updateCustomer(Long id, CustomerDto companyDto) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer 정보를 찾을 수 없음"));
-        LocalTax localTax = null;
-        if (companyDto.getLocalTax() != null && companyDto.getLocalTax().getId() != null) {
-            localTax = localTaxRepository.findById(companyDto.getLocalTax().getId())
-                    .orElse(null);
-        }
 
-        customer.setLocalTax(localTax);
+        customer.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
         customerMapper.updateEntityFromDto(companyDto, customer);
 
         customer = customerRepository.save(customer);
@@ -78,5 +67,9 @@ public class CustomerService {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer 정보를 찾을 수 없음"));
         customerRepository.delete(customer);
+    }
+
+    private LocalTax findLocalTax(Long id) {
+        return id == null ? null : localTaxRepository.findById(id).orElse(null);
     }
 }

@@ -107,5 +107,5 @@ public class Company extends BaseEntity {  //회사
 
     @Builder.Default
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Customer> customers = new ArrayList<>();;        //사업장 세무서
+    private List<Customer> customers = new ArrayList<>();        //사업장 세무서
 }

@@ -1,5 +1,6 @@
 package lkm.starterproject.accounting.service.company;
 
+import jakarta.persistence.EntityNotFoundException;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
@@ -8,12 +9,10 @@ import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,8 +23,8 @@ public class CompanyService {
     private final LocalTaxRepository localTaxRepository;
     private final CompanyMapper companyMapper;
 
-    public CompanyService(CompanyRepository companyRepository, TaxOfficeRepository taxOfficeRepository,
-                          LocalTaxRepository localTaxRepository, CompanyMapper companyMapper) {
+    public CompanyService(CompanyRepository companyRepository, CompanyMapper companyMapper,
+                          TaxOfficeRepository taxOfficeRepository, LocalTaxRepository localTaxRepository) {
         this.companyRepository = companyRepository;
         this.taxOfficeRepository = taxOfficeRepository;
         this.localTaxRepository = localTaxRepository;
@@ -34,21 +33,9 @@ public class CompanyService {
 
     @Transactional
     public CompanyDto createCompany(CompanyDto companyDto) {
-        LocalTax localTax = null;
-        if (companyDto.getLocalTax() != null && companyDto.getLocalTax().getId() != null) {
-            localTax = localTaxRepository.findById(companyDto.getLocalTax().getId())
-                    .orElse(null);
-        }
-
-        TaxOffice taxOffice = null;
-        if (companyDto.getTaxOffice() != null && companyDto.getTaxOffice().getId() != null) {
-            taxOffice = taxOfficeRepository.findById(companyDto.getTaxOffice().getId())
-                    .orElse(null);
-        }
-
         Company company = companyMapper.toEntity(companyDto);
-        company.setLocalTax(localTax);
-        company.setTaxOffice(taxOffice);
+        company.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
+        company.setTaxOffice(findTaxOffice(companyDto.getTaxOffice().getId()));
 
         company = companyRepository.save(company);
         return companyMapper.toDto(company);
@@ -63,29 +50,18 @@ public class CompanyService {
 
     @Transactional(readOnly = true)
     public CompanyDto getCompany(Long id) {
-        Optional<Company> company = companyRepository.findById(id);
-        return company.map(companyMapper::toDto)
-                .orElseThrow(() -> new RuntimeException("Company 정보를 찾을 수 없음"));
+        return companyRepository.findById(id)
+                .map(companyMapper::toDto)
+                .orElseThrow(() -> new EntityNotFoundException("Company not found"));
     }
 
     @Transactional
     public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
         Company company = companyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Company 정보를 찾을 수 없음"));
-        LocalTax localTax = null;
-        if (companyDto.getLocalTax() != null && companyDto.getLocalTax().getId() != null) {
-            localTax = localTaxRepository.findById(companyDto.getLocalTax().getId())
-                    .orElse(null);
-        }
+                .orElseThrow(() -> new EntityNotFoundException("Company not found"));
 
-        TaxOffice taxOffice = null;
-        if (companyDto.getTaxOffice() != null && companyDto.getTaxOffice().getId() != null) {
-            taxOffice = taxOfficeRepository.findById(companyDto.getTaxOffice().getId())
-                    .orElse(null);
-        }
-
-        company.setLocalTax(localTax);
-        company.setTaxOffice(taxOffice);
+        company.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
+        company.setTaxOffice(findTaxOffice(companyDto.getTaxOffice().getId()));
         companyMapper.updateEntityFromDto(companyDto, company);
 
         company = companyRepository.save(company);
@@ -95,7 +71,15 @@ public class CompanyService {
     @Transactional
     public void deleteCompany(Long id) {
         Company company = companyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Company 정보를 찾을 수 없음"));
+                .orElseThrow(() -> new EntityNotFoundException("Company not found"));
         companyRepository.delete(company);
+    }
+
+    private LocalTax findLocalTax(Long id) {
+        return id == null ? null : localTaxRepository.findById(id).orElse(null);
+    }
+
+    private TaxOffice findTaxOffice(Long id) {
+        return id == null ? null : taxOfficeRepository.findById(id).orElse(null);
     }
 }
