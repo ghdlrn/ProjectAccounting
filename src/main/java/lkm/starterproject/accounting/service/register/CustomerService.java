@@ -1,5 +1,6 @@
 package lkm.starterproject.accounting.service.register;
 
+import jakarta.persistence.EntityNotFoundException;
 import lkm.starterproject.accounting.dto.register.CustomerDto;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.register.Customer;
@@ -47,13 +48,13 @@ public class CustomerService {
     public CustomerDto getCustomer(Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         return customer.map(customerMapper::toDto)
-                .orElseThrow(() -> new RuntimeException("Customer 정보를 찾을 수 없음"));
+                .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
     }
 
     @Transactional
     public CustomerDto updateCustomer(Long id, CustomerDto companyDto) {
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer 정보를 찾을 수 없음"));
+                .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
 
         customer.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
         customerMapper.updateEntityFromDto(companyDto, customer);
@@ -65,7 +66,7 @@ public class CustomerService {
     @Transactional
     public void deleteCustomer(Long id) {
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer 정보를 찾을 수 없음"));
+                .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
         customerRepository.delete(customer);
     }
 

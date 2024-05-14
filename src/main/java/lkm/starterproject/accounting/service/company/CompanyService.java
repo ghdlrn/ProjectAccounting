@@ -52,13 +52,13 @@ public class CompanyService {
     public CompanyDto getCompany(Long id) {
         return companyRepository.findById(id)
                 .map(companyMapper::toDto)
-                .orElseThrow(() -> new EntityNotFoundException("Company not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
     }
 
     @Transactional
     public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
         Company company = companyRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Company not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
 
         company.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
         company.setTaxOffice(findTaxOffice(companyDto.getTaxOffice().getId()));
@@ -71,7 +71,7 @@ public class CompanyService {
     @Transactional
     public void deleteCompany(Long id) {
         Company company = companyRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Company not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
         companyRepository.delete(company);
     }
 
