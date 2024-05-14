@@ -1,5 +1,6 @@
 <script setup>
 
+import UiParentCard from "~/components/shared/UiParentCard.vue";
 </script>
 
 <template>

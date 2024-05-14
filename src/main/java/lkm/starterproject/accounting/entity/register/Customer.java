@@ -93,8 +93,6 @@ public class Customer {      //거래처
 
     private Long amountOfCollateral; //담보설정액
 
-    private String liquorRetailStatus;  //주류코드(소매)
-
     @ManyToOne
     @JoinColumn(name = "local_tax_id")
     private LocalTax localTax;          //지방세 법정동

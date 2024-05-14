@@ -43,7 +43,6 @@ public class CustomerDto {
     private String customerAccountHolder;   //거래처 예금주
     private Long bankLine;   //여신한도액
     private Long amountOfCollateral; //담보설정액
-    private String liquorRetailStatus;  //주류코드(소매)
     private LocalTax localTax;          //지방세 법정동
 
 }
