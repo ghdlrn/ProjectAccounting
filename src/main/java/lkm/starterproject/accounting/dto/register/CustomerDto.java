@@ -26,8 +26,7 @@ public class CustomerDto {
     private Address address;
     private String phone;   //전화번호
     private String fax;     //팩스번호
-    private Long unitReportingCustomerCode;  //단위신고거래처
-    private Long taxRegistrationCode;    //종사업장번호
+    private String unitReportingCustomerCode;  //단위신고거래처
     private LocalDate tradeStartDate;   //거래시작일
     private LocalDate tradeEndDate;     //거래종료일
     private String note;    //비고

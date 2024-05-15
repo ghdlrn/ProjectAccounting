@@ -16,7 +16,6 @@ export interface Customer {
     phone: string;
     fax: string;
     unitReportingCustomerCode: string;
-    taxRegistrationCode: string;
     tradeStartDate: Date;
     tradeEndDate: Date;
     note: string;

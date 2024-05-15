@@ -53,9 +53,7 @@ public class Customer {      //거래처
     @Column(length = 13)
     private String fax;     //팩스번호
 
-    private Long unitReportingCustomerCode;  //단위신고거래처
-
-    private Long taxRegistrationCode;    //종사업장번호
+    private String unitReportingCustomerCode;  //단위신고거래처
 
     private LocalDate tradeStartDate;   //거래시작일
 
