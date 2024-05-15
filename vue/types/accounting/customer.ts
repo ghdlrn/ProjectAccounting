@@ -1,5 +1,6 @@
 import type {Company} from "~/types/accounting/company";
 import type {LocalTax} from "~/types/accounting/basicdata/localTax";
+import type {Address} from "~/types/accounting/basicdata/address";
 
 export interface Customer {
     id: number;     //거래처 코드번호
@@ -11,11 +12,7 @@ export interface Customer {
     useStatus: string;
     businessType: string;
     businessItem: string;
-    postcode: string;
-    roadAddress: string;
-    jibunAddress: string;
-    extraAddress: string;
-    guideText: string;
+    address: Address;
     phone: string;
     fax: string;
     unitReportingCustomerCode: string;

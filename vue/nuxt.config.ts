@@ -30,4 +30,9 @@ export default defineNuxtConfig({
   app: {    //페이지전환애니메이션 설정
     pageTransition: { name: 'page', mode: 'out-in' }
   },
+  runtimeConfig: {
+    public: {
+      baseUrl: process.env.BASE_URL || 'http://localhost:8080',
+    },
+  },
 });

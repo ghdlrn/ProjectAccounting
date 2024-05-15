@@ -60,7 +60,7 @@ export const useCompanyStore = defineStore('company', {
                 const response = await axios.delete(`http://localhost:8080/register/company/${id}`);
                 if (response.status === 200) {
                     await this.fetchCompanies();
-                    alert('회사 정보 삭제에 성공했습니다');
+                    alert('회사 정보가 삭제되었습니다');
                 } else {
                     alert('회사 정보 삭제에 실패했습니다');
                     console.error('회사 정보 삭제 실패:', response.status);
@@ -72,6 +72,5 @@ export const useCompanyStore = defineStore('company', {
                 throw new Error('회사 정보 삭제 실패');
             }
         }
-
     }
 });
