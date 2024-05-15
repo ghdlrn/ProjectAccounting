@@ -68,13 +68,11 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath registrationNumberType = createString("registrationNumberType");
 
-    public final NumberPath<Long> taxRegistrationCode = createNumber("taxRegistrationCode", Long.class);
-
     public final DatePath<java.time.LocalDate> tradeEndDate = createDate("tradeEndDate", java.time.LocalDate.class);
 
     public final DatePath<java.time.LocalDate> tradeStartDate = createDate("tradeStartDate", java.time.LocalDate.class);
 
-    public final NumberPath<Long> unitReportingCustomerCode = createNumber("unitReportingCustomerCode", Long.class);
+    public final StringPath unitReportingCustomerCode = createString("unitReportingCustomerCode");
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 

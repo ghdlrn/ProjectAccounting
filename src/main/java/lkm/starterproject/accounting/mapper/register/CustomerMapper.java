@@ -14,10 +14,12 @@ public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
+    @Mapping(source = "unitReportingCustomerCode", target = "unitReportingCustomerCode")
     @Mapping(source = "localTax", target = "localTax")
     @Mapping(source = "company", target = "company")
     CustomerDto toDto(Customer entity);
 
+    @Mapping(source = "unitReportingCustomerCode", target = "unitReportingCustomerCode")
     @Mapping(source = "localTax", target = "localTax")
     @Mapping(source = "company", target = "company")
     Customer toEntity(CustomerDto dto);

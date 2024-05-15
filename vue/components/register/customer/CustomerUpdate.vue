@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted } from 'vue';
 
 const tab = ref(null);
@@ -13,7 +13,7 @@ const customerStore = useCustomerStore();
 const currentCustomer = ref({});
 
 onMounted(async () => {
-  await customerStore.fetchCompanies();  // 초기 데이터 로드
+  await customerStore.fetchCustomer();  // 초기 데이터 로드
   if (customerStore.currentCustomer) {
     currentCustomer.value = {...customerStore.currentCustomer};
   }
@@ -27,7 +27,7 @@ const saveOrUpdateCustomer = async () => {
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.ts"
+import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form"
 </script>
 
 <template>
@@ -140,7 +140,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                       <v-switch
                           v-model="currentCustomer.useStatus"
                           false-value="UNUSED"
-                          true-value="USED"
+                          true-value="USE"
                           color="success">
                       </v-switch>
                     </v-col>

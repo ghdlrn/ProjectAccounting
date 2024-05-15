@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,10 +28,9 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerDto createCustomer(CustomerDto companyDto) {
-        Customer customer = customerMapper.toEntity(companyDto);
-        customer.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
-
+    public CustomerDto createCustomer(CustomerDto customerDto) {
+        Customer customer = customerMapper.toEntity(customerDto);
+        assignLocalTaxAndTaxOffice(customer, customerDto);
         customer = customerRepository.save(customer);
         return customerMapper.toDto(customer);
     }
@@ -46,19 +44,17 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public CustomerDto getCustomer(Long id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        return customer.map(customerMapper::toDto)
+        return customerRepository.findById(id)
+                .map(customerMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
     }
 
     @Transactional
-    public CustomerDto updateCustomer(Long id, CustomerDto companyDto) {
+    public CustomerDto updateCustomer(Long id, CustomerDto customerDto) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
-
-        customer.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));
-        customerMapper.updateEntityFromDto(companyDto, customer);
-
+        customerMapper.updateEntityFromDto(customerDto, customer);
+        assignLocalTaxAndTaxOffice(customer, customerDto);
         customer = customerRepository.save(customer);
         return customerMapper.toDto(customer);
     }
@@ -69,6 +65,14 @@ public class CustomerService {
                 .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
         customerRepository.delete(customer);
     }
+
+    private void assignLocalTaxAndTaxOffice(Customer customer, CustomerDto customerDto) {
+        if (customerDto.getLocalTax() != null && customerDto.getLocalTax().getId() != null) {
+            customer.setLocalTax(findLocalTax(customerDto.getLocalTax().getId()));
+        } else {
+            customer.setLocalTax(null);
+        }
+    }   //LocalTax null허용
 
     private LocalTax findLocalTax(Long id) {
         return id == null ? null : localTaxRepository.findById(id).orElse(null);

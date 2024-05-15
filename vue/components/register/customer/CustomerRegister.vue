@@ -148,7 +148,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                       <v-switch
                           v-model="currentCustomer.useStatus"
                           false-value="UNUSED"
-                          true-value="USED"
+                          true-value="USE"
                           color="success">
                       </v-switch>
                     </v-col>
