@@ -1,6 +1,5 @@
 package lkm.starterproject.auth.mapper;
 
-import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import lkm.starterproject.auth.dto.MemberDto;
 import lkm.starterproject.auth.entity.Member;
 import org.mapstruct.Mapper;
@@ -13,8 +12,7 @@ public interface MemberMapper {
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "email", ignore = true)
-    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "role", constant = "USER")    //회원가입시 권한 USER로 저장
     @Mapping(target = "memberCompanies", ignore = true)
     Member toEntity(MemberDto dto);
 

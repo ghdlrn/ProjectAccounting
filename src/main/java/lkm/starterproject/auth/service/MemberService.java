@@ -1,44 +1,36 @@
 package lkm.starterproject.auth.service;
 
 import lkm.starterproject.auth.entity.Member;
+import lkm.starterproject.auth.mapper.MemberMapper;
 import lkm.starterproject.auth.repository.MemberRepository;
 import lkm.starterproject.auth.constants.Role;
 import lkm.starterproject.auth.dto.MemberDto;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 @Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
     private final BCryptPasswordEncoder passwordEncoder;
+    private final MemberMapper memberMapper;
 
-    public MemberService(MemberRepository memberRepository, BCryptPasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper,
+                         BCryptPasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.memberMapper = memberMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void SignUp(MemberDto memberDto) {
+    public void SignUp(MemberDto memberDto) {   //외원가입
         String email = memberDto.getEmail();
-        String password = memberDto.getPassword();
-        String username = memberDto.getUsername();
 
-        Boolean isMemberExist = memberRepository.existsByEmail(email);      //중복되는 email값 있는지 확인
-
-        if (isMemberExist) {
-
-            return;
+        if (memberRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
-        new Member();
-        Member member = Member.builder()    // isMemberExist로 동일한 email이 없으면 해당 유저정보 저장
-                .username(username)
-                .password(passwordEncoder.encode(password))     //비밀번호 암호화해서 저장
-                .email(email)
-                .role(Role.USER)    //회원가입대상자는 모두 권한 USER
-                .build();
+
+        Member member = memberMapper.toEntity(memberDto);
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
     }
 }
