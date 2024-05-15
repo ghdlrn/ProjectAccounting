@@ -22,6 +22,8 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public static final QCustomer customer = new QCustomer("customer");
 
+    public final lkm.starterproject.accounting.entity.basic.QAddress address;
+
     public final NumberPath<Long> amountOfCollateral = createNumber("amountOfCollateral", Long.class);
 
     public final NumberPath<Long> bankLine = createNumber("bankLine", Long.class);
@@ -46,17 +48,11 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath customerChargePosition = createString("customerChargePosition");
 
-    public final StringPath extraAddress = createString("extraAddress");
-
     public final StringPath fax = createString("fax");
-
-    public final StringPath guideText = createString("guideText");
 
     public final StringPath homePage = createString("homePage");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final StringPath jibunAddress = createString("jibunAddress");
 
     public final lkm.starterproject.accounting.entity.basic.QLocalTax localTax;
 
@@ -68,13 +64,9 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath phone = createString("phone");
 
-    public final StringPath postcode = createString("postcode");
-
     public final StringPath registrationNumber = createString("registrationNumber");
 
     public final StringPath registrationNumberType = createString("registrationNumberType");
-
-    public final StringPath roadAddress = createString("roadAddress");
 
     public final NumberPath<Long> taxRegistrationCode = createNumber("taxRegistrationCode", Long.class);
 
@@ -104,6 +96,7 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public QCustomer(Class<? extends Customer> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.address = inits.isInitialized("address") ? new lkm.starterproject.accounting.entity.basic.QAddress(forProperty("address")) : null;
         this.company = inits.isInitialized("company") ? new lkm.starterproject.accounting.entity.company.QCompany(forProperty("company"), inits.get("company")) : null;
         this.localTax = inits.isInitialized("localTax") ? new lkm.starterproject.accounting.entity.basic.QLocalTax(forProperty("localTax")) : null;
     }

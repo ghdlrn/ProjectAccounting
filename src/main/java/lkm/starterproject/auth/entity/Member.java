@@ -33,7 +33,7 @@ public class Member extends BaseEntity {     //회원
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
     @Builder.Default
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 
 

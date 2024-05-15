@@ -1,5 +1,6 @@
 package lkm.starterproject.accounting.dto.company;
 
+import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
 import lkm.starterproject.accounting.entity.basic.Address;

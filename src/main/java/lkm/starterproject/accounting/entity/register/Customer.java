@@ -1,17 +1,13 @@
 package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.constants.LiquorRetailStatus;
-import lkm.starterproject.accounting.constants.TradeStatus;
 import lkm.starterproject.accounting.constants.UseStatus;
+import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.company.Company;
-import lkm.starterproject.auth.entity.MemberCompany;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter @Setter @ToString
@@ -47,15 +43,9 @@ public class Customer {      //거래처
 
     private String businessItem;    //업종
 
-    private String postcode;   //우편번호
-
-    private String roadAddress; //도로명주소
-
-    private String jibunAddress;    //지번주소
-
-    private String extraAddress;    //상세주소
-
-    private String guideText;   //참고사항
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;    //주소
 
     @Column(length = 13)
     private String phone;   //전화번호
