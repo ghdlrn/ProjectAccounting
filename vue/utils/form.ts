@@ -21,3 +21,16 @@ export const businessRegistrationNumberRules = ref([
     (v: string) => !!v || '비즈니스 등록 번호 입력은 필수입니다',
     (v: string) => /^\d{3}-\d{2}-\d{5}$/.test(v) || '비즈니스 등록 번호는 xxx-xx-xxxxx 형식이어야 합니다'
 ]);
+
+export const registrationNumberRules = ref([
+    (v: string) => !!v || '등록 번호 입력은 필수입니다',
+    (v: string) => {
+        const pattern1 = /^\d{3}-\d{2}-\d{5}$/;  // xxx-xx-xxxxx 형식
+        const pattern2 = /^\d{6}-\d{7}$/;        // xxxxxx-xxxxxxx 형식
+        return pattern1.test(v) || pattern2.test(v) || '등록 번호는 xxx-xx-xxxxx 또는 xxxxxx-xxxxxxx 형식이어야 합니다';
+    }
+]);
+
+export const nullableRules = ref([
+    (v: string) => !!v || '필수 입력 칸 입니다',
+])

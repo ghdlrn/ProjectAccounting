@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
 import type {Customer} from "~/types/accounting/customer";
+import apiClient from "~/utils/baseUrl";
 
 export const useCustomerStore = defineStore('customer', {
     state : () => ({
@@ -10,7 +10,7 @@ export const useCustomerStore = defineStore('customer', {
     actions: {
         async fetchCustomer() {
             try {
-                const response = await axios.get(`this.$config.baseUrl/register/customer`);
+                const response = await apiClient().get(`/register/customer`);
                 this.customer = response.data;
             } catch (error: any) {
                 console.error('거래처 목록 조회 실패', error);
@@ -19,7 +19,7 @@ export const useCustomerStore = defineStore('customer', {
         },
         async getCustomer(id: number) {
             try {
-                const response = await axios.get(`this.$config.baseUrl/register/customer/${id}`);
+                const response = await apiClient().get(`/register/customer/${id}`);
                 this.currentCustomer = response.data;
             } catch (error: any) {
                 console.error('거래처 조회 실패', error);
@@ -28,7 +28,7 @@ export const useCustomerStore = defineStore('customer', {
         },
         async createCustomer(data: Customer) {
             try {
-                const response = await axios.post(`this.$config.baseUrl/register/customer`, data);
+                const response = await apiClient().post(`/register/customer`, data);
                 this.customer.push(response.data);
                 alert('거래처 정보가 등록되었습니다');
             } catch (error: any) {
@@ -39,7 +39,7 @@ export const useCustomerStore = defineStore('customer', {
         },
         async updateCustomer(data: Customer) {
             try {
-                const response = await axios.put(`this.$config.baseUrl/register/customer/${data.id}`, data);
+                const response = await apiClient().put(`/register/customer/${data.id}`, data);
                 const index = this.customer.findIndex(customer => customer.id === data.id);
                 if(index !== -1) {
                     this.customer[index] = response.data;
@@ -56,7 +56,7 @@ export const useCustomerStore = defineStore('customer', {
         },
         async deleteCustomer(id: number) {
             try {
-                const response = await axios.delete(`this.$config.baseUrl/register/customer/${id}`);
+                const response = await apiClient().delete(`/register/customer/${id}`);
                 if (response.status === 200) {
                     await this.fetchCustomer();
                     alert('거래처 정보가 삭제되었습니다');

@@ -158,7 +158,7 @@ import {businessRegistrationNumberRules, nameRules} from "~/utils/form.ts"
                         persistent-hint
                         variant="outlined"
                         persistent-placeholder
-                        placeholder="ex) 한종희, 경계현"
+                        placeholder="ex) 한종희"
                         color="primary"
                     ></v-text-field>
                   </v-col>

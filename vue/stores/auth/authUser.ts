@@ -6,7 +6,7 @@ export const useAuthUserStore = defineStore('authUser', {
         email: '',
     }),
     actions: {
-        setAddress(data) {
+        setAddress(data: any) {
             this.username = data.username;
             this.email = data.email;
         },
