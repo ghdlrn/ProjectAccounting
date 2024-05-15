@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import apiClient from "~/utils/baseUrl";
 import type {TaxOffice} from "~/types/accounting/basicdata/taxOffice";
 
 export const useTaxOfficeStore = defineStore('taxOffice', {
@@ -10,7 +10,7 @@ export const useTaxOfficeStore = defineStore('taxOffice', {
     actions: {
         async fetchTaxOffice() {
             try {
-                const response = await axios.get('http://localhost:8080/register/company/tax-office');
+                const response = await apiClient().get('/register/company/tax-office');
                 this.taxOffice = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);

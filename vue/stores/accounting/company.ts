@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
 import type {Company} from "~/types/accounting/company";
+import apiClient from "~/utils/baseUrl";
 
 export const useCompanyStore = defineStore('company', {
     state: () => ({
@@ -10,7 +10,7 @@ export const useCompanyStore = defineStore('company', {
     actions: {
         async fetchCompanies() {
             try {
-                const response = await axios.get('http://localhost:8080/register/company');
+                const response = await apiClient().get('/register/company');
                 this.companies = response.data;
             } catch (error: any) {
                 console.error('회사목록 조회 실패:', error.message);
@@ -19,7 +19,7 @@ export const useCompanyStore = defineStore('company', {
         },
         async getCompany(id: number) {
             try {
-                const response = await axios.get(`http://localhost:8080/register/company/${id}`);
+                const response = await apiClient().get(`/register/company/${id}`);
                 this.currentCompany = response.data;  // 현재 회사 정보를 currentCompany에 저장
             } catch (error: any) {
                 console.error('회사정보 조회 실패:', error.message);
@@ -28,7 +28,7 @@ export const useCompanyStore = defineStore('company', {
         },
         async createCompany(data: Company) {
             try {
-                const response = await axios.post('http://localhost:8080/register/company', data);
+                const response = await apiClient().post('/register/company', data);
                 this.companies.push(response.data);
                 alert('회사 정보가 등록되었습니다');
             } catch (error: any) {
@@ -39,7 +39,7 @@ export const useCompanyStore = defineStore('company', {
         },
         async updateCompany(data: Company) {
             try {
-                const response = await axios.put(`http://localhost:8080/register/company/${data.id}`, data);
+                const response = await apiClient().put(`/register/company/${data.id}`, data);
                 const index = this.companies.findIndex(company => company.id === data.id);
                 if (index !== -1) {
                     this.companies[index] = response.data;
@@ -57,7 +57,7 @@ export const useCompanyStore = defineStore('company', {
 
         async deleteCompany(id: number) {
             try {
-                const response = await axios.delete(`http://localhost:8080/register/company/${id}`);
+                const response = await apiClient().delete(`/register/company/${id}`);
                 if (response.status === 200) {
                     await this.fetchCompanies();
                     alert('회사 정보가 삭제되었습니다');

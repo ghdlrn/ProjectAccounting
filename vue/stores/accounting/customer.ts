@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type {Customer} from "~/types/accounting/customer.ts";
+import type {Customer} from "~/types/accounting/customer";
 import apiClient from "~/utils/baseUrl";
 
 export const useCustomerStore = defineStore('customer', {

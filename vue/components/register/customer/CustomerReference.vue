@@ -11,12 +11,14 @@ import CustomerUpdate from "~/components/register/customer/CustomerUpdate.vue";
 onMounted(() => { store.fetchCustomer(); });
 const customer = computed(() => store.customer );
 
-const searchField = ref(['name', 'id']);
+const searchField = ref(['name', 'id', 'registrationNumber', 'nameOfRepresentative', 'useStatus']);
 const searchValue = ref('');
 const headers = ref([
   { text: '회사 코드', value: 'id', sortable: true },
   { text: '회사명', value: 'name', sortable: true },
-  { text: '사업자 등록번호', value: 'businessRegistrationNumber', sortable: true },
+  { text: '등록번호 / 유형', value: 'registrationNumber', sortable: true },
+  { text: '대표자명', value: 'nameOfRepresentative', sortable: true },
+  { text: '사용여부', value: 'useStatus', sortable: true },
   { text: '삭제', value: 'operation' }
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
@@ -99,7 +101,17 @@ const menu = ref(false);
                   :search-value="searchValue"
                   @click-row="getCustomer"
                   :rows-per-page="10">
-                <template #item-operation="item">
+                <template v-slot:item-registrationNumber="{ registrationNumber, registrationNumberType }">
+                  <div class="player-wrapper">
+                    <small class="text-h6 text-lightText">{{ registrationNumber }}</small>
+                    <h6 class="text-subtitle-2 font-weight-thin text-medium-emphasis text-grey">{{ registrationNumberType }}</h6>
+                  </div>
+                </template>
+                <template v-slot:item-useStatus="{ useStatus }">
+                  <v-chip color="success" v-if="useStatus === 'USE'" size="small" label> 사용 </v-chip>
+                  <v-chip color="error" v-if="useStatus === 'UNUSED'" size="small" label> 미사용 </v-chip>
+                </template>
+                <template v-slot:item-operation="item">
                   <div class="operation-wrapper">
                     <v-btn icon color="error" variant="text" @click.stop="deleteCustomer(item)" rounded>
                       <DeleteOutlined  />

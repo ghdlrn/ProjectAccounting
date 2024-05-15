@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import apiClient from "~/utils/baseUrl";
 import type {LocalTax} from "~/types/accounting/basicdata/localTax";
 
 export const useLocalTaxStore = defineStore('localTax', {
@@ -10,7 +10,7 @@ export const useLocalTaxStore = defineStore('localTax', {
     actions: {
         async fetchLocalTax() {
             try {
-                const response = await axios.get('http://localhost:8080/register/company/local-tax');
+                const response = await apiClient().get('/register/company/local-tax');
                 this.localTax = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);
