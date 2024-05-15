@@ -31,11 +31,9 @@ const sidebarItem: menu[] = [
     to: '/',
     children: [
       { title: '거래처 등록', icon: CircleIcon, to: '/register/customer' },
-      { title: '계좌 등록', icon: CircleIcon, to: '/' },
-      { title: '카드 등록', icon: CircleIcon, to: '/' },
-      { title: '계정과목 및 적요 등록', icon: CircleIcon, to: '/' },
-      { title: '고정자산 등록', icon: CircleIcon, to: '/' },
-      { title: '업무용 승용차 등록', icon: CircleIcon, to: '/' },
+      { title: '계좌 등록', icon: CircleIcon, to: '/register/finance' },
+      { title: '카드 등록', icon: CircleIcon, to: '/register/card' },
+      { title: '계정과목 및 적요 등록', icon: CircleIcon, to: '/register/account-title' },
     ]
   },
   {
@@ -48,7 +46,6 @@ const sidebarItem: menu[] = [
       { title: '현금 거래', icon: CircleIcon, to: '/' },
       { title: '카드 거래', icon: CircleIcon, to: '/' },
       { title: '어음 거래', icon: CircleIcon, to: '/' },
-      { title: '차량 비용', icon: CircleIcon, to: '/' },
     ]
   },
   { divider: true },
@@ -65,8 +62,6 @@ const sidebarItem: menu[] = [
       { title: '거래처별원장', icon: CircleIcon, to: '/' },
       { title: '현금출납장', icon: CircleIcon, to: '/' },
       { title: '매입매출장', icon: CircleIcon, to: '/' },
-      { title: '차량비용현황', icon: CircleIcon, to: '/' },
-      { title: '고정비용현황', icon: CircleIcon, to: '/' },
     ]
   },
 ];
