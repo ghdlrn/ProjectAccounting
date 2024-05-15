@@ -13,7 +13,7 @@ import {
   ProfileOutlined,
   WalletOutlined
 } from '@ant-design/icons-vue';
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from '~/stores/auth/auth';
 
 const tab = ref(null);
 const authStore = useAuthStore();

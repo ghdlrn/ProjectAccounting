@@ -1,5 +1,6 @@
 import type {TaxOffice} from "~/types/accounting/basicdata/taxOffice";
 import type {LocalTax} from "~/types/accounting/basicdata/localTax";
+import type {Address} from "~/types/accounting/basicdata/address";
 
 export interface Company {
   id: number;
@@ -10,11 +11,7 @@ export interface Company {
   businessRegistrationNumber: string;
   nameOfRepresentative: string;
   corporationRegistrationNumber: string;
-  postcode: string;   //우편번호
-  roadAddress: string; //도로명주소
-  jibunAddress: string;    //지번주소
-  extraAddress: string;    //상세주소
-  guideText: string;   //참고사항
+  address: Address;
   businessType: string;
   businessItem: string;
   fiscalYearClass: number;

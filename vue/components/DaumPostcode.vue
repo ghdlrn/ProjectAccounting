@@ -105,10 +105,35 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
-import { useAddressStore } from "~/stores/accounting/basicdata/address";
-const store = useAddressStore();
+const props = defineProps({
+  modelValue: {
+    type: Object,
+    required: true,
+    default: () => ({
+      postcode: '',
+      roadAddress: '',
+      jibunAddress: '',
+      extraAddress: '',
+      guideText: ''
+    })
+  }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const address = ref({ ...props.modelValue });
+
+watch(() => props.modelValue, (newValue) => {
+  address.value = { ...newValue };
+}, { immediate: true });
+
+watch(address, (newAddress, oldAddress) => {
+  if (JSON.stringify(newAddress) !== JSON.stringify(oldAddress)) {
+    emit('update:modelValue', newAddress);
+  }
+}, { deep: true });
 
 const loadScript = () => {
   return new Promise((resolve, reject) => {
@@ -133,11 +158,10 @@ const openPostcodePopup = () => {
         postcode: data.zonecode,
         roadAddress: data.roadAddress,
         jibunAddress: data.jibunAddress,
-        extraAddress: store.getExtraAddress(data),
-        guideText: store.getGuideText(data, store.getExtraAddress(data))
+        extraAddress: getExtraAddress(data),
+        guideText: getGuideText(data, getExtraAddress(data))
       };
       address.value = newAddress;
-      store.updateAddress(newAddress);
       emit('update:modelValue', newAddress);
     },
     theme: {
@@ -152,21 +176,25 @@ const openPostcodePopup = () => {
   });
 };
 
-const props = defineProps({
-  modelValue: {
-    type: Object,
-    required: true,
-    default: () => null
-  },
-});
+const getExtraAddress = (data) => {
+  let extraAddr = '';
+  if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+    extraAddr += data.bname;
+  }
+  if (data.buildingName !== '' && data.apartment === 'Y') {
+    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+  }
+  return extraAddr !== '' ? `(${extraAddr})` : '';
+};
 
-const address = ref({ ...props.modelValue });
-
-const emit = defineEmits(['update:modelValue']);
-
-watch(() => props.modelValue, (newValue) => {
-  store.updateAddress(newValue)
-}, { immediate: true });
+const getGuideText = (data, extraAddr) => {
+  if (data.autoRoadAddress) {
+    return `(예상 도로명 주소 : ${data.autoRoadAddress + extraAddr})`;
+  } else if (data.autoJibunAddress) {
+    return `(예상 지번 주소 : ${data.autoJibunAddress})`;
+  }
+  return '';
+};
 </script>
 
 <style scoped lang="scss">

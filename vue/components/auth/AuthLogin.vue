@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useAuthStore } from '~/stores/auth';
+import { useAuthStore } from '~/stores/auth/auth';
 import Google from '/images/social-google.svg';
 
 const router = useRouter();

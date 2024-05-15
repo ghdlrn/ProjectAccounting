@@ -11,7 +11,7 @@ import ProfileDD from './ProfileDD.vue';
 const customizer = useCustomizerStore();
 
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '~/stores/auth';
+import { useAuthStore } from '~/stores/auth/auth';
 import HeaderMenu from "~/components/layoutComponents/vertical-header/HeaderMenu.vue";
 import HeaderSearchBar from "~/components/shared/SearchBar.vue";
 import FullScreen from "~/components/layoutComponents/vertical-header/FullScreen.vue";
