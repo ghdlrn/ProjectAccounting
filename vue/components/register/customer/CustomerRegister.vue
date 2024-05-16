@@ -133,11 +133,11 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     <v-col cols="6">
                       <v-text-field
                           v-model="currentCustomer.note"
-                          hint="대표자명을 입력해주세요"
+                          hint="주석"
                           persistent-hint
                           variant="outlined"
                           persistent-placeholder
-                          placeholder="ex) 한종희"
+                          placeholder="ex) 원재료 매입 거래처"
                           color="primary">
                       </v-text-field>
                     </v-col>
