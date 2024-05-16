@@ -125,7 +125,7 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                 <v-col cols="4">
                   <v-row>
                     <v-col cols="4">
-                      <v-label class="mt-3">계좌 사용 여부</v-label>
+                      <v-label class="mt-3">사용 여부</v-label>
                     </v-col>
                     <v-col cols="8">
                       <v-switch
