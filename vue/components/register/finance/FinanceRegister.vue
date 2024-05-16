@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 
 const tab = ref(null);
 import UiParentCard from "~/components/shared/UiParentCard.vue";
@@ -7,46 +7,47 @@ import DaumPostcode from "~/components/DaumPostcode.vue";
 import DateSelect from "~/components/DateSelect.vue";
 import LocalTaxInfo from "~/components/basicData/LocalTaxInfo.vue";
 /* ---------------------------정보 제출------------------------------*/
-import { storeToRefs }  from "pinia";
-import { useCustomerStore } from "~/stores/accounting/customer.ts";
-import { useLocalTaxStore } from "~/stores/accounting/basicdata/localTax";
-const customerStore = useCustomerStore();
+import {storeToRefs} from "pinia";
+import {useFinanceStore} from "~/stores/accounting/finance.ts";
+import {useLocalTaxStore} from "~/stores/accounting/basicdata/localTax";
+
+const financeStore = useFinanceStore();
 const localTaxStore = useLocalTaxStore();
 
-const { customer } = storeToRefs(customerStore);
-const currentCustomer = ref(customer.value || {});
+const {finance} = storeToRefs(financeStore);
+const currentFinance = ref(finance.value || {});
 
 const emit = defineEmits(['closeDialog']);
 
-const saveOrUpdateCustomer = async () => {
-  const customerData = {
-    ...currentCustomer.value,
+const saveOrUpdateFinance = async () => {
+  const financeData = {
+    ...currentFinance.value,
     localTax: localTaxStore.selectedLocalTax,
   };
   try {
-    if (currentCustomer.value.id) {
-      await customerStore.updateCustomer(customerData);
+    if (currentFinance.value.id) {
+      await financeStore.updateFinance(financeData);
     } else {
-      await customerStore.createCustomer(customerData);
+      await financeStore.createFinance(financeData);
     }
     emit('closeDialog');
-  } catch(error) {
-    console.error("Error saving or updating customer: ", error);
+  } catch (error) {
+    console.error("Error saving or updating finance: ", error);
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.ts";
+import {nameRules, nullableRules} from "~/utils/form.ts";
 </script>
 
 <template>
-  <UiParentCard title="거래처 등록">
+  <UiParentCard title="계좌 등록">
 
-    <v-card class="customer-form">
+    <v-card class="finance-form">
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab value="one">기본 정보</v-tab>
         <v-tab value="two">기타 정보</v-tab>
       </v-tabs>
-      <v-form @submit.prevent="saveOrUpdateCustomer">
+      <v-form @submit.prevent="saveOrUpdateFinance">
         <v-card-text>
           <v-window v-model="tab">
             <!--공통속성-->
@@ -57,15 +58,15 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                 <v-col cols="4">
                   <v-row>
                     <v-col cols="4">
-                      <v-label class="mt-2">거래처명</v-label>
+                      <v-label class="mt-2">금융사명</v-label>
                     </v-col>
                     <v-col cols="8">
                       <v-text-field
-                          v-model="currentCustomer.name"
+                          v-model="currentFinance.name"
                           :rules="nameRules"
                           variant="outlined"
                           persistent-placeholder
-                          placeholder="ex) 삼성전자(주)"
+                          placeholder="ex) 농협"
                           color="primary">
                       </v-text-field>
                     </v-col>
@@ -73,32 +74,28 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                 </v-col>
                 <v-col cols="8">
                   <v-row>
-                    <v-col cols="1">
-                      <v-label class="mt-2">구분</v-label>
-                    </v-col>
-                    <v-col cols="5">
-                      <v-select
-                          v-model="currentCustomer.registrationNumberType"
-                          :items="['사업자등록번호', '주민등록번호', '외국인등록번호']"
-                          label="ex) 사업자등록번호"
-                          :rules="nullableRules"
-                          variant="outlined"
-                          color="primary"
-                          autofocus
-                          hint="사업자/주민/외국인 등록번호"
-                          persistent-hint
-                      ></v-select>
-                    </v-col>
                     <v-col cols="2">
-                      <v-label class="mt-2">등록번호</v-label>
+                      <v-label class="mt-2">계좌번호</v-label>
                     </v-col>
                     <v-col cols="4">
                       <v-text-field
-                          v-model="currentCustomer.registrationNumber"
-                          :rules="registrationNumberRules"
+                          v-model="currentFinance.accountNumber"
+                          :rules="nullableRules"
                           variant="outlined"
                           persistent-placeholder
-                          placeholder="ex) xxx-xx-xxxx"
+                          placeholder="ex) 352-0712-2542-03"
+                          color="primary">
+                      </v-text-field>
+                    </v-col>
+                    <v-col cols="2">
+                      <v-label class="mt-2">예금종류</v-label>
+                    </v-col>
+                    <v-col cols="4">
+                      <v-text-field
+                          v-model="currentFinance.depositType"
+                          variant="outlined"
+                          persistent-placeholder
+                          placeholder="ex) 보통예금"
                           color="primary">
                       </v-text-field>
                     </v-col>
@@ -107,32 +104,14 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
               </v-row>
               <!--------------------------2줄---------------------------------------------->
               <v-row>
-                <v-col cols="4">
-                  <v-row>
-                    <v-col cols="4">
-                      <v-label class="mt-2">대표자명</v-label>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                          v-model="currentCustomer.nameOfRepresentative"
-                          hint="대표자명을 입력해주세요"
-                          persistent-hint
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) 한종희"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
                 <v-col cols="8">
                   <v-row>
-                    <v-col cols="1">
-                      <v-label class="mt-3">비고</v-label>
+                    <v-col cols="2">
+                      <v-label class="mt-2">비고</v-label>
                     </v-col>
-                    <v-col cols="6">
+                    <v-col cols="10">
                       <v-text-field
-                          v-model="currentCustomer.note"
+                          v-model="currentFinance.note"
                           hint="주석"
                           persistent-hint
                           variant="outlined"
@@ -141,12 +120,16 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                           color="primary">
                       </v-text-field>
                     </v-col>
-                    <v-col cols="3">
-                      <v-label class="mt-3">거래처 사용 여부</v-label>
+                  </v-row>
+                </v-col>
+                <v-col cols="4">
+                  <v-row>
+                    <v-col cols="4">
+                      <v-label class="mt-3">계좌 사용 여부</v-label>
                     </v-col>
-                    <v-col cols="1">
+                    <v-col cols="8">
                       <v-switch
-                          v-model="currentCustomer.useStatus"
+                          v-model="currentFinance.useStatus"
                           false-value="UNUSED"
                           true-value="USE"
                           color="success">
@@ -164,7 +147,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="9">
                       <v-text-field
-                          v-model="currentCustomer.phone"
+                          v-model="currentFinance.phone"
                           persistent-placeholder
                           placeholder="ex) 031-200-1114"
                           variant="outlined"
@@ -181,7 +164,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="9">
                       <v-text-field
-                          v-model="currentCustomer.fax"
+                          v-model="currentFinance.fax"
                           persistent-placeholder
                           placeholder="ex) 031-200-7538"
                           variant="outlined"
@@ -192,7 +175,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                 </v-col>
               </v-row>
               <!--------------------------4줄-------------------------------------------------------->
-              <DaumPostcode v-model="currentCustomer.address" />
+              <DaumPostcode v-model="currentFinance.address"/>
               <!--------------------------7줄-------------------------------------------------------->
               <v-row>
                 <v-col cols="5">
@@ -202,7 +185,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="9">
                       <v-text-field
-                          v-model="currentCustomer.businessType"
+                          v-model="currentFinance.businessType"
                           hint="판매형태/표준산업분류표 대분류(2자리)"
                           persistent-hint
                           variant="outlined"
@@ -221,7 +204,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="9">
                       <v-text-field
-                          v-model="currentCustomer.businessItem"
+                          v-model="currentFinance.businessItem"
                           hint="판매하는 물건/표준산업분류표 세분류(5자리)"
                           persistent-hint
                           variant="outlined"
@@ -246,7 +229,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                       <v-label class="mt-2">거래 시작일</v-label>
                     </v-col>
                     <v-col cols="7">
-                      <DateSelect v-model="currentCustomer.tradeStartDate" />
+                      <DateSelect v-model="currentFinance.tradeStartDate"/>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -257,7 +240,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                       <v-label class="mt-2">거래 종료일</v-label>
                     </v-col>
                     <v-col cols="7">
-                      <DateSelect v-model="currentCustomer.tradeEndDate" />
+                      <DateSelect v-model="currentFinance.tradeEndDate"/>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -269,7 +252,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="9">
                       <v-text-field
-                          v-model="currentCustomer.homePage"
+                          v-model="currentFinance.homePage"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) https://OOOOOO.OOO"
@@ -284,11 +267,11 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                 <v-col cols="5">
                   <v-row>
                     <v-col cols="5">
-                      <v-label class="mt-2">거래처 담당자 <br /> 부서 / 직급 / 이름</v-label>
+                      <v-label class="mt-2">거래처 담당자 <br/> 부서 / 직급 / 이름</v-label>
                     </v-col>
                     <v-col cols="7">
                       <v-text-field
-                          v-model="currentCustomer.customerChargeDepartment"
+                          v-model="currentFinance.financeChargeDepartment"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) 영업팀"
@@ -299,7 +282,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                 </v-col>
                 <v-col cols="3">
                   <v-text-field
-                      v-model="currentCustomer.customerChargePosition"
+                      v-model="currentFinance.financeChargePosition"
                       variant="outlined"
                       persistent-placeholder
                       placeholder="ex) 과장"
@@ -308,7 +291,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                 </v-col>
                 <v-col cols="3">
                   <v-text-field
-                      v-model="currentCustomer.customerChargeName"
+                      v-model="currentFinance.financeChargeName"
                       variant="outlined"
                       persistent-placeholder
                       placeholder="ex) OOO"
@@ -321,11 +304,11 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                 <v-col cols="5">
                   <v-row>
                     <v-col cols="5">
-                      <v-label class="mt-2">거래처 담당자 <br />> 전화번호 / 이메일</v-label>
+                      <v-label class="mt-2">거래처 담당자 <br/>> 전화번호 / 이메일</v-label>
                     </v-col>
                     <v-col cols="7">
                       <v-text-field
-                          v-model="currentCustomer.customerChargePhone"
+                          v-model="currentFinance.financeChargePhone"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) OOO-OOOO-OOOO"
@@ -339,7 +322,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                   <v-row>
                     <v-col cols="7">
                       <v-text-field
-                          v-model="currentCustomer.customerChargeEmail"
+                          v-model="currentFinance.financeChargeEmail"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) OOO@OOOO.OOO"
@@ -358,7 +341,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="8">
                       <v-text-field
-                          v-model="currentCustomer.customerAccountNumber"
+                          v-model="currentFinance.financeAccountNumber"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) OOO-OOOO-OOOO-OO"
@@ -369,7 +352,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
-                      v-model="currentCustomer.customerAccountHolder"
+                      v-model="currentFinance.financeAccountHolder"
                       variant="outlined"
                       persistent-placeholder
                       placeholder="ex) OOO"
@@ -386,7 +369,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="8">
                       <v-text-field
-                          v-model="currentCustomer.bankLine"
+                          v-model="currentFinance.bankLine"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) OOO,OOO,OOO원"
@@ -402,7 +385,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="12" lg="8">
                       <v-text-field
-                          v-model="currentCustomer.amountOfCollateral"
+                          v-model="currentFinance.amountOfCollateral"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) OOO,OOO,OOO원"
@@ -421,7 +404,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     </v-col>
                     <v-col cols="8">
                       <v-text-field
-                          v-model="currentCustomer.unitReportingCustomerCode"
+                          v-model="currentFinance.unitReportingFinanceCode"
                           variant="outlined"
                           persistent-hint
                           hint="사업자단위 과세의 경우 세금계산서 신고시 단위신고거래처로"
@@ -439,7 +422,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                       <v-label class="mt-2">지방세 <br/> 법정동</v-label>
                     </v-col>
                     <v-col cols="9">
-                      <LocalTaxInfo v-model="currentCustomer.localTax" />
+                      <LocalTaxInfo v-model="currentFinance.localTax"/>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -459,17 +442,20 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
 </template>
 
 <style scoped lang="scss">
-.customer-form {
+.finance-form {
   width: 100%;
   height: 80%;
   min-height: 800px;
 }
-.address{
+
+.address {
   font-size: small;
 }
-.v-card-text{
+
+.v-card-text {
   width: 100%;
 }
+
 .v-window-item {
   min-height: 500px;
   width: 100%;

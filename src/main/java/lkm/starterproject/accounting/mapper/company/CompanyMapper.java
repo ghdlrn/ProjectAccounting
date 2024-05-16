@@ -6,33 +6,42 @@ import lkm.starterproject.accounting.mapper.basic.AddressMapper;
 import lkm.starterproject.accounting.mapper.basic.LocalTaxMapper;
 import lkm.starterproject.accounting.mapper.basic.TaxOfficeMapper;
 import lkm.starterproject.accounting.mapper.register.CustomerMapper;
-import lkm.starterproject.auth.mapper.MemberCompanyMapper;
+import lkm.starterproject.accounting.mapper.register.FinanceMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mappings;
 
 
 @Mapper(componentModel = "spring",
-        uses = {CustomerMapper.class, TaxOfficeMapper.class,
-                LocalTaxMapper.class, AddressMapper.class,
-                MemberCompanyMapper.class})
+        uses = {CustomerMapper.class, FinanceMapper.class,
+                TaxOfficeMapper.class, LocalTaxMapper.class, AddressMapper.class,})
 public interface CompanyMapper {
 
-    CompanyMapper INSTANCE = Mappers.getMapper(CompanyMapper.class);
-
-    @Mapping(target = "taxOffice", source = "entity.taxOffice")
-    @Mapping(target = "localTax", source = "entity.localTax")
-    @Mapping(target = "address", source = "entity.address")
+    @Mappings({
+            @Mapping(target = "taxOffice", source = "taxOffice"),
+            @Mapping(target = "localTax", source = "localTax"),
+            @Mapping(target = "address", source = "address"),
+            @Mapping(target = "memberCompanies", source = "memberCompanies"),
+    })
     CompanyDto toDto(Company entity);
 
 
-    @Mapping(target = "taxOffice", source = "dto.taxOffice")
-    @Mapping(target = "localTax", source = "dto.localTax")
-    @Mapping(target = "address", source = "dto.address")
+    @Mappings({
+            @Mapping(target = "taxOffice", source = "taxOffice"),
+            @Mapping(target = "localTax", source = "localTax"),
+            @Mapping(target = "address", source = "address"),
+            @Mapping(target = "memberCompanies", source = "memberCompanies"),
+    })
     Company toEntity(CompanyDto dto);
 
-    @Mapping(target = "regTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
+    @Mappings({
+            @Mapping(target = "taxOffice", source = "taxOffice"),
+            @Mapping(target = "localTax", source = "localTax"),
+            @Mapping(target = "address", source = "address"),
+            @Mapping(target = "memberCompanies", source = "memberCompanies"),
+            @Mapping(target = "regTime", ignore = true),
+            @Mapping(target = "updateTime", ignore = true),
+    })
     void updateEntityFromDto(CompanyDto dto, @MappingTarget Company entity);
 }

@@ -7,12 +7,9 @@ import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", uses = { CompanyMapper.class, LocalTaxMapper.class })
 public interface CustomerMapper {
-
-    CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
     @Mapping(source = "unitReportingCustomerCode", target = "unitReportingCustomerCode")
     @Mapping(source = "localTax", target = "localTax")

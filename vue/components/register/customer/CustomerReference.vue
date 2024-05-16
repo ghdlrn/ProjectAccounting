@@ -14,12 +14,12 @@ const customer = computed(() => store.customer );
 const searchField = ref(['name', 'id', 'registrationNumber', 'nameOfRepresentative', 'useStatus']);
 const searchValue = ref('');
 const headers = ref([
-  { text: '회사 코드', value: 'id', sortable: true },
-  { text: '회사명', value: 'name', sortable: true },
+  { text: '거래처 코드', value: 'id', sortable: true },
+  { text: '거래처명', value: 'name', sortable: true },
   { text: '등록번호 / 유형', value: 'registrationNumber', sortable: true },
   { text: '대표자명', value: 'nameOfRepresentative', sortable: true },
-  { text: '사용여부', value: 'useStatus', sortable: true },
   { text: '비고', value: 'note' },
+  { text: '사용여부', value: 'useStatus', sortable: true },
   { text: '삭제', value: 'operation' }
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
@@ -43,7 +43,7 @@ const menu = ref(false);
 </script>
 
 <template>
-  <UiParentCard title="회사 조회" class="reference" >
+  <UiParentCard title="거래처 조회" class="reference" >
     <PerfectScrollbar>
       <v-card>
         <v-card-item>
@@ -54,7 +54,7 @@ const menu = ref(false);
                   variant="outlined"
                   color="primary"
                   persistent-placeholder
-                  placeholder="회사명 검색"
+                  placeholder="거래처 검색"
                   v-model="searchValue"
                   hide-details>
                 <template v-slot:prepend-inner>
@@ -130,7 +130,7 @@ const menu = ref(false);
 
 <style scoped lang="scss">
 .reference {
-  width: 40%;
+  width: 60%;
   min-width: 900px;
   min-height: 850px;
 }
@@ -139,10 +139,5 @@ const menu = ref(false);
   height: 80%;
   min-width: 1000px;
   min-height: 1300px;
-}
-.company-form {
-  width: 100%;
-  height: 80%;
-  min-height: 800px;
 }
 </style>

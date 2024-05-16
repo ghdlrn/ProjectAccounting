@@ -1,50 +1,49 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useCompanyStore } from '~/stores/accounting/company.ts';
-const store = useCompanyStore();
+import { useFinanceStore } from "~/stores/accounting/finance";
+const store = useFinanceStore();
 
-// icons
-import {SearchOutlined, PlusOutlined, DeleteOutlined} from '@ant-design/icons-vue';
+import {DeleteOutlined, PlusOutlined, SearchOutlined} from "@ant-design/icons-vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
-import CompanyRegister from "~/components/register/company/CompanyRegister.vue";
-import CompanyUpdate from "~/components/register/company/CompanyUpdate.vue";
+import FinanceRegister from "~/components/register/finance/FinanceRegister.vue";
+import FinanceUpdate from "~/components/register/finance/FinanceUpdate.vue";
 
-onMounted(() => { store.fetchCompanies(); });
-const company = computed(() => store.companies );
+onMounted(() => { store.fetchFinance(); });
+const finance = computed(() => store.finance );
 
-const searchField = ref(['id', 'name', 'businessRegistrationNumber']);
+const searchField = ref(['id', 'name', 'accountNumber', 'useStatus']);
 const searchValue = ref('');
 const headers = ref([
-  { text: '회사 코드', value: 'id', sortable: true },
-  { text: '회사명', value: 'name', sortable: true },
-  { text: '사업자 등록번호', value: 'businessRegistrationNumber', sortable: true },
+  { text: '금융사 코드', value: 'id', sortable: true },
+  { text: '금융사명', value: 'name', sortable: true },
+  { text: '계좌번호', value: 'accountNumber', sortable: true },
+  { text: '비고', value: 'note' },
+  { text: '사용여부', value: 'useStatus', sortable: true },
   { text: '삭제', value: 'operation' }
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
-const selectedCompany = ref(null);
+const selectedFinance = ref(null);
 
-const getCompany = (item) => {
-  store.getCompany(item.id).then(companyData => {
-    selectedCompany.value = companyData;
+const getFinance = (item) => {
+  store.getFinance(item.id).then(financeData => {
+    selectedFinance.value = financeData;
   });
 };
 
-const deleteCompany = (item) => {
-    if (confirm("정말로 삭제하시겠습니까?")) {
-      store.deleteCompany(item.id)
-    }
+const deleteFinance = (item) => {
+  if (confirm("정말로 삭제하시겠습니까?")) {
+    store.deleteFinance(item.id)
+  }
 };
 
 const dialog = ref(false);
 const menu = ref(false);
-
 </script>
 
 <template>
-
-  <UiParentCard title="회사 조회" class="reference" >
-  <PerfectScrollbar>
+  <UiParentCard title="계좌 조회" class="reference" >
+    <PerfectScrollbar>
       <v-card>
         <v-card-item>
           <v-row justify="space-between" class="align-center">
@@ -54,7 +53,7 @@ const menu = ref(false);
                   variant="outlined"
                   color="primary"
                   persistent-placeholder
-                  placeholder="회사 검색"
+                  placeholder="계좌 검색"
                   v-model="searchValue"
                   hide-details>
                 <template v-slot:prepend-inner>
@@ -70,10 +69,10 @@ const menu = ref(false);
                       <template v-slot:prepend>
                         <PlusOutlined />
                       </template>
-                      회사 등록
+                      계좌 등록
                     </v-btn>
                   </template>
-                  <CompanyRegister @closeDialog="dialog = false" />
+                  <FinanceRegister @closeDialog="dialog = false" />
                 </v-dialog>
               </div>
             </v-col>
@@ -94,23 +93,27 @@ const menu = ref(false);
               <EasyDataTable
                   v-bind="props"
                   :headers="headers"
-                  :items="company"
+                  :items="finance"
                   table-class-name="customize-table"
                   :theme-color="themeColor"
                   :search-field="searchField"
                   :search-value="searchValue"
-                  @click-row="getCompany"
+                  @click-row="getFinance"
                   :rows-per-page="10">
-                <template #item-operation="item">
+                <template v-slot:item-useStatus="{ useStatus }">
+                  <v-chip color="success" v-if="useStatus === 'USE'" size="small" label> 사용 </v-chip>
+                  <v-chip color="error" v-if="useStatus === 'UNUSED'" size="small" label> 미사용 </v-chip>
+                </template>
+                <template v-slot:item-operation="item">
                   <div class="operation-wrapper">
-                    <v-btn icon color="error" variant="text" @click.stop="deleteCompany(item)" rounded>
+                    <v-btn icon color="error" variant="text" @click.stop="deleteFinance(item)" rounded>
                       <DeleteOutlined  />
                     </v-btn>
                   </div>
                 </template>
               </EasyDataTable>
             </template>
-              <CompanyUpdate :company="selectedCompany" @closeDialog="menu = false"/>
+            <FinanceUpdate :customer="selectedFinance" @closeDialog="menu = false"/>
           </v-menu>
         </v-card-text>
       </v-card>
@@ -118,7 +121,7 @@ const menu = ref(false);
   </UiParentCard>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .reference {
   width: 40%;
   min-width: 900px;
@@ -129,10 +132,5 @@ const menu = ref(false);
   height: 80%;
   min-width: 1000px;
   min-height: 1300px;
-}
-.company-form {
-  width: 100%;
-  height: 80%;
-  min-height: 800px;
 }
 </style>
