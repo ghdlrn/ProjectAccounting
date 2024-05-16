@@ -5,6 +5,7 @@ const tab = ref(null);
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import DaumPostcode from "~/components/DaumPostcode.vue";
 import DateSelect from "~/components/DateSelect.vue";
+import ReadFinance from "~/components/register/ReadFinance.vue";
 /* ---------------------------정보 제출------------------------------*/
 import {storeToRefs} from "pinia";
 import {useCardStore} from "~/stores/accounting/card.ts";
@@ -32,7 +33,7 @@ const saveOrUpdateCard = async () => {
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.ts";
+import {nameRules, nullableRules} from "~/utils/form.ts";
 </script>
 
 <template>
@@ -177,11 +178,13 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
               <!--------------------------4줄-------------------------------------------------------->
               <DaumPostcode v-model="currentCard.address"/>
               <!--------------------------4줄-------------------------------------------------------->
+              <ReadFinance v-model="currentCard.finance"/>
+              <!--------------------------4줄-------------------------------------------------------->
               <v-row>
                 <v-col cols="5">
                   <v-row>
                     <v-col cols="3">
-                      <v-label class="mt-2">사업자 / 주민<br />등록번호</v-label>
+                      <v-label class="mt-2">사업자/주민<br />등록번호</v-label>
                     </v-col>
                     <v-col cols="9">
                       <v-text-field

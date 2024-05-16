@@ -70,6 +70,9 @@ export const useFinanceStore = defineStore('finance', {
                 console.error('계좌 정보 삭제 실패', error.message);
                 throw new Error('계좌 정보 삭제 실패');
             }
-        }
+        },
+        setSelectedFinance(data: Finance) {
+            this.currentFinance = data;
+        },
     }
 });

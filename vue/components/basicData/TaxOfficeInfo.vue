@@ -83,12 +83,6 @@ const headers = ref( [
 
 const menu = ref(false);
 
-function select(item) {
-  emit('update:modelValue', item);
-  store.setSelectedTaxOffice(item);
-  menu.value = false
-}
-
 const props = defineProps({
   modelValue: {
     type: Object,
@@ -97,6 +91,12 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
+
+function select(item) {
+  emit('update:modelValue', item);
+  store.setSelectedTaxOffice(item);
+  menu.value = false
+}
 
 watch(() => props.modelValue, (newValue) => {
   store.setSelectedTaxOffice(newValue);
