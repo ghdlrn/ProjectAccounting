@@ -71,10 +71,10 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                 </v-col>
                 <v-col cols="8">
                   <v-row>
-                    <v-col cols="2">
-                      <v-label class="mt-2">카드(가맹점) 번호</v-label>
+                    <v-col cols="3">
+                      <v-label class="mt-2">카드(가맹점) <br />번호</v-label>
                     </v-col>
-                    <v-col cols="4">
+                    <v-col cols="5">
                       <v-text-field
                           v-model="currentCard.cardNumber"
                           :rules="nullableRules"
@@ -84,17 +84,18 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                           color="primary">
                       </v-text-field>
                     </v-col>
-                    <v-col cols="2">
+                    <v-col cols="1">
                       <v-label class="mt-2">구분</v-label>
                     </v-col>
-                    <v-col cols="4">
-                      <v-text-field
+                    <v-col cols="3">
+                      <v-select
                           v-model="currentCard.division"
+                          :items="['매입', '매출']"
+                          label="ex) 매입, 매출"
                           variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) 매입, 매출"
+                          autofocus
                           color="primary">
-                      </v-text-field>
+                      </v-select>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -136,6 +137,8 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                 </v-col>
               </v-row>
               <!--------------------------3줄---------------------------------------------->
+
+              <!--------------------------4줄---------------------------------------------->
               <v-row>
                 <v-col cols="5">
                   <v-row>
@@ -173,6 +176,42 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
               </v-row>
               <!--------------------------4줄-------------------------------------------------------->
               <DaumPostcode v-model="currentCard.address"/>
+              <!--------------------------4줄-------------------------------------------------------->
+              <v-row>
+                <v-col cols="5">
+                  <v-row>
+                    <v-col cols="3">
+                      <v-label class="mt-2">사업자 / 주민<br />등록번호</v-label>
+                    </v-col>
+                    <v-col cols="9">
+                      <v-text-field
+                          v-model="currentCard.registrationNumber"
+                          persistent-placeholder
+                          placeholder="ex) 124-81-00998"
+                          variant="outlined"
+                          color="primary"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-col>
+
+                <v-col cols="5" offset="1">
+                  <v-row>
+                    <v-col cols="3">
+                      <v-label class="mt-2">홈페이지</v-label>
+                    </v-col>
+                    <v-col cols="9">
+                      <v-text-field
+                          v-model="currentCard.homePage"
+                          persistent-placeholder
+                          placeholder="ex) https://OOOOOO.OOO"
+                          variant="outlined"
+                          color="primary">
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
             </v-window-item>
             <!-------------------------------------------------------------------------------------->
             <!-------------------------------------기타 정보-------------------------------------->
@@ -183,10 +222,10 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                 <v-col cols="6">
                   <v-row>
                     <v-col cols="3">
-                      <v-label class="mt-2">계좌 개설일</v-label>
+                      <v-label class="mt-2">계약기간<br /> 시작일</v-label>
                     </v-col>
                     <v-col cols="8">
-                      <DateSelect v-model="currentCard.accoountOpenDate"/>
+                      <DateSelect v-model="currentCard.contractStartDate"/>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -194,10 +233,10 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                 <v-col cols="6">
                   <v-row>
                     <v-col cols="3">
-                      <v-label class="mt-2">계좌 해지일</v-label>
+                      <v-label class="mt-2">계약기간<br /> 종료일</v-label>
                     </v-col>
                     <v-col cols="8">
-                      <DateSelect v-model="currentCard.accountCloseDate"/>
+                      <DateSelect v-model="currentCard.contractEndDate"/>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -206,12 +245,11 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                 <v-col cols="6">
                   <v-row>
                     <v-col cols="4">
-                      <v-label class="mt-2">이자율</v-label>
+                      <v-label class="mt-2">수수료</v-label>
                     </v-col>
                     <v-col cols="7">
                       <v-text-field
-                          v-model="currentCard.interestRate"
-                          :rules="numberRules"
+                          v-model="currentCard.commission"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) 2.2% -> 2.2로 입력"
@@ -221,85 +259,59 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                   </v-row>
                 </v-col>
               </v-row>
-              <v-row>
-                <v-col cols="6">
-                  <v-row>
-                    <v-col cols="4">
-                      <v-label class="mt-2">당좌한도액</v-label>
-                    </v-col>
-                    <v-col cols="7">
-                      <v-text-field
-                          v-model="currentCard.overdraftLimit"
-                          :rules="integerRules"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) 1000000000"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row>
-                    <v-col cols="3">
-                      <v-label class="mt-2">당좌차월기일</v-label>
-                    </v-col>
-                    <v-col cols="8">
-                      <DateSelect v-model="currentCard.overdraftDate" />
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-              <!--------------------------------2줄------------------------------------------------------->
-              <v-row>
-                <v-col cols="6">
-                  <v-row>
-                    <v-col cols="4">
-                      <v-label class="mt-2">사업자등록번호</v-label>
-                    </v-col>
-                    <v-col cols="7">
-                      <v-text-field
-                          v-model="currentCard.businessRegistrationNumber"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) 124-81-00998"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-
-                <v-col cols="6">
-                  <v-row>
-                    <v-col cols="3">
-                      <v-label class="mt-2">지방세 <br/> 법정동</v-label>
-                    </v-col>
-                    <v-col cols="8">
-
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="6">
-                  <v-row>
-                    <v-col cols="4">
-                      <v-label class="mt-2">홈페이지</v-label>
-                    </v-col>
-                    <v-col cols="7">
-                      <v-text-field
-                          v-model="currentCard.homePage"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) https://OOOOOO.OOO"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
             </v-window-item>
             <v-window-item value="three">
+                <v-row>
+                  <v-col cols="6">
+                    <v-row>
+                      <v-col cols="3">
+                        <v-label class="mt-2">유효기간<br /> 시작일</v-label>
+                      </v-col>
+                      <v-col cols="8">
+                        <DateSelect v-model="currentCard.expirationStartDate"/>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+
+                  <v-col cols="6">
+                    <v-row>
+                      <v-col cols="3">
+                        <v-label class="mt-2">유효기간<br /> 종료일</v-label>
+                      </v-col>
+                      <v-col cols="8">
+                        <DateSelect v-model="currentCard.expirationEndDate"/>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="6">
+                    <v-row>
+                      <v-col cols="4">
+                        <v-label class="mt-2">담당자명</v-label>
+                      </v-col>
+                      <v-col cols="7">
+                        <v-text-field
+                            v-model="currentCard.chargeName"
+                            variant="outlined"
+                            persistent-placeholder
+                            placeholder="ex) 카드 담당 사원"
+                            color="primary">
+                        </v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-row>
+                      <v-col cols="3">
+                        <v-label class="mt-2">결제일</v-label>
+                      </v-col>
+                      <v-col cols="8">
+                        <DateSelect v-model="currentCard.accountDay"/>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
             </v-window-item>
             <v-row>
               <v-col cols="2" offset="10" class="pt-8">

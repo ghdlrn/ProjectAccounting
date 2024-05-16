@@ -17,12 +17,12 @@ export interface Card {
     registrationNumber: string;  //등록번호
     homePage: string;    //홈페이지주소
     /*매출*/
-    commission: number;    //수수료
     contractStartDate: Date; //계약기간 시작일
     contractEndDate: Date; //계약기간 종료일
+    commission: number;    //수수료
     /*매입*/
-    accountDay: Date; //결제일
     expirationStartDate: Date;  //유효기간 시작일
     expirationEndDate: Date; //유효기간 종료일
     chargeName: String; //담당자이름
+    accountDay: Date; //결제일
 }

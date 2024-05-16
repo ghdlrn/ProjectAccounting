@@ -102,10 +102,10 @@ const menu = ref(false);
                   @click-row="getCard"
                   :rows-per-page="10">
                 <template v-slot:item-division="{ division }">
-                  <v-chip color="success" v-if="division === 'PURCHASE'" size="small" label variant="outlined">
+                  <v-chip color="success" v-if="division === '매입'" size="small" label variant="outlined">
                     <v-icon icon="mdi-cart" start> 매입 </v-icon>
                   </v-chip>
-                  <v-chip color="primary" v-if="division === 'SALES'" size="small" label variant="outlined">
+                  <v-chip color="primary" v-if="division === '매출'" size="small" label variant="outlined">
                     <v-icon icon="mdi-cash" start> 매입 </v-icon>
                   </v-chip>
                 </template>
