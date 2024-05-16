@@ -33,4 +33,12 @@ export const registrationNumberRules = ref([
 
 export const nullableRules = ref([
     (v: string) => !!v || '필수 입력 칸 입니다',
-])
+]);
+
+export const numberRules = ref([
+    (v: string) => !v || /^\d+(\.\d+)?$/.test(v) || '숫자 및 소수 형식만 입력가능합니다'
+]);
+
+export const integerRules = ref([
+    (v: string) => !v || /^\d+$/.test(v) || '정수만 입력 가능합니다'
+]);

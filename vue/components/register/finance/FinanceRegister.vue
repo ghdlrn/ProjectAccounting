@@ -36,7 +36,7 @@ const saveOrUpdateFinance = async () => {
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import {nameRules, nullableRules} from "~/utils/form.ts";
+import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.ts";
 </script>
 
 <template>
@@ -45,7 +45,7 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
     <v-card class="finance-form">
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab value="one">기본 정보</v-tab>
-        <v-tab value="two">기타 정보</v-tab>
+        <v-tab value="two">추가 정보</v-tab>
       </v-tabs>
       <v-form @submit.prevent="saveOrUpdateFinance">
         <v-card-text>
@@ -116,7 +116,7 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
                           persistent-hint
                           variant="outlined"
                           persistent-placeholder
-                          placeholder="ex) 원재료 매입 거래처"
+                          placeholder="ex) 메인 통장"
                           color="primary">
                       </v-text-field>
                     </v-col>
@@ -176,46 +176,6 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
               </v-row>
               <!--------------------------4줄-------------------------------------------------------->
               <DaumPostcode v-model="currentFinance.address"/>
-              <!--------------------------7줄-------------------------------------------------------->
-              <v-row>
-                <v-col cols="5">
-                  <v-row>
-                    <v-col cols="3">
-                      <v-label class="mt-2">업태</v-label>
-                    </v-col>
-                    <v-col cols="9">
-                      <v-text-field
-                          v-model="currentFinance.businessType"
-                          hint="판매형태/표준산업분류표 대분류(2자리)"
-                          persistent-hint
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) 제조업"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-
-                <v-col cols="5" offset="1">
-                  <v-row>
-                    <v-col cols="3">
-                      <v-label class="mt-2">업종</v-label>
-                    </v-col>
-                    <v-col cols="9">
-                      <v-text-field
-                          v-model="currentFinance.businessItem"
-                          hint="판매하는 물건/표준산업분류표 세분류(5자리)"
-                          persistent-hint
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) 전자，전기，통신기계기구외"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
             </v-window-item>
             <!-------------------------------------------------------------------------------------->
             <!-------------------------------------기타 정보-------------------------------------->
@@ -223,188 +183,86 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
 
             <v-window-item value="two">
               <v-row>
-                <v-col cols="4">
-                  <v-row>
-                    <v-col cols="5">
-                      <v-label class="mt-2">거래 시작일</v-label>
-                    </v-col>
-                    <v-col cols="7">
-                      <DateSelect v-model="currentFinance.tradeStartDate"/>
-                    </v-col>
-                  </v-row>
-                </v-col>
-
-                <v-col cols="4">
-                  <v-row>
-                    <v-col cols="4">
-                      <v-label class="mt-2">거래 종료일</v-label>
-                    </v-col>
-                    <v-col cols="7">
-                      <DateSelect v-model="currentFinance.tradeEndDate"/>
-                    </v-col>
-                  </v-row>
-                </v-col>
-
-                <v-col cols="4">
+                <v-col cols="6">
                   <v-row>
                     <v-col cols="3">
-                      <v-label class="mt-2">홈페이지</v-label>
+                      <v-label class="mt-2">계좌 개설일</v-label>
                     </v-col>
-                    <v-col cols="9">
+                    <v-col cols="8">
+                      <DateSelect v-model="currentFinance.accoountOpenDate"/>
+                    </v-col>
+                  </v-row>
+                </v-col>
+
+                <v-col cols="6">
+                  <v-row>
+                    <v-col cols="3">
+                      <v-label class="mt-2">계좌 해지일</v-label>
+                    </v-col>
+                    <v-col cols="8">
+                      <DateSelect v-model="currentFinance.accountCloseDate"/>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-row>
+                    <v-col cols="4">
+                      <v-label class="mt-2">이자율</v-label>
+                    </v-col>
+                    <v-col cols="7">
                       <v-text-field
-                          v-model="currentFinance.homePage"
+                          v-model="currentFinance.interestRate"
+                          :rules="numberRules"
                           variant="outlined"
                           persistent-placeholder
-                          placeholder="ex) https://OOOOOO.OOO"
+                          placeholder="ex) 2.2% -> 2.2로 입력"
                           color="primary">
                       </v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-row>
+                    <v-col cols="4">
+                      <v-label class="mt-2">당좌한도액</v-label>
+                    </v-col>
+                    <v-col cols="7">
+                      <v-text-field
+                          v-model="currentFinance.overdraftLimit"
+                          :rules="integerRules"
+                          variant="outlined"
+                          persistent-placeholder
+                          placeholder="ex) 1000000000"
+                          color="primary">
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="6">
+                  <v-row>
+                    <v-col cols="3">
+                      <v-label class="mt-2">당좌차월기일</v-label>
+                    </v-col>
+                    <v-col cols="8">
+                      <DateSelect v-model="currentFinance.overdraftDate" />
                     </v-col>
                   </v-row>
                 </v-col>
               </v-row>
               <!--------------------------------2줄------------------------------------------------------->
               <v-row>
-                <v-col cols="5">
-                  <v-row>
-                    <v-col cols="5">
-                      <v-label class="mt-2">거래처 담당자 <br/> 부서 / 직급 / 이름</v-label>
-                    </v-col>
-                    <v-col cols="7">
-                      <v-text-field
-                          v-model="currentFinance.financeChargeDepartment"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) 영업팀"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                      v-model="currentFinance.financeChargePosition"
-                      variant="outlined"
-                      persistent-placeholder
-                      placeholder="ex) 과장"
-                      color="primary">
-                  </v-text-field>
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                      v-model="currentFinance.financeChargeName"
-                      variant="outlined"
-                      persistent-placeholder
-                      placeholder="ex) OOO"
-                      color="primary">
-                  </v-text-field>
-                </v-col>
-              </v-row>
-              <!--------------------------------3줄------------------------------------------->
-              <v-row>
-                <v-col cols="5">
-                  <v-row>
-                    <v-col cols="5">
-                      <v-label class="mt-2">거래처 담당자 <br/>> 전화번호 / 이메일</v-label>
-                    </v-col>
-                    <v-col cols="7">
-                      <v-text-field
-                          v-model="currentFinance.financeChargePhone"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) OOO-OOOO-OOOO"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-
-                <v-col cols="5">
-                  <v-row>
-                    <v-col cols="7">
-                      <v-text-field
-                          v-model="currentFinance.financeChargeEmail"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) OOO@OOOO.OOO"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-              <!---------------------------------------4줄------------------------------------------->
-              <v-row>
                 <v-col cols="6">
                   <v-row>
                     <v-col cols="4">
-                      <v-label class="mt-2">거래처 은행 <br/> 계좌번호 / 예금주</v-label>
+                      <v-label class="mt-2">사업자등록번호</v-label>
                     </v-col>
-                    <v-col cols="8">
+                    <v-col cols="7">
                       <v-text-field
-                          v-model="currentFinance.financeAccountNumber"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) OOO-OOOO-OOOO-OO"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="4">
-                  <v-text-field
-                      v-model="currentFinance.financeAccountHolder"
-                      variant="outlined"
-                      persistent-placeholder
-                      placeholder="ex) OOO"
-                      color="primary">
-                  </v-text-field>
-                </v-col>
-              </v-row>
-              <!------------------------5줄----------------------------------------------------->
-              <v-row>
-                <v-col cols="6">
-                  <v-row>
-                    <v-col cols="4">
-                      <v-label class="mt-2">여신한도액</v-label>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                          v-model="currentFinance.bankLine"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) OOO,OOO,OOO원"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row>
-                    <v-col cols="12" lg="4">
-                      <v-label class="mt-2">담보 설정액</v-label>
-                    </v-col>
-                    <v-col cols="12" lg="8">
-                      <v-text-field
-                          v-model="currentFinance.amountOfCollateral"
-                          variant="outlined"
-                          persistent-placeholder
-                          placeholder="ex) OOO,OOO,OOO원"
-                          color="primary">
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-              <!--------------------------------6줄------------------------------------------->
-              <v-row>
-                <v-col cols="6">
-                  <v-row>
-                    <v-col cols="4">
-                      <v-label class="mt-2">단위 신고 거래처</v-label>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                          v-model="currentFinance.unitReportingFinanceCode"
+                          v-model="currentFinance.businessRegistrationNumber"
                           variant="outlined"
                           persistent-hint
                           hint="사업자단위 과세의 경우 세금계산서 신고시 단위신고거래처로"
@@ -421,8 +279,26 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
                     <v-col cols="3">
                       <v-label class="mt-2">지방세 <br/> 법정동</v-label>
                     </v-col>
-                    <v-col cols="9">
+                    <v-col cols="8">
                       <LocalTaxInfo v-model="currentFinance.localTax"/>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-row>
+                    <v-col cols="4">
+                      <v-label class="mt-2">홈페이지</v-label>
+                    </v-col>
+                    <v-col cols="7">
+                      <v-text-field
+                          v-model="currentFinance.homePage"
+                          variant="outlined"
+                          persistent-placeholder
+                          placeholder="ex) https://OOOOOO.OOO"
+                          color="primary">
+                      </v-text-field>
                     </v-col>
                   </v-row>
                 </v-col>

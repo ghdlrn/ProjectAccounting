@@ -35,7 +35,7 @@ const saveOrUpdateCustomer = async () => {
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.ts";
+import {integerRules, nameRules, nullableRules, registrationNumberRules} from "~/utils/form.ts";
 </script>
 
 <template>
@@ -387,6 +387,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     <v-col cols="8">
                       <v-text-field
                           v-model="currentCustomer.bankLine"
+                          :rules="integerRules"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) OOO,OOO,OOO원"
@@ -403,6 +404,7 @@ import { nameRules, nullableRules, registrationNumberRules } from "~/utils/form.
                     <v-col cols="12" lg="8">
                       <v-text-field
                           v-model="currentCustomer.amountOfCollateral"
+                          :rules="integerRules"
                           variant="outlined"
                           persistent-placeholder
                           placeholder="ex) OOO,OOO,OOO원"
