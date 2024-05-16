@@ -84,8 +84,8 @@ const headers = ref( [
 const menu = ref(false);
 
 function select(item) {
-  emit('update:modelValue', item);  // This updates the v-model in the parent
-  store.setSelectedLocalTax(item);  // This updates the selected item in the store
+  emit('update:modelValue', item);
+  store.setSelectedLocalTax(item);
   menu.value = false;
 }
 
