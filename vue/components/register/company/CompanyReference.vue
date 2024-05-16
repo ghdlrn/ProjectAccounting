@@ -27,7 +27,6 @@ const selectedCompany = ref(null);
 const getCompany = (item) => {
   store.getCompany(item.id).then(companyData => {
     selectedCompany.value = companyData;
-    menu.value = true;
   });
 };
 

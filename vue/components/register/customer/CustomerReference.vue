@@ -19,6 +19,7 @@ const headers = ref([
   { text: '등록번호 / 유형', value: 'registrationNumber', sortable: true },
   { text: '대표자명', value: 'nameOfRepresentative', sortable: true },
   { text: '사용여부', value: 'useStatus', sortable: true },
+  { text: '비고', value: 'note' },
   { text: '삭제', value: 'operation' }
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
@@ -28,7 +29,6 @@ const selectedCustomer = ref(null);
 const getCustomer = (item) => {
   store.getCustomer(item.id).then(customerData => {
     selectedCustomer.value = customerData;
-    menu.value = true;
   });
 };
 
