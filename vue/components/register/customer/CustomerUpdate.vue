@@ -33,7 +33,7 @@ import {integerRules, nameRules, nullableRules, registrationNumberRules} from "~
 <template>
   <UiParentCard title="거래처 조회 / 수정">
 
-    <v-card class="company-form">
+    <v-card class="customer-form">
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab value="one">기본 정보</v-tab>
         <v-tab value="two">기타 정보</v-tab>
@@ -453,7 +453,7 @@ import {integerRules, nameRules, nullableRules, registrationNumberRules} from "~
 </template>
 
 <style scoped lang="scss">
-.company-form {
+.customer-form {
   width: 100%;
   height: 80%;
   min-height: 800px;

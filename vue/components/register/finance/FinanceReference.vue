@@ -17,6 +17,7 @@ const headers = ref([
   { text: '금융사 코드', value: 'id', sortable: true },
   { text: '금융사명', value: 'name', sortable: true },
   { text: '계좌번호', value: 'accountNumber', sortable: true },
+  { text: '예금종류', value: 'depositType', sortable: true },
   { text: '비고', value: 'note' },
   { text: '사용여부', value: 'useStatus', sortable: true },
   { text: '삭제', value: 'operation' }

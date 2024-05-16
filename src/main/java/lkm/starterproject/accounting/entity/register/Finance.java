@@ -48,6 +48,7 @@ public class Finance {
 
     private LocalDate overdraftDate;    //당좌차월기일
 
+    @Column(nullable = true)
     private String businessRegistrationNumber;  //사업자등록번호
 
     @ManyToOne(cascade = CascadeType.ALL)

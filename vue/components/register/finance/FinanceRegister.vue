@@ -264,10 +264,8 @@ import {nameRules, nullableRules, numberRules, integerRules} from "~/utils/form.
                       <v-text-field
                           v-model="currentFinance.businessRegistrationNumber"
                           variant="outlined"
-                          persistent-hint
-                          hint="사업자단위 과세의 경우 세금계산서 신고시 단위신고거래처로"
                           persistent-placeholder
-                          placeholder="ex) (주) OOOO"
+                          placeholder="ex) 124-81-00998"
                           color="primary">
                       </v-text-field>
                     </v-col>
