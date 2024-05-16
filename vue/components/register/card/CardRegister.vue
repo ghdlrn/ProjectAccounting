@@ -129,8 +129,8 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
                     <v-col cols="8">
                       <v-switch
                           v-model="currentCard.useStatus"
-                          false-value="PURCHASE"
-                          true-value="SALES"
+                          false-value="UNUSED"
+                          true-value="USE"
                           color="success">
                       </v-switch>
                     </v-col>

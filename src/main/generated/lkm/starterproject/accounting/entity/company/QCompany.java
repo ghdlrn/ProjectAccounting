@@ -34,6 +34,8 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final StringPath businessType = createString("businessType");
 
+    public final ListPath<lkm.starterproject.accounting.entity.register.Card, lkm.starterproject.accounting.entity.register.QCard> cards = this.<lkm.starterproject.accounting.entity.register.Card, lkm.starterproject.accounting.entity.register.QCard>createList("cards", lkm.starterproject.accounting.entity.register.Card.class, lkm.starterproject.accounting.entity.register.QCard.class, PathInits.DIRECT2);
+
     public final StringPath chargeEmail = createString("chargeEmail");
 
     public final StringPath chargeName = createString("chargeName");
@@ -52,6 +54,8 @@ public class QCompany extends EntityPathBase<Company> {
     public final StringPath fax = createString("fax");
 
     public final StringPath finance = createString("finance");
+
+    public final ListPath<lkm.starterproject.accounting.entity.register.Finance, lkm.starterproject.accounting.entity.register.QFinance> finances = this.<lkm.starterproject.accounting.entity.register.Finance, lkm.starterproject.accounting.entity.register.QFinance>createList("finances", lkm.starterproject.accounting.entity.register.Finance.class, lkm.starterproject.accounting.entity.register.QFinance.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> fiscalYearClass = createNumber("fiscalYearClass", Long.class);
 

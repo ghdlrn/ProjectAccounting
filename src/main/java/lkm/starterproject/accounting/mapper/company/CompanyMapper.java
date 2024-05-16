@@ -5,6 +5,7 @@ import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.mapper.basic.AddressMapper;
 import lkm.starterproject.accounting.mapper.basic.LocalTaxMapper;
 import lkm.starterproject.accounting.mapper.basic.TaxOfficeMapper;
+import lkm.starterproject.accounting.mapper.register.CardMapper;
 import lkm.starterproject.accounting.mapper.register.CustomerMapper;
 import lkm.starterproject.accounting.mapper.register.FinanceMapper;
 import org.mapstruct.Mapper;
@@ -14,7 +15,7 @@ import org.mapstruct.Mappings;
 
 
 @Mapper(componentModel = "spring",
-        uses = {CustomerMapper.class, FinanceMapper.class,
+        uses = {CustomerMapper.class, FinanceMapper.class, CardMapper.class,
                 TaxOfficeMapper.class, LocalTaxMapper.class, AddressMapper.class,})
 public interface CompanyMapper {
 

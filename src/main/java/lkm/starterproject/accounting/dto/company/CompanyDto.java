@@ -4,7 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
 import lkm.starterproject.accounting.entity.basic.Address;
+import lkm.starterproject.accounting.entity.register.Card;
 import lkm.starterproject.accounting.entity.register.Customer;
+import lkm.starterproject.accounting.entity.register.Finance;
 import lkm.starterproject.auth.dto.MemberCompanyDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,4 +48,6 @@ public class CompanyDto {
     private String note;  // 비고
     private List<MemberCompanyDto> memberCompanies;
     private List<Customer> customers;
+    private List<Finance> finances;
+    private List<Card> cards;
 }
