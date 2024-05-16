@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,19 +18,21 @@ public class QFinance extends EntityPathBase<Finance> {
 
     private static final long serialVersionUID = -1032565915L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QFinance finance = new QFinance("finance");
 
     public final DatePath<java.time.LocalDate> accoountOpenDate = createDate("accoountOpenDate", java.time.LocalDate.class);
 
     public final DatePath<java.time.LocalDate> accountCloseDate = createDate("accountCloseDate", java.time.LocalDate.class);
 
-    public final NumberPath<Integer> accountNumber = createNumber("accountNumber", Integer.class);
+    public final StringPath accountNumber = createString("accountNumber");
 
-    public final NumberPath<Long> accountTitle = createNumber("accountTitle", Long.class);
-
-    public final StringPath address = createString("address");
+    public final lkm.starterproject.accounting.entity.basic.QAddress address;
 
     public final StringPath businessRegistrationNumber = createString("businessRegistrationNumber");
+
+    public final lkm.starterproject.accounting.entity.company.QCompany company;
 
     public final StringPath depositType = createString("depositType");
 
@@ -41,7 +44,7 @@ public class QFinance extends EntityPathBase<Finance> {
 
     public final NumberPath<Double> interestRate = createNumber("interestRate", Double.class);
 
-    public final NumberPath<Long> localTaxBillCode = createNumber("localTaxBillCode", Long.class);
+    public final lkm.starterproject.accounting.entity.basic.QLocalTax localTax;
 
     public final StringPath name = createString("name");
 
@@ -55,18 +58,27 @@ public class QFinance extends EntityPathBase<Finance> {
 
     public final EnumPath<lkm.starterproject.accounting.constants.UseStatus> useStatus = createEnum("useStatus", lkm.starterproject.accounting.constants.UseStatus.class);
 
-    public final NumberPath<Long> zipCode = createNumber("zipCode", Long.class);
-
     public QFinance(String variable) {
-        super(Finance.class, forVariable(variable));
+        this(Finance.class, forVariable(variable), INITS);
     }
 
     public QFinance(Path<? extends Finance> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QFinance(PathMetadata metadata) {
-        super(Finance.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QFinance(PathMetadata metadata, PathInits inits) {
+        this(Finance.class, metadata, inits);
+    }
+
+    public QFinance(Class<? extends Finance> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.address = inits.isInitialized("address") ? new lkm.starterproject.accounting.entity.basic.QAddress(forProperty("address")) : null;
+        this.company = inits.isInitialized("company") ? new lkm.starterproject.accounting.entity.company.QCompany(forProperty("company"), inits.get("company")) : null;
+        this.localTax = inits.isInitialized("localTax") ? new lkm.starterproject.accounting.entity.basic.QLocalTax(forProperty("localTax")) : null;
     }
 
 }
