@@ -13,7 +13,7 @@ export interface Finance {
     phone: string;   //전화번호
     fax: string;     //팩스번호
     address: Address;    //우편번호
-    accoountOpenDate: Date; //계좌개설일
+    accountOpenDate: Date; //계좌개설일
     accountCloseDate: Date; //계좌해지일
     interestRate: number;    //이자율
     overdraftLimit: number; //당좌한도액

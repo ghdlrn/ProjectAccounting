@@ -29,7 +29,7 @@ public class FinanceDto {
     private String phone;   //전화번호
     private String fax;     //팩스번호
     private String homePage;    //홈페이지주소
-    private LocalDate accoountOpenDate; //계좌개설일
+    private LocalDate accountOpenDate; //계좌개설일
     private LocalDate accountCloseDate; //계좌해지일
     private LocalTax localTax;          //지방세 법정동
 }

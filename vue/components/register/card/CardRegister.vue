@@ -5,7 +5,7 @@ const tab = ref(null);
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import DaumPostcode from "~/components/DaumPostcode.vue";
 import DateSelect from "~/components/DateSelect.vue";
-import ReadFinance from "~/components/register/ReadFinance.vue";
+import ReadFinance from "~/components/basicData/ReadFinance.vue";
 /* ---------------------------정보 제출------------------------------*/
 import {storeToRefs} from "pinia";
 import {useCardStore} from "~/stores/accounting/card.ts";

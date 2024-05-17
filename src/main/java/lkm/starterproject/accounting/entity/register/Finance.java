@@ -63,7 +63,7 @@ public class Finance {
 
     private String homePage;    //홈페이지주소
 
-    private LocalDate accoountOpenDate; //계좌개설일
+    private LocalDate accountOpenDate; //계좌개설일
 
     private LocalDate accountCloseDate; //계좌해지일
 
