@@ -20,7 +20,7 @@ public class Customer {      //거래처
     @Column(name = "customer_id")
     private Long id;        //거래처 코드번호
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 

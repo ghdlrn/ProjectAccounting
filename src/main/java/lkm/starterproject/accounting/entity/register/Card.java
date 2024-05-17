@@ -23,7 +23,7 @@ public class Card {
     @Column(name = "card_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 

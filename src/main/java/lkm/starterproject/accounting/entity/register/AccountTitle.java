@@ -18,7 +18,7 @@ public class AccountTitle {
     @Column(name = "account_title_id", unique = true, nullable = false)
     private Long id;        //계정과목 코드
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
@@ -29,7 +29,7 @@ public class AccountTitle {
     private String type;    //계정종류
 
     @Builder.Default
-    @OneToMany(mappedBy = "accountTitle", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "accountTitle", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Compendium> compendiums = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

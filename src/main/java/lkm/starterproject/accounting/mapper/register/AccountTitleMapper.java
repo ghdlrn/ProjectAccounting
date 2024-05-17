@@ -19,5 +19,7 @@ public interface AccountTitleMapper {
     @Mapping(source = "compendiums", target = "compendiums")
     AccountTitle toEntity(AccountTitleDto dto);
 
+    @Mapping(target = "company", source = "dto.company")
+    @Mapping(target = "compendiums", source = "dto.compendiums")
     void updateDto(AccountTitleDto dto, @MappingTarget AccountTitle entity);
 }

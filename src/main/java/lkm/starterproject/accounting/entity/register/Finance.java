@@ -24,7 +24,7 @@ public class Finance {
     @Column(name = "finance_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 

@@ -100,22 +100,22 @@ public class Company extends BaseEntity {  //회사
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
     @Builder.Default
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY,  orphanRemoval = true)
+    @OneToMany(mappedBy = "company", orphanRemoval = true)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Customer> customers = new ArrayList<>();        //거래처
 
     @Builder.Default
-    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Finance> finances = new ArrayList<>();        //계좌
 
     @Builder.Default
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Card> cards = new ArrayList<>();        //카드
 
     @Builder.Default
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", orphanRemoval = true)
     private List<AccountTitle> accountTitles = new ArrayList<>();        //카드
 }
