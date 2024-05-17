@@ -8,12 +8,10 @@ import lkm.starterproject.accounting.mapper.basic.TaxOfficeMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 
-@Mapper(componentModel = "spring",
-        uses = { AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class })
+@Mapper(uses = { AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class })
 public interface CompanyMapper {
 
     CompanyMapper INSTANCE = Mappers.getMapper(CompanyMapper.class);

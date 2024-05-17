@@ -6,8 +6,7 @@ import lkm.starterproject.auth.entity.MemberCompany;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring",
-        uses = {MemberMapper.class, CompanyMapper.class})
+@Mapper(uses = {MemberMapper.class, CompanyMapper.class})
 public interface MemberCompanyMapper {
 
     MemberCompanyMapper INSTANCE = Mappers.getMapper(MemberCompanyMapper.class);

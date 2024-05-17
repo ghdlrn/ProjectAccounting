@@ -9,8 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring",
-        uses = {CompanyMapper.class, AddressMapper.class, LocalTaxMapper.class})
+@Mapper(uses = {CompanyMapper.class, AddressMapper.class, LocalTaxMapper.class})
 public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);

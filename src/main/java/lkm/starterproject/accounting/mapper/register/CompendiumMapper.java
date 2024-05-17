@@ -2,12 +2,14 @@ package lkm.starterproject.accounting.mapper.register;
 
 import lkm.starterproject.accounting.dto.register.CompendiumDto;
 import lkm.starterproject.accounting.entity.register.Compendium;
-import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = AccountTitleMapper.class)
+@Mapper(uses = AccountTitleMapper.class)
 public interface CompendiumMapper {
+
+    CompendiumMapper INSTANCE = Mappers.getMapper(CompendiumMapper.class);
 
     CompendiumDto toDto(Compendium entity);
 

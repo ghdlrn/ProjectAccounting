@@ -5,9 +5,12 @@ import lkm.starterproject.accounting.entity.basic.TaxOffice;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface TaxOfficeMapper {
+
+    TaxOfficeMapper INSTANCE = Mappers.getMapper(TaxOfficeMapper.class);
 
     @Mappings({
             @Mapping(target = "address", ignore = true),
