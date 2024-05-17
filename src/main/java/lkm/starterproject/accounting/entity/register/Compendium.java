@@ -14,6 +14,10 @@ public class Compendium {   //적요
     @Column(name = "compendium_id")
     private Long id;        //코드
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_title_id")
+    private AccountTitle accountTitle;
+
     private String content; //적요내용
     
     private String note;    //비고
