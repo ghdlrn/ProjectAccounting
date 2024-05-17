@@ -2,15 +2,18 @@ package lkm.starterproject.accounting.mapper.register;
 
 import lkm.starterproject.accounting.dto.register.FinanceDto;
 import lkm.starterproject.accounting.entity.register.Finance;
-import lkm.starterproject.auth.mapper.MemberCompanyMapper;
+import lkm.starterproject.accounting.mapper.basic.AddressMapper;
+import lkm.starterproject.accounting.mapper.basic.LocalTaxMapper;
+import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
-import java.util.List;
-
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+        uses = {CompanyMapper.class, AddressMapper.class, LocalTaxMapper.class})
 public interface FinanceMapper {
+
+    FinanceMapper INSTANCE = Mappers.getMapper(FinanceMapper.class);
 
     FinanceDto toDto(Finance entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
 
