@@ -1,17 +1,21 @@
 package lkm.starterproject.auth.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lkm.starterproject.auth.constants.Role;
+import lombok.*;
 
-import java.util.List;
-
-@Getter
-@Setter
+@Getter @Setter
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class MemberDto {
+
+    private Long id;
 
     private String username;
 
     private String email;
 
     private String password;
+
+    private Role role;
+
+    private MemberCompanyDto memberCompanies;
 }

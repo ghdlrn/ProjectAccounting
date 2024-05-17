@@ -8,14 +8,13 @@ import lkm.starterproject.accounting.dto.register.CardDto;
 import lkm.starterproject.accounting.dto.register.CustomerDto;
 import lkm.starterproject.accounting.dto.register.FinanceDto;
 import lkm.starterproject.auth.dto.MemberCompanyDto;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@Setter
+@Getter @Setter
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class CompanyDto {
 
     private Long id;  // 회사코드

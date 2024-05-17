@@ -100,7 +100,7 @@ public class Company extends BaseEntity {  //회사
      * ----------------------------------Mapping------------------------------------------
      * ----------------------------------------------------------------------------------*/
     @Builder.Default
-    @OneToMany(mappedBy = "company", orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberCompany> memberCompanies = new ArrayList<>();
 
     @Builder.Default

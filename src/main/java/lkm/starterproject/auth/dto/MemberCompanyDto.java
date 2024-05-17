@@ -1,11 +1,10 @@
 package lkm.starterproject.auth.dto;
 
 import lkm.starterproject.accounting.dto.company.CompanyDto;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Getter @Setter
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class MemberCompanyDto {
 
     private Long id;
@@ -13,4 +12,6 @@ public class MemberCompanyDto {
     private MemberDto member;
 
     private CompanyDto company;
+
+    private String role;
 }
