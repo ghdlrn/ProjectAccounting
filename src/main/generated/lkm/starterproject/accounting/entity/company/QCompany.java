@@ -24,6 +24,8 @@ public class QCompany extends EntityPathBase<Company> {
 
     public final lkm.starterproject.auth.entity.QBaseEntity _super = new lkm.starterproject.auth.entity.QBaseEntity(this);
 
+    public final ListPath<lkm.starterproject.accounting.entity.register.AccountTitle, lkm.starterproject.accounting.entity.register.QAccountTitle> accountTitles = this.<lkm.starterproject.accounting.entity.register.AccountTitle, lkm.starterproject.accounting.entity.register.QAccountTitle>createList("accountTitles", lkm.starterproject.accounting.entity.register.AccountTitle.class, lkm.starterproject.accounting.entity.register.QAccountTitle.class, PathInits.DIRECT2);
+
     public final lkm.starterproject.accounting.entity.basic.QAddress address;
 
     public final StringPath businessItem = createString("businessItem");

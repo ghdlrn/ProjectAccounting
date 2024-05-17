@@ -23,7 +23,7 @@ public class Card {
     @Column(name = "card_id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
