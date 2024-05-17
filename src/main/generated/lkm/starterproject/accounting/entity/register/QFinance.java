@@ -22,11 +22,11 @@ public class QFinance extends EntityPathBase<Finance> {
 
     public static final QFinance finance = new QFinance("finance");
 
-    public final DatePath<java.time.LocalDate> accoountOpenDate = createDate("accoountOpenDate", java.time.LocalDate.class);
-
     public final DatePath<java.time.LocalDate> accountCloseDate = createDate("accountCloseDate", java.time.LocalDate.class);
 
     public final StringPath accountNumber = createString("accountNumber");
+
+    public final DatePath<java.time.LocalDate> accountOpenDate = createDate("accountOpenDate", java.time.LocalDate.class);
 
     public final lkm.starterproject.accounting.entity.basic.QAddress address;
 
