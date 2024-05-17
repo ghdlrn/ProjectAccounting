@@ -41,7 +41,7 @@ public class Card {
     @Column(nullable = false)
     private UseStatus useStatus;    //사용구분
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "finance_id")
     private Finance finance;
 
