@@ -6,8 +6,6 @@ import lkm.starterproject.auth.entity.MemberCompany;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import java.util.List;
-
 @Mapper(uses = { MemberMapper.class, CompanyMapper.class })
 public interface MemberCompanyMapper {
 

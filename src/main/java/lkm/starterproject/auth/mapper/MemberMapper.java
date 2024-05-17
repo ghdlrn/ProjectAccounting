@@ -1,14 +1,9 @@
 package lkm.starterproject.auth.mapper;
 
-import lkm.starterproject.auth.dto.MemberCompanyDto;
 import lkm.starterproject.auth.dto.MemberDto;
 import lkm.starterproject.auth.entity.Member;
-import lkm.starterproject.auth.entity.MemberCompany;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 @Mapper(uses = { MemberCompanyMapper.class })
 public interface MemberMapper {
