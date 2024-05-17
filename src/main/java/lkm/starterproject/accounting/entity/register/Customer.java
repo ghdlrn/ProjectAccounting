@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class Customer {      //거래처
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Long id;        //거래처 코드번호
 

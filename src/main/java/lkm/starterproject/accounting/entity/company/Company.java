@@ -23,7 +23,7 @@ import java.util.List;
 public class Company extends BaseEntity {  //회사
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
     private Long id;        //회사코드
 
@@ -116,6 +116,6 @@ public class Company extends BaseEntity {  //회사
     private List<Card> cards = new ArrayList<>();        //카드
 
     @Builder.Default
-    @OneToMany(mappedBy = "company", orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AccountTitle> accountTitles = new ArrayList<>();        //카드
 }

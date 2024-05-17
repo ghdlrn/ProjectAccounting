@@ -10,7 +10,7 @@ import lombok.*;
 public class Compendium {   //적요
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "compendium_id")
     private Long id;        //코드
 

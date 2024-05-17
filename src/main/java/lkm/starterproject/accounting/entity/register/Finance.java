@@ -20,7 +20,7 @@ import java.time.LocalDate;
 public class Finance {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "finance_id")
     private Long id;
 
