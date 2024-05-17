@@ -19,5 +19,5 @@ public interface FinanceMapper {
     @Mapping(source = "company", target = "company")
     Finance toEntity(FinanceDto dto);
 
-    void updateEntityFromDto(FinanceDto dto, @MappingTarget Finance entity);
+    void updateDto(FinanceDto dto, @MappingTarget Finance entity);
 }

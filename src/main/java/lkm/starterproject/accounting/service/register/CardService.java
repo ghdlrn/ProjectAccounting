@@ -48,7 +48,7 @@ public class CardService {
     public CardDto updateCard(Long id, CardDto cardDto) {
         Card card = cardRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Card 정보를 찾을 수 없음"));
-        cardMapper.updateEntityFromDto(cardDto, card);
+        cardMapper.updateDto(cardDto, card);
         card = cardRepository.save(card);
         return cardMapper.toDto(card);
     }

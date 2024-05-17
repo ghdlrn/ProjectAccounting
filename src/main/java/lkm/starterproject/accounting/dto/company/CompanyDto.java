@@ -1,12 +1,12 @@
 package lkm.starterproject.accounting.dto.company;
 
-import jakarta.validation.constraints.NotBlank;
+import lkm.starterproject.accounting.dto.basic.AddressDto;
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
-import lkm.starterproject.accounting.entity.basic.Address;
-import lkm.starterproject.accounting.entity.register.Card;
-import lkm.starterproject.accounting.entity.register.Customer;
-import lkm.starterproject.accounting.entity.register.Finance;
+import lkm.starterproject.accounting.dto.register.AccountTitleDto;
+import lkm.starterproject.accounting.dto.register.CardDto;
+import lkm.starterproject.accounting.dto.register.CustomerDto;
+import lkm.starterproject.accounting.dto.register.FinanceDto;
 import lkm.starterproject.auth.dto.MemberCompanyDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class CompanyDto {
     private String businessRegistrationNumber;  // 사업자등록번호
     private String nameOfRepresentative;  // 대표자명
     private String corporationRegistrationNumber;  // 법인등록번호
-    private Address address;    //주소
+    private AddressDto address;    //주소
     private String businessType;  // 업태
     private String businessItem;  // 업종
     private Long fiscalYearClass;  // 회계연도기수
@@ -47,7 +47,8 @@ public class CompanyDto {
     private String chargeEmail;  // 담당자 이메일
     private String note;  // 비고
     private List<MemberCompanyDto> memberCompanies;
-    private List<Customer> customers;
-    private List<Finance> finances;
-    private List<Card> cards;
+    private List<CustomerDto> customers;
+    private List<FinanceDto> finances;
+    private List<CardDto> cards;
+    private List<AccountTitleDto> accountTitles;
 }

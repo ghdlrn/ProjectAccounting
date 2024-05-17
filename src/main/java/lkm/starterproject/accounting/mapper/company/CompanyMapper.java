@@ -16,7 +16,8 @@ import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring",
         uses = {CustomerMapper.class, FinanceMapper.class, CardMapper.class,
-                TaxOfficeMapper.class, LocalTaxMapper.class, AddressMapper.class,})
+                TaxOfficeMapper.class, LocalTaxMapper.class, AddressMapper.class,
+        })
 public interface CompanyMapper {
 
     @Mappings({
@@ -44,5 +45,5 @@ public interface CompanyMapper {
             @Mapping(target = "regTime", ignore = true),
             @Mapping(target = "updateTime", ignore = true),
     })
-    void updateEntityFromDto(CompanyDto dto, @MappingTarget Company entity);
+    void updateDto(CompanyDto dto, @MappingTarget Company entity);
 }

@@ -1,6 +1,8 @@
 package lkm.starterproject.accounting.dto.register;
 
 import lkm.starterproject.accounting.constants.UseStatus;
+import lkm.starterproject.accounting.dto.basic.AddressDto;
+import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.register.Finance;
@@ -14,16 +16,16 @@ import java.time.LocalDate;
 public class CardDto {
 
     private Long id;
-    private Company company;
+    private CompanyDto company;
     private String name;    //카드(사)명
     private String cardNumber;  //카드번호
     private String note;    //비고
     private String division;    //거래구분
     private UseStatus useStatus;    //사용구분
-    private Finance finance;
+    private FinanceDto finance;
     private String phone;   //전화번호
     private String fax;     //팩스번호
-    private Address address;    //주소
+    private AddressDto address;    //주소
     private String registrationNumber;  //사업자등록번호
     private String homePage;        //홈페이지주소
     private LocalDate contractStartDate;    //계약시작일

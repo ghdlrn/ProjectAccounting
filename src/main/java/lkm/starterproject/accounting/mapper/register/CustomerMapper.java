@@ -21,5 +21,5 @@ public interface CustomerMapper {
     @Mapping(source = "company", target = "company")
     Customer toEntity(CustomerDto dto);
 
-    void updateEntityFromDto(CustomerDto dto, @MappingTarget Customer entity);
+    void updateDto(CustomerDto dto, @MappingTarget Customer entity);
 }

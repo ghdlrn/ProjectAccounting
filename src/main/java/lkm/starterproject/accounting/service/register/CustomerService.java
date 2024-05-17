@@ -53,7 +53,7 @@ public class CustomerService {
     public CustomerDto updateCustomer(Long id, CustomerDto customerDto) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
-        customerMapper.updateEntityFromDto(customerDto, customer);
+        customerMapper.updateDto(customerDto, customer);
         assignLocalTaxAndTaxOffice(customer, customerDto);
         customer = customerRepository.save(customer);
         return customerMapper.toDto(customer);

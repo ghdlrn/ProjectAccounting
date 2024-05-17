@@ -22,5 +22,5 @@ public interface CardMapper {
     @Mapping(source = "address", target = "address")
     Card toEntity(CardDto dto);
 
-    void updateEntityFromDto(CardDto dto, @MappingTarget Card entity);
+    void updateDto(CardDto dto, @MappingTarget Card entity);
 }

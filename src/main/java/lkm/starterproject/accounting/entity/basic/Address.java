@@ -2,7 +2,6 @@ package lkm.starterproject.accounting.entity.basic;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Immutable;
 
 @Entity
 @Getter @Setter @ToString

@@ -116,6 +116,6 @@ public class Company extends BaseEntity {  //회사
     private List<Card> cards = new ArrayList<>();        //카드
 
     @Builder.Default
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<AccountTitle> accountTitles = new ArrayList<>();        //카드
 }

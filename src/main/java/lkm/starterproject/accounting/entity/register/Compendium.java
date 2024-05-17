@@ -12,13 +12,11 @@ public class Compendium {   //적요
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "compendium_id")
-    private Long id;        //회사코드
-
-    @ManyToOne
-    @JoinColumn(name = "account_title_id")
-    private AccountTitle accountTitle;
+    private Long id;        //코드
 
     private String content; //적요내용
     
     private String note;    //비고
+
+
 }

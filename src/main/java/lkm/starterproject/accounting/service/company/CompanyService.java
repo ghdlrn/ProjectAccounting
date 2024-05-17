@@ -57,7 +57,7 @@ public class CompanyService {
     public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
-        companyMapper.updateEntityFromDto(companyDto, company);
+        companyMapper.updateDto(companyDto, company);
         assignLocalTaxAndTaxOffice(company, companyDto);
         company = companyRepository.save(company);
         return companyMapper.toDto(company);

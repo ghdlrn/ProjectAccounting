@@ -1,10 +1,9 @@
 package lkm.starterproject.accounting.dto.register;
 
-import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.constants.UseStatus;
-import lkm.starterproject.accounting.entity.basic.Address;
-import lkm.starterproject.accounting.entity.basic.LocalTax;
-import lkm.starterproject.accounting.entity.company.Company;
+import lkm.starterproject.accounting.dto.basic.AddressDto;
+import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
+import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +14,7 @@ import java.time.LocalDate;
 public class CustomerDto {
 
     private Long id;        //거래처 코드번호
-    private Company company;
+    private CompanyDto company;
     private String name;        //거래처명
     private String registrationNumberType;  //등록번호 구분(사업자or주민or외국인 등록번호)
     private String registrationNumber;      //사업자등록번호or주민번호or외국인번호 등 등록번호
@@ -23,7 +22,7 @@ public class CustomerDto {
     private UseStatus useStatus;        //사용여부
     private String businessType;    //업태
     private String businessItem;    //업종
-    private Address address;
+    private AddressDto address;
     private String phone;   //전화번호
     private String fax;     //팩스번호
     private String unitReportingCustomerCode;  //단위신고거래처
@@ -40,6 +39,6 @@ public class CustomerDto {
     private String customerAccountHolder;   //거래처 예금주
     private Long bankLine;   //여신한도액
     private Long amountOfCollateral; //담보설정액
-    private LocalTax localTax;          //지방세 법정동
+    private LocalTaxDto localTax;          //지방세 법정동
 
 }

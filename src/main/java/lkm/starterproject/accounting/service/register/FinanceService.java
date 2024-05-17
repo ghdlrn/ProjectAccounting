@@ -53,7 +53,7 @@ public class FinanceService {
     public FinanceDto updateFinance(Long id, FinanceDto financeDto) {
         Finance finance = financeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Finance 정보를 찾을 수 없음"));
-        financeMapper.updateEntityFromDto(financeDto, finance);
+        financeMapper.updateDto(financeDto, finance);
         assignLocalTaxAndTaxOffice(finance, financeDto);
         finance = financeRepository.save(finance);
         return financeMapper.toDto(finance);
