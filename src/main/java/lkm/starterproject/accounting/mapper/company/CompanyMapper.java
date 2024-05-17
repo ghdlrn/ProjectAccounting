@@ -5,13 +5,19 @@ import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.mapper.basic.AddressMapper;
 import lkm.starterproject.accounting.mapper.basic.LocalTaxMapper;
 import lkm.starterproject.accounting.mapper.basic.TaxOfficeMapper;
+import lkm.starterproject.auth.dto.MemberCompanyDto;
+import lkm.starterproject.auth.entity.MemberCompany;
+import lkm.starterproject.auth.mapper.MemberCompanyMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
 
-@Mapper(uses = { AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class })
+
+@Mapper(uses = { MemberCompanyMapper.class,
+        AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class })
 public interface CompanyMapper {
 
     CompanyMapper INSTANCE = Mappers.getMapper(CompanyMapper.class);
@@ -23,4 +29,5 @@ public interface CompanyMapper {
     @Mapping(target = "regTime", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     void updateDto(CompanyDto dto, @MappingTarget Company entity);
+
 }
