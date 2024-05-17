@@ -1,10 +1,13 @@
 package lkm.starterproject.accounting.service;
 
 import jakarta.annotation.PostConstruct;
+import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
+import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
+import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +26,21 @@ public class CSVService {
 
     private final TaxOfficeRepository taxOfficeRepository;
     private final LocalTaxRepository localTaxRepository;
+    private final AccountTitleRepository accountTitleRepository;
 
     @Autowired
-    public CSVService(TaxOfficeRepository taxOfficeRepository , LocalTaxRepository localTaxRepository) {
+    public CSVService(TaxOfficeRepository taxOfficeRepository , LocalTaxRepository localTaxRepository
+    , AccountTitleRepository accountTitleRepository) {
         this.taxOfficeRepository = taxOfficeRepository;
         this.localTaxRepository = localTaxRepository;
+        this.accountTitleRepository = accountTitleRepository;
     }
 
     @PostConstruct
     public void init() {
         saveTaxOfficeData();
         saveLocalTaxData();
+        saveAccountTitleData();
     }
 
     public void saveLocalTaxData() {
@@ -92,6 +99,45 @@ public class CSVService {
             }
             Collections.sort(taxOffices, Comparator.comparing(TaxOffice::getId));
             taxOfficeRepository.saveAll(taxOffices);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveAccountTitleData() {
+        try (Reader reader = new InputStreamReader(new ClassPathResource("basic_data/account_title_data.csv").getInputStream(), "CP949")) {
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
+            List<AccountTitle> accountTitles = new ArrayList<>();
+            for (CSVRecord record : records) {
+                try {
+                    Long id = parseLong(record.get("계정코드"));
+                    AccountTitle accountTitle = AccountTitle.builder()
+                            .id(id)
+                            .name(record.get("계정명"))
+                            .balanceClassification(record.get("대차구분"))
+                            .type(record.get("계정종류"))
+                            .useStatus(UseStatus.valueOf(record.get("사용여부")))
+                            .properties(record.get("계정속성"))
+                            .relatedWork(record.get("관련업무"))
+                            .cheque(record.get("수표"))
+                            .balanceTallyClassification(record.get("잔액집계구분"))
+                            .incomeExpenditureClassification(record.get("수입지출구분"))
+                            .incomeExpenditureParentAccount(record.get("수입지출상위계정"))
+                            .financialStatementName(record.get("재무제표표시명"))
+                            .financialStatementPrintingLocation(record.get("재무제표인쇄위치"))
+                            .financialStatementAmountThickness(record.get("재무제표금액굵기"))
+                            .financialStatementAmountParentheses(record.get("재무재표금액괄호"))
+                            .financialStatementHyperlinkTarget(record.get("재무제표하이퍼링크대상"))
+                            .financialStatementParentAccount(record.get("재무제표상위계정"))
+                            .build();
+                    accountTitles.add(accountTitle);
+                } catch (Exception e) {
+                    System.err.println("Error processing record: " + record.toString());
+                    e.printStackTrace();
+                }
+            }
+            Collections.sort(accountTitles, Comparator.comparing(AccountTitle::getId));
+            accountTitleRepository.saveAll(accountTitles);
         } catch (Exception e) {
             e.printStackTrace();
         }

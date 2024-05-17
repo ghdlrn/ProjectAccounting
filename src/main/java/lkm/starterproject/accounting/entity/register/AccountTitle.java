@@ -37,11 +37,11 @@ public class AccountTitle {
 
     private String properties;  //계정속성
 
-    private String balanceTallyClassification;  //잔액집계구분
-
     private String relatedWork; //관련업무
 
     private String cheque;   //수표
+
+    private String balanceTallyClassification;  //잔액집계구분
 
     private String incomeExpenditureClassification; //수입지출구분
 
