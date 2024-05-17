@@ -30,18 +30,18 @@ public interface CompanyMapper {
 
 
     @Mappings({
-            @Mapping(target = "taxOffice", source = "taxOffice"),
-            @Mapping(target = "localTax", source = "localTax"),
-            @Mapping(target = "address", source = "address"),
-            @Mapping(target = "memberCompanies", source = "memberCompanies"),
+            @Mapping(target = "taxOffice", source = "dto.taxOffice"),
+            @Mapping(target = "localTax", source = "dto.localTax"),
+            @Mapping(target = "address", source = "dto.address"),
+            @Mapping(target = "memberCompanies", source = "dto.memberCompanies"),
     })
     Company toEntity(CompanyDto dto);
 
     @Mappings({
-            @Mapping(target = "taxOffice", source = "taxOffice"),
-            @Mapping(target = "localTax", source = "localTax"),
-            @Mapping(target = "address", source = "address"),
-            @Mapping(target = "memberCompanies", source = "memberCompanies"),
+            @Mapping(target = "taxOffice", source = "dto.taxOffice"),
+            @Mapping(target = "localTax", source = "dto.localTax"),
+            @Mapping(target = "address", source = "dto.address"),
+            @Mapping(target = "memberCompanies", source = "dto.memberCompanies"),
             @Mapping(target = "regTime", ignore = true),
             @Mapping(target = "updateTime", ignore = true),
     })
