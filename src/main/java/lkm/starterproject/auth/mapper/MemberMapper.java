@@ -5,7 +5,7 @@ import lkm.starterproject.auth.entity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = { MemberCompanyMapper.class })
+@Mapper
 public interface MemberMapper {
 
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
