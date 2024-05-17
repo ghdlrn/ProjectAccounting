@@ -329,42 +329,6 @@ import {businessRegistrationNumberRules, nameRules} from "~/utils/form.ts"
                 </v-row>
               </v-col>
             </v-row>
-<!---------------------------------------4줄------------------------------------------->
-            <v-row>
-              <v-col cols="6">
-                <v-row>
-                  <v-col cols="4">
-                    <v-label class="mt-2">국세 환급금 <br />계좌</v-label>
-                  </v-col>
-                  <v-col cols="8">
-                    <v-text-field v-model="currentCompany.finance"
-                                  variant="outlined"
-                                  color="primary"
-                                  hint="ex) 계좌번호"
-                                  persistent-hint
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-col>
-              <v-col cols="6">
-                <v-row>
-                    <v-col cols="6">
-                      <v-text-field readonly variant="outlined"
-                                    color="primary"
-                                    hint="ex) 은행명(자동입력)"
-                                    persistent-hint
-                      ></v-text-field>
-                    </v-col>
-                  <v-col cols="6">
-                    <v-text-field readonly variant="outlined"
-                                  color="primary"
-                                  hint="ex) 계좌명(자동입력)"
-                                  persistent-hint
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
 <!------------------------5줄----------------------------------------------------->
             <v-row>
               <v-col cols="6">

@@ -37,7 +37,6 @@ public class Finance {
     private String note;    //비고
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private UseStatus useStatus;    //사용구분
 
     private String depositType; //예금종류

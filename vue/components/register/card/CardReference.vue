@@ -3,7 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useCardStore } from "~/stores/accounting/card";
 const store = useCardStore();
 
-import {DeleteOutlined, PlusOutlined, SearchOutlined} from "@ant-design/icons-vue";
+import {DeleteOutlined, PlusOutlined, SearchOutlined, ShoppingCartOutlined, DollarOutlined } from "@ant-design/icons-vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import CardRegister from "~/components/register/card/CardRegister.vue";
 import CardUpdate from "~/components/register/card/CardUpdate.vue";
@@ -73,7 +73,9 @@ const menu = ref(false);
                       카드 등록
                     </v-btn>
                   </template>
-                  <CardRegister @closeDialog="dialog = false" />
+                  <template v-if="dialog">
+                    <CardRegister @closeDialog="dialog = false" />  <!-- 수정된 부분 -->
+                  </template>
                 </v-dialog>
               </div>
             </v-col>
@@ -103,10 +105,16 @@ const menu = ref(false);
                   :rows-per-page="10">
                 <template v-slot:item-division="{ division }">
                   <v-chip color="success" v-if="division === '매입'" size="small" label variant="outlined">
-                    <v-icon icon="mdi-cart" start> 매입 </v-icon>
+                    <template v-slot:prepend>
+                      <v-icon icon="mdi-cart" />
+                    </template>
+                    매입
                   </v-chip>
                   <v-chip color="primary" v-if="division === '매출'" size="small" label variant="outlined">
-                    <v-icon icon="mdi-cash" start> 매입 </v-icon>
+                    <template v-slot:prepend>
+                      <v-icon icon="mdi-cash" />
+                    </template>
+                    매출
                   </v-chip>
                 </template>
                 <template v-slot:item-useStatus="{ useStatus }">

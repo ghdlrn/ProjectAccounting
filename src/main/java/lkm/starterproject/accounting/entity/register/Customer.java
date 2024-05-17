@@ -36,7 +36,6 @@ public class Customer {      //거래처
     private String nameOfRepresentative;    //대표자명
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private UseStatus useStatus;        //사용여부
 
     private String businessType;    //업태

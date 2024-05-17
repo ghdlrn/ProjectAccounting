@@ -38,7 +38,6 @@ public class Card {
     private String division;    //거래구분
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private UseStatus useStatus;    //사용구분
 
     @ManyToOne
