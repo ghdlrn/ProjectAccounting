@@ -29,7 +29,7 @@ const fetchFinanceList = async () => {
 
 const select = async (item: Finance) => {
   await store.getFinance(item.id);
-  currentFinance.value = store.currentFinance;
+  store.setSelectedFinance(store.currentFinance);
   menu.value = false;
 };
 
@@ -58,8 +58,8 @@ onMounted(async () => {
               </v-col>
               <v-col cols="6">
                 <v-text-field
-                    :modelValue="currentFinance ? currentFinance.name : ''"
-                    @update:modelValue="val => { if (currentFinance) currentFinance.name = val }"
+                    :modelValue="store.currentFinance ? store.currentFinance.name : ''"
+                    @update:modelValue="val => { if (store.currentFinance) store.currentFinance.name = val }"
                     readonly
                     hint="오른쪽 버튼으로 보기"
                     persist-hint
@@ -81,8 +81,8 @@ onMounted(async () => {
               </v-col>
               <v-col cols="5">
                 <v-text-field
-                    :modelValue="currentFinance ? currentFinance.accountNumber : ''"
-                    @update:modelValue="val => { if (currentFinance) currentFinance.accountNumber = val }"
+                    :modelValue="store.currentFinance ? store.currentFinance.accountNumber : ''"
+                    @update:modelValue="val => { if (store.currentFinance) store.currentFinance.accountNumber = val }"
                     readonly
                     hint="자동입력"
                     persist-hint
@@ -97,8 +97,8 @@ onMounted(async () => {
               </v-col>
               <v-col cols="3">
                 <v-text-field
-                    :modelValue="currentFinance ? currentFinance.depositType : ''"
-                    @update:modelValue="val => { if (currentFinance) currentFinance.depositType = val }"
+                    :modelValue="store.currentFinance ? store.currentFinance.depositType : ''"
+                    @update:modelValue="val => { if (store.currentFinance) store.currentFinance.depositType = val }"
                     readonly
                     hint="자동입력"
                     persist-hint

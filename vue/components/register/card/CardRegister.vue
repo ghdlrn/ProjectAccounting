@@ -9,10 +9,12 @@ import ReadFinance from "~/components/basicData/ReadFinance.vue";
 /* ---------------------------정보 제출------------------------------*/
 import {storeToRefs} from "pinia";
 import {useCardStore} from "~/stores/accounting/card.ts";
-
+import {useFinanceStore} from "~/stores/accounting/finance.ts";
 const cardStore = useCardStore();
-
 const {card} = storeToRefs(cardStore);
+const financeStore = useFinanceStore();
+const {currentFinance} = storeToRefs(financeStore);
+
 const currentCard = ref(card.value || {});
 
 const emit = defineEmits(['closeDialog']);
@@ -20,6 +22,7 @@ const emit = defineEmits(['closeDialog']);
 const saveOrUpdateCard = async () => {
   const cardData = {
     ...currentCard.value,
+    finance: currentFinance.value,
   };
   try {
     if (currentCard.value.id) {
@@ -178,7 +181,7 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
               <!--------------------------4줄-------------------------------------------------------->
               <DaumPostcode v-model="currentCard.address"/>
               <!--------------------------4줄-------------------------------------------------------->
-              <ReadFinance v-model="currentCard.finance"/>
+              <ReadFinance v-model="currentFinance"/>
               <!--------------------------4줄-------------------------------------------------------->
               <v-row>
                 <v-col cols="5">

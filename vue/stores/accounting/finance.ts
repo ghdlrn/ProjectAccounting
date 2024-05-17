@@ -71,7 +71,7 @@ export const useFinanceStore = defineStore('finance', {
                 throw new Error('계좌 정보 삭제 실패');
             }
         },
-        setSelectedFinance(data: Finance) {
+        setSelectedFinance(data: Finance | null) {
             this.currentFinance = data;
         },
     }
