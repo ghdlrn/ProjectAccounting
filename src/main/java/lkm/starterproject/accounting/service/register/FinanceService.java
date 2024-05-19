@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface FinanceService {
 
-    FinanceDto createFinance(FinanceDto financeDto);
+    FinanceDto createFinance(Long companyId, FinanceDto financeDto);
 
-    List<FinanceDto> getAllFinances();
+    List<FinanceDto> getAllFinances(Long companyId);
 
     FinanceDto getFinance(Long id);
 

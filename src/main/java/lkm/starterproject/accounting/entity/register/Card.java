@@ -54,7 +54,7 @@ public class Card {
     @JoinColumn(name = "address_id")
     private Address address;    //주소
 
-    @Column(length = 12, unique = true)
+    @Column(length = 12)
     private String registrationNumber;  //사업자등록번호
 
     private String homePage;        //홈페이지주소

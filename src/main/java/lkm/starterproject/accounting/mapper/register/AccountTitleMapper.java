@@ -14,7 +14,6 @@ public interface AccountTitleMapper {
     AccountTitle toEntity(AccountTitleDto dto); //DTO -> 엔티티 변환, 클라이언트가보낸 데이터를 엔티티로 변환
 
     List<AccountTitleDto> toDtoList(List<AccountTitle> entityList);
-    List<AccountTitle> toEntityList(List<AccountTitleDto> dtoList);
 
     void updateDto(AccountTitleDto dto, @MappingTarget AccountTitle entity);
 }

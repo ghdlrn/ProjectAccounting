@@ -1,7 +1,6 @@
 package lkm.starterproject.accounting.dto.register;
 
 import jakarta.validation.constraints.NotBlank;
-import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lombok.*;
 
 @Data

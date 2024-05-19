@@ -5,6 +5,7 @@ import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.company.Company;
+import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "customer")
-public class Customer {      //거래처
+public class Customer extends BaseEntity {      //거래처
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

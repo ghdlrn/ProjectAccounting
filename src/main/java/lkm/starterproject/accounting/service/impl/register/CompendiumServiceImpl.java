@@ -58,11 +58,11 @@ public class CompendiumServiceImpl implements CompendiumService {
     @Override
     @Transactional
     public CompendiumDto updateCompendium(Long id, CompendiumDto compendiumDto) {
-        Compendium existingCompendium = compendiumRepository.findById(id)
+        Compendium compendium = compendiumRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Compendium 정보를 찾을 수 없음"));
-        compendiumMapper.updateDto(compendiumDto, existingCompendium);
-        existingCompendium = compendiumRepository.save(existingCompendium);
-        return compendiumMapper.toDto(existingCompendium);
+        compendiumMapper.updateDto(compendiumDto, compendium);
+        compendium = compendiumRepository.save(compendium);
+        return compendiumMapper.toDto(compendium);
     }
 
     @Override

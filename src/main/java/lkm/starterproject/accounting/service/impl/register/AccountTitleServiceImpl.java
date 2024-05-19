@@ -17,13 +17,13 @@ import java.util.List;
 public class AccountTitleServiceImpl implements AccountTitleService {
 
     private final AccountTitleRepository accountTitleRepository;
-    private final CompanyRepository companyRepository;
     private final AccountTitleMapper accountTitleMapper;
+    private final CompanyRepository companyRepository;
 
     public AccountTitleServiceImpl(AccountTitleRepository accountTitleRepository, CompanyRepository companyRepository, AccountTitleMapper accountTitleMapper) {
         this.accountTitleRepository = accountTitleRepository;
-        this.companyRepository = companyRepository;
         this.accountTitleMapper = accountTitleMapper;
+        this.companyRepository = companyRepository;
     }
 
     @Override
@@ -57,11 +57,11 @@ public class AccountTitleServiceImpl implements AccountTitleService {
     @Override
     @Transactional
     public AccountTitleDto updateAccountTitle(Long id, AccountTitleDto accountTitleDto) {
-        AccountTitle existingAccountTitle = accountTitleRepository.findById(id)
+        AccountTitle accountTitle = accountTitleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AccountTitle 정보를 찾을 수 없음"));
-        accountTitleMapper.updateDto(accountTitleDto, existingAccountTitle);
-        existingAccountTitle = accountTitleRepository.save(existingAccountTitle);
-        return accountTitleMapper.toDto(existingAccountTitle);
+        accountTitleMapper.updateDto(accountTitleDto, accountTitle);
+        accountTitle = accountTitleRepository.save(accountTitle);
+        return accountTitleMapper.toDto(accountTitle);
     }
 
     @Override

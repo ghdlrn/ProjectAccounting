@@ -14,7 +14,6 @@ public interface CompendiumMapper {
     Compendium toEntity(CompendiumDto dto); //DTO -> 엔티티 변환, 클라이언트가보낸 데이터를 엔티티로 변환
 
     List<CompendiumDto> toDtoList(List<Compendium> entityList);
-    List<Compendium> toEntityList(List<CompendiumDto> dtoList);
 
     void updateDto(CompendiumDto dto, @MappingTarget Compendium entity);
 }

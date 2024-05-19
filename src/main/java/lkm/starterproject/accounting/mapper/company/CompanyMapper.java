@@ -6,7 +6,6 @@ import lkm.starterproject.accounting.mapper.basic.AddressMapper;
 import lkm.starterproject.accounting.mapper.basic.LocalTaxMapper;
 import lkm.starterproject.accounting.mapper.basic.TaxOfficeMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
@@ -19,10 +18,7 @@ public interface CompanyMapper {
     Company toEntity(CompanyDto dto); //DTO -> 엔티티 변환, 클라이언트가보낸 데이터를 엔티티로 변환
 
     List<CompanyDto> toDtoList(List<Company> entityList);
-    List<Company> toEntityList(List<CompanyDto> dtoList);
 
-    @Mapping(target = "regTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
     void updateDto(CompanyDto dto, @MappingTarget Company entity);
 
 }

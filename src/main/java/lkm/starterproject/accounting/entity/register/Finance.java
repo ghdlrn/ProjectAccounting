@@ -5,6 +5,7 @@ import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.company.Company;
+import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "finance")
-public class Finance {
+public class Finance extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

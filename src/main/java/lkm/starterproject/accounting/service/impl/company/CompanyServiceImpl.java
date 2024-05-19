@@ -19,16 +19,16 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
+    private final CompanyMapper companyMapper;
     private final TaxOfficeRepository taxOfficeRepository;
     private final LocalTaxRepository localTaxRepository;
-    private final CompanyMapper companyMapper;
 
     public CompanyServiceImpl(CompanyRepository companyRepository, CompanyMapper companyMapper,
                               TaxOfficeRepository taxOfficeRepository, LocalTaxRepository localTaxRepository) {
         this.companyRepository = companyRepository;
+        this.companyMapper = companyMapper;
         this.taxOfficeRepository = taxOfficeRepository;
         this.localTaxRepository = localTaxRepository;
-        this.companyMapper = companyMapper;
     }
 
     @Override
@@ -60,8 +60,8 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
-        companyMapper.updateDto(companyDto, company);
         assignLocalTaxAndTaxOffice(company, companyDto);
+        companyMapper.updateDto(companyDto, company);
         company = companyRepository.save(company);
         return companyMapper.toDto(company);
     }
