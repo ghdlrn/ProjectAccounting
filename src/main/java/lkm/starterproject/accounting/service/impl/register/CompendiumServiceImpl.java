@@ -3,55 +3,69 @@ package lkm.starterproject.accounting.service.impl.register;
 
 import jakarta.persistence.EntityNotFoundException;
 import lkm.starterproject.accounting.dto.register.CompendiumDto;
+import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lkm.starterproject.accounting.entity.register.Compendium;
+import lkm.starterproject.accounting.mapper.register.CompendiumMapper;
+import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
 import lkm.starterproject.accounting.repository.register.CompendiumRepository;
+import lkm.starterproject.accounting.service.register.CompendiumService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class CompendiumServiceImpl {
+public class CompendiumServiceImpl implements CompendiumService {
 
     private final CompendiumRepository compendiumRepository;
+    private final AccountTitleRepository accountTitleRepository;
     private final CompendiumMapper compendiumMapper;
 
-    public CompendiumServiceImpl(CompendiumRepository compendiumRepository, CompendiumMapper compendiumMapper) {
+    public CompendiumServiceImpl(CompendiumRepository compendiumRepository, AccountTitleRepository accountTitleRepository, CompendiumMapper compendiumMapper) {
         this.compendiumRepository = compendiumRepository;
+        this.accountTitleRepository = accountTitleRepository;
         this.compendiumMapper = compendiumMapper;
     }
 
+    @Override
     @Transactional
-    public CompendiumDto createCompendium(CompendiumDto compendiumDto) {
+    public CompendiumDto createCompendium(Long accountTitleId, CompendiumDto compendiumDto) {
+        AccountTitle accountTitle = accountTitleRepository.findById(accountTitleId)
+                .orElseThrow(() -> new EntityNotFoundException("AccountTitle not found with id: " + accountTitleId));
         Compendium compendium = compendiumMapper.toEntity(compendiumDto);
+        compendium.setAccountTitle(accountTitle);
         compendium = compendiumRepository.save(compendium);
         return compendiumMapper.toDto(compendium);
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public List<CompendiumDto> getAllCompendiums() {
-        return compendiumRepository.findAll().stream()
-                .map(compendiumMapper::toDto)
-                .collect(Collectors.toList());
+    public List<CompendiumDto> getAllCompendiums(Long accountTitleId) {
+        accountTitleRepository.findById(accountTitleId)
+                .orElseThrow(() -> new EntityNotFoundException("AccountTitle 정보를 찾을 수 없음"));
+        List<Compendium> compendiums = compendiumRepository.findByAccountTitleId(accountTitleId);
+        return compendiumMapper.toDtoList(compendiums);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CompendiumDto getCompendium(Long id) {
-        return compendiumRepository.findById(id)
-                .map(compendiumMapper::toDto)
-                .orElseThrow(() -> new EntityNotFoundException("Compendium 정보를 찾을 수 없음"));
-    }
-
-    @Transactional
-    public CompendiumDto updateCompendium(Long id, CompendiumDto compendiumDto) {
         Compendium compendium = compendiumRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Compendium 정보를 찾을 수 없음"));
-        compendiumMapper.updateDto(compendiumDto, compendium);
-        compendium = compendiumRepository.save(compendium);
         return compendiumMapper.toDto(compendium);
     }
 
+    @Override
+    @Transactional
+    public CompendiumDto updateCompendium(Long id, CompendiumDto compendiumDto) {
+        Compendium existingCompendium = compendiumRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Compendium 정보를 찾을 수 없음"));
+        compendiumMapper.updateDto(compendiumDto, existingCompendium);
+        existingCompendium = compendiumRepository.save(existingCompendium);
+        return compendiumMapper.toDto(existingCompendium);
+    }
+
+    @Override
     @Transactional
     public void deleteCompendium(Long id) {
         Compendium compendium = compendiumRepository.findById(id)

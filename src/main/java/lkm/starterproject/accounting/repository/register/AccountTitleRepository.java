@@ -4,6 +4,9 @@ import lkm.starterproject.accounting.entity.register.AccountTitle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AccountTitleRepository extends JpaRepository<AccountTitle, Long> {
+    List<AccountTitle> findByCompanyId(Long companyId);
 }

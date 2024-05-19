@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lkm.starterproject.accounting.dto.register.AccountTitleDto;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.register.AccountTitle;
+import lkm.starterproject.accounting.mapper.register.AccountTitleMapper;
 import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
 import lkm.starterproject.accounting.service.register.AccountTitleService;
@@ -67,7 +68,7 @@ public class AccountTitleServiceImpl implements AccountTitleService {
     @Transactional
     public void deleteAccountTitle(Long id) {
         AccountTitle accountTitle = accountTitleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("AAccountTitle 정보를 찾을 수 없음");
+                .orElseThrow(() -> new EntityNotFoundException("AAccountTitle 정보를 찾을 수 없음"));
         accountTitleRepository.delete(accountTitle);
     }
 }

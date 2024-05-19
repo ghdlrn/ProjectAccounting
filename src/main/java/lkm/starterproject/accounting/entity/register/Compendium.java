@@ -1,13 +1,14 @@
 package lkm.starterproject.accounting.entity.register;
 
 import jakarta.persistence.*;
+import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
 @Entity
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "compendium")
-public class Compendium {   //적요
+public class Compendium extends BaseEntity {   //적요
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

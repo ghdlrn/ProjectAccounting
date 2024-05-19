@@ -3,6 +3,7 @@ package lkm.starterproject.accounting.entity.register;
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.entity.company.Company;
+import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "account_title")
-public class AccountTitle {
+public class AccountTitle extends BaseEntity {
 
     @Id
     @Column(name = "account_title_id", unique = true, nullable = false)

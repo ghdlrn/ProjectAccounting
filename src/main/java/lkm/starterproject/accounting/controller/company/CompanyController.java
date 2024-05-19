@@ -1,7 +1,8 @@
 package lkm.starterproject.accounting.controller.company;
 
+import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
-import lkm.starterproject.accounting.service.impl.company.CompanyServiceImpl;
+import lkm.starterproject.accounting.service.company.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,39 +12,39 @@ import java.util.List;
 @RequestMapping("/register/company")
 public class CompanyController {
 
-    private final CompanyServiceImpl companyServiceImpl;
+    private final CompanyService companyService;
 
-    public CompanyController(CompanyServiceImpl companyServiceImpl) {
-        this.companyServiceImpl = companyServiceImpl;
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
     @PostMapping
-    public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
-        CompanyDto createdCompany = companyServiceImpl.createCompany(companyDto);
+    public ResponseEntity<CompanyDto> createCompany(@Valid @RequestBody CompanyDto companyDto) {
+        CompanyDto createdCompany = companyService.createCompany(companyDto);
         return ResponseEntity.ok(createdCompany);
     }
 
     @GetMapping
     public ResponseEntity<List<CompanyDto>> getAllCompanies() {
-        List<CompanyDto> companies = companyServiceImpl.getAllCompanies();
+        List<CompanyDto> companies = companyService.getAllCompanies();
         return ResponseEntity.ok(companies);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CompanyDto> getCompany(@PathVariable("id") Long id) {
-        CompanyDto companyDto = companyServiceImpl.getCompany(id);
+        CompanyDto companyDto = companyService.getCompany(id);
         return ResponseEntity.ok(companyDto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CompanyDto> updateCompany(@PathVariable("id") Long id, @RequestBody CompanyDto companyDto) {
-        CompanyDto updatedCompany = companyServiceImpl.updateCompany(id, companyDto);
+        CompanyDto updatedCompany = companyService.updateCompany(id, companyDto);
         return ResponseEntity.ok(updatedCompany);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCompany(@PathVariable("id") Long id) {
-        companyServiceImpl.deleteCompany(id);
+        companyService.deleteCompany(id);
         return ResponseEntity.ok().build();
     }
 
