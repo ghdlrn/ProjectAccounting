@@ -4,7 +4,6 @@ package lkm.starterproject.accounting.service.impl.register;
 import jakarta.persistence.EntityNotFoundException;
 import lkm.starterproject.accounting.dto.register.CompendiumDto;
 import lkm.starterproject.accounting.entity.register.Compendium;
-import lkm.starterproject.accounting.mapper.register.CompendiumMapper;
 import lkm.starterproject.accounting.repository.register.CompendiumRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CompendumImpl {
+public class CompendiumServiceImpl {
 
     private final CompendiumRepository compendiumRepository;
     private final CompendiumMapper compendiumMapper;

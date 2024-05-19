@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lkm.starterproject.accounting.dto.register.AccountTitleDto;
 import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
+import lkm.starterproject.accounting.service.register.AccountTitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class AccountTitleImpl {
+public class AccountTitleServiceImpl implements AccountTitleService {
 
     private final AccountTitleRepository accountTitleRepository;
     private final AccountTitleMapper accountTitleMapper;
 
-    @Autowired
     public AccountTitleServiceImpl(AccountTitleRepository accountTitleRepository, AccountTitleMapper accountTitleMapper) {
         this.accountTitleRepository = accountTitleRepository;
         this.accountTitleMapper = accountTitleMapper;

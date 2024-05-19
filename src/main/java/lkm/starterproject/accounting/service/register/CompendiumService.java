@@ -1,4 +1,18 @@
 package lkm.starterproject.accounting.service.register;
 
+import lkm.starterproject.accounting.dto.register.CompendiumDto;
+
+import java.util.List;
+
 public interface CompendiumService {
+
+    CompendiumDto createCompendium(CompendiumDto compendiumDto);
+
+    List<CompendiumDto> getAllCompendiums();
+
+    CompendiumDto getCompendium(Long id);
+
+    CompendiumDto updateCompendium(Long id, CompendiumDto compendiumDto);
+
+    void deleteCompendium(Long id);
 }

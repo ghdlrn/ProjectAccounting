@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter @Setter
-@Builder @NoArgsConstructor @AllArgsConstructor
 public class CompanyDto {
 
     private Long id;  // 회사코드
