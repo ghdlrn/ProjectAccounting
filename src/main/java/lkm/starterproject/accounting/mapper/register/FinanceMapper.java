@@ -9,10 +9,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {CompanyMapper.class, AddressMapper.class, LocalTaxMapper.class})
+@Mapper(componentModel = "spring",
+        uses = {CompanyMapper.class, AddressMapper.class, LocalTaxMapper.class})
 public interface FinanceMapper {
-
-    FinanceMapper INSTANCE = Mappers.getMapper(FinanceMapper.class);
 
     FinanceDto toDto(Finance entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
 

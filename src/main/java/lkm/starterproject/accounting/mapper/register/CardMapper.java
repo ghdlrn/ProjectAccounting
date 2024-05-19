@@ -8,10 +8,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {CompanyMapper.class, FinanceMapper.class, AddressMapper.class})
+@Mapper(componentModel = "spring",
+        uses = {CompanyMapper.class, FinanceMapper.class, AddressMapper.class})
 public interface CardMapper {
-
-    CardMapper INSTANCE = Mappers.getMapper(CardMapper.class);
 
     CardDto toDto(Card entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
 

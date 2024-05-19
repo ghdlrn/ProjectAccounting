@@ -6,11 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface LocalTaxMapper {
-
-    LocalTaxMapper INSTANCE = Mappers.getMapper(LocalTaxMapper.class);
-
+    
     @Mapping(target = "status", ignore = true)
     LocalTax toEntity(LocalTaxDto dto);
 

@@ -6,10 +6,9 @@ import lkm.starterproject.auth.entity.MemberCompany;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = { MemberMapper.class, CompanyMapper.class })
+@Mapper(componentModel = "spring",
+        uses = { MemberMapper.class, CompanyMapper.class })
 public interface MemberCompanyMapper {
-
-    MemberCompanyMapper INSTANCE = Mappers.getMapper(MemberCompanyMapper.class);
 
     MemberCompanyDto toDto(MemberCompany entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
 

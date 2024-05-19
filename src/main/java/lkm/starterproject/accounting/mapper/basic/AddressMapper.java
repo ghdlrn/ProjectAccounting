@@ -5,10 +5,8 @@ import lkm.starterproject.accounting.entity.basic.Address;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface AddressMapper {
-
-    AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
 
     AddressDto toDto(Address entity);
 

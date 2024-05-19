@@ -7,15 +7,9 @@ import lombok.*;
 @Builder @NoArgsConstructor @AllArgsConstructor
 public class MemberDto {
 
-    private Long id;
-
     private String username;
 
     private String email;
 
     private String password;
-
-    private Role role;
-
-    private MemberCompanyDto memberCompanies;
 }

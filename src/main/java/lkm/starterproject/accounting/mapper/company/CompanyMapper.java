@@ -8,12 +8,10 @@ import lkm.starterproject.accounting.mapper.basic.TaxOfficeMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class })
+@Mapper(componentModel = "spring",
+        uses = {AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class })
 public interface CompanyMapper {
-
-    CompanyMapper INSTANCE = Mappers.getMapper(CompanyMapper.class);
 
     CompanyDto toDto(Company entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
 

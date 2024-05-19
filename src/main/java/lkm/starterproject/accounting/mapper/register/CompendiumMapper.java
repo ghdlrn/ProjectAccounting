@@ -6,10 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = AccountTitleMapper.class)
+@Mapper(componentModel = "spring",
+        uses = AccountTitleMapper.class)
 public interface CompendiumMapper {
-
-    CompendiumMapper INSTANCE = Mappers.getMapper(CompendiumMapper.class);
 
     CompendiumDto toDto(Compendium entity);
 
