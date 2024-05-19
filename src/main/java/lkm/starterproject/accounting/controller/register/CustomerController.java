@@ -1,7 +1,7 @@
 package lkm.starterproject.accounting.controller.register;
 
 import lkm.starterproject.accounting.dto.register.CustomerDto;
-import lkm.starterproject.accounting.service.register.CustomerService;
+import lkm.starterproject.accounting.service.impl.register.CustomerServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @RequestMapping("/register/customer")
 public class CustomerController {
 
-    private final CustomerService customerService;
+    private final CustomerServiceImpl customerService;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
     }
 
