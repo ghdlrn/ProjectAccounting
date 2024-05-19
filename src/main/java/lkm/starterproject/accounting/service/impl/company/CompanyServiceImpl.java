@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -32,6 +31,7 @@ public class CompanyServiceImpl implements CompanyService {
         this.companyMapper = companyMapper;
     }
 
+    @Override
     @Transactional
     public CompanyDto createCompany(CompanyDto companyDto) {
         Company company = companyMapper.toEntity(companyDto);
@@ -40,20 +40,22 @@ public class CompanyServiceImpl implements CompanyService {
         return companyMapper.toDto(company);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<CompanyDto> getAllCompanies() {
-        return companyRepository.findAll().stream()
-                .map(companyMapper::toDto)
-                .collect(Collectors.toList());
+        List<Company> companies = companyRepository.findAll();
+        return companyMapper.toDtoList(companies);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CompanyDto getCompany(Long id) {
-        return companyRepository.findById(id)
-                .map(companyMapper::toDto)
+        Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
+        return companyMapper.toDto(company);
     }
 
+    @Override
     @Transactional
     public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
         Company company = companyRepository.findById(id)
@@ -64,6 +66,7 @@ public class CompanyServiceImpl implements CompanyService {
         return companyMapper.toDto(company);
     }
 
+    @Override
     @Transactional
     public void deleteCompany(Long id) {
         Company company = companyRepository.findById(id)

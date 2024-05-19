@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface AccountTitleService {
 
-    AccountTitleDto createAccountTitle(AccountTitleDto accountTitleDto);
+    AccountTitleDto createAccountTitle(Long companyId, AccountTitleDto accountTitleDto);
 
-    List<AccountTitleDto> getAllAccountTitles();
+    List<AccountTitleDto> getAllAccountTitles(Long companyId);
 
     AccountTitleDto getAccountTitle(Long id);
 

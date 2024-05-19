@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CompendiumService {
 
-    CompendiumDto createCompendium(CompendiumDto compendiumDto);
+    CompendiumDto createCompendium(Long accountTitleId, CompendiumDto compendiumDto);
 
-    List<CompendiumDto> getAllCompendiums();
+    List<CompendiumDto> getAllCompendiums(Long accountTitleId);
 
     CompendiumDto getCompendium(Long id);
 
