@@ -4,7 +4,6 @@ import lkm.starterproject.accounting.dto.register.CompendiumDto;
 import lkm.starterproject.accounting.entity.register.Compendium;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring",
         uses = AccountTitleMapper.class)

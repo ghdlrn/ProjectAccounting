@@ -4,11 +4,10 @@ import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface LocalTaxMapper {
-    
+
     @Mapping(target = "status", ignore = true)
     LocalTax toEntity(LocalTaxDto dto);
 

@@ -4,7 +4,6 @@ import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import lkm.starterproject.auth.dto.MemberCompanyDto;
 import lkm.starterproject.auth.entity.MemberCompany;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring",
         uses = { MemberMapper.class, CompanyMapper.class })

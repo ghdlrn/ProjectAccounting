@@ -7,7 +7,6 @@ import lkm.starterproject.accounting.mapper.basic.LocalTaxMapper;
 import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring",
         uses = {CompanyMapper.class, AddressMapper.class, LocalTaxMapper.class})

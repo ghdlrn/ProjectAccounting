@@ -5,7 +5,6 @@ import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring",
         uses = CompanyMapper.class)
