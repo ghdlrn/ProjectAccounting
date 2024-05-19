@@ -1,22 +1,29 @@
 package lkm.starterproject.accounting.dto.register;
 
+import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.dto.basic.AddressDto;
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerDto {
 
     private Long id;        //거래처 코드번호
-    private CompanyDto company;
+
+    @NotBlank(message = "거래처명은 필수 입력사항 입니다")
     private String name;        //거래처명
+
+    @NotBlank(message = "해당 구분은 필수 입력사항 입니다")
     private String registrationNumberType;  //등록번호 구분(사업자or주민or외국인 등록번호)
+
+    @NotBlank(message = "등록번호는 필수 입력사항 입니다")
     private String registrationNumber;      //사업자등록번호or주민번호or외국인번호 등 등록번호
     private String nameOfRepresentative;    //대표자명
     private UseStatus useStatus;        //사용여부

@@ -1,21 +1,27 @@
 package lkm.starterproject.accounting.dto.register;
 
+import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.dto.basic.AddressDto;
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FinanceDto {
 
     private Long id;
     private CompanyDto company;
+
+    @NotBlank(message = "은행명은 필수 입력사항 입니다")
     private String name;    //은행(계좌)명
+
+    @NotBlank(message = "계좌번호는 필수 입력사항 입니다")
     private String accountNumber;  //계좌번호
     private String note;    //비고
     private UseStatus useStatus;    //사용구분

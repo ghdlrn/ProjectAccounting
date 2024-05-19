@@ -18,6 +18,7 @@ public class Compendium {   //적요
     @JoinColumn(name = "account_title_id")
     private AccountTitle accountTitle;
 
+    @Column(nullable = false)
     private String content; //적요내용
     
     private String note;    //비고

@@ -5,7 +5,6 @@ import lkm.starterproject.accounting.dto.register.AccountTitleDto;
 import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
 import lkm.starterproject.accounting.service.register.AccountTitleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

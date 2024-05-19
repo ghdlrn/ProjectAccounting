@@ -1,23 +1,25 @@
 package lkm.starterproject.accounting.dto.register;
 
+import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.dto.basic.AddressDto;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
-import lkm.starterproject.accounting.entity.basic.Address;
-import lkm.starterproject.accounting.entity.company.Company;
-import lkm.starterproject.accounting.entity.register.Finance;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CardDto {
 
     private Long id;
-    private CompanyDto company;
+
+    @NotBlank(message = "카드사명은 필수 입력사항 입니다")
     private String name;    //카드(사)명
+
+    @NotBlank(message = "카드번호는 필수 입력사항 입니다")
     private String cardNumber;  //카드번호
     private String note;    //비고
     private String division;    //거래구분

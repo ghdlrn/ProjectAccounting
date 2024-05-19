@@ -1,5 +1,6 @@
 package lkm.starterproject.accounting.dto.company;
 
+import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.dto.basic.AddressDto;
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
@@ -13,14 +14,21 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter @Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CompanyDto {
 
     private Long id;  // 회사코드
     private String licenseType;  // 사업자 유형
     private String headOfficeStatus;  // 본점여부
     private String paymentHeadOfficeStatus;  // 본점일괄납부여부
+
+    @NotBlank(message = "회사이름은 필수 입력사항 입니다")
     private String name;  // 회사명
+    
+    @NotBlank(message = "사업자등록번호는 필수 입력사항 입니다")
     private String businessRegistrationNumber;  // 사업자등록번호
     private String nameOfRepresentative;  // 대표자명
     private String corporationRegistrationNumber;  // 법인등록번호
@@ -44,9 +52,5 @@ public class CompanyDto {
     private String chargeName;  // 담당자 이름
     private String chargeEmail;  // 담당자 이메일
     private String note;  // 비고
-    private List<MemberCompanyDto> memberCompanies;
-    private List<CustomerDto> customers;
-    private List<FinanceDto> finances;
-    private List<CardDto> cards;
-    private List<AccountTitleDto> accountTitles;
+
 }
