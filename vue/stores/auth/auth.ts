@@ -78,9 +78,12 @@ export const useAuthStore = defineStore('auth', {
     loadUserFromLocalStorage() {
       this.accessToken = localStorage.getItem('accessToken');
       this.refreshToken = localStorage.getItem('refreshToken');
-      if (this.accessToken) {
-        // Optionally, fetch user data from the backend using the access token
-        // this.user = fetchedUserData;
+      if (this.accessToken && this.refreshToken) {
+        this.member = {
+          email: '',
+          username: '',
+          role: ''
+        };
       }
     },
   }
