@@ -10,19 +10,17 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(email: string, password: string) {
       try {
-        const nuxtApp = useNuxtApp();
-        const response = await nuxtApp.$api.post('/login', { email, password });
+        const response = await useNuxtApp().$api.post('/login', { email, password });
         this.member = response.data;
         localStorage.setItem('member', JSON.stringify(this.member));
         const router = useRouter();
         await router.push('/');
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to login:', error);
       }
     },
-    logout() {
-      const nuxtApp = useNuxtApp();
-      nuxtApp.$api.post('/logout').then(() => {
+    async logout() {
+      await useNuxtApp().$api.post('/logout').then(() => {
         this.member = null;
         localStorage.removeItem('member');
         const router = useRouter();
@@ -31,15 +29,14 @@ export const useAuthStore = defineStore('auth', {
     },
     async refreshToken() {
       try {
-        const nuxtApp = useNuxtApp();
-        const response = await nuxtApp.$api.post('/reissue');
+        const response = await useNuxtApp().$api.post('/reissue');
         this.member.accessToken = response.data.accessToken;
         localStorage.setItem('member', JSON.stringify(this.member));
-      } catch (error) {
-        this.logout();
+      } catch (error: any) {
+        await this.logout();
       }
     },
-    loadUserFromLocalStorage() {
+    async loadUserFromLocalStorage() {
       const memberData = localStorage.getItem('member');
       if (memberData) {
         this.member = JSON.parse(memberData);
