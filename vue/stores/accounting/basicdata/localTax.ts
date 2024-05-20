@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import apiClient from "~/utils/baseUrl";
 import type {LocalTax} from "~/types/accounting/basicdata/localTax";
+import {useNuxtApp} from "#app";
 
 export const useLocalTaxStore = defineStore('localTax', {
     state: () => ({
@@ -10,7 +10,7 @@ export const useLocalTaxStore = defineStore('localTax', {
     actions: {
         async fetchLocalTax() {
             try {
-                const response = await apiClient().get('/register/company/local-tax');
+                const response = await useNuxtApp().$apiClient.get('/register/company/local-tax');
                 this.localTax = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);

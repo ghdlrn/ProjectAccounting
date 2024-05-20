@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import type {Finance} from "~/types/accounting/finance";
-import apiClient from "~/utils/baseUrl";
 
 export const useFinanceStore = defineStore('finance', {
     state : () => ({
@@ -10,7 +9,7 @@ export const useFinanceStore = defineStore('finance', {
     actions: {
         async fetchFinance() {
             try {
-                const response = await apiClient().get(`/register/finance`);
+                const response = await useNuxtApp().$apiClient.get(`/register/finance`);
                 this.finance = response.data;
             } catch (error: any) {
                 console.error('계좌 목록 조회 실패', error);
@@ -19,7 +18,7 @@ export const useFinanceStore = defineStore('finance', {
         },
         async getFinance(id: number) {
             try {
-                const response = await apiClient().get(`/register/finance/${id}`);
+                const response = await useNuxtApp().$apiClient.get(`/register/finance/${id}`);
                 this.currentFinance = response.data;
             } catch (error: any) {
                 console.error('계좌 조회 실패', error);
@@ -28,7 +27,7 @@ export const useFinanceStore = defineStore('finance', {
         },
         async createFinance(data: Finance) {
             try {
-                const response = await apiClient().post(`/register/finance`, data);
+                const response = await useNuxtApp().$apiClient.post(`/register/finance`, data);
                 this.finance.push(response.data);
                 alert('계좌 정보가 등록되었습니다');
             } catch (error: any) {
@@ -39,7 +38,7 @@ export const useFinanceStore = defineStore('finance', {
         },
         async updateFinance(data: Finance) {
             try {
-                const response = await apiClient().put(`/register/finance/${data.id}`, data);
+                const response = await useNuxtApp().$apiClient.put(`/register/finance/${data.id}`, data);
                 const index = this.finance.findIndex(finance => finance.id === data.id);
                 if(index !== -1) {
                     this.finance[index] = response.data;
@@ -56,7 +55,7 @@ export const useFinanceStore = defineStore('finance', {
         },
         async deleteFinance(id: number) {
             try {
-                const response = await apiClient().delete(`/register/finance/${id}`);
+                const response = await useNuxtApp().$apiClient.delete(`/register/finance/${id}`);
                 if (response.status === 200) {
                     await this.fetchFinance();
                     alert('계좌 정보가 삭제되었습니다');

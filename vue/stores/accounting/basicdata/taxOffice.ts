@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import apiClient from "~/utils/baseUrl";
 import type {TaxOffice} from "~/types/accounting/basicdata/taxOffice";
+import {useNuxtApp} from "#app";
 
 export const useTaxOfficeStore = defineStore('taxOffice', {
     state: () => ({
@@ -10,7 +10,7 @@ export const useTaxOfficeStore = defineStore('taxOffice', {
     actions: {
         async fetchTaxOffice() {
             try {
-                const response = await apiClient().get('/register/company/tax-office');
+                const response = await useNuxtApp().$apiClient.get('/register/company/tax-office');
                 this.taxOffice = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);
