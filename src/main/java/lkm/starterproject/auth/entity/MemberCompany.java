@@ -1,14 +1,16 @@
 package lkm.starterproject.auth.entity;
 
 import jakarta.persistence.*;
+import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.entity.company.Company;
+import lkm.starterproject.auth.constants.Role;
 import lombok.*;
 
 @Entity
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "member_company")
-public class MemberCompany {
+public class MemberCompany extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +25,7 @@ public class MemberCompany {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    private String role;    //회원의 회사에서의 권한
+    private Role role;    //회원의 회사에서의 권한
+
+    private UseStatus useStatus;    //회원에 등록된 회사 정보 사용여부
 }

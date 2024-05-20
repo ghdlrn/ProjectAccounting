@@ -1,6 +1,8 @@
 package lkm.starterproject.auth.dto;
 
+import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
+import lkm.starterproject.auth.constants.Role;
 import lombok.*;
 
 @Getter @Setter
@@ -13,5 +15,7 @@ public class MemberCompanyDto {
 
     private CompanyDto company;
 
-    private String role;
+    private Role role;
+
+    private UseStatus useStatus;
 }
