@@ -1,30 +1,31 @@
-import { defineNuxtPlugin } from '#app';
 import axios from 'axios';
+import { defineNuxtPlugin } from '#app';
 import { useAuthStore } from '~/stores/auth/auth';
 
-export default defineNuxtPlugin(() => {
-    const apiClient = axios.create({
-        baseURL: 'http://localhost:8080',
-        withCredentials: true,
-        headers: {
-            'Content-Type': 'application/json'
-        }
+export default defineNuxtPlugin((nuxtApp) => {
+    const api = axios.create({
+        baseURL: process.env.VITE_API_URL || 'http://localhost:8080',
+        withCredentials: true
     });
 
-    apiClient.interceptors.response.use(
-        response => response,
-        async error => {
+    api.interceptors.request.use(
+        (config) => {
             const authStore = useAuthStore();
+            if (authStore.member?.accessToken) {
+                config.headers['Authorization'] = `Bearer ${authStore.member.accessToken}`;
+            }
+            return config;
+        },
+        (error) => Promise.reject(error)
+    );
 
-            if (error.response && error.response.status === 401) {
-                try {
-                    await authStore.refreshAccessToken();
-                    error.config.headers['Authorization'] = `Bearer ${authStore.accessToken}`;
-                    return apiClient.request(error.config);
-                } catch (refreshError) {
-                    await authStore.logout();
-                    return Promise.reject(refreshError);
-                }
+    api.interceptors.response.use(
+        (response) => response,
+        async (error) => {
+            const authStore = useAuthStore();
+            if (error.response?.status === 401) {
+                await authStore.refreshToken();
+                return api(error.config);
             }
             return Promise.reject(error);
         }
@@ -32,7 +33,7 @@ export default defineNuxtPlugin(() => {
 
     return {
         provide: {
-            apiClient
+            api
         }
     };
 });

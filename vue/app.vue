@@ -11,11 +11,7 @@ useHead({
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} - LKM Accounting` : 'LKM Accounting';  //사이트 타이틀명
   },
-  
 })
-definePageMeta({
-  middleware: 'auth'
-});
 </script>
 
 <style>

@@ -1,8 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import axios from "axios";
 const router = useRouter();
-import { useAuthStore } from "~/stores/auth/auth";
-const authStore = useAuthStore();
 
 const checkbox = ref(false);
 const show1 = ref(false);
@@ -17,7 +16,8 @@ const SignUp = async () => {
     return;
   }
   try {
-    await authStore.signup(username.value, email.value, password.value);
+    await axios.post('/auth/signup', { username: username.value, email: email.value, password: password.value });
+    alert('Sign up successful');
     await router.push('/auth/login');
   } catch (error) {
     console.error('SignUp failed:', error);

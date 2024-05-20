@@ -1,15 +1,16 @@
+<!-- pages/index.vue -->
+
 <template>
   <div>
     <h1>Companies</h1>
-    <div v-if="authStore.member">
-      <p>Welcome, {{ authStore.member.username }}</p>
+    <div v-if="authStore.user">
+      <p>Welcome, {{ authStore.user.username }}</p>
       <button @click="authStore.logout">Logout</button>
       <div>
         <h2>Your Companies</h2>
         <ul>
           <li v-for="company in companyStore.companies" :key="company.id">
             {{ company.name }}
-            <button @click="selectCompany(company.id)">Select</button>
           </li>
         </ul>
       </div>
@@ -24,21 +25,13 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/auth/auth';
-import { useCompanyStore } from '~/stores/accounting/company';
 import { onMounted } from 'vue';
-
+import { useAuthStore } from '~/stores/auth/auth';
+import { useCompanyStore } from "~/stores/accounting/company";
 const authStore = useAuthStore();
 const companyStore = useCompanyStore();
 
 onMounted(() => {
   authStore.loadUserFromLocalStorage();
-  if (authStore.member) {
-    companyStore.fetchCompanies();
-  }
 });
-
-const selectCompany = (companyId: number) => {
-  companyStore.selectCompany(companyId);
-};
 </script>
