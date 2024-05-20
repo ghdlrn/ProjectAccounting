@@ -41,6 +41,7 @@ export const useAuthStore = defineStore('auth', {
         throw error;
       }
     },
+
     async logout() {
       try {
         if (!this.accessToken) {

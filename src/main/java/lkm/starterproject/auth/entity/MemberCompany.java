@@ -1,7 +1,6 @@
 package lkm.starterproject.auth.entity;
 
 import jakarta.persistence.*;
-import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.auth.constants.Role;
 import lombok.*;
@@ -25,7 +24,8 @@ public class MemberCompany extends BaseEntity {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
+    @Enumerated(EnumType.STRING)
     private Role role;    //회원의 회사에서의 권한
 
-    private UseStatus useStatus;    //회원에 등록된 회사 정보 사용여부
+    private boolean currentCompany; //현재 사용중인 회사 여부
 }

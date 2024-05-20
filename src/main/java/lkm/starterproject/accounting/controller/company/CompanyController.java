@@ -52,6 +52,14 @@ public class CompanyController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/select")
+    public ResponseEntity<Void> selectCompany(@RequestBody Long companyId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        companyService.selectCompany(companyId, email);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/{id}/assign-role")
     public ResponseEntity<Void> assignRole(@PathVariable("id") Long companyId, @RequestParam("email") String email, @RequestParam("role") String role) {
         companyService.assignRole(companyId, email, role);

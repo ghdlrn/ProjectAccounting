@@ -16,5 +16,7 @@ public interface CompanyService {
 
     void deleteCompany(Long id);
 
+    void selectCompany(Long companyId, String email);
+
     void assignRole(Long companyId, String email, String role);
 }

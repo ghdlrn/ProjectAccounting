@@ -105,7 +105,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private Cookie createCookie(String key, String value) { //value : JWT값
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(24*60*60); // 1 day
-        cookie.setSecure(true); // Ensure this is true in production
+//        cookie.setSecure(true);  https환경에서 사용
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         return cookie;
@@ -116,13 +116,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         cookie.append(name).append("=").append(value).append(";");
         cookie.append("Max-Age=").append(maxAge).append(";");
         cookie.append("Path=/;");
-        if (secure) {
+        /*if (secure) {
             cookie.append("Secure;");
-        }
+        }*/
         if (httpOnly) {
             cookie.append("HttpOnly;");
         }
-        cookie.append("SameSite=None;");
+       // cookie.append("SameSite=None;");
         response.addHeader("Set-Cookie", cookie.toString());
     }
 }

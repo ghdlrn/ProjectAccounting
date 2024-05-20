@@ -38,6 +38,9 @@ export const useCompanyStore = defineStore('company', {
         },
         async createCompany(companyData: Partial<Company>) {
             const authStore = useAuthStore();
+            if (!authStore.accessToken) {
+                await authStore.refreshAccessToken();
+            }
             try {
                 const response = await useNuxtApp().$apiClient.post('/register/company', companyData, {
                     headers: { Authorization: `Bearer ${authStore.accessToken}` }

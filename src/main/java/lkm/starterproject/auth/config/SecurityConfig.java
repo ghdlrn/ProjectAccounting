@@ -1,6 +1,5 @@
 package lkm.starterproject.auth.config;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lkm.starterproject.auth.constants.Role;
 import lkm.starterproject.auth.jwt.CustomLogoutFilter;
 import lkm.starterproject.auth.jwt.JWTFilter;
@@ -20,7 +19,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -79,4 +77,5 @@ public class SecurityConfig {
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 }

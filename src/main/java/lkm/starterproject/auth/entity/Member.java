@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "member")
 public class Member extends BaseEntity {     //회원

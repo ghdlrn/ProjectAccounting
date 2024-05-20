@@ -17,5 +17,5 @@ public class MemberCompanyDto {
 
     private Role role;
 
-    private UseStatus useStatus;
+    private boolean currentCompany;
 }

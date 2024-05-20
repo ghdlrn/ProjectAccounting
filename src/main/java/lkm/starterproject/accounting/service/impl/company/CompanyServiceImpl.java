@@ -51,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
         memberCompany.setMember(member);
         memberCompany.setCompany(company);
         memberCompany.setRole(Role.MASTER);
-        memberCompany.setUseStatus(UseStatus.USE);
+        memberCompany.setCurrentCompany(true);
         company.getMemberCompanies().add(memberCompany);
         assignLocalTaxAndTaxOffice(company, companyDto);
         company = companyRepository.save(company);
@@ -90,6 +90,27 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
         companyRepository.delete(company);
+    }
+
+    @Override
+    @Transactional
+    public void selectCompany(Long companyId, String email) {
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            throw new EntityNotFoundException("Member not found");
+        }
+        // 모든 회사의 useStatus를 false로 변경
+        for (MemberCompany memberCompany : member.getMemberCompanies()) {
+            memberCompany.setCurrentCompany(false);
+        }
+        // 선택한 회사의 currentCompany를 true로 변경
+        MemberCompany selectedCompany = member.getMemberCompanies().stream()
+                .filter(mc -> mc.getCompany().getId().equals(companyId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("MemberCompany not found"));
+        selectedCompany.setCurrentCompany(true);
+
+        memberRepository.save(member);
     }
 
     @Override
