@@ -1,6 +1,7 @@
 package lkm.starterproject.accounting.service.impl.company;
 
 import jakarta.persistence.EntityNotFoundException;
+import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
@@ -49,7 +50,8 @@ public class CompanyServiceImpl implements CompanyService {
         MemberCompany memberCompany = new MemberCompany();
         memberCompany.setMember(member);
         memberCompany.setCompany(company);
-        memberCompany.setRole(Role.MASTER.name());
+        memberCompany.setRole(Role.MASTER);
+        memberCompany.setUseStatus(UseStatus.USE);
         company.getMemberCompanies().add(memberCompany);
         assignLocalTaxAndTaxOffice(company, companyDto);
         company = companyRepository.save(company);
@@ -101,14 +103,14 @@ public class CompanyServiceImpl implements CompanyService {
         }
         for (MemberCompany memberCompany : company.getMemberCompanies()) {
             if (memberCompany.getMember().getEmail().equals(email)) {
-                memberCompany.setRole(role);
+                memberCompany.setRole(Role.valueOf(role));
                 return;
             }
         }
         MemberCompany newMemberCompany = new MemberCompany();
         newMemberCompany.setMember(member);
         newMemberCompany.setCompany(company);
-        newMemberCompany.setRole(role);
+        newMemberCompany.setRole(Role.valueOf(role));
         company.getMemberCompanies().add(newMemberCompany);
     }
 
