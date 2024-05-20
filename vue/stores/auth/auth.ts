@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useNuxtApp } from '#app';
-import type { Member } from '~/types/member'
+import type { Member } from '~/types/member';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -23,7 +23,8 @@ export const useAuthStore = defineStore('auth', {
         const response = await useNuxtApp().$apiClient.post('/login', { email, password }, {
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          withCredentials: true // Ensure cookies are sent
         });
         this.accessToken = response.data.access_token;
         this.refreshToken = response.data.refresh_token;
@@ -47,13 +48,15 @@ export const useAuthStore = defineStore('auth', {
         }
         console.log('Access Token:', this.accessToken);
         await useNuxtApp().$apiClient.post('/logout', {}, {
-          headers: { Authorization: `Bearer ${this.accessToken}` }
+          headers: { Authorization: `Bearer ${this.accessToken}` },
+          withCredentials: true // Ensure cookies are sent
         });
         this.member = null;
         this.accessToken = null;
         this.refreshToken = null;
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+        console.log('Logged out successfully!');
       } catch (error: any) {
         console.error('Logout failed:', error.response);
         throw error;
@@ -62,13 +65,14 @@ export const useAuthStore = defineStore('auth', {
     async refreshAccessToken() {
       try {
         const response = await useNuxtApp().$apiClient.post('/reissue', {}, {
-          headers: { Authorization: `Bearer ${this.refreshToken}` }
+          headers: { Authorization: `Bearer ${this.refreshToken}` },
+          withCredentials: true // Ensure cookies are sent
         });
         this.accessToken = response.data.access_token;
         localStorage.setItem('accessToken', this.accessToken as string);
       } catch (error: any) {
         console.error('Token refresh failed:', error);
-        this.logout();
+        await this.logout();
       }
     },
     loadUserFromLocalStorage() {

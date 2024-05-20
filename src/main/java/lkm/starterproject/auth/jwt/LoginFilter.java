@@ -62,12 +62,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String access = jwtUtil.createJwt("access", email, role, 600000L);       //access토큰 생성 10분뒤 소멸
         String refresh = jwtUtil.createJwt("refresh", email, role, 86400000L);       //refresh토큰 생성 24시간 뒤 소멸
         addRefreshEntity(email, refresh, 86400000L);    //Refresh 토큰 저장
-
         // 쿠키 생성 및 설정
         Cookie accessTokenCookie = createCookie("access", access);
         Cookie refreshTokenCookie = createCookie("refresh", refresh);
         res.addCookie(accessTokenCookie);
         res.addCookie(refreshTokenCookie);
+
+        setSameSiteCookie(res, "access", access, 86400, true, true);
+        setSameSiteCookie(res, "refresh", refresh, 86400, true, true);
         // JSON 응답 생성
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> tokenInfo = new HashMap<>();
@@ -101,13 +103,26 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     private Cookie createCookie(String key, String value) { //value : JWT값
-
         Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(24*60*60);     //쿠키 24시간뒤 소멸
-        cookie.setSecure(false);           //개발환경에서만 false아닐땐 true(쿠키 Secure속성)
-        cookie.setPath("/");     //쿠키적용 범위
-        cookie.setHttpOnly(true);       //클라이언트에서 자바스크립트에 쿠키 접근하지 못하도록 설정
-
+        cookie.setMaxAge(24*60*60); // 1 day
+        cookie.setSecure(true); // Ensure this is true in production
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
         return cookie;
+    }
+
+    private void setSameSiteCookie(HttpServletResponse response, String name, String value, int maxAge, boolean httpOnly, boolean secure) {
+        StringBuilder cookie = new StringBuilder();
+        cookie.append(name).append("=").append(value).append(";");
+        cookie.append("Max-Age=").append(maxAge).append(";");
+        cookie.append("Path=/;");
+        if (secure) {
+            cookie.append("Secure;");
+        }
+        if (httpOnly) {
+            cookie.append("HttpOnly;");
+        }
+        cookie.append("SameSite=None;");
+        response.addHeader("Set-Cookie", cookie.toString());
     }
 }

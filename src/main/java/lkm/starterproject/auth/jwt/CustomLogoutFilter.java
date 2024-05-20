@@ -32,15 +32,11 @@ public final class CustomLogoutFilter extends GenericFilterBean {
     }
 
     private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        String requestUri = request.getRequestURI();    //url값 저장
+        String requestUri = request.getRequestURI();
         String requestMethod = request.getMethod();
         logger.info("Received request to {} with method {}", requestUri, requestMethod);
 
-        if (!requestUri.matches("^\\/logout$")) {   //로그아웃경로가 아니면 다음필터로
-            filterChain.doFilter(request, response);
-            return;
-        }
-        if (!requestMethod.equals("POST")) {        //로그아웃 경로라도 POST요청이 아니면 다음 필터로
+        if (!requestUri.equals("/logout") || !requestMethod.equals("POST")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -49,47 +45,62 @@ public final class CustomLogoutFilter extends GenericFilterBean {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
+                logger.info("Cookie: {} = {}", cookie.getName(), cookie.getValue()); // Debug log
                 if (cookie.getName().equals("refresh")) {
                     refresh = cookie.getValue();
                     break;
                 }
             }
         }
-        if (refresh == null) {  //refresh토큰이 없으면 해당 상태메시지 보냄
+
+        if (refresh == null) {
             logger.warn("No refresh token found in cookies");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
         try {
-            jwtUtil.isExpired(refresh); //refresh토큰이 만료되었는지 확인(만료되었으면 이미 로그아웃되어있단 뜻)
+            jwtUtil.isExpired(refresh);
         } catch (ExpiredJwtException e) {
             logger.warn("Refresh token is expired");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
-        String category = jwtUtil.getCategory(refresh); //토큰이 refresh인지, access인지 확인
+        String category = jwtUtil.getCategory(refresh);
         if (!category.equals("refresh")) {
             logger.warn("Invalid token category: {}", category);
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); //refresh토큰이 아니면 상태코드보냄
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
-        Boolean isExist = refreshRepository.existsByRefresh(refresh);   //DB에 해당토큰이 존재하는지 확인
-        if (!isExist) {     //DB에 토큰이 없으면 상태코드 보냄
+        Boolean isExist = refreshRepository.existsByRefresh(refresh);
+        if (!isExist) {
             logger.warn("Refresh token not found in repository");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
-        //로그아웃 진행-------------------------------------------------------------------------------------------
-        refreshRepository.deleteByRefresh(refresh);  //Refresh 토큰 DB에서 제거
-        Cookie cookie = new Cookie("refresh", null);    //Refresh 토큰 Cookie 값 0으로 생성
-        cookie.setMaxAge(0);        //쿠키 시간 0
-        cookie.setPath("/");          //전역경로
-        response.addCookie(cookie);     //쿠키 추가
-        response.setStatus(HttpServletResponse.SC_OK);      //쿠키 생성
+        // Proceed with logout
+        refreshRepository.deleteByRefresh(refresh);
+
+        Cookie cookie = new Cookie("refresh", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        removeSameSiteCookie(response, "refresh");
+
+        response.setStatus(HttpServletResponse.SC_OK);
         logger.info("Successfully logged out");
+    }
+
+    private void removeSameSiteCookie(HttpServletResponse response, String name) {
+        StringBuilder cookie = new StringBuilder();
+        cookie.append(name).append("=;");
+        cookie.append("Max-Age=0;");
+        cookie.append("Path=/;");
+        cookie.append("SameSite=None;");
+        response.addHeader("Set-Cookie", cookie.toString());
     }
 }
