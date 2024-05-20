@@ -21,19 +21,9 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    public String SignUp(@RequestBody MemberDto memberDto) {     //회원가입
+    public ResponseEntity<String> SignUp(@RequestBody MemberDto memberDto) {     //회원가입
         memberService.SignUp(memberDto);      //SignService에서 저장받은 회원정보(memberDto) 저장
-        return "sign up";
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        if (token == null || !token.startsWith("Bearer ")) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        String accessToken = token.substring(7);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok("Sign up successful");
     }
 
 }

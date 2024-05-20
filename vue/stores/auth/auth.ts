@@ -1,27 +1,26 @@
-// stores/auth.js
 import { defineStore } from 'pinia';
-import type { Member } from  "~/types/member";
-import apiClient from "~/utils/baseUrl";
-
+import { useNuxtApp } from '#app';
+import type { Member } from '~/types/member'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    member: null as Member| null,
+    member: null as Member | null,
     accessToken: null as string | null,
     refreshToken: null as string | null,
   }),
   actions: {
     async signup(username: string, email: string, password: string) {
       try {
-        await apiClient().post('auth/signup', {username, email, password});
+        await useNuxtApp().$apiClient.post('auth/signup', { username, email, password });
+        console.log('Sign up successful');
       } catch (error: any) {
         console.error('Signup failed:', error);
-        alert('회원가입 실패');
+        alert('Sign up failed');
       }
     },
     async login(email: string, password: string) {
       try {
-        const response = await apiClient().post('/login', { email, password }, {
+        const response = await useNuxtApp().$apiClient.post('/login', { email, password }, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -33,12 +32,12 @@ export const useAuthStore = defineStore('auth', {
           email: response.data.email,
           role: response.data.role,
         };
-        localStorage.setItem('accessToken', <string>this.accessToken);
-        localStorage.setItem('refreshToken', <string>this.refreshToken);
+        localStorage.setItem('accessToken', this.accessToken as string);
+        localStorage.setItem('refreshToken', this.refreshToken as string);
         console.log('Logged in successfully!');
       } catch (error: any) {
         console.error('Login failed:', error.response);
-        throw error;  // 에러를 다시 throw하여 호출한 곳에서 처리할 수 있도록 함
+        throw error;
       }
     },
     async logout() {
@@ -46,9 +45,9 @@ export const useAuthStore = defineStore('auth', {
         if (!this.accessToken) {
           throw new Error('No access token found');
         }
-        console.log('Access Token:', this.accessToken);  // Debug log
-        await apiClient().post('/logout', {}, {
-          headers: {Authorization: `Bearer ${this.accessToken}`}
+        console.log('Access Token:', this.accessToken);
+        await useNuxtApp().$apiClient.post('/logout', {}, {
+          headers: { Authorization: `Bearer ${this.accessToken}` }
         });
         this.member = null;
         this.accessToken = null;
@@ -62,13 +61,14 @@ export const useAuthStore = defineStore('auth', {
     },
     async refreshAccessToken() {
       try {
-        const response = await apiClient().post('/reissue', {}, {
+        const response = await useNuxtApp().$apiClient.post('/reissue', {}, {
           headers: { Authorization: `Bearer ${this.refreshToken}` }
         });
         this.accessToken = response.data.access_token;
-        localStorage.setItem('accessToken', <string>this.accessToken);
-      } catch (error) {
-        // Handle error
+        localStorage.setItem('accessToken', this.accessToken as string);
+      } catch (error: any) {
+        console.error('Token refresh failed:', error);
+        this.logout();
       }
     },
     loadUserFromLocalStorage() {

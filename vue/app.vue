@@ -13,6 +13,9 @@ useHead({
   },
   
 })
+definePageMeta({
+  middleware: 'auth'
+});
 </script>
 
 <style>
