@@ -1,46 +1,44 @@
-<script setup lang="ts">
-import TotalEarning from '~/components/dashboards/TotalEarning.vue';
-import TotalOrder from '~/components/dashboards/TotalOrder.vue';
-import TotalIncome from '~/components/dashboards/TotalIncome.vue';
-import TotalGrowth from '~/components/dashboards/TotalGrowth.vue';
-import PopularStocks from '~/components/dashboards/PopularStocks.vue';
-</script>
-
 <template>
   <div>
-  <v-row>
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Total Earning -->
-    <!-- -------------------------------------------------------------------- -->
-    <v-col cols="12" md="4">
-      <TotalEarning />
-    </v-col>
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Total Order -->
-    <!-- -------------------------------------------------------------------- -->
-    <v-col cols="12" md="4">
-      <TotalOrder />
-    </v-col>
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Total Income -->
-    <!-- -------------------------------------------------------------------- -->
-    <v-col cols="12" md="4">
-      <TotalIncome />
-    </v-col>
-
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Total Growth -->
-    <!-- -------------------------------------------------------------------- -->
-    <v-col cols="12" lg="8">
-      <TotalGrowth />
-    </v-col>
-
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Popular Stocks -->
-    <!-- -------------------------------------------------------------------- -->
-    <v-col cols="12" lg="4">
-      <PopularStocks />
-    </v-col>
-  </v-row>
+    <h1>Companies</h1>
+    <div v-if="authStore.member">
+      <p>Welcome, {{ authStore.member.username }}</p>
+      <button @click="authStore.logout">Logout</button>
+      <div>
+        <h2>Your Companies</h2>
+        <ul>
+          <li v-for="company in companyStore.companies" :key="company.id">
+            {{ company.name }}
+            <button @click="selectCompany(company.id)">Select</button>
+          </li>
+        </ul>
+      </div>
+      <div v-if="companyStore.selectedCompany">
+        <h2>Selected Company: {{ companyStore.selectedCompany.name }}</h2>
+      </div>
+    </div>
+    <div v-else>
+      <p>Please log in.</p>
+    </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useAuthStore } from '~/stores/auth/auth';
+import { useCompanyStore } from '~/stores/accounting/company';
+import { onMounted } from 'vue';
+
+const authStore = useAuthStore();
+const companyStore = useCompanyStore();
+
+onMounted(() => {
+  authStore.loadUserFromLocalStorage();
+  if (authStore.member) {
+    companyStore.fetchCompanies();
+  }
+});
+
+const selectCompany = (companyId: number) => {
+  companyStore.selectCompany(companyId);
+};
+</script>

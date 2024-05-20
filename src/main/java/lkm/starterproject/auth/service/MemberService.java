@@ -31,6 +31,7 @@ public class MemberService {
 
         Member member = memberMapper.toEntity(memberDto);
         member.setPassword(passwordEncoder.encode(member.getPassword()));
+        member.setRole(Role.USER);
         memberRepository.save(member);
     }
 }

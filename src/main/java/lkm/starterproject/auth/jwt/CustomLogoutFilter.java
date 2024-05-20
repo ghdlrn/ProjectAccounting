@@ -38,15 +38,16 @@ public final class CustomLogoutFilter extends GenericFilterBean {
             filterChain.doFilter(request, response);
             return;
         }
-
         String refresh = null;
-        Cookie[] cookies = request.getCookies();        //refresh토큰을 꺼내기 위해 쿠키를 불러옴
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("refresh")) {
-                refresh = cookie.getValue();
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("refresh")) {
+                    refresh = cookie.getValue();
+                    break;
+                }
             }
         }
-
         if (refresh == null) {  //refresh토큰이 없으면 해당 상태메시지 보냄
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;

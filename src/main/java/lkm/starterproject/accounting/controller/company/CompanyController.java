@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +22,9 @@ public class CompanyController {
 
     @PostMapping
     public ResponseEntity<CompanyDto> createCompany(@Valid @RequestBody CompanyDto companyDto) {
-        CompanyDto createdCompany = companyService.createCompany(companyDto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        CompanyDto createdCompany = companyService.createCompany(companyDto, email);
         return ResponseEntity.ok(createdCompany);
     }
 
@@ -48,4 +52,9 @@ public class CompanyController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/{id}/assign-role")
+    public ResponseEntity<Void> assignRole(@PathVariable("id") Long companyId, @RequestParam("email") String email, @RequestParam("role") String role) {
+        companyService.assignRole(companyId, email, role);
+        return ResponseEntity.ok().build();
+    }
 }

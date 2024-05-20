@@ -2,10 +2,12 @@ package lkm.starterproject.auth.dto;
 
 import lkm.starterproject.auth.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
 
@@ -24,7 +26,7 @@ public class CustomUserDetails implements UserDetails {
                 return member.getRole().name();
             }
         });
-        return authorities;
+        return Collections.singletonList(new SimpleGrantedAuthority(member.getRole().name()));
     }
 
     @Override

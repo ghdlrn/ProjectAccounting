@@ -1,28 +1,27 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import { useCustomizerStore } from '@/stores/customizer';
-// Icon Imports
 import { SettingsIcon, Menu2Icon } from 'vue-tabler-icons';
 
-// dropdown imports
-
-import ProfileDD from './ProfileDD.vue';
-
-const customizer = useCustomizerStore();
-
-import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/auth/auth';
+import ProfileDD from './ProfileDD.vue';
 import HeaderMenu from "~/components/layoutComponents/vertical-header/HeaderMenu.vue";
 import HeaderSearchBar from "~/components/shared/SearchBar.vue";
 import FullScreen from "~/components/layoutComponents/vertical-header/FullScreen.vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
-const isLoggedIn = computed(() => !!authStore.user);
+const customizer = useCustomizerStore();
+const isLoggedIn = computed(() => !!authStore.member);
 
-const logout = () => {
-  authStore.logout();
-  router.push('/'); // 리디렉션
+const logout = async () => {
+  try {
+    await authStore.logout();
+    await router.push('/'); // 리디렉션
+  } catch (error) {
+    console.error('Logout failed:', error);
+    alert('로그아웃 실패');
+  }
 };
 </script>
 

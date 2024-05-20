@@ -1,30 +1,26 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router';
 const router = useRouter();
+import { useAuthStore } from "~/stores/auth/auth";
+const authStore = useAuthStore();
 
 const checkbox = ref(false);
 const show1 = ref(false);
 const username = ref('');
 const password = ref('');
 const email = ref('');
-import { emailRules, passwordRules, nameRules } from "../../utils/form";
+import { emailRules, passwordRules, nameRules } from "~/utils/form";
 
 const SignUp = async () => {
   if (!checkbox.value) {
-    alert('이용 약관에 동의해주세요.');
+    alert('이용약관에 동의하셔야 합니다.');
     return;
   }
   try {
-    await axios.post('http://localhost:8080/auth/signup', {
-      username: username.value,
-      email: email.value,
-      password: password.value
-    });
-    router.push('/auth/login'); // Redirect after successful registration
+    await authStore.signup(username.value, email.value, password.value);
+    await router.push('/auth/login');
   } catch (error) {
-    console.error('Signup failed:', error);
+    console.error('SignUp failed:', error);
     alert('회원가입 실패');
   }
 };

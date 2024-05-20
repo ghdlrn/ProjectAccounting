@@ -1,16 +1,26 @@
 import { defineStore } from 'pinia';
 import type {Company} from "~/types/accounting/company";
 import apiClient from "~/utils/baseUrl";
+import {useAuthStore} from "~/stores/auth/auth";
+
+interface CompanyMember {
+    email: string;
+    role: string;
+}
 
 export const useCompanyStore = defineStore('company', {
     state: () => ({
         companies: [] as Company[],
         currentCompany: null as Company | null,  // 현재 선택된 회사 정보
+        selectedCompany: null as Company | null,  // 현재 선택된 회사 정보
     }),
     actions: {
         async fetchCompanies() {
+            const authStore = useAuthStore();
             try {
-                const response = await apiClient().get('/register/company');
+                const response = await apiClient().get('/register/company', {
+                    headers: { Authorization: `Bearer ${authStore.accessToken}` }
+                });
                 this.companies = response.data;
             } catch (error: any) {
                 console.error('회사목록 조회 실패:', error.message);
@@ -26,9 +36,12 @@ export const useCompanyStore = defineStore('company', {
                 throw new Error('회사정보 조회 실패');
             }
         },
-        async createCompany(data: Company) {
+        async createCompany(companyData: Partial<Company>) {
+            const authStore = useAuthStore();
             try {
-                const response = await apiClient().post('/register/company', data);
+                const response = await apiClient().post('/register/company', companyData, {
+                    headers: { Authorization: `Bearer ${authStore.accessToken}` }
+                });
                 this.companies.push(response.data);
                 alert('회사 정보가 등록되었습니다');
             } catch (error: any) {
@@ -71,6 +84,25 @@ export const useCompanyStore = defineStore('company', {
                 console.error('회사 정보 삭제 실패:', error.message);
                 throw new Error('회사 정보 삭제 실패');
             }
-        }
+        },
+
+        selectCompany(companyId: number) {
+            this.selectedCompany = this.companies.find(company => company.id === companyId) || null;
+            const authStore = useAuthStore();
+            apiClient().post('/api/company/select', { companyId }, {
+                headers: { Authorization: `Bearer ${authStore.accessToken}` }
+            });
+        },
+
+        async assignRole(companyId: number, email: string, role: string) {
+            const authStore = useAuthStore();
+            try {
+                await apiClient().post(`/api/company/${companyId}/assign-role`, { email, role }, {
+                    headers: { Authorization: `Bearer ${authStore.accessToken}` }
+                });
+            } catch (error) {
+                // Handle error
+            }
+        },
     }
 });

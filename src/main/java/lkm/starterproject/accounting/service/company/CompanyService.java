@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CompanyService {
 
-    CompanyDto createCompany(CompanyDto companyDto);
+    CompanyDto createCompany(CompanyDto companyDto, String email);
 
     List<CompanyDto> getAllCompanies();
 
@@ -15,4 +15,6 @@ public interface CompanyService {
     CompanyDto updateCompany(Long id, CompanyDto companyDto);
 
     void deleteCompany(Long id);
+
+    void assignRole(Long companyId, String email, String role);
 }

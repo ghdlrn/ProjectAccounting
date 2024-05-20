@@ -2,7 +2,6 @@ package lkm.starterproject.accounting.controller.register;
 
 import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.register.CustomerDto;
-import lkm.starterproject.accounting.dto.register.CustomerDto;
 import lkm.starterproject.accounting.service.register.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
