@@ -10,7 +10,7 @@ export const useCardStore = defineStore('card', {
     actions: {
         async fetchCard() {
             try {
-                const response = await useNuxtApp().$apiClient.get(`/register/card`);
+                const response = await useNuxtApp().$api.get(`/register/card`);
                 this.card = response.data;
             } catch (error: any) {
                 console.error('카드 목록 조회 실패', error);
@@ -19,7 +19,7 @@ export const useCardStore = defineStore('card', {
         },
         async getCard(id: number) {
             try {
-                const response = await useNuxtApp().$apiClient.get(`/register/card/${id}`);
+                const response = await useNuxtApp().$api.get(`/register/card/${id}`);
                 this.currentCard = response.data;
             } catch (error: any) {
                 console.error('카드 조회 실패', error);
@@ -28,7 +28,7 @@ export const useCardStore = defineStore('card', {
         },
         async updateCard(data: Card) {
             try {
-                const response = await useNuxtApp().$apiClient.put(`/register/card/${data.id}`, data);
+                const response = await useNuxtApp().$api.put(`/register/card/${data.id}`, data);
                 const index = this.card.findIndex(card => card.id === data.id);
                 if(index !== -1) {
                     this.card[index] = response.data;
@@ -45,7 +45,7 @@ export const useCardStore = defineStore('card', {
         },
         async createCard(data: Card) {
             try {
-                const response = await useNuxtApp().$apiClient.post(`/register/card`, data);
+                const response = await useNuxtApp().$api.post(`/register/card`, data);
                 this.card.push(response.data);
                 alert('카드 정보가 등록되었습니다');
             } catch (error: any) {
@@ -56,7 +56,7 @@ export const useCardStore = defineStore('card', {
         },
         async deleteCard(id: number) {
             try {
-                const response = await useNuxtApp().$apiClient.delete(`/register/card/${id}`);
+                const response = await useNuxtApp().$api.delete(`/register/card/${id}`);
                 if (response.status === 200) {
                     await this.fetchCard();
                     alert('카드 정보가 삭제되었습니다');

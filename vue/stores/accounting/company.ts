@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import type {Company} from "~/types/accounting/company";
-import {useAuthStore} from "~/stores/auth/auth";
 import {useNuxtApp} from "#app";
 
 interface CompanyMember {
@@ -16,11 +15,8 @@ export const useCompanyStore = defineStore('company', {
     }),
     actions: {
         async fetchCompanies() {
-            const authStore = useAuthStore();
             try {
-                const response = await useNuxtApp().$apiClient.get('/register/company', {
-                    headers: { Authorization: `Bearer ${authStore.accessToken}` }
-                });
+                const response =  await useNuxtApp().$api.get('/register/company');
                 this.companies = response.data;
             } catch (error: any) {
                 console.error('회사목록 조회 실패:', error.message);
@@ -29,7 +25,7 @@ export const useCompanyStore = defineStore('company', {
         },
         async getCompany(id: number) {
             try {
-                const response = await useNuxtApp().$apiClient.get(`/register/company/${id}`);
+                const response =  await useNuxtApp().$api.get(`/register/company/${id}`);
                 this.currentCompany = response.data;  // 현재 회사 정보를 currentCompany에 저장
             } catch (error: any) {
                 console.error('회사정보 조회 실패:', error.message);
@@ -37,14 +33,8 @@ export const useCompanyStore = defineStore('company', {
             }
         },
         async createCompany(companyData: Partial<Company>) {
-            const authStore = useAuthStore();
-            if (!authStore.accessToken) {
-                await authStore.refreshAccessToken();
-            }
             try {
-                const response = await useNuxtApp().$apiClient.post('/register/company', companyData, {
-                    headers: { Authorization: `Bearer ${authStore.accessToken}` }
-                });
+                const response =  await useNuxtApp().$api.post('/register/company', companyData);
                 this.companies.push(response.data);
                 alert('회사 정보가 등록되었습니다');
             } catch (error: any) {
@@ -55,7 +45,7 @@ export const useCompanyStore = defineStore('company', {
         },
         async updateCompany(data: Company) {
             try {
-                const response = await useNuxtApp().$apiClient.put(`/register/company/${data.id}`, data);
+                const response =  await useNuxtApp().$api.put(`/register/company/${data.id}`, data);
                 const index = this.companies.findIndex(company => company.id === data.id);
                 if (index !== -1) {
                     this.companies[index] = response.data;
@@ -73,7 +63,7 @@ export const useCompanyStore = defineStore('company', {
 
         async deleteCompany(id: number) {
             try {
-                const response = await useNuxtApp().$apiClient.delete(`/register/company/${id}`);
+                const response =  await useNuxtApp().$api.delete(`/register/company/${id}`);
                 if (response.status === 200) {
                     await this.fetchCompanies();
                     alert('회사 정보가 삭제되었습니다');
@@ -91,18 +81,12 @@ export const useCompanyStore = defineStore('company', {
 
         async selectCompany(companyId: number) {
             this.selectedCompany = this.companies.find(company => company.id === companyId) || null;
-            const authStore = useAuthStore();
-            await useNuxtApp().$apiClient.post('/api/company/select', {companyId}, {
-                headers: {Authorization: `Bearer ${authStore.accessToken}`}
-            });
+             await useNuxtApp().$api.post('/api/company/select', {companyId});
         },
 
         async assignRole(companyId: number, email: string, role: string) {
-            const authStore = useAuthStore();
             try {
-                await useNuxtApp().$apiClient.post(`/api/company/${companyId}/assign-role`, { email, role }, {
-                    headers: { Authorization: `Bearer ${authStore.accessToken}` }
-                });
+                 await useNuxtApp().$api.post(`/api/company/${companyId}/assign-role`, { email, role });
             } catch (error) {
                 // Handle error
             }

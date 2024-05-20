@@ -10,7 +10,7 @@ export const useTaxOfficeStore = defineStore('taxOffice', {
     actions: {
         async fetchTaxOffice() {
             try {
-                const response = await useNuxtApp().$apiClient.get('/register/company/tax-office');
+                const response =  await useNuxtApp().$api.get('/register/company/tax-office');
                 this.taxOffice = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);

@@ -10,7 +10,7 @@ export const useLocalTaxStore = defineStore('localTax', {
     actions: {
         async fetchLocalTax() {
             try {
-                const response = await useNuxtApp().$apiClient.get('/register/company/local-tax');
+                const response =  await useNuxtApp().$api.get('/register/company/local-tax');
                 this.localTax = response.data;
             } catch (error) {
                 console.error('Failed to fetch tax offices:', error);
