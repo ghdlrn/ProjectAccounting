@@ -8,7 +8,7 @@ public interface CompanyService {
 
     CompanyDto createCompany(CompanyDto companyDto, String email);
 
-    List<CompanyDto> getAllCompanies();
+    List<CompanyDto> getAllCompaniesByMember(String email);
 
     CompanyDto getCompany(Long id);
 

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,9 @@ public class CompanyController {
 
     @GetMapping
     public ResponseEntity<List<CompanyDto>> getAllCompanies() {
-        List<CompanyDto> companies = companyService.getAllCompanies();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        List<CompanyDto> companies = companyService.getAllCompaniesByMember(email);
         return ResponseEntity.ok(companies);
     }
 
@@ -47,6 +50,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('MASTER')")
     public ResponseEntity<Void> deleteCompany(@PathVariable("id") Long id) {
         companyService.deleteCompany(id);
         return ResponseEntity.ok().build();
@@ -61,6 +65,7 @@ public class CompanyController {
     }
 
     @PostMapping("/{id}/assign-role")
+    @PreAuthorize("hasRole('MASTER')")
     public ResponseEntity<Void> assignRole(@PathVariable("id") Long companyId, @RequestParam("email") String email, @RequestParam("role") String role) {
         companyService.assignRole(companyId, email, role);
         return ResponseEntity.ok().build();

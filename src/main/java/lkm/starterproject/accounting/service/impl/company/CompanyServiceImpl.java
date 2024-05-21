@@ -1,7 +1,6 @@
 package lkm.starterproject.accounting.service.impl.company;
 
 import jakarta.persistence.EntityNotFoundException;
-import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.dto.company.CompanyDto;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
@@ -16,7 +15,6 @@ import lkm.starterproject.auth.entity.Member;
 
 import lkm.starterproject.auth.entity.MemberCompany;
 import lkm.starterproject.auth.repository.MemberRepository;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,8 +59,12 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CompanyDto> getAllCompanies() {
-        List<Company> companies = companyRepository.findAll();
+    public List<CompanyDto> getAllCompaniesByMember(String email) {
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            throw new EntityNotFoundException("Member not found");
+        }
+        List<Company> companies = companyRepository.findByMember(member);
         return companyMapper.toDtoList(companies);
     }
 
