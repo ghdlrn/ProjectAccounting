@@ -30,6 +30,12 @@ const saveOrUpdateCompany = async () => {
 };
 /*----------------------------양식 검증------------------------------------*/
 import {businessRegistrationNumberRules, nameRules} from "~/utils/form.ts"
+/*----------------------------초기화---------------------------------------*/
+const resetForm = () => {
+  Object.keys(currentCompany.value).forEach(key => {
+    currentCompany.value[key] = '';
+  });
+};
 </script>
 
 <template>

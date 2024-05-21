@@ -37,6 +37,12 @@ const saveOrUpdateCard = async () => {
 };
 /*----------------------------양식 검증------------------------------------*/
 import {nameRules, nullableRules} from "~/utils/form.ts";
+/*----------------------------초기화---------------------------------------*/
+const resetForm = () => {
+  Object.keys(currentCard.value).forEach(key => {
+    currentCard.value[key] = '';
+  });
+};
 </script>
 
 <template>
@@ -320,7 +326,10 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
                 </v-row>
             </v-window-item>
             <v-row>
-              <v-col cols="2" offset="10" class="pt-8">
+              <v-col cols="2" offset="8" class="pt-8">
+                <v-btn @click="resetForm" color="warning" size="large">초기화</v-btn>
+              </v-col>
+              <v-col cols="2" class="pt-8">
                 <v-btn type="submit" color="success" size="large">등록</v-btn>
               </v-col>
             </v-row>
