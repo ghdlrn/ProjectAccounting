@@ -5,17 +5,16 @@ import lkm.starterproject.accounting.dto.register.CustomerDto;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.register.Customer;
-import lkm.starterproject.accounting.entity.register.Customer;
 import lkm.starterproject.accounting.mapper.register.CustomerMapper;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.register.CustomerRepository;
+import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.register.CustomerService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -24,22 +23,24 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerMapper customerMapper;
     private final LocalTaxRepository localTaxRepository;
     private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper,
-                               LocalTaxRepository localTaxRepository, CompanyRepository companyRepository) {
+                               LocalTaxRepository localTaxRepository, CompanyRepository companyRepository,
+                                CompanyService companyService) {
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
         this.localTaxRepository = localTaxRepository;
         this.companyRepository = companyRepository;
+        this.companyService = companyService;
     }
 
     @Override
     @Transactional
-    public CustomerDto createCustomer(Long companyId, CustomerDto customerDto) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
+    public CustomerDto createCustomer(String email, CustomerDto customerDto) {
+        Company company = companyService.getCurrentCompany(email);
         Customer customer = customerMapper.toEntity(customerDto);
-        assignLocalTaxAndTaxOffice(customer, customerDto);
+        assignLocalTax(customer, customerDto);
         customer.setCompany(company);
         customer = customerRepository.save(customer);
         return customerMapper.toDto(customer);
@@ -47,27 +48,28 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CustomerDto> getAllCustomers(Long companyId) {
-        companyRepository.findById(companyId)
-                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
-        List<Customer> customers = customerRepository.findByCompanyId(companyId);
+    public List<CustomerDto> getAllCustomers(String email) {
+        Company company = companyService.getCurrentCompany(email);
+        List<Customer> customers = customerRepository.findByCompanyId(company.getId());
         return customerMapper.toDtoList(customers);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public CustomerDto getCustomer(Long id) {
-        Customer customer = customerRepository.findById(id)
+    public CustomerDto getCustomer(String email, Long id) {
+        Company company = companyService.getCurrentCompany(email);
+        Customer customer = customerRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
         return customerMapper.toDto(customer);
     }
 
     @Override
     @Transactional
-    public CustomerDto updateCustomer(Long id, CustomerDto customerDto) {
-        Customer customer = customerRepository.findById(id)
+    public CustomerDto updateCustomer(String email, Long id, CustomerDto customerDto) {
+        Company company = companyService.getCurrentCompany(email);
+        Customer customer = customerRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
-        assignLocalTaxAndTaxOffice(customer, customerDto);
+        assignLocalTax(customer, customerDto);
         customerMapper.updateDto(customerDto, customer);
         customer = customerRepository.save(customer);
         return customerMapper.toDto(customer);
@@ -75,13 +77,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void deleteCustomer(Long id) {
-        Customer customer = customerRepository.findById(id)
+    public void deleteCustomer(String email, Long id) {
+        Company company = companyService.getCurrentCompany(email);
+        Customer customer = customerRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer 정보를 찾을 수 없음"));
         customerRepository.delete(customer);
     }
 
-    private void assignLocalTaxAndTaxOffice(Customer customer, CustomerDto customerDto) {
+    private void assignLocalTax(Customer customer, CustomerDto customerDto) {
         if (customerDto.getLocalTax() != null && customerDto.getLocalTax().getId() != null) {
             customer.setLocalTax(findLocalTax(customerDto.getLocalTax().getId()));
         } else {

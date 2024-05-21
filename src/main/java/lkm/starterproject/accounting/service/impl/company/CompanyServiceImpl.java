@@ -145,6 +145,21 @@ public class CompanyServiceImpl implements CompanyService {
         company.getMemberCompanies().add(newMemberCompany);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Company getCurrentCompany(String email) {        //사용자가 선택한 Company정보 가져옴
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            throw new EntityNotFoundException("Member not found");
+        }
+
+        return member.getMemberCompanies().stream()
+                .filter(MemberCompany::isCurrentCompany)
+                .map(MemberCompany::getCompany)
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Current company not found"));
+    }
+
     private void assignLocalTaxAndTaxOffice(Company company, CompanyDto companyDto) {
         if (companyDto.getLocalTax() != null && companyDto.getLocalTax().getId() != null) {
             company.setLocalTax(findLocalTax(companyDto.getLocalTax().getId()));

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import type {Finance} from "~/types/accounting/finance";
+import { useNuxtApp } from "#app";
 
 export const useFinanceStore = defineStore('finance', {
     state : () => ({

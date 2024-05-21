@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.register.CustomerDto;
 import lkm.starterproject.accounting.service.register.CustomerService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,33 +20,43 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/company/{companyId}")
-    public ResponseEntity<CustomerDto> createCustomer(@PathVariable Long companyId, @Valid @RequestBody CustomerDto customerDto) {
-        CustomerDto createdCustomer = customerService.createCustomer(companyId, customerDto);
+    @PostMapping
+    public ResponseEntity<CustomerDto> createCustomer(@Valid @RequestBody CustomerDto customerDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        CustomerDto createdCustomer = customerService.createCustomer(email, customerDto);
         return ResponseEntity.ok(createdCustomer);
     }
 
-    @GetMapping("/company/{companyId}")
-    public ResponseEntity<List<CustomerDto>> getAllCustomers(@PathVariable Long companyId) {
-        List<CustomerDto> customers = customerService.getAllCustomers(companyId);
+    @GetMapping
+    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        List<CustomerDto> customers = customerService.getAllCustomers(email);
         return ResponseEntity.ok(customers);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDto> getCustomer(@PathVariable("id") Long id) {
-        CustomerDto customerDto = customerService.getCustomer(id);
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        CustomerDto customerDto = customerService.getCustomer(email, id);
         return ResponseEntity.ok(customerDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable("id") Long id, @Valid @RequestBody CustomerDto customerDto) {
-        CustomerDto updatedCustomer = customerService.updateCustomer(id, customerDto);
+    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDto customerDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        CustomerDto updatedCustomer = customerService.updateCustomer(email, id, customerDto);
         return ResponseEntity.ok(updatedCustomer);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable("id") Long id) {
-        customerService.deleteCustomer(id);
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        customerService.deleteCustomer(email, id);
         return ResponseEntity.ok().build();
     }
 }
