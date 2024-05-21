@@ -18,6 +18,7 @@ const headers = ref([
   { text: '회사 코드', value: 'id', sortable: true },
   { text: '회사명', value: 'name', sortable: true },
   { text: '사업자 등록번호', value: 'businessRegistrationNumber', sortable: true },
+  { text: '사용 회사', value: 'currentCompany', sortable: true },
   { text: '삭제', value: 'operation' }
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
@@ -101,6 +102,10 @@ const menu = ref(false);
                   :search-value="searchValue"
                   @click-row="getCompany"
                   :rows-per-page="10">
+                <template v-slot:item-currentCompany="{ currentCompany }">
+                  <v-chip color="success" v-if="currentCompany === true" size="small" label> 사용 </v-chip>
+                  <v-chip color="error" v-if="currentCompany === false" size="small" label> 미사용 </v-chip>
+                </template>
                 <template #item-operation="item">
                   <div class="operation-wrapper">
                     <v-btn icon color="error" variant="text" @click.stop="deleteCompany(item)" rounded>
