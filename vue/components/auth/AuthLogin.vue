@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import Google from '/images/social-google.svg';
 import { useAuthStore } from '~/stores/auth/auth';
-const router = useRouter();
 const authStore = useAuthStore();
 
 const checkbox = ref(false);
@@ -15,7 +14,6 @@ const login = async (event: any) => {
   event.preventDefault();  // Prevent default form submission
   try {
     await authStore.login(email.value, password.value);
-    await router.push('/');
   } catch (error) {
     console.error('Login failed:', error);
     alert('로그인 실패: ' + error);

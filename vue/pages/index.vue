@@ -25,13 +25,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useAuthStore } from '~/stores/auth/auth';
 import { useCompanyStore } from "~/stores/accounting/company";
 const authStore = useAuthStore();
 const companyStore = useCompanyStore();
-
-onMounted(() => {
-  authStore.loadUserFromLocalStorage();
-});
 </script>

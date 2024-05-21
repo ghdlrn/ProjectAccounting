@@ -1,5 +1,11 @@
 import { defineStore } from 'pinia';
 import { useNuxtApp } from '#app';
+import axios from "axios";
+
+const baseURL = axios.create({
+  baseURL: process.env.VITE_API_URL || 'http://localhost:8080',
+  withCredentials: true
+});
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -8,8 +14,8 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async signup(username: string, email: string, password: string)  {
       try {
-        const response = await useNuxtApp().$api.post('/auth/signup', {username, email, password});
-        alert('Sign up successful');
+        const response = await baseURL.post('/auth/signup', {username, email, password});
+        alert('회원가입 성공');
         const router = useRouter();
         await router.push('/auth/login');
       } catch (error: any) {
@@ -18,18 +24,19 @@ export const useAuthStore = defineStore('auth', {
     },
     async login(email: string, password: string) {
       try {
-        const response = await useNuxtApp().$api.post('/login', { email, password });
+        const response = await baseURL.post('/login', { email, password });
         this.member = response.data;
         localStorage.setItem('member', JSON.stringify(this.member));
         const router = useRouter();
         await router.push('/');
       } catch (error: any) {
+        alert('로그인 실패');
         console.error('Failed to login:', error);
       }
     },
     async logout() {
       try {
-        await useNuxtApp().$api.post('/logout');
+        await baseURL.post('/logout');
         this.member = null;
         localStorage.removeItem('member');
         const router = useRouter();
@@ -40,7 +47,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async refreshToken() {
       try {
-        const response = await useNuxtApp().$api.post('/reissue');
+        const response = await baseURL.post('/reissue');
         this.member.accessToken = response.data.accessToken;
         localStorage.setItem('member', JSON.stringify(this.member));
       } catch (error: any) {
