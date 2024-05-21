@@ -15,6 +15,7 @@ import lkm.starterproject.auth.entity.Member;
 
 import lkm.starterproject.auth.entity.MemberCompany;
 import lkm.starterproject.auth.repository.MemberRepository;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -102,7 +103,7 @@ public class CompanyServiceImpl implements CompanyService {
         if (member == null) {
             throw new EntityNotFoundException("Member not found");
         }
-        // 모든 회사의 useStatus를 false로 변경
+        // 모든 회사의 currentCompany를 false로 변경
         for (MemberCompany memberCompany : member.getMemberCompanies()) {
             memberCompany.setCurrentCompany(false);
         }

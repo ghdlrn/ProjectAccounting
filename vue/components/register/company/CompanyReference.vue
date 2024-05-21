@@ -1,7 +1,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useCompanyStore } from '~/stores/accounting/company.ts';
+import { useAuthStore } from '~/stores/auth/auth.ts';
 const store = useCompanyStore();
+const authStore = useAuthStore();
 
 // icons
 import {SearchOutlined, PlusOutlined, DeleteOutlined} from '@ant-design/icons-vue';
@@ -45,9 +47,19 @@ const selectCompany = (item) => {
   store.selectCompany(item.id);
 };
 
-
 const dialog = ref(false);
 const menu = ref(false);
+
+const getCurrentCompanyStatus = (memberCompanies) => {
+  if (!memberCompanies) {
+    return false;
+  }
+
+  const loggedInEmail = authStore.member.email;
+
+  const memberCompany = memberCompanies.find(mc => mc.member.email === loggedInEmail);
+  return memberCompany ? memberCompany.currentCompany : false;
+};
 
 </script>
 
@@ -112,8 +124,8 @@ const menu = ref(false);
                   @click-row="getCompany"
                   :rows-per-page="10">
                 <template #item-currentCompany="item">
-                  <v-btn color="success" v-if="item.currentCompany" size="small" label variant="outlined"> 사용 </v-btn>
-                  <v-btn color="error" v-if="!item.currentCompany" size="small" label variant="outlined" @click.stop="selectCompany(item)"> 미사용 </v-btn>
+                  <v-btn color="success" v-if="getCurrentCompanyStatus(item.memberCompanies)" size="small" label variant="outlined"> 사용 </v-btn>
+                  <v-btn color="error" v-if="!getCurrentCompanyStatus(item.memberCompanies)" size="small" label variant="outlined" @click.stop="selectCompany(item)"> 미사용 </v-btn>
                 </template>
                 <template #item-operation="item">
                   <div class="operation-wrapper">
