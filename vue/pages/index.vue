@@ -3,8 +3,8 @@
 <template>
   <div>
     <h1>Companies</h1>
-    <div v-if="authStore.user">
-      <p>Welcome, {{ authStore.user.username }}</p>
+    <div v-if="authStore.member">
+      <p>Welcome, {{ authStore.member.username }}</p>
       <button @click="authStore.logout">Logout</button>
       <div>
         <h2>Your Companies</h2>
