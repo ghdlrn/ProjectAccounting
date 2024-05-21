@@ -11,8 +11,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     api.interceptors.request.use(
         (config) => {
             const authStore = useAuthStore();
-            if (authStore.member?.accessToken) {
-                config.headers['Authorization'] = `Bearer ${authStore.member.accessToken}`;
+            if (authStore.member.access_token) {
+                config.headers['Authorization'] = `Bearer ${authStore.member.access_token}`;
             }
             return config;
         },

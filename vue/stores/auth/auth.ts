@@ -20,6 +20,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await useNuxtApp().$api.post('/login', { email, password });
         this.member = response.data;
+
         localStorage.setItem('member', JSON.stringify(this.member));
         const router = useRouter();
         await router.push('/');
