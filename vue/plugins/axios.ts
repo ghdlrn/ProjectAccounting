@@ -19,7 +19,6 @@ export default defineNuxtPlugin((nuxtApp) => {
         (error) => Promise.reject(error)
     );
 
-
     api.interceptors.response.use(
         (response) => response,
         async (error) => {

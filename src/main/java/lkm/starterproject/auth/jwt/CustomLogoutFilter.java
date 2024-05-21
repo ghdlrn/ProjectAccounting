@@ -28,24 +28,23 @@ public final class CustomLogoutFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
-    }
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-    private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        String requestUri = request.getRequestURI();
-        String requestMethod = request.getMethod();
+        String requestUri = httpRequest.getRequestURI();
+        String requestMethod = httpRequest.getMethod();
         logger.info("Received request to {} with method {}", requestUri, requestMethod);
 
         if (!requestUri.equals("/logout") || !requestMethod.equals("POST")) {
-            filterChain.doFilter(request, response);
+            chain.doFilter(request, response);
             return;
         }
 
         String refresh = null;
-        Cookie[] cookies = request.getCookies();
+        Cookie[] cookies = httpRequest.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                logger.info("Cookie: {} = {}", cookie.getName(), cookie.getValue()); // Debug log
+                logger.info("Cookie: {} = {}", cookie.getName(), cookie.getValue());
                 if (cookie.getName().equals("refresh")) {
                     refresh = cookie.getValue();
                     break;
@@ -55,7 +54,7 @@ public final class CustomLogoutFilter extends GenericFilterBean {
 
         if (refresh == null) {
             logger.warn("No refresh token found in cookies");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
@@ -63,21 +62,21 @@ public final class CustomLogoutFilter extends GenericFilterBean {
             jwtUtil.isExpired(refresh);
         } catch (ExpiredJwtException e) {
             logger.warn("Refresh token is expired");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
         String category = jwtUtil.getCategory(refresh);
         if (!category.equals("refresh")) {
             logger.warn("Invalid token category: {}", category);
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
         Boolean isExist = refreshRepository.existsByRefresh(refresh);
         if (!isExist) {
             logger.warn("Refresh token not found in repository");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
@@ -87,11 +86,11 @@ public final class CustomLogoutFilter extends GenericFilterBean {
         Cookie cookie = new Cookie("refresh", null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
-        response.addCookie(cookie);
+        httpResponse.addCookie(cookie);
 
-        removeSameSiteCookie(response, "refresh");
+        removeSameSiteCookie(httpResponse, "refresh");
 
-        response.setStatus(HttpServletResponse.SC_OK);
+        httpResponse.setStatus(HttpServletResponse.SC_OK);
         logger.info("Successfully logged out");
     }
 

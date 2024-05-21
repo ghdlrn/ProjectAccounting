@@ -45,32 +45,31 @@ public class SecurityConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {        //비밀번호를 암호화해서 검증
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http    //cors설정
+        http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable)  //csrf(Cross Site Request Forgery : 사이트간 위조 요청) get을 제외한 post, put, delete요청으로부터 보호
-                .formLogin(AbstractHttpConfigurer::disable) //Form로그인 방식 비활성화
-                .httpBasic(AbstractHttpConfigurer::disable) //http basic 인증방식 비활성화
-                .authorizeHttpRequests(auth -> auth      //경로별 인가작업
-                        .requestMatchers("/", "/auth/login", "/auth/signup","/login", "/logout", "/reissue").permitAll()    // 해당 경로는 모든권한 허용
-                        .requestMatchers("/admin").hasRole(Role.ADMIN.name())     // 해당경로는 admin 권한대상자만 사용
-                        .anyRequest().authenticated())     //기타 경로는 로그인한 사용자만 사용가능
-        //---------------필터---------------------
-                .sessionManagement((session) -> session                         //세션 관리를 stateless로 구성
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))       //JWT방식 인증/인가 방식은 session을 stateless방식으로 반드시 설정해야함
-                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)    //JWT필터 제일먼저 실행 토큰을 기반으로 요청을 인증
-                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)   //로그아웃 요청을 처리하여 올바르게 로그아웃되도록 함
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);    //기존의 필터를 LoginFilter로 대체함, AuthenticationManager()와 JWTUtil 전달, 로그인요청 처리 인증성공시 JWT 생성
+                .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/auth/login", "/auth/signup", "/login", "/logout", "/reissue").permitAll()
+                        .requestMatchers("/admin").hasRole(Role.ADMIN.name())
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {  //cors설정
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

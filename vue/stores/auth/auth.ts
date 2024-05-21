@@ -5,7 +5,6 @@ import { useNuxtApp } from '#app';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     member: JSON.parse(localStorage.getItem('member') || '{}'),
-    returnUrl: null
   }),
   actions: {
     async login(email: string, password: string) {
