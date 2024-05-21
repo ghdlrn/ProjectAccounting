@@ -1,5 +1,6 @@
 package lkm.starterproject.accounting.repository.company;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lkm.starterproject.accounting.entity.company.Company;
@@ -28,4 +29,5 @@ public class CompanyRepositoryCustomImpl implements  CompanyRepositoryCustom {
                 .where(memberCompany.member.eq(member))
                 .fetch();
     }
+
 }

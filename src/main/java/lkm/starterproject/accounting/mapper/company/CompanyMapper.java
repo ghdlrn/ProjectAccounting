@@ -15,7 +15,7 @@ import java.util.List;
         uses = {AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class })
 public interface CompanyMapper {
 
-
+    @Mapping(target = "currentCompany", ignore = true)
     CompanyDto toDto(Company entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
 
     Company toEntity(CompanyDto dto); //DTO -> 엔티티 변환, 클라이언트가보낸 데이터를 엔티티로 변환
@@ -23,5 +23,11 @@ public interface CompanyMapper {
     List<CompanyDto> toDtoList(List<Company> entityList);
 
     void updateDto(CompanyDto dto, @MappingTarget Company entity);
+
+    default CompanyDto toDtoWithCurrentCompany(Company entity, boolean currentCompany) {
+        CompanyDto dto = toDto(entity);
+        dto.setCurrentCompany(currentCompany);
+        return dto;
+    }
 
 }

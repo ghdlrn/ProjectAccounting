@@ -49,18 +49,6 @@ const selectCompany = (item) => {
 
 const dialog = ref(false);
 const menu = ref(false);
-
-const getCurrentCompanyStatus = (memberCompanies) => {
-  if (!memberCompanies) {
-    return false;
-  }
-
-  const loggedInEmail = authStore.member.email;
-
-  const memberCompany = memberCompanies.find(mc => mc.member.email === loggedInEmail);
-  return memberCompany ? memberCompany.currentCompany : false;
-};
-
 </script>
 
 <template>
@@ -124,8 +112,8 @@ const getCurrentCompanyStatus = (memberCompanies) => {
                   @click-row="getCompany"
                   :rows-per-page="10">
                 <template #item-currentCompany="item">
-                  <v-btn color="success" v-if="getCurrentCompanyStatus(item.memberCompanies)" size="small" label variant="outlined"> 사용 </v-btn>
-                  <v-btn color="error" v-if="!getCurrentCompanyStatus(item.memberCompanies)" size="small" label variant="outlined" @click.stop="selectCompany(item)"> 미사용 </v-btn>
+                  <v-btn color="success" v-if="item.currentCompany" size="small" label variant="outlined"> 사용 </v-btn>
+                  <v-btn color="error" v-if="!item.currentCompany" size="small" label variant="outlined" @click.stop="selectCompany(item)"> 미사용 </v-btn>
                 </template>
                 <template #item-operation="item">
                   <div class="operation-wrapper">

@@ -15,11 +15,11 @@ import lkm.starterproject.auth.entity.Member;
 
 import lkm.starterproject.auth.entity.MemberCompany;
 import lkm.starterproject.auth.repository.MemberRepository;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -66,7 +66,13 @@ public class CompanyServiceImpl implements CompanyService {
             throw new EntityNotFoundException("Member not found");
         }
         List<Company> companies = companyRepository.findByMember(member);
-        return companyMapper.toDtoList(companies);
+        return companies.stream()
+                .map(company -> {
+                    boolean currentCompany = company.getMemberCompanies().stream()
+                            .anyMatch(mc -> mc.getMember().equals(member) && mc.isCurrentCompany());
+                    return companyMapper.toDtoWithCurrentCompany(company, currentCompany);
+                })
+                .collect(Collectors.toList());
     }
 
     @Override

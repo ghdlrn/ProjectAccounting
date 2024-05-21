@@ -6,5 +6,8 @@ import lkm.starterproject.auth.entity.Member;
 import java.util.List;
 
 public interface CompanyRepositoryCustom {
+
     List<Company> findByMember(Member member);
+
+
 }
