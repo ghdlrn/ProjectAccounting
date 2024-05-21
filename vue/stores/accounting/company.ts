@@ -80,13 +80,24 @@ export const useCompanyStore = defineStore('company', {
         },
 
         async selectCompany(companyId: number) {
-            this.selectedCompany = this.companies.find(company => company.id === companyId) || null;
-             await useNuxtApp().$api.post('/api/company/select', {companyId});
+            try {
+                const response = await useNuxtApp().$api.post('/register/company/select', { companyId });
+                if (response.status === 200) {
+                    this.selectedCompany = this.companies.find(company => company.id === companyId) || null;
+                    await this.fetchCompanies(); // 상태를 다시 불러옵니다.
+                } else {
+                    alert('회사 선택에 실패했습니다');
+                    console.error('회사 선택 실패:', response.status);
+                }
+            } catch (error: any) {
+                alert('회사 선택에 실패했습니다');
+                console.error('회사 선택 실패:', error.message);
+            }
         },
 
         async assignRole(companyId: number, email: string, role: string) {
             try {
-                 await useNuxtApp().$api.post(`/api/company/${companyId}/assign-role`, { email, role });
+                 await useNuxtApp().$api.post(`/register/company/${companyId}/assign-role`, { email, role });
             } catch (error) {
                 // Handle error
             }

@@ -108,7 +108,7 @@ const menu = ref(false);
                   </div>
                 </template>
                 <template v-slot:item-useStatus="{ useStatus }">
-                  <v-chip color="success" v-if="useStatus === 'USE'" size="small" label> 사용 </v-chip>
+                  <v-chip color="success" v-if="useStatus === 'USE'" size="small" label>사용 </v-chip>
                   <v-chip color="error" v-if="useStatus === 'UNUSED'" size="small" label> 미사용 </v-chip>
                 </template>
                 <template v-slot:item-operation="item">

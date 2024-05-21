@@ -37,6 +37,15 @@ const deleteCompany = (item) => {
     }
 };
 
+const selectCompany = (item) => {
+  if (!item || !item.id) {
+    console.error('Invalid item selected:', item);
+    return;
+  }
+  store.selectCompany(item.id);
+};
+
+
 const dialog = ref(false);
 const menu = ref(false);
 
@@ -102,9 +111,9 @@ const menu = ref(false);
                   :search-value="searchValue"
                   @click-row="getCompany"
                   :rows-per-page="10">
-                <template v-slot:item-currentCompany="{ currentCompany }">
-                  <v-chip color="success" v-if="currentCompany === true" size="small" label> 사용 </v-chip>
-                  <v-chip color="error" v-if="currentCompany === false" size="small" label> 미사용 </v-chip>
+                <template #item-currentCompany="item">
+                  <v-btn color="success" v-if="item.currentCompany" size="small" label variant="outlined"> 사용 </v-btn>
+                  <v-btn color="error" v-if="!item.currentCompany" size="small" label variant="outlined" @click.stop="selectCompany(item)"> 미사용 </v-btn>
                 </template>
                 <template #item-operation="item">
                   <div class="operation-wrapper">
