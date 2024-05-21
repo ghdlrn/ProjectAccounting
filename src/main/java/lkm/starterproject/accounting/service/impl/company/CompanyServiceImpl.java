@@ -16,6 +16,7 @@ import lkm.starterproject.auth.entity.Member;
 
 import lkm.starterproject.auth.entity.MemberCompany;
 import lkm.starterproject.auth.repository.MemberRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,6 +61,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('MASTER') or hasRole('NORMAL')")
     public List<CompanyDto> getAllCompanies() {
         List<Company> companies = companyRepository.findAll();
         return companyMapper.toDtoList(companies);
@@ -67,6 +69,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('MASTER') or hasRole('NORMAL')")
     public CompanyDto getCompany(Long id) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
@@ -75,6 +78,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional
+    @PreAuthorize("hasRole('MASTER')")
     public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
@@ -86,6 +90,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional
+    @PreAuthorize("hasRole('MASTER')")
     public void deleteCompany(Long id) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
@@ -115,6 +120,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional
+    @PreAuthorize("hasRole('MASTER')")
     public void assignRole(Long companyId, String email, String role) {
         Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
