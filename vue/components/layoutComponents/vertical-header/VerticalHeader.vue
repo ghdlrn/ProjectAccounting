@@ -9,7 +9,6 @@ import HeaderMenu from "~/components/layoutComponents/vertical-header/HeaderMenu
 import HeaderSearchBar from "~/components/shared/SearchBar.vue";
 import FullScreen from "~/components/layoutComponents/vertical-header/FullScreen.vue";
 
-const router = useRouter();
 const authStore = useAuthStore();
 const customizer = useCustomizerStore();
 const isLoggedIn = computed(() => !!authStore.member);
@@ -17,10 +16,8 @@ const isLoggedIn = computed(() => !!authStore.member);
 const logout = async () => {
   try {
     await authStore.logout();
-    await router.push('/'); // 리디렉션
   } catch (error) {
     console.error('Logout failed:', error);
-    alert('로그아웃 실패');
   }
 };
 </script>
