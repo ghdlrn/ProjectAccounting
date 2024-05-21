@@ -81,7 +81,12 @@ export const useCompanyStore = defineStore('company', {
 
         async selectCompany(companyId: number) {
             try {
-                const response = await useNuxtApp().$api.post('/register/company/select', { companyId });
+                const response = await useNuxtApp().$api.post('/register/company/select', companyId, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
                 if (response.status === 200) {
                     this.selectedCompany = this.companies.find(company => company.id === companyId) || null;
                     await this.fetchCompanies(); // 상태를 다시 불러옵니다.
