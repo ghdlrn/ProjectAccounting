@@ -37,9 +37,9 @@ export const useCustomerStore = defineStore('customer', {
                 throw new Error('거래처 등록 실패');
             }
         },
-        async updateCustomer(id: number, data: Customer) {
+        async updateCustomer(data: Customer) {
             try {
-                const response = await useNuxtApp().$api.put(`/register/customer/${id}`, data);
+                const response = await useNuxtApp().$api.put(`/register/customer/${data.id}`, data);
                 const index = this.customer.findIndex(customer => customer.id === data.id);
                 if (index !== -1) {
                     this.customer[index] = response.data;
