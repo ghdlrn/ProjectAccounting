@@ -5,8 +5,10 @@ import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.mapper.basic.AddressMapper;
 import lkm.starterproject.accounting.mapper.basic.LocalTaxMapper;
 import lkm.starterproject.accounting.mapper.basic.TaxOfficeMapper;
+import lkm.starterproject.auth.entity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 import java.util.List;
 
@@ -21,4 +23,9 @@ public interface CompanyMapper {
 
     void updateDto(CompanyDto dto, @MappingTarget Company entity);
 
+    @Named("currentCompanyMapping")
+    default boolean currentCompanyMapping(Company company, Member member) {
+        return company.getMemberCompanies().stream()
+                .anyMatch(mc -> mc.getMember().equals(member) && mc.isCurrentCompany());
+    }
 }

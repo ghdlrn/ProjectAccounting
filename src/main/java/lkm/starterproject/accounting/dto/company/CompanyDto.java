@@ -72,4 +72,6 @@ public class CompanyDto {
 
     private String note;  // 비고
 
+    private boolean currentCompany;  // 현재 사용중인 회사 여부
+
 }
