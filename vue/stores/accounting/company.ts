@@ -2,10 +2,6 @@ import { defineStore } from 'pinia';
 import type {Company} from "~/types/accounting/company";
 import {useNuxtApp} from "#app";
 
-interface CompanyMember {
-    email: string;
-    role: string;
-}
 
 export const useCompanyStore = defineStore('company', {
     state: () => ({
