@@ -16,6 +16,8 @@ const isLoggedIn = computed(() => !!authStore.member);
 const logout = async () => {
   try {
     await authStore.logout();
+    authStore.member = null; // 강제로 상태 초기화
+    localStorage.removeItem('member'); // localStorage 초기화
   } catch (error) {
     console.error('Logout failed:', error);
   }

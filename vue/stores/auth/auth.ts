@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
 export const useAuthStore = defineStore('auth', {
@@ -7,6 +6,16 @@ export const useAuthStore = defineStore('auth', {
     member: JSON.parse(localStorage.getItem('member') || '{}'),
   }),
   actions: {
+    async signup(username: string, email: string, password: string)  {
+      try {
+        const response = await useNuxtApp().$api.post('/auth/signup', {username, email, password});
+        alert('Sign up successful');
+        const router = useRouter();
+        await router.push('/auth/login');
+      } catch (error: any) {
+        console.error('Failed to signup:', error);
+      }
+    },
     async login(email: string, password: string) {
       try {
         const response = await useNuxtApp().$api.post('/login', { email, password });
@@ -19,12 +28,15 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     async logout() {
-      await useNuxtApp().$api.post('/logout').then(() => {
+      try {
+        await useNuxtApp().$api.post('/logout');
         this.member = null;
         localStorage.removeItem('member');
         const router = useRouter();
-        router.push('/');
-      });
+        await router.push('/');
+      } catch (error: any) {
+        console.error('Failed to logout:', error);
+      }
     },
     async refreshToken() {
       try {

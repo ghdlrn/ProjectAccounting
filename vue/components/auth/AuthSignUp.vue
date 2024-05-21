@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import axios from "axios";
-const router = useRouter();
+import { useAuthStore } from "~/stores/auth/auth.ts";
+const authStore = useAuthStore();
 
 const checkbox = ref(false);
 const show1 = ref(false);
@@ -9,6 +9,7 @@ const username = ref('');
 const password = ref('');
 const email = ref('');
 import { emailRules, passwordRules, nameRules } from "~/utils/form";
+import router from "#app/plugins/router.js";
 
 const SignUp = async () => {
   if (!checkbox.value) {
@@ -16,12 +17,9 @@ const SignUp = async () => {
     return;
   }
   try {
-    await axios.post('/auth/signup', { username: username.value, email: email.value, password: password.value });
-    alert('Sign up successful');
-    await router.push('/auth/login');
+    await authStore.signup(username.value, email.value, password.value);
   } catch (error) {
-    console.error('SignUp failed:', error);
-    alert('회원가입 실패');
+    console.error('Logout failed:', error);
   }
 };
 </script>
@@ -72,7 +70,7 @@ const SignUp = async () => {
     <div class="d-sm-inline-flex align-center mt-2 mb-7 mb-sm-0 font-weight-bold">
       <v-checkbox
           v-model="checkbox"
-          :rules="[(v: any) => !!v || 'You must agree to continue!']"
+          :rules="[(v) => !!v || 'You must agree to continue!']"
           label="이용약관에 동의하십니까?"
           required
           color="primary"
