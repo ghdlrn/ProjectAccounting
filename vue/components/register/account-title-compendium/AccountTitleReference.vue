@@ -105,27 +105,13 @@ const menu = ref(false);
                   :search-value="searchValue"
                   @click-row="getAccountTitle"
                   :rows-per-page="10">
-                <template v-slot:item-division="{ division }">
-                  <v-chip color="success" v-if="division === '매입'" size="small" label variant="outlined">
-                    <template v-slot:prepend>
-                      <v-icon icon="mdi-cart" />
-                    </template>
-                    매입
-                  </v-chip>
-                  <v-chip color="primary" v-if="division === '매출'" size="small" label variant="outlined">
-                    <template v-slot:prepend>
-                      <v-icon icon="mdi-cash" />
-                    </template>
-                    매출
-                  </v-chip>
-                </template>
-                <template v-slot:item-useStatus="{ useStatus }">
+                <template v-slot:item-useStatus="item">
                   <div class="operation-wrapper">
-                    <v-btn icon color="primary" variant="text" rounded v-if="useStatus === null">
+                    <v-btn icon color="primary" variant="text"  v-if="item.useStatus === null" rounded @click.stop="getAccountTitle(item)">
                       <EditOutlined />
                     </v-btn>
-                    <v-btn icon color="error" variant="text" v-if="useStatus === null" @click.stop="deleteAccountTitle(item)" rounded>
-                      <DeleteOutlined  />
+                    <v-btn icon color="error" variant="text"  v-if="item.useStatus === null" @click.stop="deleteAccountTitle(item)" rounded>
+                      <DeleteOutlined />
                     </v-btn>
                   </div>
                 </template>

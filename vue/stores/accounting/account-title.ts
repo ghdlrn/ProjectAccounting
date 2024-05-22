@@ -56,7 +56,7 @@ export const useAccountTitleStore = defineStore('accountTitle', {
         },
         async deleteAccountTitle(id: number) {
             try {
-                const response = await useNuxtApp().$api.delete(`/register/accountTitle/${id}`);
+                const response = await useNuxtApp().$api.delete(`/register/account-title/${id}`);
                 if (response.status === 200) {
                     await this.fetchAccountTitle();
                     alert('거래처 정보가 삭제되었습니다');
