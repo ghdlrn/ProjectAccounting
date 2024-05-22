@@ -20,7 +20,8 @@ const headers = ref([
   { text: '과목코드', value: 'code', sortable: true },
   { text: '계정과목', value: 'name', sortable: true },
   { text: '대차구분', value: 'balanceClassification', sortable: true },
-  { text: '수정 / 삭제', value: 'useStatus' }
+  { text: '적요등록', value: 'operation' },
+  { text: '삭제', value: 'useStatus' }
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
@@ -105,11 +106,15 @@ const menu = ref(false);
                   :search-value="searchValue"
                   @click-row="getAccountTitle"
                   :rows-per-page="10">
-                <template v-slot:item-useStatus="item">
+                <template v-slot:item-operation="item">
                   <div class="operation-wrapper">
-                    <v-btn icon color="primary" variant="text"  v-if="item.useStatus === null" rounded @click.stop="getAccountTitle(item)">
+                    <v-btn icon color="primary" variant="text" rounded @click.stop="getAccountTitle(item)" >
                       <EditOutlined />
                     </v-btn>
+                  </div>
+                </template>
+                <template v-slot:item-useStatus="item">
+                  <div class="operation-wrapper">
                     <v-btn icon color="error" variant="text"  v-if="item.useStatus === null" @click.stop="deleteAccountTitle(item)" rounded>
                       <DeleteOutlined />
                     </v-btn>
