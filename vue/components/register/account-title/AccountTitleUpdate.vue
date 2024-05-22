@@ -28,12 +28,11 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
 </script>
 
 <template>
-  <UiParentCard title="계정과목 등록">
+  <UiParentCard title="계정과목 수정">
 
     <v-card class="accountTitle-form">
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab value="one">기본 정보</v-tab>
-        <v-tab value="two">기타 정보</v-tab>
       </v-tabs>
       <v-form @submit.prevent="saveOrUpdateAccountTitle">
         <v-card-text>
@@ -80,7 +79,7 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
                 <v-col cols="3">
                   <v-row>
                     <v-col cols="5">
-                      <v-label class="mt-2">등록번호</v-label>
+                      <v-label class="mt-2">대차구분</v-label>
                     </v-col>
                     <v-col cols="7">
                       <v-select
@@ -100,7 +99,7 @@ import {nameRules, nullableRules} from "~/utils/form.ts";
 
             <v-row>
               <v-col cols="2" offset="10" class="pt-8">
-                <v-btn type="submit" color="success" size="large">등록</v-btn>
+                <v-btn type="submit" color="success" size="large">수정</v-btn>
               </v-col>
             </v-row>
           </v-window>

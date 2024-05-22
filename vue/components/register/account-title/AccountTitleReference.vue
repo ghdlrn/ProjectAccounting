@@ -1,19 +1,21 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useAccountTitleStore } from "~/stores/accounting/account-title.ts";
-const store = useAccountTitleStore();
+import { useCompendiumStore } from "~/stores/accounting/compendium";
+const accountStore = useAccountTitleStore();
+const compendiumStore = useCompendiumStore();
 
 import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined, FileAddOutlined } from "@ant-design/icons-vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import AccountTitleRegister from "~/components/register/account-title/AccountTitleRegister.vue";
 import AccountTitleUpdate from "~/components/register/account-title/AccountTitleUpdate.vue";
+import CompendiumRegister from "~/components/register/compendium/CompendiumRegister.vue";
 
-onMounted(() => { store.fetchAccountTitle(); });
-const accountTitle = computed(() => store.accountTitle );
+onMounted(() => { accountStore.fetchAccountTitle(); });
+const accountTitle = computed(() => accountStore.accountTitle );
 
 const sortBy = "code";
 const sortType = "asc";
-
 const searchField = ref(['code', 'name', 'balanceClassification']);
 const searchValue = ref('');
 const headers = ref([
@@ -26,9 +28,12 @@ const headers = ref([
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
 const selectedAccountTitle = ref(null);
+const dialog = ref(false);
+const menu = ref(false);
+const compendiumDialog = ref(false);
 
 const getAccountTitle = (item) => {
-  store.getAccountTitle(item.id).then(accountTitleData => {
+  accountStore.getAccountTitle(item.id).then(accountTitleData => {
     selectedAccountTitle.value = accountTitleData;
   });
   menu.value = true;
@@ -36,29 +41,15 @@ const getAccountTitle = (item) => {
 
 const deleteAccountTitle = (item) => {
   if (confirm("정말로 삭제하시겠습니까?")) {
-    store.deleteAccountTitle(item.id)
+    accountStore.deleteAccountTitle(item.id)
   }
 };
 
-const dialog = ref(false);
-const menu = ref(false);
-
-const scrollToItem = (code) => {
-  const index = accountTitle.value.findIndex(item => item.code === code);
-  if (index !== -1) {
-    // EasyDataTable에서 해당 페이지로 이동
-    const page = Math.floor(index / 10) + 1;  // assuming 10 rows per page
-    // 데이터 테이블 페이지 변경 로직 구현 필요 (EasyDataTable에서 페이지 변경 지원 필요)
-
-    // 스크롤 위치 조정 (이 예시는 기본적인 방법이며, 사용중인 테이블 라이브러리에 따라 다를 수 있음)
-    setTimeout(() => {
-      const rowElement = document.querySelectorAll('.easy-data-table-row')[index % 10];
-      if (rowElement) {
-        rowElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 300);  // 페이지가 변경된 후에 스크롤 실행
-  }
+const openCompendium = (item) => {
+  selectedAccountTitle.value = item;
+  compendiumDialog.value = true;
 };
+
 </script>
 
 <template>
@@ -93,7 +84,7 @@ const scrollToItem = (code) => {
                     </v-btn>
                   </template>
                   <template v-if="dialog">
-                    <AccountTitleRegister @closeDialog="dialog = false" />  <!-- 수정된 부분 -->
+                    <AccountTitleRegister @closeDialog="dialog = false" />
                   </template>
                 </v-dialog>
               </div>
@@ -126,14 +117,14 @@ const scrollToItem = (code) => {
                   :rows-per-page="10">
                 <template v-slot:item-operation="item">
                   <div class="operation-wrapper">
-                    <v-btn icon color="primary" variant="text" rounded @click.stop="getAccountTitle(item)" >
-                      <FileAddOutlined />
-                    </v-btn>
+                     <v-btn icon color="primary" variant="text" @click.stop="openCompendium(item)" rounded >
+                       <FileAddOutlined />
+                     </v-btn>
                   </div>
                 </template>
                 <template v-slot:item-useStatus="item">
                   <div class="operation-wrapper">
-                    <v-btn icon color="primary" variant="text" rounded @click.stop="getAccountTitle(item)" >
+                    <v-btn icon color="primary" variant="text" v-if="item.useStatus === null" @click.stop="getAccountTitle(item)" rounded>
                       <EditOutlined />
                     </v-btn>
                     <v-btn icon color="error" variant="text"  v-if="item.useStatus === null" @click.stop="deleteAccountTitle(item)" rounded>
@@ -143,26 +134,24 @@ const scrollToItem = (code) => {
                 </template>
               </EasyDataTable>
             </template>
-            <AccountTitleUpdate :customer="selectedAccountTitle" @closeDialog="menu = false"/>
+            <AccountTitleUpdate :accountTitle="selectedAccountTitle" @closeDialog="menu = false"/>
           </v-menu>
         </v-card-text>
       </v-card>
     </PerfectScrollbar>
   </UiParentCard>
 
-  <v-btn color="primary" @click="scrollToItem(6010)">당좌자산으로 스크롤</v-btn>
+  <v-dialog v-model="compendiumDialog" max-width="600px">
+    <CompendiumRegister :accountTitleId="selectedAccountTitle.id" @closeDialog="compendiumDialog = false" />
+  </v-dialog>
 </template>
 
 <style scoped lang="scss">
 .reference {
-  width: 40%;
-  min-width: 900px;
   min-height: 850px;
 }
 .register {
-  width: 50%;
   height: 80%;
-  min-width: 1000px;
   min-height: 1300px;
 }
 </style>

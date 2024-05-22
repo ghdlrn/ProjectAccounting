@@ -29,7 +29,7 @@ const saveOrUpdateAccountTitle = async () => {
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import {nameRules, nullableRules} from "~/utils/form.ts";
+import {integerRules, nameRules, nullableRules} from "~/utils/form.ts";
 /*----------------------------초기화---------------------------------------*/
 const resetForm = () => {
   Object.keys(currentAccountTitle.value).forEach(key => {
@@ -39,12 +39,11 @@ const resetForm = () => {
 </script>
 
 <template>
-  <UiParentCard title="계정과목 등록">
+  <UiParentCard title="계정과목 등록" class="accountTitle-form">
 
-    <v-card class="accountTitle-form">
+    <v-card>
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab value="one">기본 정보</v-tab>
-        <v-tab value="two">기타 정보</v-tab>
       </v-tabs>
       <v-form @submit.prevent="saveOrUpdateAccountTitle">
         <v-card-text>
@@ -62,7 +61,7 @@ const resetForm = () => {
                     <v-col cols="7">
                       <v-text-field
                           v-model="currentAccountTitle.code"
-                          :rules="nullableRules"
+                          :rules="integerRules"
                           persistent-placeholder
                           placeholder="ex) 1010"
                           variant="outlined"
@@ -91,7 +90,7 @@ const resetForm = () => {
                 <v-col cols="3">
                   <v-row>
                     <v-col cols="5">
-                      <v-label class="mt-2">등록번호</v-label>
+                      <v-label class="mt-2">대차구분</v-label>
                     </v-col>
                     <v-col cols="7">
                       <v-select
@@ -127,7 +126,7 @@ const resetForm = () => {
 
 <style scoped lang="scss">
 .accountTitle-form {
-  width: 100%;
+  width: 60%;
   min-height: 150px;
   min-width: 1000px;
 }

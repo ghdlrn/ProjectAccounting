@@ -11,10 +11,10 @@ import AccountTitleSearch from "~/components/register/account-title/AccountTitle
       <v-col cols="2">
         <AccountTitleSearch />
       </v-col>
-      <v-col cols="5">
+      <v-col cols="6">
         <AccountTitleReference />
       </v-col>
-      <v-col cols="5">
+      <v-col cols="4">
         <CompendiumReference />
       </v-col>
     </v-row>
