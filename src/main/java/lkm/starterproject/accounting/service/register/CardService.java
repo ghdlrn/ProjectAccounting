@@ -1,19 +1,18 @@
 package lkm.starterproject.accounting.service.register;
 
 import lkm.starterproject.accounting.dto.register.CardDto;
-import lkm.starterproject.accounting.dto.register.CardDto;
 
 import java.util.List;
 
 public interface CardService {
 
-    CardDto createCard(Long companyId, CardDto cardDto);
+    CardDto createCard(String email, CardDto cardDto);
 
-    List<CardDto> getAllCards(Long companyId);
+    List<CardDto> getAllCards(String email);
 
-    CardDto getCard(Long id);
+    CardDto getCard(String email, Long id);
 
-    CardDto updateCard(Long id, CardDto cardDto);
+    CardDto updateCard(String email, Long id, CardDto cardDto);
 
-    void deleteCard(Long id);
+    void deleteCard(String email, Long id);
 }

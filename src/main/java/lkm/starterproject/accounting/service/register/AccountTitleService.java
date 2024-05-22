@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface AccountTitleService {
 
-    AccountTitleDto createAccountTitle(Long companyId, AccountTitleDto accountTitleDto);
+    AccountTitleDto createAccountTitle(String email, AccountTitleDto accountTitleDto);
 
-    List<AccountTitleDto> getAllAccountTitles(Long companyId);
+    List<AccountTitleDto> getAllAccountTitles(String email);
 
-    AccountTitleDto getAccountTitle(Long id);
+    AccountTitleDto getAccountTitle(String email, Long id);
 
-    AccountTitleDto updateAccountTitle(Long id, AccountTitleDto accountTitleDto);
+    AccountTitleDto updateAccountTitle(String email, Long id, AccountTitleDto accountTitleDto);
 
-    void deleteAccountTitle(Long id);
+    void deleteAccountTitle(String email, Long id);
 }

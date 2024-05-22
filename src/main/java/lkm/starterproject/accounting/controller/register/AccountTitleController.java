@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.register.AccountTitleDto;
 import lkm.starterproject.accounting.service.register.AccountTitleService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,33 +20,43 @@ public class AccountTitleController {
         this.accountTitleService = accountTitleService;
     }
 
-    @PostMapping("/company/{companyId}")
-    public ResponseEntity<AccountTitleDto> createAccountTitle(@PathVariable Long companyId, @Valid @RequestBody AccountTitleDto accountTitleDto) {
-        AccountTitleDto createdAccountTitle = accountTitleService.createAccountTitle(companyId, accountTitleDto);
+    @PostMapping
+    public ResponseEntity<AccountTitleDto> createAccountTitle(@Valid @RequestBody AccountTitleDto accountTitleDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        AccountTitleDto createdAccountTitle = accountTitleService.createAccountTitle(email, accountTitleDto);
         return ResponseEntity.ok(createdAccountTitle);
     }
 
-    @GetMapping("/company/{companyId}")
-    public ResponseEntity<List<AccountTitleDto>> getAllAccountTitles(@PathVariable Long companyId) {
-        List<AccountTitleDto> accountTitles = accountTitleService.getAllAccountTitles(companyId);
+    @GetMapping
+    public ResponseEntity<List<AccountTitleDto>> getAllAccountTitles() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        List<AccountTitleDto> accountTitles = accountTitleService.getAllAccountTitles(email);
         return ResponseEntity.ok(accountTitles);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AccountTitleDto> getAccountTitle(@PathVariable("id") Long id) {
-        AccountTitleDto accountTitleDto = accountTitleService.getAccountTitle(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        AccountTitleDto accountTitleDto = accountTitleService.getAccountTitle(email, id);
         return ResponseEntity.ok(accountTitleDto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AccountTitleDto> updateAccountTitle(@PathVariable("id") Long id, @Valid @RequestBody AccountTitleDto accountTitleDto) {
-        AccountTitleDto updatedAccountTitle = accountTitleService.updateAccountTitle(id, accountTitleDto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        AccountTitleDto updatedAccountTitle = accountTitleService.updateAccountTitle(email, id, accountTitleDto);
         return ResponseEntity.ok(updatedAccountTitle);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAccountTitle(@PathVariable("id") Long id) {
-        accountTitleService.deleteAccountTitle(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        accountTitleService.deleteAccountTitle(email, id);
         return ResponseEntity.ok().build();
     }
 }

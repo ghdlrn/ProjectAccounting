@@ -5,17 +5,15 @@ import lkm.starterproject.accounting.dto.register.FinanceDto;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.register.Finance;
-import lkm.starterproject.accounting.entity.register.Finance;
 import lkm.starterproject.accounting.mapper.register.FinanceMapper;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
-import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.register.FinanceRepository;
+import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.register.FinanceService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FinanceServiceImpl implements FinanceService {
@@ -23,21 +21,20 @@ public class FinanceServiceImpl implements FinanceService {
     private final FinanceRepository financeRepository;
     private final FinanceMapper financeMapper;
     private final LocalTaxRepository localTaxRepository;
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     public FinanceServiceImpl(FinanceRepository financeRepository, FinanceMapper financeMapper,
-                              LocalTaxRepository localTaxRepository, CompanyRepository companyRepository) {
+                              LocalTaxRepository localTaxRepository, CompanyService companyService) {
         this.financeRepository = financeRepository;
         this.financeMapper = financeMapper;
         this.localTaxRepository = localTaxRepository;
-        this.companyRepository = companyRepository;
+        this.companyService = companyService;
     }
 
     @Override
     @Transactional
-    public FinanceDto createFinance(Long companyId, FinanceDto financeDto) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
+    public FinanceDto createFinance(String email, FinanceDto financeDto) {
+        Company company = companyService.getCurrentCompany(email);
         Finance finance = financeMapper.toEntity(financeDto);
         assignLocalTaxAndTaxOffice(finance, financeDto);
         finance.setCompany(company);
@@ -47,25 +44,26 @@ public class FinanceServiceImpl implements FinanceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<FinanceDto> getAllFinances(Long companyId) {
-        companyRepository.findById(companyId)
-                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
-        List<Finance> finances = financeRepository.findByCompanyId(companyId);
+    public List<FinanceDto> getAllFinances(String email) {
+        Company company = companyService.getCurrentCompany(email);
+        List<Finance> finances = financeRepository.findByCompanyId(company.getId());
         return financeMapper.toDtoList(finances);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public FinanceDto getFinance(Long id) {
-        Finance finance = financeRepository.findById(id)
+    public FinanceDto getFinance(String email, Long id) {
+        Company company = companyService.getCurrentCompany(email);
+        Finance finance = financeRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Finance 정보를 찾을 수 없음"));
         return financeMapper.toDto(finance);
     }
 
     @Override
     @Transactional
-    public FinanceDto updateFinance(Long id, FinanceDto financeDto) {
-        Finance finance = financeRepository.findById(id)
+    public FinanceDto updateFinance(String email, Long id, FinanceDto financeDto) {
+        Company company = companyService.getCurrentCompany(email);
+        Finance finance = financeRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Finance 정보를 찾을 수 없음"));
         assignLocalTaxAndTaxOffice(finance, financeDto);
         financeMapper.updateDto(financeDto, finance);
@@ -75,8 +73,9 @@ public class FinanceServiceImpl implements FinanceService {
 
     @Override
     @Transactional
-    public void deleteFinance(Long id) {
-        Finance finance = financeRepository.findById(id)
+    public void deleteFinance(String email, Long id) {
+        Company company = companyService.getCurrentCompany(email);
+        Finance finance = financeRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Finance 정보를 찾을 수 없음"));
         financeRepository.delete(finance);
     }

@@ -5,8 +5,8 @@ import lkm.starterproject.accounting.dto.register.AccountTitleDto;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lkm.starterproject.accounting.mapper.register.AccountTitleMapper;
-import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
+import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.register.AccountTitleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,19 +18,19 @@ public class AccountTitleServiceImpl implements AccountTitleService {
 
     private final AccountTitleRepository accountTitleRepository;
     private final AccountTitleMapper accountTitleMapper;
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
-    public AccountTitleServiceImpl(AccountTitleRepository accountTitleRepository, CompanyRepository companyRepository, AccountTitleMapper accountTitleMapper) {
+    public AccountTitleServiceImpl(AccountTitleRepository accountTitleRepository, AccountTitleMapper accountTitleMapper,
+                                   CompanyService companyService) {
         this.accountTitleRepository = accountTitleRepository;
         this.accountTitleMapper = accountTitleMapper;
-        this.companyRepository = companyRepository;
+        this.companyService = companyService;
     }
 
     @Override
     @Transactional
-    public AccountTitleDto createAccountTitle(Long companyId, AccountTitleDto accountTitleDto) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
+    public AccountTitleDto createAccountTitle(String email, AccountTitleDto accountTitleDto) {
+        Company company = companyService.getCurrentCompany(email);
         AccountTitle accountTitle = accountTitleMapper.toEntity(accountTitleDto);
         accountTitle.setCompany(company);
         accountTitle = accountTitleRepository.save(accountTitle);
@@ -39,25 +39,26 @@ public class AccountTitleServiceImpl implements AccountTitleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<AccountTitleDto> getAllAccountTitles(Long companyId) {
-        companyRepository.findById(companyId)
-                .orElseThrow(() -> new EntityNotFoundException("Company 정보를 찾을 수 없음"));
-        List<AccountTitle> accountTitles = accountTitleRepository.findByCompanyId(companyId);
+    public List<AccountTitleDto> getAllAccountTitles(String email) {
+        Company company = companyService.getCurrentCompany(email);
+        List<AccountTitle> accountTitles = accountTitleRepository.findByCompanyId(company.getId());
         return accountTitleMapper.toDtoList(accountTitles);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public AccountTitleDto getAccountTitle(Long id) {
-        AccountTitle accountTitle = accountTitleRepository.findById(id)
+    public AccountTitleDto getAccountTitle(String email, Long id) {
+        Company company = companyService.getCurrentCompany(email);
+        AccountTitle accountTitle = accountTitleRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("AccountTitle 정보를 찾을 수 없음"));
         return accountTitleMapper.toDto(accountTitle);
     }
 
     @Override
     @Transactional
-    public AccountTitleDto updateAccountTitle(Long id, AccountTitleDto accountTitleDto) {
-        AccountTitle accountTitle = accountTitleRepository.findById(id)
+    public AccountTitleDto updateAccountTitle(String email, Long id, AccountTitleDto accountTitleDto) {
+        Company company = companyService.getCurrentCompany(email);
+        AccountTitle accountTitle = accountTitleRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("AccountTitle 정보를 찾을 수 없음"));
         accountTitleMapper.updateDto(accountTitleDto, accountTitle);
         accountTitle = accountTitleRepository.save(accountTitle);
@@ -66,8 +67,9 @@ public class AccountTitleServiceImpl implements AccountTitleService {
 
     @Override
     @Transactional
-    public void deleteAccountTitle(Long id) {
-        AccountTitle accountTitle = accountTitleRepository.findById(id)
+    public void deleteAccountTitle(String email, Long id) {
+        Company company = companyService.getCurrentCompany(email);
+        AccountTitle accountTitle = accountTitleRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("AAccountTitle 정보를 찾을 수 없음"));
         accountTitleRepository.delete(accountTitle);
     }

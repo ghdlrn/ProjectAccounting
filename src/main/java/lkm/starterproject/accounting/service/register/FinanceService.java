@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface FinanceService {
 
-    FinanceDto createFinance(Long companyId, FinanceDto financeDto);
+    FinanceDto createFinance(String email, FinanceDto financeDto);
 
-    List<FinanceDto> getAllFinances(Long companyId);
+    List<FinanceDto> getAllFinances(String email);
 
-    FinanceDto getFinance(Long id);
+    FinanceDto getFinance(String email, Long id);
 
-    FinanceDto updateFinance(Long id, FinanceDto financeDto);
+    FinanceDto updateFinance(String email, Long id, FinanceDto financeDto);
 
-    void deleteFinance(Long id);
+    void deleteFinance(String email, Long id);
 }
