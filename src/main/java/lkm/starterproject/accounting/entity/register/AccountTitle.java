@@ -17,11 +17,13 @@ public class AccountTitle extends BaseEntity {
 
     @Id
     @Column(name = "account_title_id", unique = true, nullable = false)
-    private Long id;        //계정과목 코드
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    private Long code;  //계정과목코드
 
     private String name;    // 계정명
 

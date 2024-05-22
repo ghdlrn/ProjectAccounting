@@ -9,6 +9,7 @@ import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
+import lkm.starterproject.accounting.service.CSVService;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.auth.constants.Role;
 import lkm.starterproject.auth.entity.Member;
@@ -29,14 +30,16 @@ public class CompanyServiceImpl implements CompanyService {
     private final MemberRepository memberRepository;
     private final TaxOfficeRepository taxOfficeRepository;
     private final LocalTaxRepository localTaxRepository;
+    private final CSVService csvService;
 
     public CompanyServiceImpl(CompanyRepository companyRepository, CompanyMapper companyMapper, MemberRepository memberRepository,
-                              TaxOfficeRepository taxOfficeRepository, LocalTaxRepository localTaxRepository) {
+                              TaxOfficeRepository taxOfficeRepository, LocalTaxRepository localTaxRepository, CSVService csvService) {
         this.companyRepository = companyRepository;
         this.companyMapper = companyMapper;
         this.memberRepository = memberRepository;
         this.taxOfficeRepository = taxOfficeRepository;
         this.localTaxRepository = localTaxRepository;
+        this.csvService = csvService;
     }
 
     @Override
@@ -55,6 +58,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.getMemberCompanies().add(memberCompany);
         assignLocalTaxAndTaxOffice(company, companyDto);
         company = companyRepository.save(company);
+        csvService.saveAccountTitleData(company);
         return companyMapper.toDto(company);
     }
 

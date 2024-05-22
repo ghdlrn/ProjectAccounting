@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lkm.starterproject.accounting.constants.UseStatus;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
+import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
@@ -41,7 +42,6 @@ public class CSVServiceImpl implements CSVService {
     public void init() {
         saveTaxOfficeData();
         saveLocalTaxData();
-        saveAccountTitleData();
     }
 
     public void saveLocalTaxData() {
@@ -105,15 +105,16 @@ public class CSVServiceImpl implements CSVService {
         }
     }
 
-    public void saveAccountTitleData() {
+    public void saveAccountTitleData(Company company) {
         try (Reader reader = new InputStreamReader(new ClassPathResource("basic_data/account_title_data.csv").getInputStream(), "CP949")) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
             List<AccountTitle> accountTitles = new ArrayList<>();
             for (CSVRecord record : records) {
                 try {
-                    Long id = parseLong(record.get("계정코드"));
+                    Long code = parseLong(record.get("계정코드"));
                     AccountTitle accountTitle = AccountTitle.builder()
-                            .id(id)
+                            .company(company)
+                            .code(code)
                             .name(record.get("계정명"))
                             .balanceClassification(record.get("대차구분"))
                             .type(record.get("계정종류"))

@@ -1,8 +1,6 @@
 package lkm.starterproject.accounting.service;
 
-import lkm.starterproject.accounting.dto.register.FinanceDto;
-
-import java.util.List;
+import lkm.starterproject.accounting.entity.company.Company;
 
 public interface CSVService {
 
@@ -12,5 +10,5 @@ public interface CSVService {
 
     void saveTaxOfficeData();
 
-    void saveAccountTitleData();
+    void saveAccountTitleData(Company company);
 }

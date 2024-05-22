@@ -2,7 +2,10 @@ package lkm.starterproject.accounting.dto.register;
 
 import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.constants.UseStatus;
+import lkm.starterproject.accounting.entity.register.Compendium;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -12,12 +15,16 @@ public class AccountTitleDto {
 
     private Long id;        //계정과목 코드
 
+    private Long code;
+
     @NotBlank(message = "계정과목 이름은 필수 입력사항 입니다")
     private String name;    // 계정명
 
     private String balanceClassification;   //대차구분
 
     private String type;    //계정종류
+
+    private List<CompendiumDto> compendiums;
 
     private UseStatus useStatus;    //사용구분
 

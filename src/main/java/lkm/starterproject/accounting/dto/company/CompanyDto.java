@@ -4,11 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.dto.basic.AddressDto;
 import lkm.starterproject.accounting.dto.basic.LocalTaxDto;
 import lkm.starterproject.accounting.dto.basic.TaxOfficeDto;
-import lkm.starterproject.auth.dto.MemberCompanyDto;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder
