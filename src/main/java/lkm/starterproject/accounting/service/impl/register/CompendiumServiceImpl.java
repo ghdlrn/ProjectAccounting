@@ -30,10 +30,26 @@ public class CompendiumServiceImpl implements CompendiumService {
     @Override
     @Transactional
     public CompendiumDto createCompendium(Long accountTitleId, CompendiumDto compendiumDto) {
+        if (compendiumDto.getCashContent() == null && compendiumDto.getReplacementContent() == null) {
+            throw new IllegalArgumentException("cashContent 또는 replacementContent 중 하나는 반드시 null이 아니어야 합니다.");
+        }
+
         AccountTitle accountTitle = accountTitleRepository.findById(accountTitleId)
                 .orElseThrow(() -> new EntityNotFoundException("AccountTitle not found with id: " + accountTitleId));
+
         Compendium compendium = compendiumMapper.toEntity(compendiumDto);
         compendium.setAccountTitle(accountTitle);
+
+        if (compendiumDto.getCashContent() != null) {
+            Long maxCashCode = compendiumRepository.findMaxCashCodeByAccountTitleId(accountTitleId);
+            compendium.setCashCode(maxCashCode + 1);
+        }
+
+        if (compendiumDto.getReplacementContent() != null) {
+            Long maxReplacementCode = compendiumRepository.findMaxReplacementCodeByAccountTitleId(accountTitleId);
+            compendium.setReplacementCode(maxReplacementCode + 1);
+        }
+
         compendium = compendiumRepository.save(compendium);
         return compendiumMapper.toDto(compendium);
     }

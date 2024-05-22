@@ -26,7 +26,7 @@ export const useCompendiumStore = defineStore('compendium', {
                 throw new Error('적요 조회 실패');
             }
         },
-        async createCompendium(accountTitleId: number, data: Compendium) {
+        async createCompendium(accountTitleId: number, data: Partial<Compendium>) {
             try {
                 const response = await useNuxtApp().$api.post(`/register/compendium/account-title/${accountTitleId}`, data);
                 this.compendium.push(response.data);

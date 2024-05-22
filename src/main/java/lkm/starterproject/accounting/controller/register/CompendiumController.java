@@ -19,13 +19,17 @@ public class CompendiumController {
     }
 
     @PostMapping("/account-title/{accountTitleId}")
-    public ResponseEntity<CompendiumDto> createCompendium(@PathVariable Long accountTitleId, @Valid @RequestBody CompendiumDto compendiumDto) {
+    public ResponseEntity<CompendiumDto> createCompendium(@PathVariable("accountTitleId") Long accountTitleId, @Valid @RequestBody CompendiumDto compendiumDto) {
+        if ((compendiumDto.getCashContent() == null || compendiumDto.getCashContent().isEmpty()) &&
+                (compendiumDto.getReplacementContent() == null || compendiumDto.getReplacementContent().isEmpty())) {
+            return ResponseEntity.badRequest().body(null); // 또는 적절한 에러 메시지를 포함한 ResponseEntity 반환
+        }
         CompendiumDto createdCompendium = compendiumService.createCompendium(accountTitleId, compendiumDto);
         return ResponseEntity.ok(createdCompendium);
     }
 
     @GetMapping("/account-title/{accountTitleId}")
-    public ResponseEntity<List<CompendiumDto>> getAllCompendiums(@PathVariable Long accountTitleId) {
+    public ResponseEntity<List<CompendiumDto>> getAllCompendiums(@PathVariable("accountTitleId") Long accountTitleId) {
         List<CompendiumDto> compendiums = compendiumService.getAllCompendiums(accountTitleId);
         return ResponseEntity.ok(compendiums);
     }

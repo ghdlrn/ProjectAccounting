@@ -1,7 +1,6 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 import { useCompendiumStore } from '~/stores/accounting/compendium';
-import { defineProps, defineEmits } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 
