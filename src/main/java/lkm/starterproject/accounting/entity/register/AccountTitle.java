@@ -16,11 +16,12 @@ import java.util.List;
 public class AccountTitle extends BaseEntity {
 
     @Id
-    @Column(name = "account_title_id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_title_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
     private Long code;  //계정과목코드

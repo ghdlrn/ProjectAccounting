@@ -54,7 +54,7 @@ public class CompanyServiceImpl implements CompanyService {
         memberCompany.setMember(member);
         memberCompany.setCompany(company);
         memberCompany.setRole(Role.MASTER);
-        memberCompany.setCurrentCompany(true);
+        memberCompany.setCurrentCompany(false);
         company.getMemberCompanies().add(memberCompany);
         assignLocalTaxAndTaxOffice(company, companyDto);
         company = companyRepository.save(company);
@@ -95,7 +95,9 @@ public class CompanyServiceImpl implements CompanyService {
         assignLocalTaxAndTaxOffice(company, companyDto);
         companyMapper.updateDto(companyDto, company);
         company = companyRepository.save(company);
+        csvService.saveAccountTitleData(company);
         return companyMapper.toDto(company);
+
     }
 
     @Override

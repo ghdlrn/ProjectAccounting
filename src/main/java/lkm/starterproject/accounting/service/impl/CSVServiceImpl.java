@@ -138,7 +138,7 @@ public class CSVServiceImpl implements CSVService {
                     e.printStackTrace();
                 }
             }
-            Collections.sort(accountTitles, Comparator.comparing(AccountTitle::getId));
+            Collections.sort(accountTitles, Comparator.comparing(AccountTitle::getCode, Comparator.nullsLast(Long::compareTo)));
             accountTitleRepository.saveAll(accountTitles);
         } catch (Exception e) {
             e.printStackTrace();
