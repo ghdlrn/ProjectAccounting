@@ -3,7 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useAccountTitleStore } from "~/stores/accounting/account-title.ts";
 const store = useAccountTitleStore();
 
-import {DeleteOutlined, PlusOutlined, SearchOutlined, ShoppingCartOutlined, DollarOutlined } from "@ant-design/icons-vue";
+import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined } from "@ant-design/icons-vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import AccountTitleRegister from "~/components/register/account-title-compendium/AccountTitleRegister.vue";
 import AccountTitleUpdate from "~/components/register/account-title-compendium/AccountTitleUpdate.vue";
@@ -11,14 +11,13 @@ import AccountTitleUpdate from "~/components/register/account-title-compendium/A
 onMounted(() => { store.fetchAccountTitle(); });
 const accountTitle = computed(() => store.accountTitle );
 
-const searchField = ref(['id', 'name', 'accountTitleNumber', 'division', 'useStatus']);
+const searchField = ref(['id', 'name', 'balanceClassification']);
 const searchValue = ref('');
 const headers = ref([
   { text: '코드', value: 'code', sortable: true },
   { text: '계정과목', value: 'name', sortable: true },
   { text: '대차구분', value: 'balanceClassification', sortable: true },
-  { text: '사용여부', value: 'useStatus', sortable: true },
-  { text: '삭제', value: 'operation' }
+  { text: '수정 / 삭제', value: 'useStatus' }
 ]);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
@@ -116,12 +115,11 @@ const menu = ref(false);
                   </v-chip>
                 </template>
                 <template v-slot:item-useStatus="{ useStatus }">
-                  <v-chip color="success" v-if="useStatus === 'USE'" size="small" label> 사용 </v-chip>
-                  <v-chip color="error" v-if="useStatus === 'UNUSED'" size="small" label> 미사용 </v-chip>
-                </template>
-                <template v-slot:item-operation="item">
                   <div class="operation-wrapper">
-                    <v-btn icon color="error" variant="text" @click.stop="deleteAccountTitle(item)" rounded>
+                    <v-btn icon color="primary" variant="text" rounded v-if="useStatus === 'UNUSED'">
+                      <EditOutlined />
+                    </v-btn>
+                    <v-btn icon color="error" variant="text" v-if="useStatus === 'UNUSED'" @click.stop="deleteAccountTitle(item)" rounded>
                       <DeleteOutlined  />
                     </v-btn>
                   </div>
