@@ -51,12 +51,12 @@ const resetForm = () => {
           <v-window v-model="tab">
             <!--공통속성-->
             <!--tab1-->
-            <v-window-item value="one">
+            <v-window-item value="one" class="accountTitle-window">
               <!--------------------------------------1줄-------------------------------->
               <v-row>
                 <v-col cols="3">
                   <v-row>
-                    <v-col cols="5">
+                    <v-col cols="4" offset="1">
                       <v-label class="mt-2">과목코드</v-label>
                     </v-col>
                     <v-col cols="7">
@@ -71,7 +71,7 @@ const resetForm = () => {
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="5">
                   <v-row>
                     <v-col cols="3">
                       <v-label class="mt-2">계정과목</v-label>
@@ -128,6 +128,13 @@ const resetForm = () => {
 <style scoped lang="scss">
 .accountTitle-form {
   width: 100%;
+  min-height: 150px;
+  min-width: 1000px;
 }
-
+.accountTitle-window {
+  margin: 20px 20px 20px 20px;
+  width: 100%;
+  min-height: 80px;
+  min-width: 800px;
+}
 </style>

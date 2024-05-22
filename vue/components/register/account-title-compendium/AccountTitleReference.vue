@@ -11,6 +11,9 @@ import AccountTitleUpdate from "~/components/register/account-title-compendium/A
 onMounted(() => { store.fetchAccountTitle(); });
 const accountTitle = computed(() => store.accountTitle );
 
+const sortBy = "code";
+const sortType = "asc";
+
 const searchField = ref(['id', 'name', 'balanceClassification']);
 const searchValue = ref('');
 const headers = ref([
@@ -94,6 +97,8 @@ const menu = ref(false);
                   v-bind="props"
                   :headers="headers"
                   :items="accountTitle"
+                  :sort-by="sortBy"
+                  :sort-type="sortType"
                   table-class-name="customize-table"
                   :theme-color="themeColor"
                   :search-field="searchField"
@@ -116,10 +121,10 @@ const menu = ref(false);
                 </template>
                 <template v-slot:item-useStatus="{ useStatus }">
                   <div class="operation-wrapper">
-                    <v-btn icon color="primary" variant="text" rounded v-if="useStatus === 'UNUSED'">
+                    <v-btn icon color="primary" variant="text" rounded v-if="useStatus === null">
                       <EditOutlined />
                     </v-btn>
-                    <v-btn icon color="error" variant="text" v-if="useStatus === 'UNUSED'" @click.stop="deleteAccountTitle(item)" rounded>
+                    <v-btn icon color="error" variant="text" v-if="useStatus === null" @click.stop="deleteAccountTitle(item)" rounded>
                       <DeleteOutlined  />
                     </v-btn>
                   </div>
