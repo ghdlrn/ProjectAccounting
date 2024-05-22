@@ -42,6 +42,23 @@ const deleteAccountTitle = (item) => {
 
 const dialog = ref(false);
 const menu = ref(false);
+
+const scrollToItem = (code) => {
+  const index = accountTitle.value.findIndex(item => item.code === code);
+  if (index !== -1) {
+    // EasyDataTable에서 해당 페이지로 이동
+    const page = Math.floor(index / 10) + 1;  // assuming 10 rows per page
+    // 데이터 테이블 페이지 변경 로직 구현 필요 (EasyDataTable에서 페이지 변경 지원 필요)
+
+    // 스크롤 위치 조정 (이 예시는 기본적인 방법이며, 사용중인 테이블 라이브러리에 따라 다를 수 있음)
+    setTimeout(() => {
+      const rowElement = document.querySelectorAll('.easy-data-table-row')[index % 10];
+      if (rowElement) {
+        rowElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 300);  // 페이지가 변경된 후에 스크롤 실행
+  }
+};
 </script>
 
 <template>
@@ -132,6 +149,8 @@ const menu = ref(false);
       </v-card>
     </PerfectScrollbar>
   </UiParentCard>
+
+  <v-btn color="primary" @click="scrollToItem(6010)">당좌자산으로 스크롤</v-btn>
 </template>
 
 <style scoped lang="scss">

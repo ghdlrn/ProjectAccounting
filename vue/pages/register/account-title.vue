@@ -8,9 +8,9 @@ import AccountTitleSearch from "~/components/register/account-title/AccountTitle
 <template>
   <div class="align-container">
     <v-row>
-      <V-col cols="2">
+      <v-col cols="2">
         <AccountTitleSearch />
-      </V-col>
+      </v-col>
       <v-col cols="5">
         <AccountTitleReference />
       </v-col>
