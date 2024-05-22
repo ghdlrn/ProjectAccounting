@@ -2,7 +2,6 @@ package lkm.starterproject.accounting.dto.register;
 
 import jakarta.validation.constraints.NotBlank;
 import lkm.starterproject.accounting.constants.UseStatus;
-import lkm.starterproject.accounting.entity.register.Compendium;
 import lombok.*;
 
 import java.util.List;

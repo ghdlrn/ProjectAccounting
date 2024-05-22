@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class CompendiumDto {
 
-    private Long id;        //회사코드
+    private Long id;
 
     @NotBlank(message = "적요 내용은 필수 입력사항 입니다")
     private String content; //적요내용
