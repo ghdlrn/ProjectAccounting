@@ -26,6 +26,17 @@ export const useCardStore = defineStore('card', {
                 throw new Error('카드 조회 실패');
             }
         },
+        async createCard(data: Card) {
+            try {
+                const response = await useNuxtApp().$api.post(`/register/card`, data);
+                this.card.push(response.data);
+                alert('카드 정보가 등록되었습니다');
+            } catch (error: any) {
+                alert('카드 등록 실패')
+                console.error('카드 등록 실패', error);
+                throw new Error('카드 등록 실패');
+            }
+        },
         async updateCard(data: Card) {
             try {
                 const response = await useNuxtApp().$api.put(`/register/card/${data.id}`, data);
@@ -41,17 +52,6 @@ export const useCardStore = defineStore('card', {
                 alert(`카드 정보 수정 실패`);
                 console.error(`카드 정보 수정 실패`, error.message);
                 throw new Error(`카드 정보 수정 실패`);
-            }
-        },
-        async createCard(data: Card) {
-            try {
-                const response = await useNuxtApp().$api.post(`/register/card`, data);
-                this.card.push(response.data);
-                alert('카드 정보가 등록되었습니다');
-            } catch (error: any) {
-                alert('카드 등록 실패')
-                console.error('카드 등록 실패', error);
-                throw new Error('카드 등록 실패');
             }
         },
         async deleteCard(id: number) {

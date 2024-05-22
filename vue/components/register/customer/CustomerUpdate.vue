@@ -27,7 +27,7 @@ const saveOrUpdateCustomer = async () => {
   }
 };
 /*----------------------------양식 검증------------------------------------*/
-import {integerRules, nameRules, nullableRules, registrationNumberRules} from "~/utils/form"
+import {integerRules, nameRules, nullableRules, registrationNumberRules} from "~/utils/form";
 </script>
 
 <template>
