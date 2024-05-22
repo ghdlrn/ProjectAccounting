@@ -14,7 +14,7 @@ const accountTitle = computed(() => store.accountTitle );
 const searchField = ref(['id', 'name', 'balanceClassification']);
 const searchValue = ref('');
 const headers = ref([
-  { text: '코드', value: 'code', sortable: true },
+  { text: '과목코드', value: 'code', sortable: true },
   { text: '계정과목', value: 'name', sortable: true },
   { text: '대차구분', value: 'balanceClassification', sortable: true },
   { text: '수정 / 삭제', value: 'useStatus' }
