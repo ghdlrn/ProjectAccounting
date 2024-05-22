@@ -3,7 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useAccountTitleStore } from "~/stores/accounting/account-title.ts";
 const store = useAccountTitleStore();
 
-import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined } from "@ant-design/icons-vue";
+import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined, FileAddOutlined } from "@ant-design/icons-vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import AccountTitleRegister from "~/components/register/account-title/AccountTitleRegister.vue";
 import AccountTitleUpdate from "~/components/register/account-title/AccountTitleUpdate.vue";
@@ -31,6 +31,7 @@ const getAccountTitle = (item) => {
   store.getAccountTitle(item.id).then(accountTitleData => {
     selectedAccountTitle.value = accountTitleData;
   });
+  menu.value = true;
 };
 
 const deleteAccountTitle = (item) => {
@@ -109,12 +110,15 @@ const menu = ref(false);
                 <template v-slot:item-operation="item">
                   <div class="operation-wrapper">
                     <v-btn icon color="primary" variant="text" rounded @click.stop="getAccountTitle(item)" >
-                      <EditOutlined />
+                      <FileAddOutlined />
                     </v-btn>
                   </div>
                 </template>
                 <template v-slot:item-useStatus="item">
                   <div class="operation-wrapper">
+                    <v-btn icon color="primary" variant="text" rounded @click.stop="getAccountTitle(item)" >
+                      <EditOutlined />
+                    </v-btn>
                     <v-btn icon color="error" variant="text"  v-if="item.useStatus === null" @click.stop="deleteAccountTitle(item)" rounded>
                       <DeleteOutlined />
                     </v-btn>
