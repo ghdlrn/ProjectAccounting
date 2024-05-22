@@ -5,8 +5,8 @@ const store = useAccountTitleStore();
 
 import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined } from "@ant-design/icons-vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
-import AccountTitleRegister from "~/components/register/account-title-compendium/AccountTitleRegister.vue";
-import AccountTitleUpdate from "~/components/register/account-title-compendium/AccountTitleUpdate.vue";
+import AccountTitleRegister from "~/components/register/account-title/AccountTitleRegister.vue";
+import AccountTitleUpdate from "~/components/register/account-title/AccountTitleUpdate.vue";
 
 onMounted(() => { store.fetchAccountTitle(); });
 const accountTitle = computed(() => store.accountTitle );
@@ -14,7 +14,7 @@ const accountTitle = computed(() => store.accountTitle );
 const sortBy = "code";
 const sortType = "asc";
 
-const searchField = ref(['id', 'name', 'balanceClassification']);
+const searchField = ref(['code', 'name', 'balanceClassification']);
 const searchValue = ref('');
 const headers = ref([
   { text: '과목코드', value: 'code', sortable: true },

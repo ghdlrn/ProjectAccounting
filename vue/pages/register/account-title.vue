@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import AccountTitleReference from "~/components/register/account-title-compendium/AccountTitleReference.vue";
-import CompendiumReference from "~/components/register/Compendium/CompendiumReference.vue";
+import AccountTitleReference from "~/components/register/account-title/AccountTitleReference.vue";
+import CompendiumReference from "~/components/register/compendium/CompendiumReference.vue";
+import AccountTitleSearch from "~/components/register/account-title/AccountTitleSearch.vue";
+
 </script>
 
 <template>
   <div class="align-container">
     <v-row>
-      <v-col cols="7">
+      <V-col cols="2">
+        <AccountTitleSearch />
+      </V-col>
+      <v-col cols="5">
         <AccountTitleReference />
       </v-col>
       <v-col cols="5">
