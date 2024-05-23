@@ -1,14 +1,14 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useAccountTitleStore } from "~/stores/accounting/account-title.ts";
-const accountStore = useAccountTitleStore();
-
 import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined, FileAddOutlined } from "@ant-design/icons-vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import AccountTitleRegister from "~/components/register/account-title/AccountTitleRegister.vue";
 import AccountTitleUpdate from "~/components/register/account-title/AccountTitleUpdate.vue";
 import CompendiumRegister from "~/components/register/compendium/CompendiumRegister.vue";
 
+const emit = defineEmits(['account-title-select']);
+const accountStore = useAccountTitleStore();
 onMounted(() => { accountStore.fetchAccountTitle(); });
 const accountTitle = computed(() => accountStore.accountTitle );
 
@@ -33,6 +33,7 @@ const compendiumDialog = ref(false);
 const getAccountTitle = (item) => {
   accountStore.getAccountTitle(item.id).then(accountTitleData => {
     selectedAccountTitle.value = accountTitleData;
+    emit('account-title-select', item.id);
   });
   menu.value = true;
 };
@@ -138,7 +139,6 @@ const openCompendium = (item) => {
       </v-card>
     </PerfectScrollbar>
   </UiParentCard>
-
   <v-dialog v-model="compendiumDialog" max-width="600px">
     <CompendiumRegister :accountTitleId="selectedAccountTitle.id" @closeDialog="compendiumDialog = false" />
   </v-dialog>

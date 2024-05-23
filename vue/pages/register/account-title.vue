@@ -1,7 +1,13 @@
-<script setup lang="ts">
+<script setup>
 import AccountTitleReference from "~/components/register/account-title/AccountTitleReference.vue";
 import CompendiumReference from "~/components/register/compendium/CompendiumReference.vue";
 import AccountTitleSearch from "~/components/register/account-title/AccountTitleSearch.vue";
+
+const selectedAccountTitleId = ref(null);
+
+const handleAccountTitleSelect = (id) => {
+  selectedAccountTitleId.value = id;
+};
 
 </script>
 
@@ -12,10 +18,10 @@ import AccountTitleSearch from "~/components/register/account-title/AccountTitle
         <AccountTitleSearch />
       </v-col>
       <v-col cols="6">
-        <AccountTitleReference />
+        <AccountTitleReference @account-title-select="handleAccountTitleSelect" />
       </v-col>
       <v-col cols="4">
-        <CompendiumReference />
+        <CompendiumReference :accountTitleId="selectedAccountTitleId" />
       </v-col>
     </v-row>
   </div>
