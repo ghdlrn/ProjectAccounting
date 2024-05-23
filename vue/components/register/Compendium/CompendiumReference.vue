@@ -4,7 +4,6 @@ import { useCompendiumStore } from '~/stores/accounting/compendium';
 import {DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined} from "@ant-design/icons-vue";
 import UiParentCard from '~/components/shared/UiParentCard.vue';
 import CompendiumUpdate from '~/components/register/compendium/CompendiumUpdate.vue';
-import AccountTitleRegister from "~/components/register/account-title/AccountTitleRegister.vue";
 
 const props = defineProps({
   accountTitleId: Number,
@@ -31,7 +30,6 @@ const headers = [
 ];
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
-const selectedCompendium = ref(null);
 const dialog = ref(false);
 
 const deleteCompendium = (item) => {
@@ -40,30 +38,22 @@ const deleteCompendium = (item) => {
   }
 };
 
-const editCompendium = (item) => {
+const getCompendium = (item) => {
   compendiumStore.getCompendium(item.id).then(compendiumData => {
-    selectedCompendium.value = compendiumData;
     dialog.value = true;
   });
 };
 
-const saveOrUpdateCompendium = async (data) => {
-  try {
-    if (selectedCompendium.value?.id) {
-      await compendiumStore.updateCompendium(data);
-    } else {
-      await compendiumStore.createCompendium(props.accountTitleId, data);
-    }
-    dialog.value = false;
-  } catch (error) {
-    console.error("Error saving or updating compendium: ", error);
-  }
+const closeDialog = () => {
+  dialog.value = false;
+  compendiumStore.currentCompendium = null;
 };
 </script>
 
 <template>
   <div class="align-container">
-    <UiParentCard title="적요"><PerfectScrollbar>
+    <UiParentCard title="적요">
+      <PerfectScrollbar>
       <v-card>
         <v-card-item>
           <v-row justify="space-between" class="align-center">
@@ -73,7 +63,7 @@ const saveOrUpdateCompendium = async (data) => {
               variant="outlined"
               color="primary"
               persistent-placeholder
-              placeholder="계정과목 검색"
+              placeholder="적요 검색"
               v-model="searchValue"
               hide-details>
             <template v-slot:prepend-inner>
@@ -87,12 +77,12 @@ const saveOrUpdateCompendium = async (data) => {
         <v-divider></v-divider>
 
         <v-card-text class="pa-0">
-          <v-menu
-            v-model="menu"
-            :close-on-content-click="false"
-            lazy
-            transition="scale-transition"
-            origin="top right">
+          <v-dialog
+              v-model="dialog"
+              :close-on-content-click="false"
+              lazy
+              transition="scale-transition"
+              origin="top right">
             <template v-slot:activator="{ props }">
               <EasyDataTable
                   v-bind="props"
@@ -105,26 +95,24 @@ const saveOrUpdateCompendium = async (data) => {
                   :theme-color="themeColor"
                   :search-field="searchField"
                   :search-value="searchValue"
-                  @click-row="editCompendium"
+                  @click-row="getCompendium"
                   :rows-per-page="10">
-                <template v-slot:item-operation="{ item }">
-                  <v-btn icon color="primary" variant="text" @click="$emit('edit-compendium', item)" rounded>
+                <template v-slot:item-operation="item">
+                  <v-btn icon color="primary" variant="text" @click.stop="getCompendium(item)" rounded>
                     <EditOutlined />
                   </v-btn>
-                  <v-btn icon color="error" variant="text"  @click="$emit('delete-compendium', item)" rounded>
+                  <v-btn icon color="error" variant="text" @click.stop="deleteCompendium(item)" rounded>
                     <DeleteOutlined />
                   </v-btn>
                 </template>
               </EasyDataTable>
             </template>
-          </v-menu>
+            <CompendiumUpdate :compendium="compendiumStore.currentCompendium" @close="closeDialog" @save="closeDialog" />
+          </v-dialog>
         </v-card-text>
        </v-card>
       </PerfectScrollbar>
     </UiParentCard>
-    <v-dialog v-model="dialog" persistent max-width="600px">
-      <CompendiumUpdate v-if="selectedCompendium" :compendium="selectedCompendium" @save="saveOrUpdateCompendium" @close="dialog = false" />
-    </v-dialog>
   </div>
 </template>
 

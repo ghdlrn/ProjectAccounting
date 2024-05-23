@@ -4,6 +4,7 @@ import { useCompendiumStore } from '~/stores/accounting/compendium';
 import UiParentCard from '~/components/shared/UiParentCard.vue';
 
 const compendiumStore = useCompendiumStore();
+const emit = defineEmits(['close', 'save']);
 
 const props = defineProps({
   compendium: Object,
@@ -12,18 +13,25 @@ const props = defineProps({
 const content = ref('');
 const note = ref('');
 
-watch(props, () => {
-  content.value = props.compendium.content;
-  note.value = props.compendium.note;
+watch(() => props.compendium, (newCompendium) => {
+  if (newCompendium) {
+    content.value = newCompendium.content || '';
+    note.value = newCompendium.note || '';
+  }
 }, { immediate: true });
 
-const updateCompendium = () => {
+const updateCompendium = async () => {
   const updatedData = {
     ...props.compendium,
     content: content.value,
     note: note.value,
   };
-  compendiumStore.updateCompendium(updatedData);
+  try {
+    await compendiumStore.updateCompendium(updatedData);
+    emit('save');
+  } catch (error) {
+    console.error("Error updating compendium: ", error);
+  }
 };
 </script>
 
@@ -50,7 +58,7 @@ const updateCompendium = () => {
       </v-card-text>
       <v-card-actions>
         <v-btn color="primary" @click="updateCompendium">수정</v-btn>
-        <v-btn color="secondary" @click="$emit('closeDialog')">취소</v-btn>
+        <v-btn color="secondary" @click="$emit('close')">취소</v-btn>
       </v-card-actions>
     </v-card>
   </UiParentCard>
