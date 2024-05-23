@@ -20,8 +20,7 @@ public class CompendiumController {
 
     @PostMapping("/account-title/{accountTitleId}")
     public ResponseEntity<CompendiumDto> createCompendium(@PathVariable("accountTitleId") Long accountTitleId, @Valid @RequestBody CompendiumDto compendiumDto) {
-        if ((compendiumDto.getCashContent() == null || compendiumDto.getCashContent().isEmpty()) &&
-                (compendiumDto.getReplacementContent() == null || compendiumDto.getReplacementContent().isEmpty())) {
+        if ( compendiumDto.getContent() == null || compendiumDto.getContent().isEmpty() ) {
             return ResponseEntity.badRequest().body(null); // 또는 적절한 에러 메시지를 포함한 ResponseEntity 반환
         }
         CompendiumDto createdCompendium = compendiumService.createCompendium(accountTitleId, compendiumDto);

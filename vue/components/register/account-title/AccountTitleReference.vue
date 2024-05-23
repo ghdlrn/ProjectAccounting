@@ -1,9 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useAccountTitleStore } from "~/stores/accounting/account-title.ts";
-import { useCompendiumStore } from "~/stores/accounting/compendium";
 const accountStore = useAccountTitleStore();
-const compendiumStore = useCompendiumStore();
 
 import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined, FileAddOutlined } from "@ant-design/icons-vue";
 import UiParentCard from "~/components/shared/UiParentCard.vue";
