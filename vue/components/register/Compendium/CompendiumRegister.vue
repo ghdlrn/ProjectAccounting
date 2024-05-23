@@ -11,6 +11,16 @@ const props = defineProps({
 const content = ref('');
 const note = ref('');
 
+const createCompendium = async () => {
+  try {
+    await compendiumStore.createCompendium(props.accountTitleId, { content: content.value, note: note.value });
+    content.value = '';
+    note.value = '';
+    emit('closeDialog');
+  } catch (error) {
+    console.error('적요 등록 실패', error);
+  }
+};
 </script>
 
 <template>

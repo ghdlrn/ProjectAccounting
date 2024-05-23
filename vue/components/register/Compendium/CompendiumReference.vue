@@ -1,17 +1,21 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useCompendiumStore } from '~/stores/accounting/compendium';
 import { useRoute } from 'vue-router';
 import {DeleteOutlined, EditOutlined } from "@ant-design/icons-vue";
 import UiParentCard from '~/components/shared/UiParentCard.vue';
-import CompendiumRegister from '~/components/register/compendium/CompendiumRegister.vue';
 import CompendiumUpdate from '~/components/register/compendium/CompendiumUpdate.vue';
 
 const route = useRoute();
 const compendiumStore = useCompendiumStore();
-const accountTitleId = computed(() => Number(route.params.accountTitleId));
+const accountTitleId = ref(null);
 
 onMounted(() => {
+  compendiumStore.fetchCompendium(accountTitleId.value);
+});
+
+watch(() => route.params.accountTitleId, (newId) => {
+  accountTitleId.value = Number(newId);
   compendiumStore.fetchCompendium(accountTitleId.value);
 });
 
@@ -28,11 +32,6 @@ const headers = [
 const selectedCompendium = ref(null);
 const dialog = ref(false);
 
-const getCompendium = (item) => {
-  compendiumStore.getCompendium(item.id).then(compendiumData => {
-    selectedCompendium.value = compendiumData;
-  });
-};
 
 const deleteCompendium = (item) => {
   if (confirm("정말로 삭제하시겠습니까?")) {
@@ -85,8 +84,7 @@ const saveOrUpdateCompendium = async (data) => {
           </EasyDataTable>
         </UiParentCard>
     <v-dialog v-model="dialog" persistent max-width="600px">
-      <CompendiumRegister v-if="!selectedCompendium" @save="saveOrUpdateCompendium" @close="dialog = false" />
-      <CompendiumUpdate v-else :compendium="selectedCompendium" @save="saveOrUpdateCompendium" @close="dialog = false" />
+      <CompendiumUpdate v-if="selectedCompendium" :compendium="selectedCompendium" @save="saveOrUpdateCompendium" @close="dialog = false" />
     </v-dialog>
   </div>
 </template>
