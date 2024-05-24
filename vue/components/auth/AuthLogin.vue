@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Google from '/images/social-google.svg';
 import { useAuthStore } from '~/stores/auth/auth';
+import CryptoJS from 'crypto-js';
 const authStore = useAuthStore();
+
+const secretKey = 'TIXETPdVIWbK3qiczAmeddDlZVrV235oZVCoPLfniYwdshjdlfhGDSLKn';
 
 const checkbox = ref(false);
 const show1 = ref(false);
@@ -10,10 +13,45 @@ const email = ref('');
 const password = ref('');
 import { emailRules, passwordRules } from "~/utils/form";
 
+const encrypt = (data: string) => {
+  return CryptoJS.AES.encrypt(data, secretKey).toString();
+};
+
+const decrypt = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
+  return bytes.toString(CryptoJS.enc.Utf8);
+};
+
+const saveCredentials = () => {
+  if (checkbox.value) {
+    localStorage.setItem('email', encrypt(email.value));
+    localStorage.setItem('password', encrypt(password.value));
+  } else {
+    localStorage.removeItem('email');
+    localStorage.removeItem('password');
+  }
+};
+
+const loadCredentials = () => {
+  const savedEmail = localStorage.getItem('email');
+  const savedPassword = localStorage.getItem('password');
+  if (savedEmail && savedPassword) {
+    email.value = decrypt(savedEmail);
+    password.value = decrypt(savedPassword);
+    checkbox.value = true;
+  }
+};
+
+onMounted(() => {
+  loadCredentials();
+});
+
+
 const login = async (event: any) => {
   event.preventDefault();  // Prevent default form submission
   try {
     await authStore.login(email.value, password.value);
+    saveCredentials();
   } catch (error) {
     console.error('Login failed:', error);
     alert('로그인 실패: ' + error);
