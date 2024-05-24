@@ -52,7 +52,7 @@ const updateCompendium = async () => {
               variant="outlined"
               color="primary"
               auto-grow
-              clearable
+              clearablevue n
           />
         </v-form>
       </v-card-text>
