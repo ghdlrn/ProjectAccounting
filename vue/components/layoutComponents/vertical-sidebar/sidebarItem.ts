@@ -41,11 +41,8 @@ const sidebarItem: menu[] = [
     icon: NotebookIcon,
     to: '/',
     children: [
-      { title: '일반 전표', icon: CircleIcon, to: '/' },
+      { title: '일반 전표', icon: CircleIcon, to: '/document/normal' },
       { title: '매입 매출 전표', icon: CircleIcon, to: '/' },
-      { title: '현금 거래', icon: CircleIcon, to: '/' },
-      { title: '카드 거래', icon: CircleIcon, to: '/' },
-      { title: '어음 거래', icon: CircleIcon, to: '/' },
     ]
   },
   { divider: true },
@@ -57,9 +54,9 @@ const sidebarItem: menu[] = [
     children: [
       { title: '분개장', icon: CircleIcon, to: '/' },
       { title: '일/월계표', icon: CircleIcon, to: '/' },
+      { title: '재무상태표', icon: CircleIcon, to: '/' },
+      { title: '손익계산서', icon: CircleIcon, to: '/' },
       { title: '합계잔액시산표', icon: CircleIcon, to: '/' },
-      { title: '계정별원장', icon: CircleIcon, to: '/' },
-      { title: '거래처별원장', icon: CircleIcon, to: '/' },
       { title: '현금출납장', icon: CircleIcon, to: '/' },
       { title: '매입매출장', icon: CircleIcon, to: '/' },
     ]

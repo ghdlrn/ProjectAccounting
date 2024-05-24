@@ -10,7 +10,7 @@ const sidebarMenu = shallowRef(sidebarItems);
 </script>
 
 <template>
-  <v-card>
+  <v-card rounded>
     <perfect-scrollbar class="scrollnavbar">
       <v-list class="pa-4">
         <!---Menu Loop -->
