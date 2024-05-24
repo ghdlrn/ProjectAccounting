@@ -8,8 +8,10 @@ export default defineNuxtPlugin((nuxtApp) => {
         withCredentials: true
     });
 
-    api.interceptors.request.use(
-        (config) => {
+    const authStore = useAuthStore();
+    authStore.loadUserFromLocalStorage(); // 초기 상태 로드
+
+    api.interceptors.request.use((config) => {
             const authStore = useAuthStore();
             if (authStore.member.access_token) {
                 config.headers['Authorization'] = `Bearer ${authStore.member.access_token}`;
@@ -19,17 +21,16 @@ export default defineNuxtPlugin((nuxtApp) => {
         (error) => Promise.reject(error)
     );
 
-    api.interceptors.response.use(
-        (response) => response,
-        async (error) => {
-            const authStore = useAuthStore();
-            if (error.response?.status === 401) {
-                await authStore.refreshToken();
-                return api(error.config);
-            }
-            return Promise.reject(error);
+    api.interceptors.response.use((response) => response, async (error) => {
+        const authStore = useAuthStore();
+        if (error.response?.status === 401 && !error.config._retry) {
+            error.config._retry = true;
+            await authStore.refreshToken();
+            error.config.headers['Authorization'] = `Bearer ${authStore.member.access_token}`;
+            return api(error.config);
         }
-    );
+        return Promise.reject(error);
+    });
 
     return {
         provide: {

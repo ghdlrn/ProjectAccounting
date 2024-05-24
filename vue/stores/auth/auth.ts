@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { useNuxtApp } from '#app';
 import axios from "axios";
 
 const baseURL = axios.create({
@@ -48,7 +47,7 @@ export const useAuthStore = defineStore('auth', {
     async refreshToken() {
       try {
         const response = await baseURL.post('/reissue');
-        this.member.accessToken = response.data.accessToken;
+        this.member.access_token = response.data.access_token;
         localStorage.setItem('member', JSON.stringify(this.member));
       } catch (error: any) {
         await this.logout();
