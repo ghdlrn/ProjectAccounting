@@ -1,32 +1,75 @@
-<!-- pages/index.vue -->
-
 <template>
-  <div>
-    <h1>Companies</h1>
-    <div v-if="authStore.member">
-      <p>Welcome, {{ authStore.member.username }}</p>
-      <button @click="authStore.logout">Logout</button>
-      <div>
-        <h2>Your Companies</h2>
-        <ul>
-          <li v-for="company in companyStore.companies" :key="company.id">
-            {{ company.name }}
-          </li>
-        </ul>
-      </div>
-      <div v-if="companyStore.selectedCompany">
-        <h2>Selected Company: {{ companyStore.selectedCompany.name }}</h2>
-      </div>
+  <UiParentCard title="홈페이지 기능 설명">
+    <div class="d-flex align-center gap-3">
+      <v-text-field
+          variant="outlined"
+          v-model="searchValue"
+          persistent-placeholder
+          placeholder="검색"
+          hide-details
+      >
+        <template v-slot:prepend-inner>
+          <SearchOutlined class="text-lightText" />
+        </template>
+      </v-text-field>
     </div>
-    <div v-else>
-      <p>Please log in.</p>
+    <div class="button-list mt-4">
+      <v-btn
+          v-for="item in filteredContact"
+          :key="item.title"
+          :href="item.path"
+          target="_blank"
+          class="mb-2 youtube-btn"
+          color="red darken-1"
+          dark
+          variant="outlined"
+          size="x-large"
+      >
+        <v-icon left>{{ item.icon }}</v-icon>
+        {{ item.title }}
+      </v-btn>
     </div>
-  </div>
+  </UiParentCard>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/auth/auth';
-import { useCompanyStore } from "~/stores/accounting/company";
-const authStore = useAuthStore();
-const companyStore = useCompanyStore();
+import { ref, computed } from 'vue';
+import UiParentCard from "~/components/shared/UiParentCard.vue";
+import _ from 'lodash';
+import { SearchOutlined } from '@ant-design/icons-vue';
+
+const searchValue = ref('');
+const allContacts = ref([
+  { title: 'Google', path: 'https://www.google.com', icon: 'mdi-youtube' },
+  { title: 'YouTube', path: 'https://www.youtube.com', icon: 'mdi-youtube' },
+  { title: 'GitHub', path: 'https://github.com', icon: 'mdi-youtube' },
+  // 리스트목록 추가
+]);
+
+const { flow, orderBy, groupBy, flatMap, get, filter } = _;
+
+const groupItems = flow([
+  (arr: any) => orderBy(arr, 'title'),
+  (arr: any) => groupBy(arr, (o: any) => get(o, 'title[0]', '').toUpperCase()),
+  (groups: any) => flatMap(groups, (v: any, k: any) => [k, ...v]),
+  (arr: any) => filter(arr, (o: any) => get(o, 'title', '').toLowerCase().includes(searchValue.value.toLowerCase()))
+]);
+
+const filteredContact = computed(() => {
+  return groupItems(allContacts.value).filter(item=> item.title); // 빈 제목 필터링
+});
 </script>
+
+<style scoped>
+.button-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.youtube-btn {
+  background-color: white !important; /* YouTube red color */
+  color: #ff0000 !important;
+}
+
+</style>
