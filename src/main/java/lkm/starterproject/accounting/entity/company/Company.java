@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.basic.Address;
 import lkm.starterproject.accounting.entity.basic.LocalTax;
 import lkm.starterproject.accounting.entity.basic.TaxOffice;
+import lkm.starterproject.accounting.entity.document.NormalDocument;
 import lkm.starterproject.accounting.entity.register.AccountTitle;
 import lkm.starterproject.accounting.entity.register.Card;
 import lkm.starterproject.accounting.entity.register.Customer;
@@ -117,5 +118,9 @@ public class Company extends BaseEntity {  //회사
 
     @Builder.Default
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AccountTitle> accountTitles = new ArrayList<>();        //카드
+    private List<AccountTitle> accountTitles = new ArrayList<>();        //계정과목
+
+    @Builder.Default
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<NormalDocument> normalDocuments = new ArrayList<>();        //일반전표
 }
