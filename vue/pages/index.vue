@@ -40,16 +40,18 @@ import { SearchOutlined } from '@ant-design/icons-vue';
 
 const searchValue = ref('');
 const allContacts = ref([
-  { title: 'Google', path: 'https://www.google.com', icon: 'mdi-youtube' },
-  { title: 'YouTube', path: 'https://www.youtube.com', icon: 'mdi-youtube' },
-  { title: 'GitHub', path: 'https://github.com', icon: 'mdi-youtube' },
+  { title: '레이아웃', path: 'https://www.google.com', icon: 'mdi-youtube' },
+  { title: '회원가입, 로그인, 로그아웃', path: 'https://www.youtube.com', icon: 'mdi-youtube' },
+  { title: '회사 등록', path: 'https://github.com', icon: 'mdi-youtube' },
+  { title: '기초 정보 등록', path: 'https://github.com', icon: 'mdi-youtube' },
+  { title: '전표 등록(개발중)', path: 'https://github.com', icon: 'mdi-youtube' },
+  { title: '장부(개발중)', path: 'https://github.com', icon: 'mdi-youtube' },
   // 리스트목록 추가
 ]);
 
-const { flow, orderBy, groupBy, flatMap, get, filter } = _;
+const { flow, groupBy, flatMap, get, filter } = _;
 
 const groupItems = flow([
-  (arr: any) => orderBy(arr, 'title'),
   (arr: any) => groupBy(arr, (o: any) => get(o, 'title[0]', '').toUpperCase()),
   (groups: any) => flatMap(groups, (v: any, k: any) => [k, ...v]),
   (arr: any) => filter(arr, (o: any) => get(o, 'title', '').toLowerCase().includes(searchValue.value.toLowerCase()))
