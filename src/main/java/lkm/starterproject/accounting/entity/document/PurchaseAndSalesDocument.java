@@ -2,13 +2,14 @@ package lkm.starterproject.accounting.entity.document;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.register.Customer;
+import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
 @Entity
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "purchase_and_sales_document")
-public class PurchaseAndSalesDocument {
+public class PurchaseAndSalesDocument extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
