@@ -40,12 +40,9 @@ import { SearchOutlined } from '@ant-design/icons-vue';
 
 const searchValue = ref('');
 const allContacts = ref([
-  { title: '레이아웃', path: 'https://www.google.com', icon: 'mdi-youtube' },
-  { title: '회원가입, 로그인, 로그아웃', path: 'https://www.youtube.com', icon: 'mdi-youtube' },
-  { title: '회사 등록', path: 'https://github.com', icon: 'mdi-youtube' },
-  { title: '기초 정보 등록', path: 'https://github.com', icon: 'mdi-youtube' },
-  { title: '전표 등록(개발중)', path: 'https://github.com', icon: 'mdi-youtube' },
-  { title: '장부(개발중)', path: 'https://github.com', icon: 'mdi-youtube' },
+  { title: '레이아웃', path: 'https://www.youtube.com/watch?v=LKiDEchLM0s&t=68s&ab_channel=LeeKyuMin', icon: 'mdi-youtube' },
+  { title: '회원가입, 로그인, 로그아웃', path: 'https://www.youtube.com/watch?v=w4gf2AzLqYw&t=54s&ab_channel=LeeKyuMin', icon: 'mdi-youtube' },
+  { title: '회사 및 기초정보 등록', path: 'https://www.youtube.com/watch?v=BJpHzU4Ynys&t=2s&ab_channel=LeeKyuMin', icon: 'mdi-youtube' },
   // 리스트목록 추가
 ]);
 
