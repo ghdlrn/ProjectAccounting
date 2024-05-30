@@ -43,7 +43,9 @@
 <details><summary>동영상</summary>
 
 [https://www.youtube.com/watch?v=LKiDEchLM0s&ab_channel=LeeKyuMin](https://www.youtube.com/watch?v=LKiDEchLM0s&ab_channel=LeeKyuMin)
+<br>
 [https://www.youtube.com/watch?v=LKiDEchLM0s&ab_channel=LeeKyuMin](https://www.youtube.com/watch?v=w4gf2AzLqYw&t=62s&ab_channel=LeeKyuMin)
+<br>
 [https://www.youtube.com/watch?v=BJpHzU4Ynys&ab_channel=LeeKyuMin](https://www.youtube.com/watch?v=BJpHzU4Ynys&ab_channel=LeeKyuMin)
 
 </details>
@@ -98,9 +100,12 @@ DB등 일반적인 작업을 경험하기 위한 프로젝트를 주제로 선�
 ```
 
 ## 📋 개발 일지 📋
-   
+
+<details><summary>개발일지</summary>
+	
 [https://velog.io/@ghdlrn/%ED%85%8C%ED%8A%B8%EB%A6%AC%EC%8A%A4%EA%B2%8C%EC%9E%84-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-1%EC%9D%BC%EC%B0%A8](https://velog.io/@ghdlrn/Project-Accounting-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%8011%EB%8F%99%EC%98%81%EC%83%81-%EB%B0%8F-PPT)
 
+</details>
 
 
 ## 🔨 사용 기술 🔨
@@ -112,6 +117,8 @@ DB등 일반적인 작업을 경험하기 위한 프로젝트를 주제로 선�
 	<img src="https://img.shields.io/badge/JAVA-C01818?style=flat-square&logo=coffeescript&logoColor=white" />
 	<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"/>
 	<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
+ <br>
+ 	<img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens"/>
 <br>
 	<img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"/>
 	<img src="https://img.shields.io/badge/nuxt.js-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white"/>
