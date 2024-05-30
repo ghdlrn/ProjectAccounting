@@ -1,9 +1,7 @@
 package lkm.starterproject.auth.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lkm.starterproject.auth.service.MemberService;
 import lkm.starterproject.auth.dto.MemberDto;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
