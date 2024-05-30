@@ -1,4 +1,5 @@
-✏️ JAVA 웹 회계프로그램 제작 개인 프로젝트 ✏️ 
+<h1 align='center'> <img src="C:\Java\work\ProjectAccounting\vue\public\images\logos\logo.svg" style='width: 300px; height: 200px;'>&nbsp;</h1>
+<h1  align='center'>✏️ JAVA 웹 회계프로그램 제작 개인 프로젝트 ✏️ </h1>
 
 ## 📚 목차 📚
 
