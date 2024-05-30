@@ -25,7 +25,7 @@
 |![15]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/5c228849-7435-443c-b83c-3d8fc4d1bba1) |![16]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b9e54326-f003-4b1f-9d78-d151cf1a29d5) |
 |![17]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/a164acee-0d63-442c-8f62-3461286cc214) |![18]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/9db557aa-1870-444b-9fdf-53a6a37405ed) |
 |![19]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/c7b67cbf-754d-43fc-8a30-e4a0de79e300) |![20]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b48d06d7-1550-44f2-9ad1-fc871479d8d6) |
-|![21]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/511b1330-5885-44f3-b59f-db886678eefa) |
+|![21]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/511b1330-5885-44f3-b59f-db886678eefa)
 </div>
 </details>
 
