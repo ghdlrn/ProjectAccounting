@@ -13,23 +13,20 @@
 ## 📂 PPT 📂
 
 <details><summary>PPT</summary>
-  | title1 | title2 | title3 |
-| --- | --- | --- |
-| 1 | 2 | 3 |
-| 4 | 5 | 6 |
-| 7 | 8 | 9 |    
-|<img width="961" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/66373c53-3d8b-429c-9ef3-59097abd794e">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/85a1495d-30b7-4bf7-94aa-382d49bd790f">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/3dea54d4-ac3a-4c93-b529-f4e3f9d8f0d5">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/cef22abe-4e5f-4633-967c-e92cb0345e19">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/5d24426b-e5ef-46c5-97aa-ca99ce1b9081">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/2c6c51bb-d6af-4df9-8260-bc79151e5710">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/833b892a-014e-4ee7-abcd-439b31c074e9">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/dd650b90-f8e6-49c9-92d5-74f1540bf880">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/043a498d-5c6f-4c7f-8b52-b67906123de4">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/e64600ba-0dd6-499d-85a1-cba3f78efa86">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/9ce1b1d9-c2d1-4b10-8a8c-cceac1ec011a">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/469cd81f-168b-41b4-9202-2aa730690b87">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b366ac1d-983a-49ab-8dbb-4bfdea1edb9d">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/a359cd10-f43d-4b66-ac28-6d1f6f250178">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/5c228849-7435-443c-b83c-3d8fc4d1bba1">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b9e54326-f003-4b1f-9d78-d151cf1a29d5">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/a164acee-0d63-442c-8f62-3461286cc214">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/9db557aa-1870-444b-9fdf-53a6a37405ed">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/c7b67cbf-754d-43fc-8a30-e4a0de79e300">|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b48d06d7-1550-44f2-9ad1-fc871479d8d6">|
-|<img width="481" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/511b1330-5885-44f3-b59f-db886678eefa">|
-
+<div align="center" >      
+| **![1](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/66373c53-3d8b-429c-9ef3-59097abd794e)** | **![2](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/85a1495d-30b7-4bf7-94aa-382d49bd790f)** |
+| :------: |  :------: |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/3dea54d4-ac3a-4c93-b529-f4e3f9d8f0d5)  | ![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/cef22abe-4e5f-4633-967c-e92cb0345e19) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/5d24426b-e5ef-46c5-97aa-ca99ce1b9081) |![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/2c6c51bb-d6af-4df9-8260-bc79151e5710) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/833b892a-014e-4ee7-abcd-439b31c074e9) |![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/dd650b90-f8e6-49c9-92d5-74f1540bf880) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/043a498d-5c6f-4c7f-8b52-b67906123de4) |![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/e64600ba-0dd6-499d-85a1-cba3f78efa86) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/9ce1b1d9-c2d1-4b10-8a8c-cceac1ec011a) |![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/469cd81f-168b-41b4-9202-2aa730690b87) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b366ac1d-983a-49ab-8dbb-4bfdea1edb9d) |![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/a359cd10-f43d-4b66-ac28-6d1f6f250178) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/5c228849-7435-443c-b83c-3d8fc4d1bba1) |![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b9e54326-f003-4b1f-9d78-d151cf1a29d5) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/a164acee-0d63-442c-8f62-3461286cc214) |![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/9db557aa-1870-444b-9fdf-53a6a37405ed) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/c7b67cbf-754d-43fc-8a30-e4a0de79e300) |![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b48d06d7-1550-44f2-9ad1-fc871479d8d6) |
+|![3]https://github.com/ghdlrn/ProjectAccounting/assets/157094398/511b1330-5885-44f3-b59f-db886678eefa) |
+</div>
 </details>
 
 ## 🎬 동영상 🎬
@@ -108,7 +105,7 @@ DB등 일반적인 작업을 경험하기 위한 프로젝트를 주제로 선�
 	<img src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white"/>
 	<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
  <br>
-	<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+	<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"/>
  	<img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens"/>
 <br>
 	<img src="https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D"/>
