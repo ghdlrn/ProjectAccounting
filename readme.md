@@ -1,4 +1,4 @@
-<img width="961" alt="image" src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/1a059b34-70fc-4e76-a0a4-eccbf569b7f0">#  ✏️ JAVA 웹개발자 2인 팀 프로젝트 ✏️ 
+✏️ JAVA 웹개발자 2인 팀 프로젝트 ✏️ 
 
 ## 📚 목차 📚
 
@@ -99,7 +99,7 @@ DB등 일반적인 작업을 경험하기 위한 프로젝트를 주제로 선�
 
 ## 📋 개발 일지 📋
    
-https://velog.io/@ghdlrn/%ED%85%8C%ED%8A%B8%EB%A6%AC%EC%8A%A4%EA%B2%8C%EC%9E%84-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-1%EC%9D%BC%EC%B0%A8
+[https://velog.io/@ghdlrn/%ED%85%8C%ED%8A%B8%EB%A6%AC%EC%8A%A4%EA%B2%8C%EC%9E%84-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-1%EC%9D%BC%EC%B0%A8](https://velog.io/@ghdlrn/Project-Accounting-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%8011%EB%8F%99%EC%98%81%EC%83%81-%EB%B0%8F-PPT)
 
 
 
