@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  nuxt:
+    build:
+      context: ./vue  # Nuxt Dockerfile이 있는 디렉토리 지정
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://spring:8080
+    depends_on:
+      - spring
+    networks:
+      - app-network
+
+  spring:
+    build:
+      context: .  # Spring Boot Dockerfile이 있는 디렉토리 지정
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ACCOUNTING
+      SPRING_DATASOURCE_USERNAME: LKM
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_JWT_SECRET: TIXETPdVIWbK3qiczAmeddDlZVrV235oZVCoPLfniYwdshjdlfhGDSLKn
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ACCOUNTING
+      POSTGRES_USER: LKM
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
