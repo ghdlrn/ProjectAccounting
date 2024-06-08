@@ -5,7 +5,6 @@ import lkm.starterproject.accounting.dto.document.NormalDocumentDto;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.document.NormalDocument;
 import lkm.starterproject.accounting.mapper.document.NormalDocumentMapper;
-import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.document.NormalDocumentRepository;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.document.NormalDocumentService;
