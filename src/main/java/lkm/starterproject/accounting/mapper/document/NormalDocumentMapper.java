@@ -13,11 +13,9 @@ import org.mapstruct.MappingTarget;
 import java.util.List;
 
 @Mapper(componentModel = "spring",
-        uses = {CompanyMapper.class, AccountTitleMapper.class,
-                CustomerMapper.class, CompendiumMapper.class})
+        uses = {AccountTitleMapper.class, CustomerMapper.class, CompendiumMapper.class})
 public interface NormalDocumentMapper {
 
-    @Mapping(target = "company", ignore = true)
     NormalDocumentDto toDto(NormalDocument entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
     NormalDocument toEntity(NormalDocumentDto dto); //DTO -> 엔티티 변환, 클라이언트가보낸 데이터를 엔티티로 변환
 
