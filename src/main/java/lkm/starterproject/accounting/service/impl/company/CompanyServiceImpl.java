@@ -16,6 +16,7 @@ import lkm.starterproject.auth.entity.Member;
 
 import lkm.starterproject.auth.entity.MemberCompany;
 import lkm.starterproject.auth.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
@@ -31,16 +33,6 @@ public class CompanyServiceImpl implements CompanyService {
     private final TaxOfficeRepository taxOfficeRepository;
     private final LocalTaxRepository localTaxRepository;
     private final CSVService csvService;
-
-    public CompanyServiceImpl(CompanyRepository companyRepository, CompanyMapper companyMapper, MemberRepository memberRepository,
-                              TaxOfficeRepository taxOfficeRepository, LocalTaxRepository localTaxRepository, CSVService csvService) {
-        this.companyRepository = companyRepository;
-        this.companyMapper = companyMapper;
-        this.memberRepository = memberRepository;
-        this.taxOfficeRepository = taxOfficeRepository;
-        this.localTaxRepository = localTaxRepository;
-        this.csvService = csvService;
-    }
 
     @Override
     @Transactional

@@ -8,24 +8,19 @@ import lkm.starterproject.accounting.mapper.register.AccountTitleMapper;
 import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.register.AccountTitleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AccountTitleServiceImpl implements AccountTitleService {
 
     private final AccountTitleRepository accountTitleRepository;
     private final AccountTitleMapper accountTitleMapper;
     private final CompanyService companyService;
-
-    public AccountTitleServiceImpl(AccountTitleRepository accountTitleRepository, AccountTitleMapper accountTitleMapper,
-                                   CompanyService companyService) {
-        this.accountTitleRepository = accountTitleRepository;
-        this.accountTitleMapper = accountTitleMapper;
-        this.companyService = companyService;
-    }
 
     @Override
     @Transactional

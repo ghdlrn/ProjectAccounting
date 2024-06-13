@@ -10,26 +10,20 @@ import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.register.CustomerRepository;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.register.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
     private final LocalTaxRepository localTaxRepository;
     private final CompanyService companyService;
-
-    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper,
-                               LocalTaxRepository localTaxRepository, CompanyService companyService) {
-        this.customerRepository = customerRepository;
-        this.customerMapper = customerMapper;
-        this.localTaxRepository = localTaxRepository;
-        this.companyService = companyService;
-    }
 
     @Override
     @Transactional

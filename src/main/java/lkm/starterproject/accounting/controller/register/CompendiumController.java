@@ -3,6 +3,7 @@ package lkm.starterproject.accounting.controller.register;
 import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.register.CompendiumDto;
 import lkm.starterproject.accounting.service.register.CompendiumService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/register/compendium")
+@RequiredArgsConstructor
 public class CompendiumController {
 
     private final CompendiumService compendiumService;
-
-    public CompendiumController(CompendiumService compendiumService) {
-        this.compendiumService = compendiumService;
-    }
 
     @PostMapping("/account-title/{accountTitleId}")
     public ResponseEntity<CompendiumDto> createCompendium(@PathVariable("accountTitleId") Long accountTitleId, @Valid @RequestBody CompendiumDto compendiumDto) {

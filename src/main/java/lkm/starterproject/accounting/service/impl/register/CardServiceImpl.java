@@ -9,24 +9,19 @@ import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.register.CardRepository;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.register.CardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CardServiceImpl implements CardService {
 
     private final CardRepository cardRepository;
     private final CardMapper cardMapper;
     private final CompanyService companyService;
-
-    public CardServiceImpl(CardRepository cardRepository, CardMapper cardMapper,
-                           CompanyService companyService) {
-        this.cardRepository = cardRepository;
-        this.companyService = companyService;
-        this.cardMapper = cardMapper;
-    }
 
     @Override
     @Transactional

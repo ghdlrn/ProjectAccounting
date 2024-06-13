@@ -3,6 +3,7 @@ package lkm.starterproject.accounting.controller.register;
 import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.register.CustomerDto;
 import lkm.starterproject.accounting.service.register.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,13 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/register/customer")
+@RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
-
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
 
     @PostMapping
     public ResponseEntity<CustomerDto> createCustomer(@Valid @RequestBody CustomerDto customerDto) {

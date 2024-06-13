@@ -8,24 +8,19 @@ import lkm.starterproject.accounting.mapper.document.NormalDocumentMapper;
 import lkm.starterproject.accounting.repository.document.NormalDocumentRepository;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.document.NormalDocumentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class NormalDocumentServiceImpl implements NormalDocumentService {
 
     private final NormalDocumentRepository normalDocumentRepository;
     private final NormalDocumentMapper normalDocumentMapper;
     private final CompanyService companyService;
-
-    public NormalDocumentServiceImpl(NormalDocumentRepository normalDocumentRepository, NormalDocumentMapper normalDocumentMapper,
-                               CompanyService companyService) {
-        this.normalDocumentRepository = normalDocumentRepository;
-        this.normalDocumentMapper = normalDocumentMapper;
-        this.companyService = companyService;
-    }
 
     @Override
     @Transactional

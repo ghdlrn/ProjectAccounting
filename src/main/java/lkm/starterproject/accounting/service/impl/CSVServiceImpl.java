@@ -10,6 +10,7 @@ import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.basic.TaxOfficeRepository;
 import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
 import lkm.starterproject.accounting.service.CSVService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +25,12 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CSVServiceImpl implements CSVService {
 
     private final TaxOfficeRepository taxOfficeRepository;
     private final LocalTaxRepository localTaxRepository;
     private final AccountTitleRepository accountTitleRepository;
-
-    @Autowired
-    public CSVServiceImpl(TaxOfficeRepository taxOfficeRepository , LocalTaxRepository localTaxRepository
-    , AccountTitleRepository accountTitleRepository) {
-        this.taxOfficeRepository = taxOfficeRepository;
-        this.localTaxRepository = localTaxRepository;
-        this.accountTitleRepository = accountTitleRepository;
-    }
 
     @PostConstruct
     public void init() {

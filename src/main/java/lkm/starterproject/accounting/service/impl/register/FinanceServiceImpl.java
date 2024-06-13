@@ -10,26 +10,20 @@ import lkm.starterproject.accounting.repository.basic.LocalTaxRepository;
 import lkm.starterproject.accounting.repository.register.FinanceRepository;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.register.FinanceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FinanceServiceImpl implements FinanceService {
 
     private final FinanceRepository financeRepository;
     private final FinanceMapper financeMapper;
     private final LocalTaxRepository localTaxRepository;
     private final CompanyService companyService;
-
-    public FinanceServiceImpl(FinanceRepository financeRepository, FinanceMapper financeMapper,
-                              LocalTaxRepository localTaxRepository, CompanyService companyService) {
-        this.financeRepository = financeRepository;
-        this.financeMapper = financeMapper;
-        this.localTaxRepository = localTaxRepository;
-        this.companyService = companyService;
-    }
 
     @Override
     @Transactional

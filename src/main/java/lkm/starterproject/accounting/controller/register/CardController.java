@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.register.CardDto;
 import lkm.starterproject.accounting.dto.register.CardDto;
 import lkm.starterproject.accounting.service.register.CardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,13 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/register/card")
+@RequiredArgsConstructor
 public class CardController {
 
     private final CardService cardService;
-
-    public CardController(CardService cardService) {
-        this.cardService = cardService;
-    }
 
     @PostMapping
     public ResponseEntity<CardDto> createCard(@Valid @RequestBody CardDto cardDto) {

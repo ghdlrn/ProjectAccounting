@@ -3,6 +3,7 @@ package lkm.starterproject.accounting.controller.register;
 import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.register.AccountTitleDto;
 import lkm.starterproject.accounting.service.register.AccountTitleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,13 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/register/account-title")
+@RequiredArgsConstructor
 public class AccountTitleController {
 
     private final AccountTitleService accountTitleService;
-
-    public AccountTitleController(AccountTitleService accountTitleService) {
-        this.accountTitleService = accountTitleService;
-    }
 
     @PostMapping
     public ResponseEntity<AccountTitleDto> createAccountTitle(@Valid @RequestBody AccountTitleDto accountTitleDto) {

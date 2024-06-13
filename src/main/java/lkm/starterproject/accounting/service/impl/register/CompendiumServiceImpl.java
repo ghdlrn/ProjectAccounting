@@ -9,23 +9,19 @@ import lkm.starterproject.accounting.mapper.register.CompendiumMapper;
 import lkm.starterproject.accounting.repository.register.AccountTitleRepository;
 import lkm.starterproject.accounting.repository.register.CompendiumRepository;
 import lkm.starterproject.accounting.service.register.CompendiumService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CompendiumServiceImpl implements CompendiumService {
 
     private final CompendiumRepository compendiumRepository;
     private final AccountTitleRepository accountTitleRepository;
     private final CompendiumMapper compendiumMapper;
-
-    public CompendiumServiceImpl(CompendiumRepository compendiumRepository, AccountTitleRepository accountTitleRepository, CompendiumMapper compendiumMapper) {
-        this.compendiumRepository = compendiumRepository;
-        this.accountTitleRepository = accountTitleRepository;
-        this.compendiumMapper = compendiumMapper;
-    }
 
     @Override
     @Transactional

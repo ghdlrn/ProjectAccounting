@@ -3,6 +3,7 @@ package lkm.starterproject.accounting.controller.register;
 import jakarta.validation.Valid;
 import lkm.starterproject.accounting.dto.register.FinanceDto;
 import lkm.starterproject.accounting.service.register.FinanceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,13 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/register/finance")
+@RequiredArgsConstructor
 public class FinanceController {
 
     private final FinanceService financeService;
-
-    public FinanceController(FinanceService financeService) {
-        this.financeService = financeService;
-    }
 
     @PostMapping
     public ResponseEntity<FinanceDto> createFinance(@Valid @RequestBody FinanceDto financeDto) {
