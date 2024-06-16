@@ -3,99 +3,12 @@ import { ref, computed } from 'vue';
 import { CalendarOutlined, EditOutlined, PlusOutlined, SearchOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 
-const dialog = ref(false);
-const dialog1 = ref(false);
-
-const items = ref(['Paid', 'Unpaid', 'Cancelled']);
-
 // datepicker
 const selectedDate = ref(null);
 const selectedDate1 = ref(null);
 const computedDateFormattedMomentjs = computed(() => {
   return selectedDate.value;
 });
-const computedDateFormattedMomentjs1 = computed(() => {
-  return selectedDate1.value;
-});
-
-type ListType = {
-  title: string;
-  address: string;
-  contact: string;
-  mail: string;
-};
-
-const SearchList = ref<ListType[]>([
-  {
-    title: 'Ian Carpenter',
-    address: '1754 Ureate, RhodSA5 5BO',
-    contact: '+91 1234567890',
-    mail: 'iacrpt65@gmail.com'
-  },
-  {
-    title: 'Belle J. Richter',
-    address: '1300 Mine RoadQuemado, NM 87829',
-    contact: '305-829-7809',
-    mail: 'belljrc23@gmail.com'
-  },
-  {
-    title: 'Ritika Yohannan',
-    address: '3488 Arbutus DriveMiami, FL',
-    contact: '+91 1234567890',
-    mail: 'rtyhn65@gmail.com'
-  },
-  {
-    title: 'Jesse G. Hassen',
-    address: '3488 Arbutus DriveMiami, FL 33012',
-    contact: '+91 1234567890',
-    mail: 'jessghs78@gmail.com'
-  },
-  {
-    title: 'Christopher P. Iacovelli',
-    address: '4388 House DriveWesrville, OH',
-    contact: '+91 1234567890',
-    mail: 'crpthl643@gmail.com'
-  },
-  {
-    title: 'Thomas D. Johnson',
-    address: '4388 House DriveWestville, OH',
-    contact: '+91 1234567890',
-    mail: 'thomshj56@gmail.com'
-  }
-]);
-
-const selectedItem = ref<ListType[]>([{ title: '', address: '', contact: '', mail: '' }]);
-
-let TitleContent = 'Belle J. Richter';
-let AddressContent = '1300 Cooks Mine, NM 87829';
-let ContactContent = '305-829-7809';
-let MailContent = 'belljrc23@gmail.com';
-
-let TitleContent1 = '';
-let AddressContent1 = '';
-let ContactContent1 = '';
-let MailContent1 = '';
-
-function selectItem(item: ListType) {
-  // update content
-  TitleContent = item.title;
-  AddressContent = item.address;
-  ContactContent = item.contact;
-  MailContent = item.mail;
-
-  TitleContent1 = item.title;
-  AddressContent1 = item.address;
-  ContactContent1 = item.contact;
-  MailContent1 = item.mail;
-}
-
-function selectItem1(item: ListType) {
-  // update content
-  TitleContent1 = item.title;
-  AddressContent1 = item.address;
-  ContactContent1 = item.contact;
-  MailContent1 = item.mail;
-}
 
 // table data
 type TableType = {
@@ -132,6 +45,7 @@ function deleteRow(index: number) {
   tableData.value.splice(index, 1);
 }
 </script>
+
 <template>
   <UiParentCard title="일반 전표 등록" class="reference" >
   <v-row>
@@ -140,32 +54,7 @@ function deleteRow(index: number) {
         <v-card-item>
           <v-row>
             <v-col cols="12" md="3">
-              <v-label class="mb-2">Invoice Id</v-label>
-              <v-text-field
-                  single-line
-                  variant="outlined"
-                  aria-label="id"
-                  hide-details
-                  type="number"
-                  color="primary"
-                  placeholder="1701150654836"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="3">
-              <v-label class="mb-2">Status</v-label>
-              <v-autocomplete
-                  aria-label="autocomplete"
-                  model-value="Unpaid"
-                  :items="items"
-                  color="primary"
-                  variant="outlined"
-                  hide-details
-                  single-line
-                  density="default"
-              ></v-autocomplete>
-            </v-col>
-            <v-col cols="12" md="3">
-              <v-label class="mb-2">Date</v-label>
+              <v-label class="mb-2">날짜</v-label>
               <v-menu :close-on-content-click="false">
                 <template v-slot:activator="{ props }">
                   <v-text-field
@@ -186,182 +75,22 @@ function deleteRow(index: number) {
                 <v-date-picker v-model="selectedDate" hide-header color="primary"></v-date-picker>
               </v-menu>
             </v-col>
-            <v-col cols="12" md="3">
-              <v-label class="mb-2">Due Date</v-label>
-              <v-menu :close-on-content-click="false">
-                <template v-slot:activator="{ props }">
-                  <v-text-field
-                      single-line
-                      variant="outlined"
-                      hide-details
-                      v-bind="props"
-                      v-model="computedDateFormattedMomentjs1"
-                      label="Selected Date"
-                      readonly
-                      color="primary"
-                  >
-                    <template v-slot:append-inner>
-                      <CalendarOutlined />
-                    </template>
-                  </v-text-field>
-                </template>
-                <v-date-picker v-model="selectedDate1" hide-header color="primary"></v-date-picker>
-              </v-menu>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-card variant="outlined">
-                <v-card-item>
-                  <div class="d-flex justify-space-between">
-                    <div>
-                      <h5 class="text-h5 mb-4">From:</h5>
-                      <h6 class="text-subtitle-1 mb-0" v-if="selectedItem">{{ TitleContent }}</h6>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ AddressContent }}</p>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ ContactContent }}</p>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ MailContent }}</p>
-                    </div>
-                    <v-btn color="secondary" size="small" variant="outlined" @click="dialog = true">
-                      <template v-slot:prepend>
-                        <EditOutlined />
-                      </template>
-                      Change
-                    </v-btn>
-                    <v-dialog v-model="dialog" width="510">
-                      <v-card>
-                        <v-card-title class="py-4">
-                          <div class="d-flex justify-space-between align-center">
-                            <h5 class="text-h5 mb-0">Select Address</h5>
-                            <v-btn variant="text" color="primary">
-                              <template v-slot:prepend>
-                                <PlusOutlined />
-                              </template>
-                              Add New
-                            </v-btn>
-                          </div>
-                        </v-card-title>
-                        <v-divider></v-divider>
-                        <v-card-text>
-                          <perfect-scrollbar style="height: 360px">
-                            <v-text-field type="text" variant="outlined" persistent-placeholder placeholder="Search" hide-details>
-                              <template v-slot:prepend-inner>
-                                <SearchOutlined class="text-lightText" />
-                              </template>
-                            </v-text-field>
-                            <v-list class="py-0 mt-3">
-                              <v-list-item
-                                  class="pa-0 mb-3 rounded-md"
-                                  v-for="(item, i) in SearchList"
-                                  :value="item.title"
-                                  :key="i"
-                                  @click="selectItem(item)"
-                              >
-                                <v-card variant="outlined" class="overflow-hidden">
-                                  <v-card-item class="pa-3">
-                                    <h6 class="text-subtitle-1 mb-0">{{ item.title }}</h6>
-                                    <div class="d-flex gap-2">
-                                      <p class="text-caption text-lightText mb-0">{{ item.address }}</p>
-                                      <p class="text-caption text-lightText mb-0">{{ item.contact }}</p>
-                                      <p class="text-caption text-lightText mb-0">{{ item.mail }}</p>
-                                    </div>
-                                  </v-card-item>
-                                </v-card>
-                              </v-list-item>
-                            </v-list>
-                          </perfect-scrollbar>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-actions class="ml-auto">
-                          <v-btn color="error" variant="text" @click="dialog = false">Cancel</v-btn>
-                          <v-btn color="primary" variant="flat" @click="dialog = false">Add</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </div>
-                </v-card-item>
-              </v-card>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-card variant="outlined" class="h-100">
-                <v-card-item>
-                  <div class="d-flex justify-space-between">
-                    <div>
-                      <h5 class="text-h5 mb-4">To:</h5>
-                      <h6 class="text-subtitle-1 mb-0" v-if="selectedItem">{{ TitleContent1 }}</h6>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ AddressContent1 }}</p>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ ContactContent1 }}</p>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ MailContent1 }}</p>
-                    </div>
-                    <v-btn color="secondary" size="small" variant="outlined" @click="dialog1 = true">
-                      <template v-slot:prepend>
-                        <PlusOutlined />
-                      </template>
-                      Add
-                    </v-btn>
-                    <v-dialog v-model="dialog1" width="510">
-                      <v-card>
-                        <v-card-title class="py-4">
-                          <div class="d-flex justify-space-between align-center">
-                            <h5 class="text-h5 mb-0">Select Address</h5>
-                            <v-btn variant="text" color="primary">
-                              <template v-slot:prepend>
-                                <PlusOutlined />
-                              </template>
-                              Add New
-                            </v-btn>
-                          </div>
-                        </v-card-title>
-                        <v-divider></v-divider>
-                        <v-card-text>
-                          <perfect-scrollbar style="height: 360px">
-                            <v-text-field type="text" variant="outlined" persistent-placeholder placeholder="Search" hide-details>
-                              <template v-slot:prepend-inner>
-                                <SearchOutlined class="text-lightText" />
-                              </template>
-                            </v-text-field>
-                            <v-list class="py-0 mt-3">
-                              <v-list-item
-                                  class="pa-0 mb-3 rounded-md"
-                                  v-for="(item, i) in SearchList"
-                                  :value="item.title"
-                                  :key="i"
-                                  @click="selectItem1(item)"
-                              >
-                                <v-card variant="outlined" class="overflow-hidden">
-                                  <v-card-item class="pa-3">
-                                    <h6 class="text-subtitle-1 mb-0">{{ item.title }}</h6>
-                                    <div class="d-flex gap-2">
-                                      <p class="text-caption text-lightText mb-0">{{ item.address }}</p>
-                                      <p class="text-caption text-lightText mb-0">{{ item.contact }}</p>
-                                      <p class="text-caption text-lightText mb-0">{{ item.mail }}</p>
-                                    </div>
-                                  </v-card-item>
-                                </v-card>
-                              </v-list-item>
-                            </v-list>
-                          </perfect-scrollbar>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-actions class="ml-auto">
-                          <v-btn color="error" variant="text" @click="dialog1 = false">Cancel</v-btn>
-                          <v-btn color="primary" variant="flat" @click="dialog1 = false">Add</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </div>
-                </v-card-item>
-              </v-card>
-            </v-col>
+<!--.table--------------------------------------------------------------------------------------------------------------->
             <v-col cols="12">
-              <h5 class="text-h5">Detail</h5>
               <v-table class="bordered-table" hover>
                 <thead class="bg-containerBg">
                 <tr>
-                  <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 50px">#</th>
-                  <th class="text-left text-uppercase text-caption font-weight-bold" style="min-width: 270px">Name</th>
-                  <th class="text-left text-uppercase text-caption font-weight-bold" style="min-width: 270px">Description</th>
-                  <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 270px; min-width: 100px">Qty</th>
-                  <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 270px; min-width: 100px">Price</th>
-                  <th class="text-right text-uppercase text-caption font-weight-bold" style="width: 97px">Amount</th>
-                  <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 124px">Action</th>
+                  <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 50px">순번</th>
+                  <th class="text-left text-uppercase text-caption font-weight-bold" style="min-width: 97px">구분</th>
+                  <th class="text-left text-uppercase text-caption font-weight-bold" style="min-width: 97px">계정과목 코드</th>
+                  <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 200px; min-width: 100px">계정과목</th>
+                  <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 97px; min-width: 100px">거래처 코드</th>
+                  <th class="text-right text-uppercase text-caption font-weight-bold" style="width: 200px">거래처</th>
+                  <th class="text-right text-uppercase text-caption font-weight-bold" style="width: 97px">적요 코드</th>
+                  <th class="text-right text-uppercase text-caption font-weight-bold" style="width: 200px">적요</th>
+                  <th class="text-right text-uppercase text-caption font-weight-bold" style="width: 200px">차변</th>
+                  <th class="text-right text-uppercase text-caption font-weight-bold" style="width: 200px">대변</th>
+                  <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 97px">삭제</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -486,3 +215,7 @@ function deleteRow(index: number) {
   </v-row>
   </UiParentCard>
 </template>
+
+<style lang="scss">
+
+</style>
