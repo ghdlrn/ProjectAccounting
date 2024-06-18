@@ -4,9 +4,11 @@ import NormalDocumentReference from "~/components/document/NormalDocumentReferen
 </script>
 
 <template>
-  <NormalDocumentReference />
+  <NormalDocumentReference class="normal" />
 </template>
 
 <style scoped lang="scss">
-
+.normal {
+  width: 100%;
+}
 </style>

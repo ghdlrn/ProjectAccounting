@@ -4,14 +4,15 @@ import { CalendarOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icon
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import { useNormalDocumentStore } from "~/stores/accounting/normal-document";
 import type { NormalDocument } from "~/types/accounting/normal-document";
+import moment from 'moment-timezone';
 
 // Initialize the store
 const normalDocumentStore = useNormalDocumentStore();
 
 // Set default date to today
-const selectedDate = ref(new Date());
+const selectedDate = ref(moment().tz('Asia/Seoul').subtract(0, 'days').toDate());
 const computedDateFormattedMomentjs = computed(() => {
-  return selectedDate.value.toISOString().split('T')[0]; // Format date as yyyy-MM-dd
+  return moment(selectedDate.value).format('YYYY-MM-DD'); // Format date as yyyy-MM-dd
 });
 
 // Fetch documents when date changes
@@ -41,8 +42,8 @@ function deleteRow(index: number) {
   tableData.value.splice(index, 1);
 }
 
-const debitTotal = computed(() => tableData.value.reduce((sum, item) => sum + item.debit, 0));
-const creditTotal = computed(() => tableData.value.reduce((sum, item) => sum + item.credit, 0));
+const debitTotal = computed(() => tableData.value.reduce((sum, item) => sum + Number(item.debit), 0));
+const creditTotal = computed(() => tableData.value.reduce((sum, item) => sum + Number(item.credit), 0));
 const difference = computed(() => debitTotal.value - creditTotal.value);
 
 function register() {
@@ -124,7 +125,7 @@ function register() {
                           type="number"
                           single-line
                           hide-details
-                          v-model="item.accountTitle.code"
+                          v-model.number="item.accountTitle.code"
                       ></v-text-field>
                     </td>
                     <!--계정과목-->
@@ -146,7 +147,7 @@ function register() {
                           type="number"
                           single-line
                           hide-details
-                          v-model="item.customer.code"
+                          v-model.number="item.customer.code"
                       ></v-text-field>
                     </td>
                     <!--거래처명-->
@@ -168,7 +169,7 @@ function register() {
                           type="number"
                           single-line
                           hide-details
-                          v-model="item.compendium.code"
+                          v-model.number="item.compendium.code"
                       ></v-text-field>
                     </td>
                     <!--적요 내용-->
@@ -190,7 +191,7 @@ function register() {
                           type="number"
                           single-line
                           hide-details
-                          v-model="item.debit"
+                          v-model.number="item.debit"
                       ></v-text-field>
                     </td>
                     <!--대변-->
@@ -201,7 +202,7 @@ function register() {
                           type="number"
                           single-line
                           hide-details
-                          v-model="item.credit"
+                          v-model.number="item.credit"
                       ></v-text-field>
                     </td>
                     <!--테이블 삭제-->
@@ -251,20 +252,24 @@ function register() {
                         <v-label class="mb-2">차변 총 합</v-label>
                         <v-text-field
                             variant="outlined"
-                            aria-label="discount"
+                            aria-label="debitTotal"
                             single-line
                             hide-details
                             type="number"
+                            :value="debitTotal"
+                            readonly
                         ></v-text-field>
                       </v-col>
                       <v-col cols="6">
                         <v-label class="mb-2">대변 총 합</v-label>
                         <v-text-field
                             variant="outlined"
-                            aria-label="tax"
+                            aria-label="creditTotal"
                             single-line
                             hide-details
                             type="number"
+                            :value="creditTotal"
+                            readonly
                         ></v-text-field>
                       </v-col>
                     </v-row>
