@@ -218,7 +218,7 @@ function deleteRow(index: number) {
                       <v-list-item class="px-0">
                         <p class="text-subtitle-1 mb-0">차변</p>
                         <template v-slot:append>
-                          <p class="text-h6 mb-0">ㅇㄴㅁㅇㄴㅁ</p>
+                          <p class="text-h6 mb-0"></p>
                         </template>
                       </v-list-item>
                       <v-list-item class="px-0">
