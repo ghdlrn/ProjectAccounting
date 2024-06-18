@@ -3,7 +3,7 @@ import { ref, computed, watch } from 'vue';
 import { CalendarOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import { useNormalDocumentStore } from "~/stores/accounting/normal-document";
-import type { NormalDocument } from "~/types/accounting/normal-document"
+import type { NormalDocument } from "~/types/accounting/normal-document";
 
 // Initialize the store
 const normalDocumentStore = useNormalDocumentStore();
@@ -11,7 +11,7 @@ const normalDocumentStore = useNormalDocumentStore();
 // Set default date to today
 const selectedDate = ref(new Date());
 const computedDateFormattedMomentjs = computed(() => {
-  return selectedDate.value;
+  return selectedDate.value.toISOString().split('T')[0]; // Format date as yyyy-MM-dd
 });
 
 // Fetch documents when date changes
@@ -40,6 +40,19 @@ function tableItem() {
 function deleteRow(index: number) {
   tableData.value.splice(index, 1);
 }
+
+const debitTotal = computed(() => tableData.value.reduce((sum, item) => sum + item.debit, 0));
+const creditTotal = computed(() => tableData.value.reduce((sum, item) => sum + item.credit, 0));
+const difference = computed(() => debitTotal.value - creditTotal.value);
+
+function register() {
+  if (difference.value !== 0) {
+    alert("이 때, 차변과 대변의 합이 일치하지 않습니다");
+  } else {
+    // proceed with registration logic
+    console.log("Registration successful");
+  }
+}
 </script>
 
 <template>
@@ -51,7 +64,7 @@ function deleteRow(index: number) {
             <v-row>
               <v-col cols="12" md="3">
                 <v-label class="mb-2">날짜</v-label>
-                <v-menu :close-on-content-click="false">
+                <v-menu :close-on-content-click="true">
                   <template v-slot:activator="{ props }">
                     <v-text-field
                         single-line
@@ -96,7 +109,7 @@ function deleteRow(index: number) {
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="quantity"
+                          aria-label="division"
                           type="text"
                           single-line
                           hide-details
@@ -107,7 +120,7 @@ function deleteRow(index: number) {
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="quantity"
+                          aria-label="accountTitleCode"
                           type="number"
                           single-line
                           hide-details
@@ -118,7 +131,7 @@ function deleteRow(index: number) {
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="quantity"
+                          aria-label="accountTitleName"
                           type="text"
                           single-line
                           hide-details
@@ -129,18 +142,18 @@ function deleteRow(index: number) {
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="price"
+                          aria-label="customerCode"
                           type="number"
                           single-line
                           hide-details
-                          v-model="item.customer.id"
+                          v-model="item.customer.code"
                       ></v-text-field>
                     </td>
                     <!--거래처명-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="price"
+                          aria-label="customerName"
                           type="text"
                           single-line
                           hide-details
@@ -151,7 +164,7 @@ function deleteRow(index: number) {
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="price"
+                          aria-label="compendiumCode"
                           type="number"
                           single-line
                           hide-details
@@ -162,7 +175,7 @@ function deleteRow(index: number) {
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="price"
+                          aria-label="compendiumContent"
                           type="text"
                           single-line
                           hide-details
@@ -173,7 +186,7 @@ function deleteRow(index: number) {
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="price"
+                          aria-label="debit"
                           type="number"
                           single-line
                           hide-details
@@ -184,7 +197,7 @@ function deleteRow(index: number) {
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                           variant="outlined"
-                          aria-label="price"
+                          aria-label="credit"
                           type="number"
                           single-line
                           hide-details
@@ -213,24 +226,23 @@ function deleteRow(index: number) {
                     </v-btn>
                   </v-col>
                   <v-col cols="12" sm="5" md="4">
-
                     <v-list density="compact" aria-label="total list" aria-busy="true">
                       <v-list-item class="px-0">
-                        <p class="text-subtitle-1 mb-0">차변</p>
+                        <p class="text-subtitle-1 mb-0">차변 총 합</p>
                         <template v-slot:append>
-                          <p class="text-h6 mb-0"></p>
+                          <p class="text-h6 mb-0">{{ debitTotal }}</p>
                         </template>
                       </v-list-item>
                       <v-list-item class="px-0">
-                        <p class="text-subtitle-1 mb-0">대변</p>
+                        <p class="text-subtitle-1 mb-0">대변 총 합</p>
                         <template v-slot:append>
-                          <p class="text-h6 mb-0">ㅁㄴㅇㄴㅁ</p>
+                          <p class="text-h6 mb-0">{{ creditTotal }}</p>
                         </template>
                       </v-list-item>
                       <v-list-item class="px-0">
-                        <p class="text-h6 text-lightText text-error mb-0">오차</p>
+                        <p :class="['text-h6', 'mb-0', difference === 0 ? 'text-primary' : 'text-error']">오차</p>
                         <template v-slot:append>
-                          <p class="text-h6 mb-0 text-error">ㅁㄴㅇㄴㅁㅇ</p>
+                          <p :class="['text-h6', 'mb-0', difference === 0 ? 'text-primary' : 'text-error']">{{ difference }}</p>
                         </template>
                       </v-list-item>
                     </v-list>
@@ -259,11 +271,10 @@ function deleteRow(index: number) {
                   </v-col>
                 </v-row>
               </v-col>
-
               <v-row class="mx-0 mb-0 mt-2 align-end">
                 <v-col cols="12">
                   <div class="text-right">
-                    <v-btn color="primary" variant="flat" size="x-large">등록</v-btn>
+                    <v-btn color="primary" variant="flat" size="x-large" @click="register">등록</v-btn>
                   </div>
                 </v-col>
               </v-row>
