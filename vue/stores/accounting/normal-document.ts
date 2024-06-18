@@ -8,9 +8,16 @@ export const useNormalDocumentStore = defineStore('normalDocument', {
         currentNormalDocument: null as NormalDocument | null,
     }),
     actions: {
-        async fetchNormalDocument() {
+        async fetchNormalDocument(date: Date | null = null) {
             try {
-                const response = await useNuxtApp().$api.get(`/register/normalDocument`);
+                let response;
+                if (date) {
+                    response = await useNuxtApp().$api.get(`/register/normalDocument`, {
+                        params: { date }
+                    });
+                } else {
+                    response = await useNuxtApp().$api.get(`/register/normalDocument`);
+                }
                 this.normalDocument = response.data;
             } catch (error: any) {
                 console.error('전표 목록 조회 실패', error);
