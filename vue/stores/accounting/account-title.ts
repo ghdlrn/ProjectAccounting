@@ -70,6 +70,9 @@ export const useAccountTitleStore = defineStore('accountTitle', {
                 console.error('계정과목 정보 삭제 실패', error.message);
                 throw new Error('계정과목 정보 삭제 실패');
             }
+        },
+        setSelectedAccountTitle(accountTitle: AccountTitle) {
+            this.currentAccountTitle = accountTitle;
         }
     }
 });

@@ -70,6 +70,9 @@ export const useCompendiumStore = defineStore('compendium', {
                 console.error('적요 정보 삭제 실패', error.message);
                 throw new Error('적요 정보 삭제 실패');
             }
+        },
+        setSelectedCompendium(compendium: Compendium) {
+            this.currentCompendium = compendium;
         }
     }
 });

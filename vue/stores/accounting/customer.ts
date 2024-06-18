@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import type { Customer } from "~/types/accounting/customer";
 import { useNuxtApp } from "#app";
+import type {TaxOffice} from "~/types/accounting/basicdata/taxOffice";
 
 export const useCustomerStore = defineStore('customer', {
     state: () => ({
@@ -70,6 +71,9 @@ export const useCustomerStore = defineStore('customer', {
                 console.error('거래처 정보 삭제 실패', error.message);
                 throw new Error('거래처 정보 삭제 실패');
             }
+        },
+        setSelectedCustomer(customer: Customer) {
+            this.currentCustomer = customer;
         }
     }
 });

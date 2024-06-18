@@ -5,6 +5,9 @@ import UiParentCard from "~/components/shared/UiParentCard.vue";
 import { useNormalDocumentStore } from "~/stores/accounting/normal-document";
 import type { NormalDocument } from "~/types/accounting/normal-document";
 import moment from 'moment-timezone';
+import CustomerInfo from "~/components/basicData/CustomerInfo.vue";
+import AccountTitleInfo from "~/components/basicData/AccountTitleInfo.vue";
+import CompendiumInfo from "~/components/basicData/CompendiumInfo.vue";
 
 // Initialize the store
 const normalDocumentStore = useNormalDocumentStore();
@@ -29,12 +32,11 @@ function tableItem() {
     date: new Date(),
     division: '',
     accountTitle: { code: '', name: '' },
-    customer: { code: '', name: '' },
+    customer: { id: '', name: '' },
     compendium: { code: '', content: '' },
     debit: 0,
     credit: 0
   };
-
   normalDocumentStore.normalDocument.push(newItem);
 }
 
@@ -108,25 +110,22 @@ function register() {
                     <td class="text-subtitle-1 font-weight-regular py-3">{{ item.code }}</td>
                     <!--구분-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <v-text-field
+                      <v-select
+                          v-model="item.division"
+                          :items="['출금', '입금', '차변', '대변', '결산차변', '결산대변']"
                           variant="outlined"
+                          color="primary"
                           aria-label="division"
                           type="text"
                           single-line
                           hide-details
-                          v-model="item.division"
-                      ></v-text-field>
+                      ></v-select>
                     </td>
                     <!--계정과목코드-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <v-text-field
-                          variant="outlined"
-                          aria-label="accountTitleCode"
-                          type="number"
-                          single-line
-                          hide-details
-                          v-model.number="item.accountTitle.code"
-                      ></v-text-field>
+                      <AccountTitleInfo
+                        v-model="item.accountTitle.code"
+                      />
                     </td>
                     <!--계정과목-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
@@ -141,18 +140,14 @@ function register() {
                     </td>
                     <!--거래처코드-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <v-text-field
-                          variant="outlined"
-                          aria-label="customerCode"
-                          type="number"
-                          single-line
-                          hide-details
-                          v-model.number="item.customer.code"
-                      ></v-text-field>
+                      <CustomerInfo
+                          v-model="item.customer.id"
+                      />
                     </td>
                     <!--거래처명-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
+                          readonly
                           variant="outlined"
                           aria-label="customerName"
                           type="text"
@@ -163,14 +158,9 @@ function register() {
                     </td>
                     <!--적요코드-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <v-text-field
-                          variant="outlined"
-                          aria-label="compendiumCode"
-                          type="number"
-                          single-line
-                          hide-details
-                          v-model.number="item.compendium.code"
-                      ></v-text-field>
+                      <CompendiumInfo
+                        v-model="item.compendium.code"
+                      />
                     </td>
                     <!--적요 내용-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
