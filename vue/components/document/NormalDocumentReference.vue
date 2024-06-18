@@ -27,9 +27,9 @@ function tableItem() {
     code: tableData.value.length + 1,
     date: new Date(),
     division: '',
-    accountTitle: { code: '', name: '' },
-    customer: { id: '', name: '' },
-    compendium: { code: '', content: '' },
+    accountTitle: '',
+    customer: '',
+    compendium: '',
     debit: 0,
     credit: 0
   };
@@ -87,11 +87,9 @@ function register() {
                   <thead class="bg-containerBg">
                   <tr>
                     <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 50px">번호</th>
-                    <th class="text-center text-uppercase text-caption font-weight-bold" style="min-width: 97px">구분</th>
-                    <th class="text-center text-uppercase text-caption font-weight-bold" style="min-width: 97px">계정과목 코드</th>
-                    <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 200px; min-width: 100px">계정과목</th>
-                    <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 97px; min-width: 100px">거래처 코드</th>
-                    <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 200px">거래처</th>
+                    <th class="text-center text-uppercase text-caption font-weight-bold" style="min-width: 150px">구분</th>
+                    <th class="text-center text-uppercase text-caption font-weight-bold" style="min-width: 200px">계정과목</th>
+                    <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 200px; min-width: 100px">거래처</th>
                     <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 97px">적요 코드</th>
                     <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 200px">적요</th>
                     <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 200px">차변</th>
@@ -116,36 +114,13 @@ function register() {
                           hide-details
                       ></v-select>
                     </td>
-                    <!--계정과목코드-->
-                    <td class="text-subtitle-1 font-weight-regular py-3">
-                      <AccountTitleInfo v-model="item.accountTitle" />
-                    </td>
                     <!--계정과목-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <v-text-field
-                          variant="outlined"
-                          aria-label="accountTitleName"
-                          type="text"
-                          single-line
-                          hide-details
-                          v-model="item.accountTitle.name"
-                      ></v-text-field>
+                      <AccountTitleInfo v-model="item.accountTitle" />
                     </td>
                     <!--거래처코드-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <CustomerInfo v-model="item.customer"/>
-                    </td>
-                    <!--거래처명-->
-                    <td class="text-subtitle-1 font-weight-regular py-3">
-                      <v-text-field
-                          readonly
-                          variant="outlined"
-                          aria-label="customerName"
-                          type="text"
-                          single-line
-                          hide-details
-                          v-model="item.customer.name"
-                      ></v-text-field>
                     </td>
                     <!--적요코드-->
                     <td class="text-subtitle-1 font-weight-regular py-3">

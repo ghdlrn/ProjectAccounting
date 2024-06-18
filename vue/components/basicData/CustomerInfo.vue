@@ -13,6 +13,9 @@
             v-model="displayValue"
             v-bind="props"
             variant="outlined"
+            type="text"
+            single-line
+            hide-details
             color="primary"/>
       </template>
       <PerfectScrollbar>
