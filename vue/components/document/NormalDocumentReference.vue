@@ -1,45 +1,16 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { CalendarOutlined, EditOutlined, PlusOutlined, SearchOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import { CalendarOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import UiParentCard from "~/components/shared/UiParentCard.vue";
-
+import type { NormalDocument } from "~/types/accounting/normal-document"
 // datepicker
 const selectedDate = ref(null);
-const selectedDate1 = ref(null);
 const computedDateFormattedMomentjs = computed(() => {
   return selectedDate.value;
 });
-
 // table data
-type TableType = {
-  number: number;
-  name: string;
-  description: string;
-  qty: number;
-  price: string;
-};
 
-const tableData = ref<TableType[]>([
-  {
-    number: 1,
-    name: 'Item name',
-    description: 'Description',
-    qty: 1,
-    price: '1.00'
-  }
-]);
-
-function tableItem() {
-  const newItem: TableType = {
-    number: tableData.value.length + 1,
-    name: 'Item name',
-    description: 'Description',
-    qty: 1,
-    price: '1.00'
-  };
-
-  tableData.value.push(newItem);
-}
+const tableData = ref<NormalDocument[]>([]);
 
 function deleteRow(index: number) {
   tableData.value.splice(index, 1);
@@ -65,8 +36,7 @@ function deleteRow(index: number) {
                       v-model="computedDateFormattedMomentjs"
                       label="Selected Date"
                       readonly
-                      color="primary"
-                  >
+                      color="primary">
                     <template v-slot:append-inner>
                       <CalendarOutlined />
                     </template>
@@ -80,7 +50,7 @@ function deleteRow(index: number) {
               <v-table class="bordered-table" hover>
                 <thead class="bg-containerBg">
                 <tr>
-                  <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 50px">순번</th>
+                  <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 50px">번호</th>
                   <th class="text-left text-uppercase text-caption font-weight-bold" style="min-width: 97px">구분</th>
                   <th class="text-left text-uppercase text-caption font-weight-bold" style="min-width: 97px">계정과목 코드</th>
                   <th class="text-left text-uppercase text-caption font-weight-bold" style="width: 200px; min-width: 100px">계정과목</th>
@@ -95,13 +65,9 @@ function deleteRow(index: number) {
                 </thead>
                 <tbody>
                 <tr class="text-lighttext" v-for="(item, index) in tableData" :key="index">
-                  <td class="text-subtitle-1 font-weight-regular py-3">{{ item.number }}</td>
-                  <td class="text-subtitle-1 font-weight-regular py-3">
-                    <v-text-field variant="outlined" single-line hide-details :placeholder="item.name"></v-text-field>
-                  </td>
-                  <td class="text-subtitle-1 font-weight-regular py-3">
-                    <v-text-field variant="outlined" single-line hide-details :placeholder="item.description"></v-text-field>
-                  </td>
+<!--번호-->
+                  <td class="text-subtitle-1 font-weight-regular py-3">{{ item.code }}</td>
+<!--구분-->
                   <td class="text-subtitle-1 font-weight-regular py-3">
                     <v-text-field
                         variant="outlined"
@@ -109,9 +75,32 @@ function deleteRow(index: number) {
                         type="number"
                         single-line
                         hide-details
-                        :model-value="item.qty"
+                        :model-value="item.division"
                     ></v-text-field>
                   </td>
+<!--계정과목코드-->
+                  <td class="text-subtitle-1 font-weight-regular py-3">
+                    <v-text-field
+                        variant="outlined"
+                        aria-label="quantity"
+                        type="number"
+                        single-line
+                        hide-details
+                        :model-value="item.accountTitle.code"
+                    ></v-text-field>
+                  </td>
+<!--계정과목-->
+                  <td class="text-subtitle-1 font-weight-regular py-3">
+                    <v-text-field
+                        variant="outlined"
+                        aria-label="quantity"
+                        type="number"
+                        single-line
+                        hide-details
+                        :model-value="item.accountTitle.code"
+                    ></v-text-field>
+                  </td>
+<!--거래처코드-->
                   <td class="text-subtitle-1 font-weight-regular py-3">
                     <v-text-field
                         variant="outlined"
@@ -119,10 +108,65 @@ function deleteRow(index: number) {
                         type="number"
                         single-line
                         hide-details
-                        :model-value="item.price"
+                        :model-value="item.customer.id"
                     ></v-text-field>
                   </td>
-                  <td class="text-subtitle-1 font-weight-regular py-3 text-right">${{ item.price }}</td>
+<!--거래처명-->
+                  <td class="text-subtitle-1 font-weight-regular py-3">
+                    <v-text-field
+                        variant="outlined"
+                        aria-label="price"
+                        type="number"
+                        single-line
+                        hide-details
+                        :model-value="item.customer.name"
+                    ></v-text-field>
+                  </td>
+<!--적요코드-->
+                  <td class="text-subtitle-1 font-weight-regular py-3">
+                    <v-text-field
+                        variant="outlined"
+                        aria-label="price"
+                        type="number"
+                        single-line
+                        hide-details
+                        :model-value="item.compendium.code"
+                    ></v-text-field>
+                  </td>
+<!--적요 내용-->
+                  <td class="text-subtitle-1 font-weight-regular py-3">
+                    <v-text-field
+                        variant="outlined"
+                        aria-label="price"
+                        type="number"
+                        single-line
+                        hide-details
+                        :model-value="item.compendium.content"
+                    ></v-text-field>
+                  </td>
+<!--차변-->
+                  <td class="text-subtitle-1 font-weight-regular py-3">
+                    <v-text-field
+                        variant="outlined"
+                        aria-label="price"
+                        type="number"
+                        single-line
+                        hide-details
+                        :model-value="item.debit"
+                    ></v-text-field>
+                  </td>
+<!--대변-->
+                  <td class="text-subtitle-1 font-weight-regular py-3">
+                    <v-text-field
+                        variant="outlined"
+                        aria-label="price"
+                        type="number"
+                        single-line
+                        hide-details
+                        :model-value="item.credit"
+                    ></v-text-field>
+                  </td>
+<!--테이블 삭제-->
                   <td class="text-subtitle-1 font-weight-regular py-3 text-center">
                     <v-btn color="error" icon rounded variant="text" @click="deleteRow(index)">
                       <DeleteOutlined />
@@ -131,10 +175,12 @@ function deleteRow(index: number) {
                 </tr>
                 </tbody>
               </v-table>
+
               <v-divider></v-divider>
+
               <v-row class="mt-2">
                 <v-col cols="12" sm="7" md="8">
-                  <v-btn color="primary" class="primary-dashed" variant="tonal" @click="tableItem()">
+                  <v-btn color="primary" class="primary-dashed" variant="tonal" @click="">
                     <template v-slot:prepend>
                       <PlusOutlined />
                     </template>

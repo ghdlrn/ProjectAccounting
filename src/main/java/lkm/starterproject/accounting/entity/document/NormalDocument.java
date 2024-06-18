@@ -21,6 +21,8 @@ public class NormalDocument extends BaseEntity {
     @Column(name = "normal_document_id")
     private Long id;
 
+    private Long code;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
@@ -31,17 +33,17 @@ public class NormalDocument extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_title_id")
-    private AccountTitle accountTitle;
+    private AccountTitle accountTitle;  //계정과목
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private Customer customer;  //거래처
 
     @ManyToOne
     @JoinColumn(name = "compendium_id")
-    private Compendium compendium;
+    private Compendium compendium;  //적요
 
-    private Long debit;
+    private Long debit; //차변
 
-    private Long credit;
+    private Long credit;    //대변
 }
