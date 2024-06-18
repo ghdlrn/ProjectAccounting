@@ -42,11 +42,13 @@ public class CompanyServiceImpl implements CompanyService {
         if (member == null) {
             throw new EntityNotFoundException("Member not found");
         }
-        MemberCompany memberCompany = new MemberCompany();
-        memberCompany.setMember(member);
-        memberCompany.setCompany(company);
-        memberCompany.setRole(Role.MASTER);
-        memberCompany.setCurrentCompany(false);
+        MemberCompany memberCompany = MemberCompany.builder()
+                .member(member)
+                .company(company)
+                .role(Role.MASTER)
+                .currentCompany(false)
+                .code(generateMemberCompanyCode(member))
+                .build();
         company.getMemberCompanies().add(memberCompany);
         assignLocalTaxAndTaxOffice(company, companyDto);
         company = companyRepository.save(company);
@@ -66,7 +68,9 @@ public class CompanyServiceImpl implements CompanyService {
                 .map(company -> {
                     boolean currentCompany = company.getMemberCompanies().stream()
                             .anyMatch(mc -> mc.getMember().equals(member) && mc.isCurrentCompany());
-                    return companyMapper.toDtoWithCurrentCompany(company, currentCompany);
+                    CompanyDto companyDto = companyMapper.toDtoWithCurrentCompany(company, currentCompany);
+                    companyDto.setMemberCompanyCode(getMemberCompanyCodeForMemberAndCompany(member, company));
+                    return companyDto;
                 })
                 .collect(Collectors.toList());
     }
@@ -180,5 +184,28 @@ public class CompanyServiceImpl implements CompanyService {
         return id == null ? null : taxOfficeRepository.findById(id).orElse(null);
     }
 
+    private Long generateMemberCompanyCode(Member member) {
+        List<MemberCompany> memberCompanies = member.getMemberCompanies();
+        if (memberCompanies.isEmpty()) {
+            return 1L;
+        }
+        List<Long> existingCodes = memberCompanies.stream()
+                .map(MemberCompany::getCode)
+                .sorted()
+                .toList();
+        for (int i = 0; i < existingCodes.size(); i++) {
+            if (existingCodes.get(i) != i + 1) {
+                return (long) (i + 1);
+            }
+        }
+        return (long) (existingCodes.size() + 1);
+    }
 
+    private Long getMemberCompanyCodeForMemberAndCompany(Member member, Company company) {
+        return company.getMemberCompanies().stream()
+                .filter(mc -> mc.getMember().equals(member))
+                .map(MemberCompany::getCode)
+                .findFirst()
+                .orElse(null);
+    }
 }

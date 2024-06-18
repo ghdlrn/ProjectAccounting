@@ -14,6 +14,8 @@ public class MemberCompanyDto {
 
     private CompanyDto company;
 
+    private Long code;
+
     private Role role;
 
     private boolean currentCompany;

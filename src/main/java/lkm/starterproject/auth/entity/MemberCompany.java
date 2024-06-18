@@ -24,6 +24,8 @@ public class MemberCompany extends BaseEntity {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
+    private Long code;
+
     @Enumerated(EnumType.STRING)
     private Role role;    //회원의 회사에서의 권한
 

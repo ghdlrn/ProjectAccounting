@@ -32,4 +32,5 @@ export interface Company {
   chargeName: string;
   chargeEmail: string;
   note: string;
+  memberCompanyCode: number;
 }

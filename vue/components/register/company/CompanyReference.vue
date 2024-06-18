@@ -14,10 +14,10 @@ import CompanyUpdate from "~/components/register/company/CompanyUpdate.vue";
 onMounted(() => { store.fetchCompanies(); });
 const company = computed(() => store.companies );
 
-const searchField = ref(['id', 'name', 'businessRegistrationNumber']);
+const searchField = ref(['memberCompanyCode', 'name', 'businessRegistrationNumber']);
 const searchValue = ref('');
 const headers = ref([
-  { text: '회사 코드', value: 'id', sortable: true },
+  { text: '회사 코드', value: 'memberCompanyCode', sortable: true },
   { text: '회사명', value: 'name', sortable: true },
   { text: '사업자 등록번호', value: 'businessRegistrationNumber', sortable: true },
   { text: '사용 회사', value: 'currentCompany', sortable: true },

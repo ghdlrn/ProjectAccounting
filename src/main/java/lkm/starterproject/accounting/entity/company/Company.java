@@ -26,7 +26,7 @@ public class Company extends BaseEntity {  //회사
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
-    private Long id;        //회사코드
+    private Long id;
 
     private String licenseType;    //사업자 유형
 
