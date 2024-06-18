@@ -9,21 +9,17 @@ import CustomerInfo from "~/components/basicData/CustomerInfo.vue";
 import AccountTitleInfo from "~/components/basicData/AccountTitleInfo.vue";
 import CompendiumInfo from "~/components/basicData/CompendiumInfo.vue";
 
-// Initialize the store
 const normalDocumentStore = useNormalDocumentStore();
 
-// Set default date to today
 const selectedDate = ref(moment().tz('Asia/Seoul').subtract(0, 'days').toDate());
 const computedDateFormattedMomentjs = computed(() => {
   return moment(selectedDate.value).format('YYYY-MM-DD'); // Format date as yyyy-MM-dd
 });
 
-// Fetch documents when date changes
 watch(selectedDate, (newDate) => {
   normalDocumentStore.fetchNormalDocument(newDate);
 });
 
-// Populate table data from store
 const tableData = computed(() => normalDocumentStore.normalDocument);
 
 function tableItem() {
@@ -50,9 +46,8 @@ const difference = computed(() => debitTotal.value - creditTotal.value);
 
 function register() {
   if (difference.value !== 0) {
-    alert("이 때, 차변과 대변의 합이 일치하지 않습니다");
+    alert("차변과 대변의 합이 일치하지 않습니다");
   } else {
-    // proceed with registration logic
     console.log("Registration successful");
   }
 }
@@ -123,9 +118,7 @@ function register() {
                     </td>
                     <!--계정과목코드-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <AccountTitleInfo
-                        v-model="item.accountTitle.code"
-                      />
+                      <AccountTitleInfo v-model="item.accountTitle" />
                     </td>
                     <!--계정과목-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
@@ -140,9 +133,7 @@ function register() {
                     </td>
                     <!--거래처코드-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <CustomerInfo
-                          v-model="item.customer.id"
-                      />
+                      <CustomerInfo v-model="item.customer"/>
                     </td>
                     <!--거래처명-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
@@ -158,9 +149,7 @@ function register() {
                     </td>
                     <!--적요코드-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <CompendiumInfo
-                        v-model="item.compendium.code"
-                      />
+                      <CompendiumInfo v-model="item.compendium"/>
                     </td>
                     <!--적요 내용-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
