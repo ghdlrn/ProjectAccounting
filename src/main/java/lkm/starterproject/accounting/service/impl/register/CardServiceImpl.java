@@ -29,6 +29,7 @@ public class CardServiceImpl implements CardService {
         Company company = companyService.getCurrentCompany(email);
         Card card = cardMapper.toEntity(cardDto);
         card.setCompany(company);
+        card.setCode(generateCardCode(company.getId()));
         card = cardRepository.save(card);
         return cardMapper.toDto(card);
     }
@@ -68,5 +69,15 @@ public class CardServiceImpl implements CardService {
         Card card = cardRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("ACard 정보를 찾을 수 없음"));
         cardRepository.delete(card);
+    }
+
+    private Long generateCardCode(Long companyId) {
+        List<Long> existingCodes = cardRepository.findCodesByCompanyId(companyId);
+        Long code = 1L;
+        for (Long existingCode : existingCodes) {
+            if (!existingCode.equals(code)) {break;}
+            code++;
+        }
+        return code;
     }
 }

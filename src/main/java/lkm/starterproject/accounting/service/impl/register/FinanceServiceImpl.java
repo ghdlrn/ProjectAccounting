@@ -32,6 +32,7 @@ public class FinanceServiceImpl implements FinanceService {
         Finance finance = financeMapper.toEntity(financeDto);
         assignLocalTaxAndTaxOffice(finance, financeDto);
         finance.setCompany(company);
+        finance.setCode(generateFinanceCode(company.getId()));
         finance = financeRepository.save(finance);
         return financeMapper.toDto(finance);
     }
@@ -84,5 +85,15 @@ public class FinanceServiceImpl implements FinanceService {
 
     private LocalTax findLocalTax(Long id) {
         return id == null ? null : localTaxRepository.findById(id).orElse(null);
+    }
+
+    private Long generateFinanceCode(Long companyId) {
+        List<Long> existingCodes = financeRepository.findCodesByCompanyId(companyId);
+        Long code = 1L;
+        for (Long existingCode : existingCodes) {
+            if (!existingCode.equals(code)) {break;}
+            code++;
+        }
+        return code;
     }
 }

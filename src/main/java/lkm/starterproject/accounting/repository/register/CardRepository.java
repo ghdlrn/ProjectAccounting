@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CardRepository extends JpaRepository<Card, Long> {
+public interface CardRepository extends JpaRepository<Card, Long>, CardRepositoryCustom {
     List<Card> findByCompanyId(Long companyId);
 
     Optional<Card> findByIdAndCompanyId(Long id, Long companyId);
