@@ -2,12 +2,10 @@ package lkm.starterproject.accounting.mapper.document;
 
 import lkm.starterproject.accounting.dto.document.NormalDocumentDto;
 import lkm.starterproject.accounting.entity.document.NormalDocument;
-import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import lkm.starterproject.accounting.mapper.register.AccountTitleMapper;
 import lkm.starterproject.accounting.mapper.register.CompendiumMapper;
 import lkm.starterproject.accounting.mapper.register.CustomerMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
