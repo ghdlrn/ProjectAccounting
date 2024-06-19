@@ -11,10 +11,12 @@ import FinanceUpdate from "~/components/register/finance/FinanceUpdate.vue";
 onMounted(() => { store.fetchFinance(); });
 const finance = computed(() => store.finance );
 
-const searchField = ref(['id', 'name', 'accountNumber', 'useStatus']);
+const sortBy = "code";
+const sortType = "asc";
+const searchField = ref(['code', 'name', 'accountNumber', 'useStatus']);
 const searchValue = ref('');
 const headers = ref([
-  { text: '금융사 코드', value: 'id', sortable: true },
+  { text: '금융사 코드', value: 'code', sortable: true },
   { text: '금융사명', value: 'name', sortable: true },
   { text: '계좌번호', value: 'accountNumber', sortable: true },
   { text: '예금종류', value: 'depositType', sortable: true },
@@ -95,6 +97,9 @@ const menu = ref(false);
                   v-bind="props"
                   :headers="headers"
                   :items="finance"
+                  item-key="id"
+                  :sort-by="sortBy"
+                  :sort-type="sortType"
                   table-class-name="customize-table"
                   :theme-color="themeColor"
                   :search-field="searchField"

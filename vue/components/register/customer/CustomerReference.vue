@@ -11,6 +11,9 @@ import CustomerUpdate from "~/components/register/customer/CustomerUpdate.vue";
 onMounted(() => { store.fetchCustomer(); });
 const customer = computed(() => store.customer );
 
+
+const sortBy = "code";
+const sortType = "asc";
 const searchField = ref(['name', 'code', 'registrationNumber', 'nameOfRepresentative', 'useStatus']);
 const searchValue = ref('');
 const headers = ref([
@@ -95,6 +98,9 @@ const menu = ref(false);
                   v-bind="props"
                   :headers="headers"
                   :items="customer"
+                  item-key="id"
+                  :sort-by="sortBy"
+                  :sort-type="sortType"
                   table-class-name="customize-table"
                   :theme-color="themeColor"
                   :search-field="searchField"

@@ -11,10 +11,12 @@ import CardUpdate from "~/components/register/card/CardUpdate.vue";
 onMounted(() => { store.fetchCard(); });
 const card = computed(() => store.card );
 
-const searchField = ref(['id', 'name', 'cardNumber', 'division', 'useStatus']);
+const sortBy = "code";
+const sortType = "asc";
+const searchField = ref(['code', 'name', 'cardNumber', 'division', 'useStatus']);
 const searchValue = ref('');
 const headers = ref([
-  { text: '카드사 코드', value: 'id', sortable: true },
+  { text: '카드사 코드', value: 'code', sortable: true },
   { text: '카드(사)명', value: 'name', sortable: true },
   { text: '카드(가맹점)번호', value: 'cardNumber', sortable: true },
   { text: '비고', value: 'note' },
@@ -97,6 +99,9 @@ const menu = ref(false);
                   v-bind="props"
                   :headers="headers"
                   :items="card"
+                  item-key="id"
+                  :sort-by="sortBy"
+                  :sort-type="sortType"
                   table-class-name="customize-table"
                   :theme-color="themeColor"
                   :search-field="searchField"

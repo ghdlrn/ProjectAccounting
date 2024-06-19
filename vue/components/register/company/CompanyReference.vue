@@ -14,6 +14,8 @@ import CompanyUpdate from "~/components/register/company/CompanyUpdate.vue";
 onMounted(() => { store.fetchCompanies(); });
 const company = computed(() => store.companies );
 
+const sortBy = "memberCompanyCode";
+const sortType = "asc";
 const searchField = ref(['memberCompanyCode', 'name', 'businessRegistrationNumber']);
 const searchValue = ref('');
 const headers = ref([
@@ -105,6 +107,9 @@ const menu = ref(false);
                   v-bind="props"
                   :headers="headers"
                   :items="company"
+                  item-key="id"
+                  :sort-by="sortBy"
+                  :sort-type="sortType"
                   table-class-name="customize-table"
                   :theme-color="themeColor"
                   :search-field="searchField"
