@@ -1,7 +1,7 @@
 package lkm.starterproject.accounting.repository.register;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lkm.starterproject.accounting.entity.register.QCustomer;
+import lkm.starterproject.accounting.entity.register.QCard;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -13,13 +13,13 @@ public class CardRepositoryCustomImpl implements CardRepositoryCustom {
 
     @Override
     public List<Long> findCodesByCompanyId(Long companyId) {
-        QCustomer customer = QCustomer.customer;
+        QCard card = QCard.card;
 
         return queryFactory
-                .select(customer.code)
-                .from(customer)
-                .where(customer.company.id.eq(companyId))
-                .orderBy(customer.code.asc())
+                .select(card.code)
+                .from(card)
+                .where(card.company.id.eq(companyId))
+                .orderBy(card.code.asc())
                 .fetch();
     }
 }

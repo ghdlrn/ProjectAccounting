@@ -1,7 +1,7 @@
 package lkm.starterproject.accounting.repository.register;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lkm.starterproject.accounting.entity.register.QCustomer;
+import lkm.starterproject.accounting.entity.register.QFinance;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -13,13 +13,13 @@ public class FinanceRepositoryCustomImpl implements FinanceRepositoryCustom {
 
     @Override
     public List<Long> findCodesByCompanyId(Long companyId) {
-        QCustomer customer = QCustomer.customer;
+        QFinance finance = QFinance.finance;
 
         return queryFactory
-                .select(customer.code)
-                .from(customer)
-                .where(customer.company.id.eq(companyId))
-                .orderBy(customer.code.asc())
+                .select(finance.code)
+                .from(finance)
+                .where(finance.company.id.eq(companyId))
+                .orderBy(finance.code.asc())
                 .fetch();
     }
 }
