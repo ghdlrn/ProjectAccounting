@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PurchaseAndSalesDocumentDto {
 
+    private Long id;
+
     private Long code;  //개인 코드
 
     private String type;    //유형

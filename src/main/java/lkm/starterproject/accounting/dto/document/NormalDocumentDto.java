@@ -17,6 +17,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class NormalDocumentDto {
 
+    private Long id;
+
     private Long code;
 
     @NotBlank(message = "날짜는 필수 입력사항 입니다")

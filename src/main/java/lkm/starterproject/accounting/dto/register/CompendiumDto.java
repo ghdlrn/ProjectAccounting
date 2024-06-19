@@ -9,6 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 public class CompendiumDto {
 
+    private Long id;
+
     private Long code;   //현금적요 코드
 
     @NotNull(message = "내용을 입력 해 주세요")

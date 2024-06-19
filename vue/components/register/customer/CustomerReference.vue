@@ -11,10 +11,10 @@ import CustomerUpdate from "~/components/register/customer/CustomerUpdate.vue";
 onMounted(() => { store.fetchCustomer(); });
 const customer = computed(() => store.customer );
 
-const searchField = ref(['name', 'id', 'registrationNumber', 'nameOfRepresentative', 'useStatus']);
+const searchField = ref(['name', 'code', 'registrationNumber', 'nameOfRepresentative', 'useStatus']);
 const searchValue = ref('');
 const headers = ref([
-  { text: '거래처 코드', value: 'id', sortable: true },
+  { text: '거래처 코드', value: 'code', sortable: true },
   { text: '거래처명', value: 'name', sortable: true },
   { text: '등록번호 / 유형', value: 'registrationNumber', sortable: true },
   { text: '대표자명', value: 'nameOfRepresentative', sortable: true },

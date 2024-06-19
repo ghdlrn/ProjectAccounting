@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CustomerDto {
 
+    private Long id;
+
     private Long code;  //개인 코드
 
     @NotBlank(message = "거래처명은 필수 입력사항 입니다")
