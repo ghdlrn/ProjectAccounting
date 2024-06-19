@@ -32,6 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerMapper.toEntity(customerDto);
         assignLocalTax(customer, customerDto);
         customer.setCompany(company);
+        customer.setCode(generateCustomerCode(company.getId()));
         customer = customerRepository.save(customer);
         return customerMapper.toDto(customer);
     }
@@ -84,5 +85,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     private LocalTax findLocalTax(Long id) {
         return id == null ? null : localTaxRepository.findById(id).orElse(null);
+    }
+
+    private Long generateCustomerCode(Long companyId) {
+        List<Long> existingCodes = customerRepository.findCodesByCompanyId(companyId);
+        Long code = 1L;
+        for (Long existingCode : existingCodes) {
+            if (!existingCode.equals(code)) {break;}
+            code++;
+        }
+        return code;
     }
 }

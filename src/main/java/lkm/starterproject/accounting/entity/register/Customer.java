@@ -25,6 +25,8 @@ public class Customer extends BaseEntity {      //거래처
     @JoinColumn(name = "company_id")
     private Company company;
 
+    private Long code;  //개인 코드
+
     @Column(nullable = false)
     private String name;        //거래처명
 

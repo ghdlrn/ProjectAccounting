@@ -29,6 +29,8 @@ public class Finance extends BaseEntity {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    private Long code;  //개인 코드
+
     @Column(nullable = false)
     private String name;    //은행(계좌)명
 

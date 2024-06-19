@@ -21,11 +21,11 @@ public class NormalDocument extends BaseEntity {
     @Column(name = "normal_document_id")
     private Long id;
 
-    private Long code;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    private Long code;  //개인 코드
 
     private LocalDate date;     //일자
 

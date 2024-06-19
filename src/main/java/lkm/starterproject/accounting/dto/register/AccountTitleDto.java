@@ -12,8 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class AccountTitleDto {
 
-    private Long id;        //계정과목 코드
-
     private Long code;
 
     @NotBlank(message = "계정과목 이름은 필수 입력사항 입니다")

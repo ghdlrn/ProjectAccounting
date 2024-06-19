@@ -28,6 +28,8 @@ public class Card extends BaseEntity {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    private Long code;  //개인 코드
+
     @Column(nullable = false)
     private String name;    //카드(사)명
 

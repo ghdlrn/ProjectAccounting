@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CardDto {
 
-    private Long id;
+    private Long code;  //개인 코드
 
     @NotBlank(message = "카드사명은 필수 입력사항 입니다")
     private String name;    //카드(사)명

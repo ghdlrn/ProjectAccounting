@@ -1,6 +1,7 @@
 package lkm.starterproject.accounting.entity.document;
 
 import jakarta.persistence.*;
+import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.register.Customer;
 import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
@@ -15,6 +16,12 @@ public class PurchaseAndSalesDocument extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "purchase_and_sales_document_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    private Long code;  //개인 코드
 
     private String type;    //유형
 
