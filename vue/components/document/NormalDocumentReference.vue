@@ -1,9 +1,8 @@
-<script setup lang="ts">
+<script setup>
 import { ref, computed, watch } from 'vue';
 import { CalendarOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import { useNormalDocumentStore } from "~/stores/accounting/normal-document";
-import type { NormalDocument } from "~/types/accounting/normal-document";
 import moment from 'moment-timezone';
 import CustomerInfo from "~/components/basicData/CustomerInfo.vue";
 import AccountTitleInfo from "~/components/basicData/AccountTitleInfo.vue";
@@ -23,7 +22,7 @@ watch(selectedDate, (newDate) => {
 const tableData = computed(() => normalDocumentStore.normalDocument);
 
 function tableItem() {
-  const newItem: NormalDocument = {
+  const newItem = {
     code: tableData.value.length + 1,
     date: new Date(),
     division: '',
@@ -36,7 +35,7 @@ function tableItem() {
   normalDocumentStore.normalDocument.push(newItem);
 }
 
-function deleteRow(index: number) {
+function deleteRow(index) {
   tableData.value.splice(index, 1);
 }
 
@@ -48,8 +47,27 @@ function register() {
   if (difference.value !== 0) {
     alert("차변과 대변의 합이 일치하지 않습니다");
   } else {
-    console.log("Registration successful");
+    console.log("전표 등록 성공");
   }
+}
+
+const divisionItems = ['출금', '입금', '차변', '대변', '결산차변', '결산대변'];
+const divisionMapping = {
+  1: '출금',
+  2: '입금',
+  3: '차변',
+  4: '대변',
+  5: '결산차변',
+  6: '결산대변'
+};
+
+function validateDivisionInput(input) {
+  if (divisionItems.includes(input)) {
+    return input;
+  } else if (!isNaN(input) && divisionMapping[input]) {
+    return divisionMapping[input];
+  }
+  return '';
 }
 </script>
 
@@ -103,16 +121,19 @@ function register() {
                     <td class="text-subtitle-1 font-weight-regular py-3">{{ item.code }}</td>
                     <!--구분-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <v-select
+                      <v-autocomplete
                           v-model="item.division"
-                          :items="['출금', '입금', '차변', '대변', '결산차변', '결산대변']"
+                          :items="divisionItems"
                           variant="outlined"
                           color="primary"
                           aria-label="division"
                           type="text"
                           single-line
                           hide-details
-                      ></v-select>
+                          :rules="[value => validateDivisionInput(value) ? true : 'Invalid division']"
+                          @blur="item.division = validateDivisionInput(item.division)"
+                          @input="item.division = validateDivisionInput(item.division)"
+                      ></v-autocomplete>
                     </td>
                     <!--계정과목-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
@@ -146,6 +167,7 @@ function register() {
                           single-line
                           hide-details
                           v-model.number="item.debit"
+                          :readonly="['입금', '대변', '결산대변'].includes(item.division)"
                       ></v-text-field>
                     </td>
                     <!--대변-->
@@ -157,6 +179,7 @@ function register() {
                           single-line
                           hide-details
                           v-model.number="item.credit"
+                          :readonly="['출금', '차변', '결산차변'].includes(item.division)"
                       ></v-text-field>
                     </td>
                     <!--테이블 삭제-->
@@ -246,5 +269,7 @@ function register() {
 </template>
 
 <style lang="scss">
-
+.accountTitleTable {
+  width: 400px;
+}
 </style>
