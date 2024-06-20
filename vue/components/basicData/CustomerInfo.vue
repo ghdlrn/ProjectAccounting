@@ -44,6 +44,9 @@
             <EasyDataTable
                 :headers="headers"
                 :items="customers"
+                item-key="id"
+                :sort-by="sortBy"
+                :sort-type="sortType"
                 :search-field="searchField"
                 :search-value="searchValue"
                 @click-row="select"
@@ -69,6 +72,8 @@ onMounted(() => {
 });
 const customers = computed(() => store.customer);
 
+const sortBy = "code";
+const sortType = "asc";
 const searchField = ref(['code', 'name']);
 const searchValue = ref('');
 const headers = ref([

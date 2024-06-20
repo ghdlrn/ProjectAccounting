@@ -44,6 +44,9 @@
             <EasyDataTable
                 :headers="headers"
                 :items="compendiums"
+                item-key="id"
+                :sort-by="sortBy"
+                :sort-type="sortType"
                 :search-field="searchField"
                 :search-value="searchValue"
                 @click-row="select"
@@ -69,6 +72,8 @@ onMounted(() => {
 });
 const compendiums = computed(() => store.compendium);
 
+const sortBy = "code";
+const sortType = "asc";
 const searchField = ref(['code', 'content']);
 const searchValue = ref('');
 const headers = ref([
