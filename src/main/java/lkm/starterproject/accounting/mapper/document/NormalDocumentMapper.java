@@ -10,12 +10,12 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        uses = {AccountTitleMapper.class, CustomerMapper.class, CompendiumMapper.class})
+@Mapper(componentModel = "spring", uses = {AccountTitleMapper.class, CustomerMapper.class, CompendiumMapper.class})
 public interface NormalDocumentMapper {
 
-    NormalDocumentDto toDto(NormalDocument entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
-    NormalDocument toEntity(NormalDocumentDto dto); //DTO -> 엔티티 변환, 클라이언트가보낸 데이터를 엔티티로 변환
+    NormalDocumentDto toDto(NormalDocument entity);
+
+    NormalDocument toEntity(NormalDocumentDto dto);
 
     List<NormalDocumentDto> toDtoList(List<NormalDocument> entityList);
 

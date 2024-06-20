@@ -8,13 +8,12 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        uses = { FinanceMapper.class, AddressMapper.class})
+@Mapper(componentModel = "spring", uses = {FinanceMapper.class, AddressMapper.class})
 public interface CardMapper {
 
-    CardDto toDto(Card entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
+    CardDto toDto(Card entity);
 
-    Card toEntity(CardDto dto); //DTO -> 엔티티 변환, 클라이언트가보낸 데이터를 엔티티로 변환
+    Card toEntity(CardDto dto);
 
     List<CardDto> toDtoList(List<Card> entityList);
 

@@ -11,15 +11,14 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        uses = {AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class })
+@Mapper(componentModel = "spring", uses = {AddressMapper.class, TaxOfficeMapper.class, LocalTaxMapper.class})
 public interface CompanyMapper {
 
     @Mapping(target = "currentCompany", ignore = true)
     @Mapping(target = "memberCompanyCode", ignore = true)
-    CompanyDto toDto(Company entity); //엔티티 -> DTO 변환, 엔티티 데이터 -> 클라이언트 전달
+    CompanyDto toDto(Company entity);
 
-    Company toEntity(CompanyDto dto); //DTO -> 엔티티 변환, 클라이언트가보낸 데이터를 엔티티로 변환
+    Company toEntity(CompanyDto dto);
 
     List<CompanyDto> toDtoList(List<Company> entityList);
 
@@ -30,5 +29,4 @@ public interface CompanyMapper {
         dto.setCurrentCompany(currentCompany);
         return dto;
     }
-
 }

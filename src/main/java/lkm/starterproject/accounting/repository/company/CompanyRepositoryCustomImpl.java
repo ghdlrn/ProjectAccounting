@@ -6,16 +6,14 @@ import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.company.QCompany;
 import lkm.starterproject.auth.entity.Member;
 import lkm.starterproject.auth.entity.QMemberCompany;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 public class CompanyRepositoryCustomImpl implements  CompanyRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-
-    public CompanyRepositoryCustomImpl(EntityManager entityManager) {
-        this.queryFactory = new JPAQueryFactory(entityManager);
-    }
 
     @Override
     public List<Company> findByMember(Member member) {
