@@ -6,6 +6,7 @@ import lkm.starterproject.accounting.mapper.register.AccountTitleMapper;
 import lkm.starterproject.accounting.mapper.register.CompendiumMapper;
 import lkm.starterproject.accounting.mapper.register.CustomerMapper;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
@@ -15,9 +16,13 @@ public interface NormalDocumentMapper {
 
     NormalDocumentDto toDto(NormalDocument entity);
 
+    @Mapping(target = "company", ignore = true)
     NormalDocument toEntity(NormalDocumentDto dto);
 
     List<NormalDocumentDto> toDtoList(List<NormalDocument> entityList);
 
+    @Mapping(target = "regTime", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "company", ignore = true)
     void updateDto(NormalDocumentDto dto, @MappingTarget NormalDocument entity);
 }

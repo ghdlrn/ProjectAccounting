@@ -18,10 +18,24 @@ public interface CompanyMapper {
     @Mapping(target = "memberCompanyCode", ignore = true)
     CompanyDto toDto(Company entity);
 
+    @Mapping(target = "memberCompanies", ignore = true)
+    @Mapping(target = "customers", ignore = true)
+    @Mapping(target = "finances", ignore = true)
+    @Mapping(target = "cards", ignore = true)
+    @Mapping(target = "accountTitles", ignore = true)
+    @Mapping(target = "normalDocuments", ignore = true)
     Company toEntity(CompanyDto dto);
 
     List<CompanyDto> toDtoList(List<Company> entityList);
 
+    @Mapping(target = "regTime", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "memberCompanies", ignore = true)
+    @Mapping(target = "customers", ignore = true)
+    @Mapping(target = "finances", ignore = true)
+    @Mapping(target = "cards", ignore = true)
+    @Mapping(target = "accountTitles", ignore = true)
+    @Mapping(target = "normalDocuments", ignore = true)
     void updateDto(CompanyDto dto, @MappingTarget Company entity);
 
     default CompanyDto toDtoWithCurrentCompany(Company entity, boolean currentCompany) {
