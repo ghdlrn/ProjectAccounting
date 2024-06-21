@@ -31,6 +31,12 @@ function generateCode() {
       debitSum += Number(item.debit);
     } else if (['대변', '결산대변'].includes(item.division)) {
       creditSum += Number(item.credit);
+    } else if (['출금'].includes(item.division)) {
+      debitSum += Number(item.debit);
+      creditSum += Number(item.debit);
+    } else if (['입금'].includes(item.division)) {
+      creditSum += Number(item.credit);
+      debitSum += Number(item.credit);
     }
   }
   if (debitSum === creditSum && debitSum !== 0) {
