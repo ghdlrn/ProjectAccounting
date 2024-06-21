@@ -2,9 +2,7 @@ package lkm.starterproject.accounting.entity.document;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.company.Company;
-import lkm.starterproject.accounting.entity.register.AccountTitle;
-import lkm.starterproject.accounting.entity.register.Compendium;
-import lkm.starterproject.accounting.entity.register.Customer;
+import lkm.starterproject.accounting.entity.register.*;
 import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
@@ -38,6 +36,14 @@ public class NormalDocument extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;  //거래처
+
+    @ManyToOne
+    @JoinColumn(name = "finance_id")
+    private Finance finance;  //계좌
+
+    @ManyToOne
+    @JoinColumn(name = "card_id")
+    private Card card;  //카드
 
     @ManyToOne
     @JoinColumn(name = "compendium_id")

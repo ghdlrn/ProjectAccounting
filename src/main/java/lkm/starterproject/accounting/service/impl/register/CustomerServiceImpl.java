@@ -89,7 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private Long generateCustomerCode(Long companyId) {
         List<Long> existingCodes = customerRepository.findCodesByCompanyId(companyId);
-        Long code = 1L;
+        Long code = 10001L;
         for (Long existingCode : existingCodes) {
             if (!existingCode.equals(code)) {break;}
             code++;

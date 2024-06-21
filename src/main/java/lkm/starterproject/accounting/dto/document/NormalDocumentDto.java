@@ -1,9 +1,7 @@
 package lkm.starterproject.accounting.dto.document;
 
 import jakarta.validation.constraints.NotBlank;
-import lkm.starterproject.accounting.entity.register.AccountTitle;
-import lkm.starterproject.accounting.entity.register.Compendium;
-import lkm.starterproject.accounting.entity.register.Customer;
+import lkm.starterproject.accounting.entity.register.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,8 +28,11 @@ public class NormalDocumentDto {
     @NotBlank(message = "계정과목은 필수 입력사항 입니다")
     private AccountTitle accountTitle;  //계정과목
 
-    @NotBlank(message = "거래처는 필수 입력사항 입니다")
     private Customer customer;  //거래처
+
+    private Finance finance;  //계좌
+
+    private Card card;  //카드
 
     private Compendium compendium;  //적요
 

@@ -73,7 +73,7 @@ public class CardServiceImpl implements CardService {
 
     private Long generateCardCode(Long companyId) {
         List<Long> existingCodes = cardRepository.findCodesByCompanyId(companyId);
-        Long code = 1L;
+        Long code = 70001L;
         for (Long existingCode : existingCodes) {
             if (!existingCode.equals(code)) {break;}
             code++;

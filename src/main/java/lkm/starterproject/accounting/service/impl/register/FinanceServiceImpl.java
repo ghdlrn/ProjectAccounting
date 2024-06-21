@@ -89,7 +89,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     private Long generateFinanceCode(Long companyId) {
         List<Long> existingCodes = financeRepository.findCodesByCompanyId(companyId);
-        Long code = 1L;
+        Long code = 50001L;
         for (Long existingCode : existingCodes) {
             if (!existingCode.equals(code)) {break;}
             code++;
