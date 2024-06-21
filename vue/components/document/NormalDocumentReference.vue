@@ -21,9 +21,30 @@ watch(selectedDate, (newDate) => {
 
 const tableData = computed(() => normalDocumentStore.normalDocument);
 
+let currentCode = 1;
+function generateCode() {
+  let debitSum = 0;
+  let creditSum = 0;
+  let foundMatchingSet = false;
+  for (const item of tableData.value) {
+    if (['차변', '결산차변'].includes(item.division)) {
+      debitSum += Number(item.debit);
+    } else if (['대변', '결산대변'].includes(item.division)) {
+      creditSum += Number(item.credit);
+    }
+  }
+  if (debitSum === creditSum && debitSum !== 0) {
+    foundMatchingSet = true;
+  }
+  if (foundMatchingSet) {
+    currentCode += 1;
+  }
+  return currentCode;
+}
+
 function tableItem() {
   const newItem = {
-    code: tableData.value.length + 1,
+    code: generateCode(),
     date: new Date(),
     division: '',
     accountTitle: '',
