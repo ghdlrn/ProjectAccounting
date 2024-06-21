@@ -51,7 +51,9 @@ function tableItem() {
     customer: '',
     compendium: '',
     debit: 0,
-    credit: 0
+    credit: 0,
+    debitFormatted: '',
+    creditFormatted: ''
   };
   normalDocumentStore.normalDocument.push(newItem);
 }
@@ -91,6 +93,29 @@ function validateDivisionInput(input) {
   return '';
 }
 
+function formatNumber(value) {
+  if (!value) return '';
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function parseNumber(value) {
+  if (!value) return 0;
+  return Number(value.replace(/,/g, ''));
+}
+
+function handleDebitChange(item) {
+  if (item.division === '출금') {
+    item.credit = item.debit;
+  }
+  item.debitFormatted = formatNumber(item.debit);
+}
+
+function handleCreditChange(item) {
+  if (item.division === '입금') {
+    item.debit = item.credit;
+  }
+  item.creditFormatted = formatNumber(item.credit);
+}
 </script>
 
 <template>
@@ -185,12 +210,14 @@ function validateDivisionInput(input) {
                       <v-text-field
                           variant="outlined"
                           aria-label="debit"
-                          type="number"
+                          type="text"
                           single-line
                           hide-details
                           color="primary"
-                          v-model.number="item.debit"
+                          v-model="item.debitFormatted"
                           :readonly="['입금', '대변', '결산대변'].includes(item.division)"
+                          @input="(e) => { item.debit = parseNumber(e.target.value); handleDebitChange(item); }"
+                          :suffix="item.division === '입금' ? '(현금)' : ''"
                       ></v-text-field>
                     </td>
                     <!--대변-->
@@ -198,12 +225,14 @@ function validateDivisionInput(input) {
                       <v-text-field
                           variant="outlined"
                           aria-label="credit"
-                          type="number"
+                          type="text"
                           single-line
                           hide-details
                           color="primary"
-                          v-model.number="item.credit"
+                          v-model="item.creditFormatted"
                           :readonly="['출금', '차변', '결산차변'].includes(item.division)"
+                          @input="(e) => { item.credit = parseNumber(e.target.value); handleCreditChange(item); }"
+                          :suffix="item.division === '출금' ? '(현금)' : ''"
                       ></v-text-field>
                     </td>
                     <!--테이블 삭제-->
