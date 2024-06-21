@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import type {Card} from "~/types/accounting/card";
 import {useNuxtApp} from "#app";
+import type {Customer} from "~/types/accounting/customer";
 
 export const useCardStore = defineStore('card', {
     state : () => ({
@@ -70,6 +71,9 @@ export const useCardStore = defineStore('card', {
                 console.error('카드 정보 삭제 실패', error.message);
                 throw new Error('카드 정보 삭제 실패');
             }
+        },
+        setSelectedCard(card: Card) {
+            this.currentCard = card;
         }
     }
 });

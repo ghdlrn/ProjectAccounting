@@ -4,7 +4,7 @@ import { CalendarOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icon
 import UiParentCard from "~/components/shared/UiParentCard.vue";
 import { useNormalDocumentStore } from "~/stores/accounting/normal-document";
 import moment from 'moment-timezone';
-import CustomerInfo from "~/components/basicData/CustomerInfo.vue";
+import CustomerInfo from "~/components/basicData/CustomerOrFinanceOrCardInfo.vue";
 import AccountTitleInfo from "~/components/basicData/AccountTitleInfo.vue";
 import CompendiumInfo from "~/components/basicData/CompendiumInfo.vue";
 
