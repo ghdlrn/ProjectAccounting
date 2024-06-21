@@ -11,7 +11,7 @@ import CompendiumInfo from "~/components/basicData/CompendiumInfo.vue";
 const normalDocumentStore = useNormalDocumentStore();
 
 const selectedDate = ref(moment().tz('Asia/Seoul').subtract(0, 'days').toDate());
-const computedDateFormattedMomentjs = computed(() => {
+const computedDateFormat = computed(() => {
   return moment(selectedDate.value).format('YYYY-MM-DD'); // Format date as yyyy-MM-dd
 });
 
@@ -64,11 +64,12 @@ const divisionMapping = {
 function validateDivisionInput(input) {
   if (divisionItems.includes(input)) {
     return input;
-  } else if (!isNaN(input) && divisionMapping[input]) {
-    return divisionMapping[input];
+  } else if (!isNaN(Number(input)) && divisionMapping[Number(input)]) {
+    return divisionMapping[Number(input)];
   }
   return '';
 }
+
 </script>
 
 <template>
@@ -87,7 +88,7 @@ function validateDivisionInput(input) {
                         hide-details
                         variant="outlined"
                         v-bind="props"
-                        v-model="computedDateFormattedMomentjs"
+                        v-model="computedDateFormat"
                         label="Selected Date"
                         readonly
                         color="primary">
@@ -121,7 +122,7 @@ function validateDivisionInput(input) {
                     <td class="text-subtitle-1 font-weight-regular py-3">{{ item.code }}</td>
                     <!--구분-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
-                      <v-autocomplete
+                      <v-combobox
                           v-model="item.division"
                           :items="divisionItems"
                           variant="outlined"
@@ -133,7 +134,7 @@ function validateDivisionInput(input) {
                           :rules="[value => validateDivisionInput(value) ? true : 'Invalid division']"
                           @blur="item.division = validateDivisionInput(item.division)"
                           @input="item.division = validateDivisionInput(item.division)"
-                      ></v-autocomplete>
+                      ></v-combobox>
                     </td>
                     <!--계정과목-->
                     <td class="text-subtitle-1 font-weight-regular py-3">
@@ -166,6 +167,7 @@ function validateDivisionInput(input) {
                           type="number"
                           single-line
                           hide-details
+                          color="primary"
                           v-model.number="item.debit"
                           :readonly="['입금', '대변', '결산대변'].includes(item.division)"
                       ></v-text-field>
@@ -178,6 +180,7 @@ function validateDivisionInput(input) {
                           type="number"
                           single-line
                           hide-details
+                          color="primary"
                           v-model.number="item.credit"
                           :readonly="['출금', '차변', '결산차변'].includes(item.division)"
                       ></v-text-field>
