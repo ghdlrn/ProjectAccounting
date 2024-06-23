@@ -1,6 +1,8 @@
 package lkm.starterproject.accounting.dto.document;
 
-import lkm.starterproject.accounting.entity.register.Customer;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lkm.starterproject.accounting.entity.register.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,4 +33,16 @@ public class PurchaseAndSalesDocumentDto {
     private Long total;     //합계
 
     private Customer customer;
+
+    private Finance finance;  //계좌
+
+    private Card card;  //카드
+
+    private AccountTitle accountTitle;  //계정과목
+
+    private Compendium compendium;  //적요
+
+    private Long debit; //차변
+
+    private Long credit;    //대변
 }

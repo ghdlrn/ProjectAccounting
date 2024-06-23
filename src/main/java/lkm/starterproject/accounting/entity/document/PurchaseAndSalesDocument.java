@@ -2,7 +2,7 @@ package lkm.starterproject.accounting.entity.document;
 
 import jakarta.persistence.*;
 import lkm.starterproject.accounting.entity.company.Company;
-import lkm.starterproject.accounting.entity.register.Customer;
+import lkm.starterproject.accounting.entity.register.*;
 import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
@@ -41,5 +41,23 @@ public class PurchaseAndSalesDocument extends BaseEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "finance_id")
+    private Finance finance;  //계좌
 
+    @ManyToOne
+    @JoinColumn(name = "card_id")
+    private Card card;  //카드
+
+    @ManyToOne
+    @JoinColumn(name = "account_title_id")
+    private AccountTitle accountTitle;  //계정과목
+
+    @ManyToOne
+    @JoinColumn(name = "compendium_id")
+    private Compendium compendium;  //적요
+
+    private Long debit; //차변
+
+    private Long credit;    //대변
 }
