@@ -295,7 +295,7 @@ async function register() {
     });
 
     try {
-      await normalDocumentStore.createOrUpdateNormalDocument(normalDocumentData);
+      await normalDocumentStore.createNormalDocument(normalDocumentData);
       console.log("전표 등록 성공");
     } catch (error) {
       console.error("전표 등록 실패", error);
@@ -305,7 +305,7 @@ async function register() {
 
 async function deleteDocuments() {
   try {
-    await normalDocumentStore.deleteNormalDocumentsByDate(selectedDate.value);
+    await normalDocumentStore.deleteNormalDocument(selectedDate.value);
     console.log("전표 삭제 성공");
   } catch (error) {
     console.error("전표 삭제 실패", error);

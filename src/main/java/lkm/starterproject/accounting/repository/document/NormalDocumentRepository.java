@@ -14,7 +14,4 @@ public interface NormalDocumentRepository extends JpaRepository<NormalDocument, 
     List<NormalDocument> findByCompanyId(Long companyId);
 
     Optional<NormalDocument> findByIdAndCompanyId(Long id, Long companyId);
-
-    List<NormalDocument> findByCompanyIdAndDate(Long companyId, LocalDate date);
-
 }

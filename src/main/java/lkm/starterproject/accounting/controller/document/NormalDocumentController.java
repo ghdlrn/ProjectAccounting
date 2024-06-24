@@ -10,22 +10,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/register/normal-document")
+@RequestMapping("/register/purchase-and-sales-document")
 @RequiredArgsConstructor
 public class NormalDocumentController {
 
     private final NormalDocumentService normalDocumentService;
 
     @PostMapping
-    public ResponseEntity<List<NormalDocumentDto>> createOrUpdateNormalDocument(@Valid @RequestBody List<NormalDocumentDto> normalDocumentDtos) {
+    public ResponseEntity<NormalDocumentDto> createNormalDocument(@Valid @RequestBody NormalDocumentDto normalDocumentDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        List<NormalDocumentDto> updatedNormalDocuments = normalDocumentService.createOrUpdateNormalDocuments(email, normalDocumentDtos);
-        return ResponseEntity.ok(updatedNormalDocuments);
+        NormalDocumentDto createdNormalDocument = normalDocumentService.createNormalDocument(email, normalDocumentDto);
+        return ResponseEntity.ok(createdNormalDocument);
     }
 
     @GetMapping
@@ -36,11 +35,27 @@ public class NormalDocumentController {
         return ResponseEntity.ok(normalDocuments);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteNormalDocumentsByDate(@RequestParam String date) {
+    @GetMapping("/{id}")
+    public ResponseEntity<NormalDocumentDto> getNormalDocument(@PathVariable("id") Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        normalDocumentService.deleteNormalDocumentsByDate(email, LocalDate.parse(date));
+        NormalDocumentDto normalDocumentDto = normalDocumentService.getNormalDocument(email, id);
+        return ResponseEntity.ok(normalDocumentDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<NormalDocumentDto> updateNormalDocument(@PathVariable("id") Long id, @Valid @RequestBody NormalDocumentDto normalDocumentDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        NormalDocumentDto updatedNormalDocument = normalDocumentService.updateNormalDocument(email, id, normalDocumentDto);
+        return ResponseEntity.ok(updatedNormalDocument);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteNormalDocument(@PathVariable("id") Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        normalDocumentService.deleteNormalDocument(email, id);
         return ResponseEntity.ok().build();
     }
 }
