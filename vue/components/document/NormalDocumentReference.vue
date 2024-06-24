@@ -77,8 +77,14 @@ async function register() {
     alert("차변과 대변의 합이 일치하지 않습니다");
   } else {
     const normalDocumentData = tableData.value.map(item => ({
-      ...item,
-      date: moment(selectedDate.value).format('YYYY-MM-DD')
+      code: item.code,
+      date: moment(selectedDate.value).format('YYYY-MM-DD'),
+      division: item.division,
+      accountTitle: item.accountTitle,
+      customer: item.customer,
+      compendium: item.compendium,
+      debit: item.debit,
+      credit: item.credit
     }));
 
     try {

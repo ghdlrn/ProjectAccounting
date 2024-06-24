@@ -1,4 +1,4 @@
-package lkm.starterproject.accounting.controller.Document;
+package lkm.starterproject.accounting.controller.document;
 
 import jakarta.validation.Valid;
 

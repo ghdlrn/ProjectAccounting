@@ -5,6 +5,7 @@ import lkm.starterproject.accounting.mapper.basic.LocalTaxMapper;
 import lkm.starterproject.accounting.mapper.basic.TaxOfficeMapper;
 import lkm.starterproject.accounting.mapper.company.CompanyMapper;
 import lkm.starterproject.accounting.mapper.document.NormalDocumentMapper;
+import lkm.starterproject.accounting.mapper.document.PurchaseAndSalesDocumentMapper;
 import lkm.starterproject.accounting.mapper.register.*;
 import lkm.starterproject.auth.mapper.MemberCompanyMapper;
 import lkm.starterproject.auth.mapper.MemberMapper;
@@ -75,5 +76,8 @@ public class MapperConfig {
         return Mappers.getMapper(NormalDocumentMapper.class);
     }
 
-
+    @Bean
+    public PurchaseAndSalesDocumentMapper purchaseAndSalesDocumentMapper() {
+        return Mappers.getMapper(PurchaseAndSalesDocumentMapper.class);
+    }
 }

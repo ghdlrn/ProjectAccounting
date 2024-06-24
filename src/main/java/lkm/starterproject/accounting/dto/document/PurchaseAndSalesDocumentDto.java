@@ -1,7 +1,5 @@
 package lkm.starterproject.accounting.dto.document;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lkm.starterproject.accounting.entity.register.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
