@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface NormalDocumentService {
 
-    NormalDocumentDto createNormalDocument(String email, NormalDocumentDto normalDocumentDto);
+    List<NormalDocumentDto> createNormalDocuments(String email, List<NormalDocumentDto> normalDocumentDtos);
 
     List<NormalDocumentDto> getAllNormalDocuments(String email);
 

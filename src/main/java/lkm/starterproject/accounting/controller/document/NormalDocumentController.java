@@ -20,11 +20,11 @@ public class NormalDocumentController {
     private final NormalDocumentService normalDocumentService;
 
     @PostMapping
-    public ResponseEntity<NormalDocumentDto> createNormalDocument(@Valid @RequestBody NormalDocumentDto normalDocumentDto) {
+    public ResponseEntity<List<NormalDocumentDto>> createNormalDocument(@Valid @RequestBody List<NormalDocumentDto> normalDocumentDtos) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        NormalDocumentDto createdNormalDocument = normalDocumentService.createNormalDocument(email, normalDocumentDto);
-        return ResponseEntity.ok(createdNormalDocument);
+        List<NormalDocumentDto> createdNormalDocuments = normalDocumentService.createNormalDocuments(email, normalDocumentDtos);
+        return ResponseEntity.ok(createdNormalDocuments);
     }
 
     @GetMapping

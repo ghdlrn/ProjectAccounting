@@ -21,6 +21,8 @@ public interface NormalDocumentMapper {
 
     List<NormalDocumentDto> toDtoList(List<NormalDocument> entityList);
 
+    List<NormalDocument> toEntityList(List<NormalDocumentDto> dtoList);
+
     @Mapping(target = "regTime", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "company", ignore = true)

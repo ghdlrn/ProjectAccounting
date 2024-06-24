@@ -24,12 +24,12 @@ public class NormalDocumentServiceImpl implements NormalDocumentService {
 
     @Override
     @Transactional
-    public NormalDocumentDto createNormalDocument(String email, NormalDocumentDto normalDocumentDto) {
+    public List<NormalDocumentDto> createNormalDocuments(String email, List<NormalDocumentDto> normalDocumentDtos) {
         Company company = companyService.getCurrentCompany(email);
-        NormalDocument normalDocument = normalDocumentMapper.toEntity(normalDocumentDto);
-        normalDocument.setCompany(company);
-        normalDocument = normalDocumentRepository.save(normalDocument);
-        return normalDocumentMapper.toDto(normalDocument);
+        List<NormalDocument> normalDocuments = normalDocumentMapper.toEntityList(normalDocumentDtos);
+        normalDocuments.forEach(normalDocument -> normalDocument.setCompany(company));
+        normalDocuments = normalDocumentRepository.saveAll(normalDocuments);
+        return normalDocumentMapper.toDtoList(normalDocuments);
     }
 
     @Override
