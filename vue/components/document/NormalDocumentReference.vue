@@ -274,23 +274,19 @@ async function register() {
         code: item.code,
         date: moment(selectedDate.value).format('YYYY-MM-DD'),
         division: item.division,
-        accountTitle: item.accountTitle.id,
-        compendium: item.compendium.content,
+        accountTitle: item.accountTitle,
+        compendium: item.compendium,
         debit: item.debit,
         credit: item.credit
       };
-
-      // 선택된 customer, finance, card 중 하나를 전송하도록 처리
-      if (item.selectedEntity && item.selectedEntity.id) {
+      // 선택된 customer, finance, card 중 하나를 전송
         if (item.selectedEntity.type === 'customer') {
-          data.customer = item.selectedEntity.id;
+          data.customer = item.selectedEntity;
         } else if (item.selectedEntity.type === 'finance') {
-          data.finance = item.selectedEntity.id;
+          data.finance = item.selectedEntity;
         } else if (item.selectedEntity.type === 'card') {
-          data.card = item.selectedEntity.id;
+          data.card = item.selectedEntity;
         }
-      }
-
       return data;
     });
 

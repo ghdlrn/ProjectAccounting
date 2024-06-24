@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/register/purchase-and-sales-document")
+@RequestMapping("/register/normal-document")
 @RequiredArgsConstructor
 public class NormalDocumentController {
 
