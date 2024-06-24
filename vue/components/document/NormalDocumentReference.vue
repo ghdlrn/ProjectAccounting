@@ -76,6 +76,7 @@
                           type="text"
                           single-line
                           hide-details
+                          color="primary"
                           v-model="item.compendium.content"
                       ></v-text-field>
                     </td>
@@ -248,7 +249,7 @@ function tableItem() {
     division: '',
     accountTitle: '',
     selectedEntity: { id: null, type: '' },
-    compendium: '',
+    compendium: { content: '', code: null, id: null, note: '' },
     debit: 0,
     credit: 0,
     debitFormatted: '',
@@ -275,7 +276,7 @@ async function register() {
         date: moment(selectedDate.value).format('YYYY-MM-DD'),
         division: item.division,
         accountTitle: item.accountTitle,
-        compendium: item.compendium,
+        compendium: { content: item.compendium.content },
         debit: item.debit,
         credit: item.credit
       };
