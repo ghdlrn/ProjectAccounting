@@ -20,69 +20,69 @@
             @keyup.enter="bindTopResult"/>
       </template>
       <PerfectScrollbar>
-          <v-tabs v-model="tab" bg-color="primary">
-            <v-tab value="one">거래처</v-tab>
-            <v-tab value="two">계좌</v-tab>
-            <v-tab value="three">카드</v-tab>
-          </v-tabs>
-              <v-window v-model="tab">
-                <!--tab1-->
-                <v-window-item value="one">
-                  <EasyDataTable
-                      :headers="customerHeaders"
-                      :items="filteredCustomer"
-                      item-key="id"
-                      :sort-by="sortBy"
-                      :sort-type="sortType"
-                      :search-field="searchField"
-                      :search-value="searchValue"
-                      @click-row="selectedCustomer"
-                      table-class-name="customize-table"
-                      :rows-per-page="5"
-                      buttons-pagination
-                      class="customerTable"/>
-                </v-window-item>
-                <v-window-item value="two">
-                  <EasyDataTable
-                      :headers="financeHeaders"
-                      :items="filteredFinance"
-                      item-key="id"
-                      :sort-by="sortBy"
-                      :sort-type="sortType"
-                      :search-field="searchField"
-                      :search-value="searchValue"
-                      @click-row="selectedFinance"
-                      table-class-name="customize-table"
-                      :rows-per-page="5"
-                      buttons-pagination
-                      class="financeTable"/>
-                </v-window-item>
-                <v-window-item value="three">
-                  <EasyDataTable
-                      :headers="cardHeaders"
-                      :items="filteredCard"
-                      item-key="id"
-                      :sort-by="sortBy"
-                      :sort-type="sortType"
-                      :search-field="searchField"
-                      :search-value="searchValue"
-                      @click-row="selectedCard"
-                      table-class-name="customize-table"
-                      :rows-per-page="5"
-                      buttons-pagination
-                      class="cardTable"/>
-                </v-window-item>
-              </v-window>
+        <v-tabs v-model="tab" bg-color="primary">
+          <v-tab value="customer">거래처</v-tab>
+          <v-tab value="finance">계좌</v-tab>
+          <v-tab value="card">카드</v-tab>
+        </v-tabs>
+        <v-window v-model="tab">
+          <v-window-item value="customer">
+            <EasyDataTable
+                :headers="customerHeaders"
+                :items="filteredCustomer"
+                item-key="id"
+                :sort-by="sortBy"
+                :sort-type="sortType"
+                :search-field="searchField"
+                :search-value="searchValue"
+                @click-row="select('customer', $event)"
+                table-class-name="customize-table"
+                :rows-per-page="5"
+                buttons-pagination
+                class="customerTable"/>
+          </v-window-item>
+          <v-window-item value="finance">
+            <EasyDataTable
+                :headers="financeHeaders"
+                :items="filteredFinance"
+                item-key="id"
+                :sort-by="sortBy"
+                :sort-type="sortType"
+                :search-field="searchField"
+                :search-value="searchValue"
+                @click-row="select('finance', $event)"
+                table-class-name="customize-table"
+                :rows-per-page="5"
+                buttons-pagination
+                class="financeTable"/>
+          </v-window-item>
+          <v-window-item value="card">
+            <EasyDataTable
+                :headers="cardHeaders"
+                :items="filteredCard"
+                item-key="id"
+                :sort-by="sortBy"
+                :sort-type="sortType"
+                :search-field="searchField"
+                :search-value="searchValue"
+                @click-row="select('card', $event)"
+                table-class-name="customize-table"
+                :rows-per-page="5"
+                buttons-pagination
+                class="cardTable"/>
+          </v-window-item>
+        </v-window>
       </PerfectScrollbar>
     </v-menu>
   </div>
 </template>
 
 <script setup>
-import {ref, computed, onMounted, watch} from 'vue';
-import {useCustomerStore} from '~/stores/accounting/customer.ts';
-import {useFinanceStore} from "~/stores/accounting/finance.ts";
-import {useCardStore} from "~/stores/accounting/card.ts";
+import { ref, computed, onMounted, watch } from 'vue';
+import { useCustomerStore } from '~/stores/accounting/customer.ts';
+import { useFinanceStore } from '~/stores/accounting/finance.ts';
+import { useCardStore } from '~/stores/accounting/card.ts';
+
 const customerStore = useCustomerStore();
 const financeStore = useFinanceStore();
 const cardStore = useCardStore();
@@ -92,69 +92,49 @@ onMounted(() => {
   financeStore.fetchFinance();
   cardStore.fetchCard();
 });
+
 const customers = computed(() => customerStore.customer);
 const finances = computed(() => financeStore.finance);
 const cards = computed(() => cardStore.card);
 
-const sortBy = "code";
-const sortType = "asc";
+const sortBy = 'code';
+const sortType = 'asc';
 const searchField = ref(['code', 'name']);
 const searchValue = ref('');
 const customerHeaders = ref([
-  {text: '거래처 코드', value: 'code', sortable: true, width: 15, fixed: true},
-  {text: '거래처명', value: 'name', sortable: true, width: 15, fixed: true},
+  { text: '거래처 코드', value: 'code', sortable: true, width: 15, fixed: true },
+  { text: '거래처명', value: 'name', sortable: true, width: 15, fixed: true },
 ]);
 const financeHeaders = ref([
-  {text: '계좌 코드', value: 'code', sortable: true, width: 15, fixed: true},
-  {text: '계좌명', value: 'name', sortable: true, width: 15, fixed: true},
+  { text: '계좌 코드', value: 'code', sortable: true, width: 15, fixed: true },
+  { text: '계좌명', value: 'name', sortable: true, width: 15, fixed: true },
 ]);
 const cardHeaders = ref([
-  {text: '카드 코드', value: 'code', sortable: true, width: 15, fixed: true},
-  {text: '카드명', value: 'name', sortable: true, width: 15, fixed: true},
+  { text: '카드 코드', value: 'code', sortable: true, width: 15, fixed: true },
+  { text: '카드명', value: 'name', sortable: true, width: 15, fixed: true },
 ]);
 const menu = ref(false);
-const tab = ref('one');
+const tab = ref('customer');
 
 const props = defineProps({
   modelValue: {
     type: Object,
-    default: () => null,
+    default: () => ({ id: null, type: '', name: '' }),
   },
 });
 
 const emit = defineEmits(['update:modelValue']);
 
-function selectedCustomer(item) {
-  emit('update:modelValue', item);
-  customerStore.setSelectedCustomer(item);
-  menu.value = false;
-}
-function selectedFinance(item) {
-  emit('update:modelValue', item);
-  financeStore.setSelectedFinance(item);
-  menu.value = false;
-}
-function selectedCard(item) {
-  emit('update:modelValue', item);
-  cardStore.setSelectedCard(item);
+function select(type, item) {
+  emit('update:modelValue', { ...item, type });
   menu.value = false;
 }
 
 function bindTopResult() {
-  if (filteredCustomer.value.length > 0) {
-    selectedCustomer(filteredCustomer.value[0]);
-  } else if (filteredCustomer.value.length > 0) {
-    selectedFinance(filteredFinance.value[0]);
-  } else if (filteredCustomer.value.length > 0) {
-    selectedCard(filteredCard.value[0]);
+  if (filteredItems.value.length > 0) {
+    select(tab.value, filteredItems.value[0]);
   }
 }
-
-watch(() => props.modelValue, (newValue) => {
-  customerStore.setSelectedCustomer(newValue);
-  financeStore.setSelectedFinance(newValue);
-  cardStore.setSelectedCard(newValue);
-}, {immediate: true});
 
 const displayValue = computed({
   get: () => (props.modelValue ? props.modelValue.name : ''),
@@ -167,8 +147,8 @@ const filteredCustomer = computed(() => {
   if (!searchValue.value) {
     return customers.value;
   }
-  return customers.value.filter(customer => {
-    return searchField.value.some(field => {
+  return customers.value.filter((customer) => {
+    return searchField.value.some((field) => {
       return String(customer[field]).toLowerCase().includes(searchValue.value.toLowerCase());
     });
   });
@@ -178,8 +158,8 @@ const filteredFinance = computed(() => {
   if (!searchValue.value) {
     return finances.value;
   }
-  return finances.value.filter(finance => {
-    return searchField.value.some(field => {
+  return finances.value.filter((finance) => {
+    return searchField.value.some((field) => {
       return String(finance[field]).toLowerCase().includes(searchValue.value.toLowerCase());
     });
   });
@@ -189,8 +169,8 @@ const filteredCard = computed(() => {
   if (!searchValue.value) {
     return cards.value;
   }
-  return cards.value.filter(card => {
-    return searchField.value.some(field => {
+  return cards.value.filter((card) => {
+    return searchField.value.some((field) => {
       return String(card[field]).toLowerCase().includes(searchValue.value.toLowerCase());
     });
   });
