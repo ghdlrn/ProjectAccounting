@@ -80,9 +80,9 @@ async function register() {
       code: item.code,
       date: moment(selectedDate.value).format('YYYY-MM-DD'),
       division: item.division,
-      accountTitle: item.accountTitle,
-      customer: item.customer,
-      compendium: item.compendium,
+      accountTitle: item.accountTitle.id,
+      customer: item.customer.id,
+      compendium: item.compendium.content,
       debit: item.debit,
       credit: item.credit
     }));

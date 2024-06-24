@@ -13,7 +13,7 @@ export const useNormalDocumentStore = defineStore('normalDocument', {
                 let response;
                 if (date) {
                     response = await useNuxtApp().$api.get(`/register/normal-document`, {
-                        params: { date }
+                        params: { date: date.toISOString().split('T')[0] }
                     });
                 } else {
                     response = await useNuxtApp().$api.get(`/register/normal-document`);
