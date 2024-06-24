@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,16 +25,6 @@ public class NormalDocumentServiceImpl implements NormalDocumentService {
     private final CompanyService companyService;
 
     @Override
-    @Transactional
-    public NormalDocumentDto createNormalDocument(String email, NormalDocumentDto normalDocumentDto) {
-        Company company = companyService.getCurrentCompany(email);
-        NormalDocument normalDocument = normalDocumentMapper.toEntity(normalDocumentDto);
-        normalDocument.setCompany(company);
-        normalDocument = normalDocumentRepository.save(normalDocument);
-        return normalDocumentMapper.toDto(normalDocument);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<NormalDocumentDto> getAllNormalDocuments(String email) {
         Company company = companyService.getCurrentCompany(email);
@@ -41,31 +33,22 @@ public class NormalDocumentServiceImpl implements NormalDocumentService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public NormalDocumentDto getNormalDocument(String email, Long id) {
+    @Transactional
+    public List<NormalDocumentDto> createOrUpdateNormalDocuments(String email, List<NormalDocumentDto> normalDocumentDto) {
         Company company = companyService.getCurrentCompany(email);
-        NormalDocument normalDocument = normalDocumentRepository.findByIdAndCompanyId(id, company.getId())
-                .orElseThrow(() -> new EntityNotFoundException("NormalDocument 정보를 찾을 수 없음"));
-        return normalDocumentMapper.toDto(normalDocument);
+        List<NormalDocument> normalDocuments = normalDocumentDto.stream()
+                .map(normalDocumentMapper::toEntity)
+                .peek(document -> document.setCompany(company))
+                .collect(Collectors.toList());
+        normalDocuments = normalDocumentRepository.saveAll(normalDocuments);
+        return normalDocumentMapper.toDtoList(normalDocuments);
     }
 
     @Override
     @Transactional
-    public NormalDocumentDto updateNormalDocument(String email, Long id, NormalDocumentDto normalDocumentDto) {
+    public void deleteNormalDocumentsByDate(String email, LocalDate date) {
         Company company = companyService.getCurrentCompany(email);
-        NormalDocument normalDocument = normalDocumentRepository.findByIdAndCompanyId(id, company.getId())
-                .orElseThrow(() -> new EntityNotFoundException("NormalDocument 정보를 찾을 수 없음"));
-        normalDocumentMapper.updateDto(normalDocumentDto, normalDocument);
-        normalDocument = normalDocumentRepository.save(normalDocument);
-        return normalDocumentMapper.toDto(normalDocument);
-    }
-
-    @Override
-    @Transactional
-    public void deleteNormalDocument(String email, Long id) {
-        Company company = companyService.getCurrentCompany(email);
-        NormalDocument normalDocument = normalDocumentRepository.findByIdAndCompanyId(id, company.getId())
-                .orElseThrow(() -> new EntityNotFoundException("NormalDocument 정보를 찾을 수 없음"));
-        normalDocumentRepository.delete(normalDocument);
+        List<NormalDocument> normalDocuments = normalDocumentRepository.findByCompanyIdAndDate(company.getId(), date);
+        normalDocumentRepository.deleteAll(normalDocuments);
     }
 }

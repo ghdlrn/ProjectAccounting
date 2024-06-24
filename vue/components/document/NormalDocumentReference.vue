@@ -72,13 +72,33 @@ const debitTotal = computed(() => tableData.value.reduce((sum, item) => sum + Nu
 const creditTotal = computed(() => tableData.value.reduce((sum, item) => sum + Number(item.credit), 0));
 const difference = computed(() => debitTotal.value - creditTotal.value);
 
-function register() {
+async function register() {
   if (difference.value !== 0) {
     alert("차변과 대변의 합이 일치하지 않습니다");
   } else {
-    console.log("전표 등록 성공");
+    const normalDocumentData = tableData.value.map(item => ({
+      ...item,
+      date: moment(selectedDate.value).format('YYYY-MM-DD')
+    }));
+
+    try {
+      await normalDocumentStore.createOrUpdateNormalDocument(normalDocumentData);
+      console.log("전표 등록 성공");
+    } catch (error) {
+      console.error("전표 등록 실패", error);
+    }
   }
 }
+
+async function deleteDocuments() {
+  try {
+    await normalDocumentStore.deleteNormalDocumentsByDate(selectedDate.value);
+    console.log("전표 삭제 성공");
+  } catch (error) {
+    console.error("전표 삭제 실패", error);
+  }
+}
+
 
 const divisionItems = ['출금', '입금', '차변', '대변', '결산차변', '결산대변'];
 const divisionMapping = {
@@ -315,6 +335,7 @@ function handleCreditChange(item) {
               <v-row class="mx-0 mb-0 mt-2 align-end">
                 <v-col cols="12">
                   <div class="text-right">
+                    <v-btn color="error" variant="flat" size="x-large" @click="deleteDocuments">삭제</v-btn>
                     <v-btn color="primary" variant="flat" size="x-large" @click="register">등록</v-btn>
                   </div>
                 </v-col>
