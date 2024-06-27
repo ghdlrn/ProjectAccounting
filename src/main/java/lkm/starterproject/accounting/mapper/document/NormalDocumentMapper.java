@@ -27,4 +27,5 @@ public interface NormalDocumentMapper {
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "company", ignore = true)
     void updateDto(NormalDocumentDto dto, @MappingTarget NormalDocument entity);
+
 }
