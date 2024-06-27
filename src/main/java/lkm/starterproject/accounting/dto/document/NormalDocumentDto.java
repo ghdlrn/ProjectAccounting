@@ -1,6 +1,7 @@
 package lkm.starterproject.accounting.dto.document;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lkm.starterproject.accounting.entity.register.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,13 +20,12 @@ public class NormalDocumentDto {
 
     private Long code;
 
-    @NotBlank(message = "날짜는 필수 입력사항 입니다")
+    @NotNull
     private LocalDate date;     //일자
 
     @NotBlank(message = "구분은 필수 입력사항 입니다")
     private String division;    //구분
 
-    @NotBlank(message = "계정과목은 필수 입력사항 입니다")
     private AccountTitle accountTitle;  //계정과목
 
     private Customer customer;  //거래처

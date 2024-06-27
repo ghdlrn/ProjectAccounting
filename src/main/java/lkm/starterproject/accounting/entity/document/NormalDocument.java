@@ -45,7 +45,7 @@ public class NormalDocument extends BaseEntity {
     @JoinColumn(name = "card_id")
     private Card card;  //카드
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "compendium_id")
     private Compendium compendium;  //적요
 
