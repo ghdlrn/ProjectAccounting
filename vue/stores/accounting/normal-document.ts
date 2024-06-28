@@ -1,19 +1,14 @@
 import { defineStore } from 'pinia';
-import { useNuxtApp } from '#app';
-import type { NormalDocument } from '~/types/accounting/normal-document';
-
-interface NormalDocumentState {
-    normalDocument: NormalDocument[];
-    currentNormalDocument: NormalDocument | null;
-}
+import type { NormalDocument } from "~/types/accounting/normal-document";
+import { useNuxtApp } from "#app";
 
 export const useNormalDocumentStore = defineStore('normalDocument', {
-    state: (): NormalDocumentState => ({
-        normalDocument: [],
-        currentNormalDocument: null,
+    state: () => ({
+        normalDocument: [] as NormalDocument[],
+        currentNormalDocument: null as NormalDocument | null,
     }),
     actions: {
-        async fetchNormalDocument(date: Date) {
+        async fetchNormalDocument() {
             try {
                 const response = await useNuxtApp().$api.get(`/register/normal-document`);
                 this.normalDocument = response.data;
@@ -59,24 +54,21 @@ export const useNormalDocumentStore = defineStore('normalDocument', {
                 throw new Error('일반 전표 정보 수정 실패');
             }
         },
-        async deleteNormalDocumentByDateAndCode(date: string, code: number) {
+        async deleteNormalDocument(date: Date) {
             try {
-                await useNuxtApp().$api.delete(`/register/normal-document/${date}/${code}`);
-                await this.fetchNormalDocument(new Date(date));
-                alert('행 삭제 성공');
+                const response = await useNuxtApp().$api.delete(`/register/normal-document/${date}`);
+                if (response.status === 200) {
+                    await this.fetchNormalDocument();
+                    alert('일반 전표 정보가 삭제되었습니다');
+                } else {
+                    alert('일반 전표 정보 삭제에 실패했습니다');
+                    console.error('일반 전표 정보 삭제 실패: ', response.status);
+                    throw new Error('일반 전표 정보 삭제 실패: ' + response.status);
+                }
             } catch (error: any) {
-                alert('행 삭제 실패');
-                console.error('행 삭제 실패', error);
-            }
-        },
-        async deleteNormalDocumentByDate(date: string) {
-            try {
-                await useNuxtApp().$api.delete(`/register/normal-document/${date}`);
-                await this.fetchNormalDocument(new Date(date));
-                alert('전표 삭제 성공');
-            } catch (error: any) {
-                alert('전표 삭제 실패');
-                console.error('전표 삭제 실패', error);
+                alert('일반 전표 정보 삭제에 실패했습니다');
+                console.error('일반 전표 정보 삭제 실패', error.message);
+                throw new Error('일반 전표 정보 삭제 실패');
             }
         },
         setSelectedNormalDocument(normalDocument: NormalDocument) {

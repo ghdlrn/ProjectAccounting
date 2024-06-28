@@ -209,7 +209,7 @@ const normalDocumentStore = useNormalDocumentStore();
 const selectedDate = ref(moment().tz('Asia/Seoul').subtract(0, 'days').toDate());
 const computedDateFormat = computed(() => moment(selectedDate.value).format('YYYY-MM-DD'));
 
-watch(selectedDate,  async(newDate) => {
+watch(selectedDate,  async (newDate) => {
   await normalDocumentStore.fetchNormalDocument(newDate);
 });
 
@@ -271,21 +271,8 @@ function tableItem() {
   normalDocumentStore.normalDocument.push(newItem);
 }
 
-
-async function deleteRow(index) {
-  const item = tableData.value[index];
-
-  if (item.id) {
-    try {
-      await normalDocumentStore.deleteNormalDocumentByDateAndCode(computedDateFormat.value, item.code);
-      tableData.value.splice(index, 1);
-      console.log("행 삭제 성공");
-    } catch (error) {
-      console.error("행 삭제 실패", error);
-    }
-  } else {
-    tableData.value.splice(index, 1);
-  }
+function deleteRow(index) {
+  tableData.value.splice(index, 1);
 }
 
 const debitTotal = computed(() => tableData.value.reduce((sum, item) => sum + Number(item.debit), 0));
@@ -319,14 +306,17 @@ async function register() {
     });
 
     try {
-      for (const doc of normalDocumentData) {
-        if (doc.id) {
-          await normalDocumentStore.updateNormalDocument(doc);
-        } else {
-          await normalDocumentStore.createNormalDocument(doc);
+        const createData = normalDocumentData.filter(doc => !doc.id);
+        const updateData = normalDocumentData.filter(doc => doc.id);
+
+        if (createData.length > 0) {
+          await normalDocumentStore.createNormalDocument(createData);
         }
-      }
-      console.log("전표 등록 성공");
+        if (updateData.length > 0) {
+          await normalDocumentStore.updateNormalDocument(updateData);
+        }
+
+        console.log("전표 등록 성공");
     } catch (error) {
       console.error("전표 등록 실패", error);
     }
@@ -335,7 +325,8 @@ async function register() {
 
 async function deleteDocuments() {
   try {
-    await normalDocumentStore.deleteNormalDocumentByDate(computedDateFormat.value);
+    const formattedDate = moment(selectedDate.value).format('YYYY-MM-DD');
+    await normalDocumentStore.deleteNormalDocument(formattedDate);
     console.log("전표 삭제 성공");
   } catch (error) {
     console.error("전표 삭제 실패", error);
