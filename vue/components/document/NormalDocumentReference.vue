@@ -306,17 +306,19 @@ async function register() {
     });
 
     try {
-        const createData = normalDocumentData.filter(doc => !doc.id);
-        const updateData = normalDocumentData.filter(doc => doc.id);
+      const createData = normalDocumentData.filter(doc => doc.id === undefined);
+      const updateData = normalDocumentData.filter(doc => doc.id !== undefined);
 
-        if (createData.length > 0) {
-          await normalDocumentStore.createNormalDocument(createData);
+      if (createData.length > 0) {
+        await normalDocumentStore.createNormalDocument(createData);
+      }
+      if (updateData.length > 0) {
+        for (const doc of updateData) {
+          await normalDocumentStore.updateNormalDocument(doc);
         }
-        if (updateData.length > 0) {
-          await normalDocumentStore.updateNormalDocument(updateData);
-        }
+      }
 
-        console.log("전표 등록 성공");
+      console.log("전표 등록 성공");
     } catch (error) {
       console.error("전표 등록 실패", error);
     }
