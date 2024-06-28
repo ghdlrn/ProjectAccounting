@@ -218,7 +218,10 @@ const tableData = computed(() => {
     return moment(item.date).format('YYYY-MM-DD') === computedDateFormat.value;
   });
   filteredData.forEach(item => {
-    item.selectedEntity = item.customer || item.finance || item.card || { id: null, type: '' };
+    item.selectedEntity = item.customer ? { ...item.customer, type: 'customer' } :
+        item.finance ? { ...item.finance, type: 'finance' } :
+            item.card ? { ...item.card, type: 'card' } :
+                { id: null, type: '' };
     item.debitFormatted = formatNumber(item.debit);
     item.creditFormatted = formatNumber(item.credit);
   });
@@ -292,13 +295,13 @@ async function register() {
         credit: item.credit
       };
       // 선택된 customer, finance, card 중 하나를 전송
-        if (item.selectedEntity.type === 'customer') {
-          data.customer = item.selectedEntity;
-        } else if (item.selectedEntity.type === 'finance') {
-          data.finance = item.selectedEntity;
-        } else if (item.selectedEntity.type === 'card') {
-          data.card = item.selectedEntity;
-        }
+      if (item.selectedEntity && item.selectedEntity.type === 'customer') {
+        data.customer = item.selectedEntity;
+      } else if (item.selectedEntity && item.selectedEntity.type === 'finance') {
+        data.finance = item.selectedEntity;
+      } else if (item.selectedEntity && item.selectedEntity.type === 'card') {
+        data.card = item.selectedEntity;
+      }
       return data;
     });
 

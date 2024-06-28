@@ -26,6 +26,7 @@ public interface NormalDocumentMapper {
     @Mapping(target = "regTime", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "company", ignore = true)
+    @Mapping(target = "compendium", ignore = true) // Compendium 업데이트 로직 수정
     void updateDto(NormalDocumentDto dto, @MappingTarget NormalDocument entity);
 
 }

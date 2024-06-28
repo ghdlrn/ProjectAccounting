@@ -4,8 +4,11 @@ import jakarta.persistence.EntityNotFoundException;
 import lkm.starterproject.accounting.dto.document.NormalDocumentDto;
 import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.accounting.entity.document.NormalDocument;
+import lkm.starterproject.accounting.entity.register.Compendium;
 import lkm.starterproject.accounting.mapper.document.NormalDocumentMapper;
+import lkm.starterproject.accounting.repository.company.CompanyRepository;
 import lkm.starterproject.accounting.repository.document.NormalDocumentRepository;
+import lkm.starterproject.accounting.repository.register.CompendiumRepository;
 import lkm.starterproject.accounting.service.company.CompanyService;
 import lkm.starterproject.accounting.service.document.NormalDocumentService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ public class NormalDocumentServiceImpl implements NormalDocumentService {
 
     private final NormalDocumentRepository normalDocumentRepository;
     private final NormalDocumentMapper normalDocumentMapper;
+    private final CompendiumRepository compendiumRepository;
     private final CompanyService companyService;
 
     @Override
@@ -56,6 +60,16 @@ public class NormalDocumentServiceImpl implements NormalDocumentService {
         Company company = companyService.getCurrentCompany(email);
         NormalDocument normalDocument = normalDocumentRepository.findByIdAndCompanyId(id, company.getId())
                 .orElseThrow(() -> new EntityNotFoundException("NormalDocument 정보를 찾을 수 없음"));
+
+        if (normalDocumentDto.getCompendium() != null && normalDocumentDto.getCompendium().getId() != null) {
+            Compendium compendium = compendiumRepository.findById(normalDocumentDto.getCompendium().getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Compendium 정보를 찾을 수 없음"));
+            compendium.setContent(normalDocumentDto.getCompendium().getContent());
+            compendium.setCode(normalDocumentDto.getCompendium().getCode());
+            compendium.setNote(normalDocumentDto.getCompendium().getNote());
+            normalDocument.setCompendium(compendium);
+        }
+
         normalDocumentMapper.updateDto(normalDocumentDto, normalDocument);
         normalDocument = normalDocumentRepository.save(normalDocument);
         return normalDocumentMapper.toDto(normalDocument);
