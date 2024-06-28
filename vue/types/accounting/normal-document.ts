@@ -12,9 +12,9 @@ export interface NormalDocument {
     date: Date;     //일자
     division: string;    //구분
     accountTitle: AccountTitle;
-    customer: Customer;
-    finance: Finance;
-    card: Card;
+    customer?: Customer;
+    finance?: Finance;
+    card?: Card;
     compendium: Compendium;
     debit: number;
     credit: number;

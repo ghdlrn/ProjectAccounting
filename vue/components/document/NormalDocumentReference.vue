@@ -258,7 +258,7 @@ function generateCode() {
 function tableItem() {
   const newItem = {
     code: generateCode(),
-    date: new Date(),
+    date: selectedDate.value,
     division: '',
     accountTitle: '',
     selectedEntity: { id: null, type: '' },
@@ -271,8 +271,21 @@ function tableItem() {
   normalDocumentStore.normalDocument.push(newItem);
 }
 
-function deleteRow(index) {
-  tableData.value.splice(index, 1);
+
+async function deleteRow(index) {
+  const item = tableData.value[index];
+
+  if (item.id) {
+    try {
+      await normalDocumentStore.deleteNormalDocumentByDateAndCode(computedDateFormat.value, item.code);
+      tableData.value.splice(index, 1);
+      console.log("행 삭제 성공");
+    } catch (error) {
+      console.error("행 삭제 실패", error);
+    }
+  } else {
+    tableData.value.splice(index, 1);
+  }
 }
 
 const debitTotal = computed(() => tableData.value.reduce((sum, item) => sum + Number(item.debit), 0));
@@ -322,7 +335,7 @@ async function register() {
 
 async function deleteDocuments() {
   try {
-    await normalDocumentStore.deleteNormalDocument(selectedDate.value);
+    await normalDocumentStore.deleteNormalDocumentByDate(computedDateFormat.value);
     console.log("전표 삭제 성공");
   } catch (error) {
     console.error("전표 삭제 실패", error);

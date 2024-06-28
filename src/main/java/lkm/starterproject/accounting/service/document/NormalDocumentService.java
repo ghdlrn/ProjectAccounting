@@ -16,4 +16,6 @@ public interface NormalDocumentService {
     NormalDocumentDto updateNormalDocument(String email, Long id, NormalDocumentDto normalDocumentDto);
 
     void deleteNormalDocument(String email, LocalDate date);
+
+    void deleteNormalDocumentByDateAndCode(String email, LocalDate date, Long code);
 }

@@ -85,4 +85,11 @@ public class NormalDocumentServiceImpl implements NormalDocumentService {
         }
         normalDocumentRepository.deleteAll(normalDocuments);
     }
+
+    @Override
+    @Transactional
+    public void deleteNormalDocumentByDateAndCode(String email, LocalDate date, Long code) {
+        Company company = companyService.getCurrentCompany(email);
+        normalDocumentRepository.deleteByCompanyIdAndDateAndCode(company.getId(), date, code);
+    }
 }

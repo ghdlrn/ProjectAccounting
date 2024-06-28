@@ -60,4 +60,13 @@ public class NormalDocumentController {
         normalDocumentService.deleteNormalDocument(email, date);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{date}/{code}")
+    public ResponseEntity<Void> deleteNormalDocumentByDateAndCode(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+                                                                  @PathVariable("code") Long code) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        normalDocumentService.deleteNormalDocumentByDateAndCode(email, date, code);
+        return ResponseEntity.ok().build();
+    }
 }
