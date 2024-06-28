@@ -7,7 +7,6 @@
       <Customizer />
       <VerticalSidebarVue />
       <VerticalHeaderVue />
-
       <v-main>
         <v-container fluid class="page-wrapper  position-relative" no-gutters>
           <NuxtPage />

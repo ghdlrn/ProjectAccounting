@@ -209,8 +209,8 @@ const normalDocumentStore = useNormalDocumentStore();
 const selectedDate = ref(moment().tz('Asia/Seoul').subtract(0, 'days').toDate());
 const computedDateFormat = computed(() => moment(selectedDate.value).format('YYYY-MM-DD'));
 
-watch(selectedDate, (newDate) => {
-  normalDocumentStore.fetchNormalDocument(newDate);
+watch(selectedDate,  async(newDate) => {
+  await normalDocumentStore.fetchNormalDocument(newDate);
 });
 
 const tableData = computed(() => normalDocumentStore.normalDocument);
@@ -272,6 +272,7 @@ async function register() {
   } else {
     const normalDocumentData = tableData.value.map(item => {
       const data = {
+        id: item.id,
         code: item.code,
         date: moment(selectedDate.value).format('YYYY-MM-DD'),
         division: item.division,
@@ -292,7 +293,13 @@ async function register() {
     });
 
     try {
-      await normalDocumentStore.createNormalDocument(normalDocumentData);
+      for (const doc of normalDocumentData) {
+        if (doc.id) {
+          await normalDocumentStore.updateNormalDocument(doc);
+        } else {
+          await normalDocumentStore.createNormalDocument(doc);
+        }
+      }
       console.log("전표 등록 성공");
     } catch (error) {
       console.error("전표 등록 실패", error);

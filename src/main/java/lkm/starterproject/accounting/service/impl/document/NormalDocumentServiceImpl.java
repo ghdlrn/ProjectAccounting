@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -62,10 +63,12 @@ public class NormalDocumentServiceImpl implements NormalDocumentService {
 
     @Override
     @Transactional
-    public void deleteNormalDocument(String email, Long id) {
+    public void deleteNormalDocument(String email, LocalDate date) {
         Company company = companyService.getCurrentCompany(email);
-        NormalDocument normalDocument = normalDocumentRepository.findByIdAndCompanyId(id, company.getId())
-                .orElseThrow(() -> new EntityNotFoundException("NormalDocument 정보를 찾을 수 없음"));
-        normalDocumentRepository.delete(normalDocument);
+        List<NormalDocument> normalDocuments = normalDocumentRepository.findByCompanyIdAndDate(company.getId(), date);
+        if (normalDocuments.isEmpty()) {
+            throw new EntityNotFoundException("해당 날짜에 대한 NormalDocument 정보를 찾을 수 없음");
+        }
+        normalDocumentRepository.deleteAll(normalDocuments);
     }
 }

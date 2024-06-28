@@ -2,6 +2,7 @@ package lkm.starterproject.accounting.service.document;
 
 import lkm.starterproject.accounting.dto.document.NormalDocumentDto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface NormalDocumentService {
@@ -14,5 +15,5 @@ public interface NormalDocumentService {
 
     NormalDocumentDto updateNormalDocument(String email, Long id, NormalDocumentDto normalDocumentDto);
 
-    void deleteNormalDocument(String email, Long id);
+    void deleteNormalDocument(String email, LocalDate date);
 }
