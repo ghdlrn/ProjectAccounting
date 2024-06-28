@@ -213,7 +213,17 @@ watch(selectedDate,  async(newDate) => {
   await normalDocumentStore.fetchNormalDocument(newDate);
 });
 
-const tableData = computed(() => normalDocumentStore.normalDocument);
+const tableData = computed(() => {
+  const filteredData = normalDocumentStore.normalDocument.filter(item => {
+    return moment(item.date).format('YYYY-MM-DD') === computedDateFormat.value;
+  });
+  filteredData.forEach(item => {
+    item.selectedEntity = item.customer || item.finance || item.card || { id: null, type: '' };
+    item.debitFormatted = formatNumber(item.debit);
+    item.creditFormatted = formatNumber(item.credit);
+  });
+  return filteredData;
+});
 
 let currentCode = 1;
 function generateCode() {
