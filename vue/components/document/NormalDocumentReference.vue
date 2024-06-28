@@ -212,6 +212,9 @@ const computedDateFormat = computed(() => moment(selectedDate.value).format('YYY
 watch(selectedDate,  async (newDate) => {
   await normalDocumentStore.fetchNormalDocument(newDate);
 });
+watch(() => selectedDate.value, async () => {
+  await normalDocumentStore.fetchNormalDocument(selectedDate.value);
+}, { immediate: true });
 
 const tableData = computed(() => {
   const filteredData = normalDocumentStore.normalDocument.filter(item => {
@@ -273,6 +276,7 @@ function tableItem() {
 
 function deleteRow(index) {
   tableData.value.splice(index, 1);
+  normalDocumentStore.normalDocument.splice(index, 1);
 }
 
 const debitTotal = computed(() => tableData.value.reduce((sum, item) => sum + Number(item.debit), 0));
