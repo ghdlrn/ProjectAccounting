@@ -10,14 +10,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "finance")
+@Getter @Setter
+@Builder @NoArgsConstructor @AllArgsConstructor
+@Entity @Table(name = "finance")
 public class Finance extends BaseEntity {
 
     @Id

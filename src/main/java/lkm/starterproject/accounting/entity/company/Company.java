@@ -17,10 +17,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Getter @Setter @ToString
+@Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name = "company")
+@Entity @Table(name = "company")
 public class Company extends BaseEntity {  //회사
 
     @Id

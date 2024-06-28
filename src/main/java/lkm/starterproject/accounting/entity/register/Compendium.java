@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
-@Entity
-@Getter @Setter @ToString
+@Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name = "compendium")
+@Entity @Table(name = "compendium")
 public class Compendium extends BaseEntity {   //적요
 
     @Id

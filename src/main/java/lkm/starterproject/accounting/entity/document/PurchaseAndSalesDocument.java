@@ -7,7 +7,7 @@ import lkm.starterproject.auth.entity.BaseEntity;
 import lombok.*;
 
 @Entity
-@Getter @Setter @ToString
+@Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "purchase_and_sales_document")
 public class PurchaseAndSalesDocument extends BaseEntity {

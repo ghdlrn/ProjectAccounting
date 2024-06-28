@@ -9,7 +9,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Getter @Setter @ToString
+@Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name = "normal_document")
 public class NormalDocument extends BaseEntity {

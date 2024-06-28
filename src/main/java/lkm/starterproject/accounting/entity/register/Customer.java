@@ -10,10 +10,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Getter @Setter @ToString
+@Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name = "customer")
+@Entity @Table(name = "customer")
 public class Customer extends BaseEntity {      //거래처
 
     @Id

@@ -1,15 +1,13 @@
 package lkm.starterproject.accounting.dto.document;
 
-import lkm.starterproject.accounting.entity.register.*;
+import lkm.starterproject.accounting.dto.register.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class PurchaseAndSalesDocumentDto {
 
     private Long id;
@@ -30,15 +28,15 @@ public class PurchaseAndSalesDocumentDto {
 
     private Long total;     //합계
 
-    private Customer customer;
+    private CustomerDto customer;
 
-    private Finance finance;  //계좌
+    private FinanceDto finance;  //계좌
 
-    private Card card;  //카드
+    private CardDto card;  //카드
 
-    private AccountTitle accountTitle;  //계정과목
+    private AccountTitleDto accountTitle;  //계정과목
 
-    private Compendium compendium;  //적요
+    private CompendiumDto compendium;  //적요
 
     private Long debit; //차변
 

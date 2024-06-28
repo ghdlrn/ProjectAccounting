@@ -58,8 +58,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
 
-        String access = jwtUtil.createJwt("access", email, role, 600000L);       //access토큰 생성 10분뒤 소멸
-        String refresh = jwtUtil.createJwt("refresh", email, role, 86400000L);       //refresh토큰 생성 24시간 뒤 소멸
+        String access = jwtUtil.createJwt("access", email, role, 86400000L);    //access토큰 1일 뒤 소멸
+        String refresh = jwtUtil.createJwt("refresh", email, role, 1209600000L);       //refresh토큰 생성 2주 뒤 소멸
         addRefreshEntity(email, refresh, 86400000L);    //Refresh 토큰 저장
 
         setCookie(res, "access", access, 86400, true, false); // 개발 환경에서는 secure를 false로 설정

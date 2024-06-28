@@ -3,10 +3,9 @@ package lkm.starterproject.accounting.entity.basic;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name = "address")
+@Entity @Table(name = "address")
 public class Address {
 
     @Id

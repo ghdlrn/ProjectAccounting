@@ -5,10 +5,9 @@ import lkm.starterproject.accounting.entity.company.Company;
 import lkm.starterproject.auth.constants.Role;
 import lombok.*;
 
-@Entity
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name = "member_company")
+@Entity @Table(name = "member_company")
 public class MemberCompany extends BaseEntity {
 
     @Id

@@ -9,14 +9,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "card")
+@Getter @Setter
+@Builder @NoArgsConstructor @AllArgsConstructor
+@Entity @Table(name = "card")
 public class Card extends BaseEntity {
 
     @Id

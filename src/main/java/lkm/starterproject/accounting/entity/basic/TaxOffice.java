@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Immutable;
 
-@Entity @Immutable
 @Getter @Setter @ToString
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name = "tax_office")
+@Entity @Immutable @Table(name = "tax_office")
 public class TaxOffice {
 
     @Id

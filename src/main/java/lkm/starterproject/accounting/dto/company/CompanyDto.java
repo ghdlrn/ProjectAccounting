@@ -9,9 +9,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class CompanyDto {
 
     private Long id;  // 회사코드
