@@ -231,6 +231,7 @@ const tableData = computed(() => {
   return filteredData;
 });
 
+
 let currentCode = 1;
 function generateCode() {
   let debitSum = 0;
