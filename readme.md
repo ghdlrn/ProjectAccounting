@@ -1,6 +1,6 @@
 <h1 align='center'> <img src="https://github.com/ghdlrn/ProjectAccounting/assets/157094398/6645f00c-e77a-483c-8ea9-524d4f5f9c35" style='height: 200px;'>&nbsp;</h1>
 <h1  align='center'>✏️ JAVA 웹 회계프로그램 제작 개인 프로젝트 ✏️ </h1>
-<h6  align='center'>✏️ [도커 허브 이동](https://hub.docker.com/repository/docker/ghdlrn6060/project-accounting/general) ✏️ </h1>
+[도커 허브 이동](https://hub.docker.com/repository/docker/ghdlrn6060/project-accounting/general)
 
 ## 📚 목차 📚
 
@@ -101,7 +101,7 @@ DB등 일반적인 작업을 경험하기 위한 프로젝트를 주제로 선�
 
 <details><summary>개발일지</summary>
 	
-[https://velog.io/@ghdlrn/%ED%85%8C%ED%8A%B8%EB%A6%AC%EC%8A%A4%EA%B2%8C%EC%9E%84-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-1%EC%9D%BC%EC%B0%A8](https://velog.io/@ghdlrn/Project-Accounting-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%8011%EB%8F%99%EC%98%81%EC%83%81-%EB%B0%8F-PPT)
+[개발일지 블로그](https://velog.io/@ghdlrn/Project-Accounting-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%8011%EB%8F%99%EC%98%81%EC%83%81-%EB%B0%8F-PPT)
 
 </details>
 
