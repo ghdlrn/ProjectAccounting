@@ -28,6 +28,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'org.springframework.boot:spring-boot-docker-compose'
 
     //Querydsl 5.0.0
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
