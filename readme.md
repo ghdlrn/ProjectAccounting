@@ -18,15 +18,17 @@
 
 | **![1](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/0d26c7eb-d2bb-4616-86e0-af97db48f1da)** | **![2](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/a73a55cd-e460-4e33-8ed0-683f2bfd00cb)** |
 | :------: |  :------: |
-| ![3](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/fb69b262-ed6b-462a-9589-c561b161f335) | ![4](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/f9e5038f-a78e-446d-8764-57a0d28b409f) |
-| ![5](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/26ab6fc0-9426-4792-9ded-45b2f4408978) | ![6](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/50049b60-4912-4639-9e71-c91fc5fcac07) |
-| ![7](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/6134729f-5ab4-4f39-a2fa-ba4a26ca154f) | ![8](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/a29a179a-1065-4cb1-acce-ca695e95d64a) |
-| ![9](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/db3e6537-e898-4957-a1a5-fef0c94fbcbb) | ![10](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/4f955731-9d9c-41a3-80a7-b17e3dea9429) |
-| ![11](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/562f6bd7-e333-41fd-a17d-66d6ff7401af) | ![12](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/d26d756c-a19b-4de9-8178-e8b65b1e3677) |
-| ![13](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/8fbfae1c-ee0e-4743-8923-8c82e0d3101c) | ![14](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/8a9a5ece-0620-4f65-abec-d14435ea054c) |
-| ![15](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/0cc293db-7c19-4eda-9823-58040efe58fb) | ![16](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/d1f4f581-3620-4ce4-977d-488874415dee) |
-| ![17](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/000dd7bc-11eb-474f-b65d-faf5b0a8dc52) | ![18](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/2a671f3c-d9fe-4bd3-868e-7f5ac3a99021) |
-| ![19](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/c85373b2-a105-43c0-b657-45e46b92fa59) | ![20](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/0e12dbc4-aead-4824-8d0b-bf92eff2527c) 
+| ![3](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/ef528ab0-b9f0-48a0-bcbf-d6f3bca67206) | ![4](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/410987c7-db66-4af2-893a-0a48a9a30b01) |
+| ![5](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/a910b38b-9f42-4b0a-8a05-1f9aa5884c43) | ![6](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/e429bb11-b20e-4fdd-af21-a3c3bf63f2b6) |
+| ![7](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/b6eb4b9a-9f17-44fe-8db4-41a6aa7ee09c) | ![8](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/03e7de76-804b-4c31-96e3-e6354bd96ca4) |
+| ![9](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/74e45439-ab47-48ff-9b6a-d89a3528e6a4) | ![10](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/fba20a47-c8b0-4c40-9f73-a112119cb38a) |
+| ![11](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/d477cb35-fad8-4dec-9626-64ebbacfe31c) | ![12](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/ade927ef-4045-48c2-b37f-32a679461c8d) |
+| ![13](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/9c910002-1493-4d4f-b329-acb163f8a464) | ![14](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/11671948-5c3e-46e7-b4e8-032f49e8f45a) |
+| ![15](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/3149a608-85cd-4ad1-9fed-90842a16c8d7) | ![16](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/989f124f-1f3d-458c-a79b-e88e44b641fa) |
+| ![17](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/bf971c10-3b76-4274-8dcd-7f636bc5888f) | ![18](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/996a49dc-7bc0-4fdb-ab8a-23b72f68d447) |
+| ![19](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/0cbba08b-c111-4291-a3d8-c7ea8f4a2e12) | ![20](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/2dbd9412-75dd-48c3-aad9-cb91df884633) |
+| ![21](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/c2e61232-5a9e-4d76-b3d2-5d81e6c71cbf) | ![22](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/c4becda2-296e-43b0-a0aa-dd90bf7d30f6) |
+| ![23](https://github.com/ghdlrn/ProjectAccounting/assets/157094398/06c60eea-cef4-4083-a509-2710d2a800b3) 
 
 </div>            
 </details>
@@ -46,7 +48,7 @@
 ## 📖 회계프로그램 프로젝트 📖
 ```프로젝트 소개
 더존 SmartA등과 같은 회계프로그램을 웹에서 구현
-개발기간 : 2024-04-11 ~ 2024-05-24
+개발기간 : 2024-04-11 ~ 진행 중
 ```
 ## 🔧 개발 환경 🔧
 ```
@@ -55,6 +57,7 @@
 프레임 워크 : Spring Boot 3. 2. 4
 타입 : Gradle-Groovy (Gradle 8.7)
 종속성 : Spring Boot DevTools
+		Docker Compose  Support
 		Lombok 1.18.30
 		Spring Web
 		Spring Security 6.2.3
@@ -122,4 +125,5 @@ DB등 일반적인 작업을 경험하기 위한 프로젝트를 주제로 선�
 	<img src="https://img.shields.io/badge/IntelliJ-000000?style=flat-square&logo=intellijidea&logoColor=white" />
 	<img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white" />
 	<img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"/>
+	<img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/>
 </div>
